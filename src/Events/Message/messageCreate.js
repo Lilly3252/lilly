@@ -6,6 +6,8 @@ const { MessageEmbed } = require("discord.js");
 
 // Line 83 to 125 credit to ShinoTheShino
 
+**THIS STILL NEEDS TO BE CLEANED UP!!!**
+
 module.exports = class extends Event {
   async run(a) {
     // ! a is message here !
