@@ -1,5 +1,9 @@
 const Event = require("../../Structures/Event");
 
+
+**THIS STILL NEEDS TO BE CLEANED UP!!!**
+
+
 module.exports = class interactionCreate extends Event {
   async run(interaction, message) {
     if (!interaction.isCommand()) return;
