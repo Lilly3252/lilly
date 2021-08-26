@@ -2,20 +2,11 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["skip"],
+      
       category: "\uD83C\uDFA7Music",
       description: "Skip the song for you.",
       usage: "",
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
   async run(a) {

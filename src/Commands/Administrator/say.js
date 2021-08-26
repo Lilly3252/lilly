@@ -2,7 +2,7 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["say"],
+      
       category: "\uD83D\uDD14Administrator",
       description: "Echo your message to this channel or to another channel",
       usage: "[ChannelMention] <message>",
@@ -10,7 +10,7 @@ module.exports = class extends Command {
       options:[
         {
           type: 'STRING',
-          name: 'message',
+          name: "say",
           description: 'What to say',
           required: true,
         }]

@@ -3,18 +3,16 @@ const { MessageEmbed } = require("discord.js"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["RoleInfo"],
+      
       description: "Displays the information of a specific role.",
       category: `⁉️Informations`,
       usage: "[command] + RoleID / Role Mention",
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "ROLE",
+            name: "role",
+            description: "Specify a role",
+            required: true,
           }
         ]
     });

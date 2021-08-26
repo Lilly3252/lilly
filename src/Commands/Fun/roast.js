@@ -4,18 +4,17 @@ const roasts = require('../../Structures/JSONs/roast.json');
 module.exports = class extends Command {
 	constructor(...args) {
 	  super(...args, {
-		aliases: ["roast"],
+		
 		description: "roast someone",
 		category: "💃Fun",
 		usage: "<mention>",
 		options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "MENTIONABLE",
+            name: "member",
+            description: "who?",
+            required: true,
+            
           }
         ]
 	  });

@@ -4,7 +4,7 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["restrict"],
+      
       category: "\uD83D\uDD14Administrator",
       description: "Adds a restrict role to a Guild Member",
       usage: "<restriction> + <GuildMember> + [reason]",
@@ -12,12 +12,10 @@ module.exports = class extends Command {
       botPerm: ["ADMINISTRATOR"],
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "USER",
+            name: "member",
+            description: "Member to restrict",
+            required: true
           }
         ]
     });

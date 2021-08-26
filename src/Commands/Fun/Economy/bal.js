@@ -7,20 +7,9 @@ module.exports = class extends (
 ) {
   constructor(...args) {
     super(...args, {
-      aliases: ["bal"],
       description: "Shows the balance you have",
       category: "💰Economy",
       usage: "",
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
     });
   }
   async run(message) {

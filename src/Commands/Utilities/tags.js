@@ -5,20 +5,10 @@ const tagSchema = require("../../Database/models/tags");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ["tags"],
       description: "tags!!!!!",
       category: "📝Utilities",
       usage: "<Add>+<name> + <content> / <Remove> + <name>",
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
 

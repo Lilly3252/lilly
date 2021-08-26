@@ -4,14 +4,8 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			name: "ping",
 			description: 'This provides the ping of the bot',
 			category: '📝Utilities',
-			options:[
-				{
-				  name: 'ping',
-				  description: 'ping pong',
-				}]
 		});
 	}
 

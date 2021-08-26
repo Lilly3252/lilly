@@ -2,22 +2,20 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["voicekick"],
+      
       category: "\uD83C\uDFA7Music",
       description: `kicking a member or the bot from the voice channel.`,
       usage: "@mention",
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["MOVE_MEMBERS"],
       options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+        {
+          type: "MENTIONABLE",
+          name: "user",
+          description: "mention someone.",
+          required: true
+        }
+      ]
     });
   }
   async run(a) {

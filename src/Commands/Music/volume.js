@@ -2,18 +2,16 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["volume"],
+      
       category: "\uD83C\uDFA7Music",
       description: "Set the volume to the volume desired ( blocked at 10 )",
       usage: "<number>",
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "NUMBER",
+            name: "volume",
+            description: "Set the volume to the volume desired ( blocked at 10 )",
+            required: true
           }
         ]
     });

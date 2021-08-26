@@ -6,18 +6,16 @@ const Command = require("../../../Structures/Command");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ["battleship"],
+      
       description: "create a game of battleship ",
       category: "🎲Games",
       usage: "<MentionMember>",
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "MENTIONABLE",
+            name: "member",
+            description: "Select someone to play with.",
+            required: true
           }
         ]
     });

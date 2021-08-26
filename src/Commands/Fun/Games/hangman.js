@@ -4,20 +4,10 @@ const hangman = require('discord-hangman');
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ["hangman"],
+      
       description: "Hangman mini game ",
       category: "🎲Games",
-      usage: ``,
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      usage: ``
     });
   }
   async run(message) {

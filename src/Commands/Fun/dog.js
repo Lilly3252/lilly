@@ -3,20 +3,11 @@ const dog = require('../../Structures/JSONs/dog-fact.json');
 module.exports = class extends Command {
 	constructor(...args) {
 	  super(...args, {
-		aliases: ["dog"],
+		
 		description: "Want a dog fact?",
 		category: "💃Fun",
 		usage: "",
-		options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+		
 	  });
 	}
 	async run(msg) {

@@ -7,21 +7,10 @@ module.exports = class extends (
 ) {
   constructor(...args) {
     super(...args, {
-      aliases: ["Gamble"],
       description:
         "Gamble , win something",
       category: "💰Economy",
       usage: "",
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
     });
   }
   async run(message, args) {

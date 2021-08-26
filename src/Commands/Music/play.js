@@ -4,21 +4,12 @@ const { Util } = require("discord.js")
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["play"],
+      
       category: "\uD83C\uDFA7Music",
       description: "Play music using a youtube link",
       usage: "<link>",
       botPerms: ["CONNECT", "SPEAK"],
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
   async run(a, b) {

@@ -19,19 +19,17 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["user", "ui"],
+      
       description:
         "Displays information about a provided user or the message author.",
       category: "\u2049\uFE0FInformations",
       usage: "[user]",
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "USER",
+            name: "user",
+            description: "Displays information about a provided user or the message author.",
+            required: true
           }
         ]
     });

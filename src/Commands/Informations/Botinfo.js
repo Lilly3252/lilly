@@ -7,20 +7,11 @@ const { MessageEmbed, version: djsversion } = require("discord.js"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["info", "bot"],
+      
       description: "Displays information about the bot.",
       category: `⁉️Informations`,
       usage: "",
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
   run(a) {

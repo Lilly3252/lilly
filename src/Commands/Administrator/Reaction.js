@@ -4,20 +4,10 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["Reaction"],
+      
       description: "Create a RoleReaction Menu.Saved through database.",
       category: "\uD83D\uDD14Administrator",
-      usage: ``,
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      usage: ``
     });
   }
   async run(a) {

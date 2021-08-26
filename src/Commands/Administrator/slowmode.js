@@ -3,7 +3,7 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["slowmode"],
+      
       description:
         "Place a slowmode to a channel.In seconds",
       category: "\uD83D\uDD14Administrator",
@@ -11,12 +11,10 @@ module.exports = class extends Command {
       userPerms: ["ADMINISTRATOR"],
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "NUMBER",
+            name: "seconds",
+            description: "seconds needed to slowmode",
+            required: true
           }
         ]
     });

@@ -4,7 +4,6 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["ban"],
       description: "Ban a member.",
       category: "\uD83D\uDD14Administrator",
       usage: `<member> [reason]`,
@@ -12,12 +11,10 @@ module.exports = class extends Command {
       botPerms: ["ADMINISTRATOR"],
       options: [
           {
-            type: undefined,
-            name: 'ban',
-            description: 'Ban a member.',
-            required: false,
-            choices: undefined,
-           
+            type: "USER",
+            name: 'member',
+            description: 'member to ban.',
+            required: true
           }
         ]
     });

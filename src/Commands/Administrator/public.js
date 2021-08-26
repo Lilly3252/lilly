@@ -5,7 +5,7 @@ module.exports = class extends (
 ) {
   constructor(...args) {
     super(...args, {
-      aliases: ["public"],
+      
       description:
         "setting up your roles if you want to make a reaction role.",
       category: "🔔Administrator",
@@ -13,12 +13,10 @@ module.exports = class extends (
       userPerms: ["ADMINISTRATOR"],
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "ROLE",
+            name: "role",
+            description: "roleID",
+            required: true
           }
         ]
     });

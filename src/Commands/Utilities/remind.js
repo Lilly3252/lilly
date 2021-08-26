@@ -5,7 +5,7 @@ const { shorten } = require("../../Structures/Util");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ["remind"],
+      
       description: "Displays all the commands in the bot",
       category: "📝Utilities",
       usage: "[command] + thing to remember",
@@ -16,16 +16,7 @@ module.exports = class extends Command {
           type: "sherlock",
         },
       ],
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
 

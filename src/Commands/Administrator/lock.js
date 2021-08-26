@@ -3,21 +3,18 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["lock"],
       description: "lock all channels.",
       category: "\uD83D\uDD14Administrator",
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["ADMINISTRATOR"],
       options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+        {
+          type: "BOOLEAN",
+          name: 'true_or_false',
+          description: 'needs to be true or false',
+          required: true
+        }
+      ]
     });
   }
   async run(message, args) {

@@ -4,20 +4,11 @@ const { Minesweeper } = require("../../../Structures/Managers");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ["minesweeper"],
+      
       description: "Minesweeper game ",
       category: "🎲Games",
       usage: `<row>+<columns>+<mines>`,
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
   async run(message , args){

@@ -7,18 +7,15 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ["8ball"],
       description: "ask me a question, i will answer",
 	  category: "💃Fun",
       usage: "<Question>",
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "STRING",
+            name: "question",
+            description: "what is the question",
+            required: true
           }
         ]
     });

@@ -4,22 +4,22 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["settings"],
+      
       description: "This command is for setting up your guild.",
       category: "\uD83D\uDD14Administrator",
       usage:
         "+<ShowSettings>|<Anti-Raid>|<WelcomeChannel>|<ModLog>|<ModRole>|<Prefix>|<DeleteMessages>|<messageDeleteBulk>|<MessageUpdates>|<WelcomeMessage>",
       userPerms: ["ADMINISTRATOR"],
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      //options: [
+        //  {
+          //  type: undefined,
+            //name: "settings",
+            //description: "Settings for Guild",
+            //required: false,
+            //choices: undefined,
+            //options: undefined
+          //}
+        //]
     });
   }
   async run(message, args) {

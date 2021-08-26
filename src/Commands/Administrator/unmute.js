@@ -5,22 +5,20 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["unmute"],
+      
       description: "unmute a member.",
       category: "\uD83D\uDD14Administrator",
       usage: `<MentionMember>`,
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["MANAGE_ROLES", "MUTE_MEMBERS"],
       options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+        {
+          type: "USER",
+          name: 'member',
+          description: 'member to unmute.',
+          required: true
+        }
+      ]
     });
   }
   async run(a, b) {

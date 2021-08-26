@@ -2,7 +2,7 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["purge"],
+      
       description: "Deletes messages .",
       category: "\uD83D\uDD14Administrator",
       usage: `<number>`,
@@ -10,12 +10,10 @@ module.exports = class extends Command {
       botPerms: ["ADMINISTRATOR"],
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "NUMBER",
+            name: "number",
+            description: "number of messages to be deleted",
+            required: true
           }
         ]
     });

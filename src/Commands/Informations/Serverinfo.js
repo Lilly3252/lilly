@@ -32,21 +32,12 @@ const Command = require("../../Structures/Command"),
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["server", "guild", "guildinfo"],
+      
       description:
         "Displays information about the server that said message was run in.",
       category: "\u2049\uFE0FInformations",
       usage: "",
-      options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+      
     });
   }
   async run(a) {

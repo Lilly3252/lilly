@@ -5,19 +5,17 @@ module.exports = class extends (
 ) {
   constructor(...args) {
     super(...args, {
-      aliases: ["WelcomeMessage"],
+      
       category: "🔔Administrator",
       description: "Set your welcome message for new people when they join",
       usage: "<message>",
       userPerms: ["ADMINISTRATOR"],
       options: [
           {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
+            type: "STRING",
+            name: "welcomemessage",
+            description: "set WelcomeMessage",
+            required: true
           }
         ]
     });

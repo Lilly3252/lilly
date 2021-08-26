@@ -5,20 +5,11 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['help'],
+			
 			description: 'Displays all the commands in the bot',
 			category: '📝Utilities',
 			usage: '[command]',
-			options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+			
 		});
 	}
 
@@ -31,13 +22,13 @@ module.exports = class extends Command {
 			.setTimestamp();
 
 		if (command) {
-			const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
+			const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.name.get(command));
 
 			if (!cmd) return message.channel.send(`Invalid Command named. \`${command}\``);
 
 			embed.setAuthor(`${this.client.utils.capitalise(cmd.name)} Command Help`, this.client.user.displayAvatarURL());
 			embed.setDescription([
-				`**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map(alias => `\`${alias}\``).join(' ') : 'No Aliases'}`,
+				`**❯ name:** ${cmd.name.length ? cmd.name.map(alias => `\`${alias}\``).join(' ') : 'No name'}`,
 				`**❯ Description:** ${cmd.description}`,
 				`**❯ Category:** ${cmd.category}`,
 				`**❯ Usage:** ${cmd.usage}`

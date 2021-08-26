@@ -2,21 +2,19 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...a) {
     super(...a, {
-      aliases: ["test"],
+      
       category: "\uD83D\uDD14Administrator",
-      description: "Echo your message to this channel or to another channel",
+      description: "Unban someone",
       usage: "[userID]",
       userPerms: ["ADMINISTRATOR"],
       options: [
-          {
-            type: undefined,
-            name: undefined,
-            description: undefined,
-            required: false,
-            choices: undefined,
-            options: undefined
-          }
-        ]
+        {
+          type: "USER",
+          name: 'member',
+          description: 'userID to unban.',
+          required: true
+        }
+      ]
     });
   }
   async run(a, b) {
