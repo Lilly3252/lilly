@@ -5,6 +5,16 @@ module.exports = class extends Command {
     super(...args, {
       aliases: ["send_update"],
       category: `📝Utilities`,
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
     this.ownerOnly = true;
   }

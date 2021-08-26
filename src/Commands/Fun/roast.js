@@ -7,7 +7,17 @@ module.exports = class extends Command {
 		aliases: ["roast"],
 		description: "roast someone",
 		category: "💃Fun",
-		usage: "<mention>"
+		usage: "<mention>",
+		options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
 	  });
 	}
 	async run(msg) {

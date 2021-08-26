@@ -7,6 +7,16 @@ module.exports = class extends Command {
       description: "Displays the information of a specific role.",
       category: `⁉️Informations`,
       usage: "[command] + RoleID / Role Mention",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

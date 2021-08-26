@@ -8,6 +8,16 @@ module.exports = class extends Command {
       description: "Create a RoleReaction Menu.Saved through database.",
       category: "\uD83D\uDD14Administrator",
       usage: ``,
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a) {

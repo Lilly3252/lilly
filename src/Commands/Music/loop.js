@@ -9,7 +9,17 @@ module.exports = class extends Command {
       category: "🎧Music",
       description:`Play music using a youtube link and looping it`,
       usage:"<song number>",
-      botPerms:['CONNECT','SPEAK']
+      botPerms:['CONNECT','SPEAK'],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
 

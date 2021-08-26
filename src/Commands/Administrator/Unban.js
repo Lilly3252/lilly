@@ -7,6 +7,16 @@ module.exports = class extends Command {
       description: "Echo your message to this channel or to another channel",
       usage: "[userID]",
       userPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

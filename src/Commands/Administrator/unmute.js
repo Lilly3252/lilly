@@ -11,6 +11,16 @@ module.exports = class extends Command {
       usage: `<MentionMember>`,
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["MANAGE_ROLES", "MUTE_MEMBERS"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

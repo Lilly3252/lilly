@@ -9,6 +9,16 @@ module.exports = class extends Command {
       category: "\uD83D\uDD14Administrator",
       usage: `<number(seconds)>`,
       userPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

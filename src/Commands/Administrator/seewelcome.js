@@ -10,6 +10,16 @@ module.exports = class extends (
       description: "Set your welcome message for new people when they join",
       usage: "<message>",
       userPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
 

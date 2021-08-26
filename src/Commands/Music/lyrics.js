@@ -7,6 +7,16 @@ module.exports = class extends Command {
       aliases: ["lyrics"],
       category: "\uD83C\uDFA7Music",
       description: "Get the lyric of the current song.",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a) {

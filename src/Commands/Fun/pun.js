@@ -7,7 +7,17 @@ module.exports = class extends Command {
 		aliases: ["pun"],
 		description: "pun time!",
 		category: "💃Fun",
-		usage: ""
+		usage: "",
+		options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
 	  });
 	}
 	async run(msg) {

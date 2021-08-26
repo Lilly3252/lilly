@@ -24,6 +24,16 @@ module.exports = class extends Command {
         "Displays information about a provided user or the message author.",
       category: "\u2049\uFE0FInformations",
       usage: "[user]",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, [b]) {

@@ -10,6 +10,16 @@ module.exports = class extends Command {
       usage: `<member> [reason]`,
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: 'ban',
+            description: 'Ban a member.',
+            required: false,
+            choices: undefined,
+           
+          }
+        ]
     });
   }
   async run(a, b) {

@@ -10,6 +10,16 @@ module.exports = class extends Command {
       usage:
         "+<ShowSettings>|<Anti-Raid>|<WelcomeChannel>|<ModLog>|<ModRole>|<Prefix>|<DeleteMessages>|<messageDeleteBulk>|<MessageUpdates>|<WelcomeMessage>",
       userPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message, args) {

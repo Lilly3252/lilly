@@ -6,7 +6,17 @@ module.exports = class extends Command {
       aliases: ["shuffle"],
       category: "🎧Music",
       description:"shuffle the music.",
-      usage:""
+      usage:"",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
 

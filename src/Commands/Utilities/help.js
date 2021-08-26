@@ -8,7 +8,17 @@ module.exports = class extends Command {
 			aliases: ['help'],
 			description: 'Displays all the commands in the bot',
 			category: '📝Utilities',
-			usage: '[command]'
+			usage: '[command]',
+			options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
 		});
 	}
 

@@ -12,6 +12,16 @@ module.exports = class extends (
         "Gamble , win something",
       category: "💰Economy",
       usage: "",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message, args) {

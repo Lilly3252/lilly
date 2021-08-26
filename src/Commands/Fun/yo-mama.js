@@ -8,7 +8,17 @@ module.exports = class extends Command {
 		description: "Mommy Insults",
 		category: "💃Fun",
 		usage: "",
-		nsfw: true
+		nsfw: true,
+		options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
 	  });
 	}
 	async run(msg) {

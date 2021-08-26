@@ -9,6 +9,16 @@ module.exports = class extends Command {
       description: "Play music using a youtube link",
       usage: "<link>",
       botPerms: ["CONNECT", "SPEAK"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

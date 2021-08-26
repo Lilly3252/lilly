@@ -11,7 +11,6 @@ module.exports = class extends Command {
 				{
 				  name: 'ping',
 				  description: 'ping pong',
-				  required: false,
 				}]
 		});
 	}

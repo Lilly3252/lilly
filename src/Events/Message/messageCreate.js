@@ -120,7 +120,7 @@ module.exports = class extends Event {
         ],
       }
     ];
-    //**That section belows has been moved to Util.js command handler section 
+    //**That section belows has been moved to Util.js command load section 
       const commands = [...this.client.commands.values()].map((command) => ({
         name: command.name,
         description: command.description?.trim(), //  (command.description.substr(0, 97) + command.description.length > 97 ? '...' : '') : 'No description!',

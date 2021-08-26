@@ -7,7 +7,17 @@ module.exports = class extends Command {
       aliases: ["minesweeper"],
       description: "Minesweeper game ",
       category: "🎲Games",
-      usage: `<row>+<columns>+<mines>`
+      usage: `<row>+<columns>+<mines>`,
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message , args){

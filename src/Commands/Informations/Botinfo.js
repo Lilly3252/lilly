@@ -11,6 +11,16 @@ module.exports = class extends Command {
       description: "Displays information about the bot.",
       category: `⁉️Informations`,
       usage: "",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   run(a) {

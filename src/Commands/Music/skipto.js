@@ -6,6 +6,16 @@ module.exports = class extends Command {
       category: "\uD83C\uDFA7Music",
       description: "Skipping the queue to the number desired.",
       usage: "<number>",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

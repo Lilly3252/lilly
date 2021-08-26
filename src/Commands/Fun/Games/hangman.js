@@ -8,6 +8,16 @@ module.exports = class extends Command {
       description: "Hangman mini game ",
       category: "🎲Games",
       usage: ``,
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message) {

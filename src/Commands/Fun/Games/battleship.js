@@ -9,7 +9,17 @@ module.exports = class extends Command {
       aliases: ["battleship"],
       description: "create a game of battleship ",
       category: "🎲Games",
-      usage: "<MentionMember>"
+      usage: "<MentionMember>",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message){

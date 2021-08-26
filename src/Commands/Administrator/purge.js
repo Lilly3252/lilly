@@ -8,6 +8,16 @@ module.exports = class extends Command {
       usage: `<number>`,
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

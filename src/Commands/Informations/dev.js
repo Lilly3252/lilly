@@ -7,6 +7,16 @@ module.exports = class extends Command {
       description: "Displays the link to get updates for Lilly",
       category: `⁉️Informations`,
       usage: "[command]",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
 

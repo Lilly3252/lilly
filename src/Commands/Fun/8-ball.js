@@ -10,7 +10,17 @@ module.exports = class extends Command {
       aliases: ["8ball"],
       description: "ask me a question, i will answer",
 	  category: "💃Fun",
-      usage: "<Question>"
+      usage: "<Question>",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message , args ){

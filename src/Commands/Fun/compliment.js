@@ -6,7 +6,17 @@ module.exports = class extends Command {
 		aliases: ["compliment"],
 		description: "Want a compliment?",
 		category: "💃Fun",
-		usage: ""
+		usage: "",
+		options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
 	  });
 	}
 	async run(msg) {

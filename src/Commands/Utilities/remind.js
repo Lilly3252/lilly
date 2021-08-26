@@ -16,6 +16,16 @@ module.exports = class extends Command {
           type: "sherlock",
         },
       ],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
 

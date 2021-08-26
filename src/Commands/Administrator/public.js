@@ -11,6 +11,16 @@ module.exports = class extends (
       category: "🔔Administrator",
       usage: "+<Role> & <Emoji>",
       userPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message, args) {

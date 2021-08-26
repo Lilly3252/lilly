@@ -7,6 +7,16 @@ module.exports = class extends Command {
       description: "delete a reminder",
       category: "📝Utilities",
       usage: "[command]",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
 

@@ -6,6 +6,16 @@ module.exports = class extends Command {
       category: "\uD83C\uDFA7Music",
       description: "Set the volume to the volume desired ( blocked at 10 )",
       usage: "<number>",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(a, b) {

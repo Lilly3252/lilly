@@ -8,6 +8,16 @@ module.exports = class extends Command {
       category: "\uD83D\uDD14Administrator",
       userPerms: ["ADMINISTRATOR"],
       botPerms: ["ADMINISTRATOR"],
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message, args) {

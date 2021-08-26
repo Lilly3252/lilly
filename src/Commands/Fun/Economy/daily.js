@@ -11,6 +11,16 @@ module.exports = class extends (
       description: "Get your 500coins / day !",
       category: "💰Economy",
       usage: "",
+      options: [
+          {
+            type: undefined,
+            name: undefined,
+            description: undefined,
+            required: false,
+            choices: undefined,
+            options: undefined
+          }
+        ]
     });
   }
   async run(message) {
