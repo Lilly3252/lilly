@@ -3,16 +3,17 @@ const path = require("path"),
   glob = promisify(require("glob")),
   Command = require("./Command.js"),
   Event = require("./Event.js"),
-  inviteRegex =/(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi,
-  botInvRegex =/(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
-
+  inviteRegex =
+    /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi,
+  botInvRegex =
+    /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
 module.exports = class {
   constructor(a) {
     this.client = a;
   }
 
   shorten(a, b = 2e3) {
-return a.length > b ? `${a.substr(0, b - 3)}...` : a;
+    return a.length > b ? `${a.substr(0, b - 3)}...` : a;
   }
 
   list(a, b = "and") {
