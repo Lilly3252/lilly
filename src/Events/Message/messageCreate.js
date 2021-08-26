@@ -6,8 +6,6 @@ const { MessageEmbed } = require("discord.js");
 
 // Line 83 to 125 credit to ShinoTheShino
 
-**THIS STILL NEEDS TO BE CLEANED UP!!!**
-
 module.exports = class extends Event {
   async run(a) {
     // ! a is message here !
@@ -85,7 +83,7 @@ module.exports = class extends Event {
 
     //*command (something) detection
 
-    // TODO : Do i really need that ?
+    // TODO : Do i really need that ? //*everything under that has been moved to interactionCreate
     if (!this.client.application?.owner) await this.client.application?.fetch();
 
     if (
@@ -122,31 +120,30 @@ module.exports = class extends Event {
         ],
       }
     ];
-    //**That section belows has been moved to Util.js command load section 
+    */
       const commands = [...this.client.commands.values()].map((command) => ({
         name: command.name,
         description: command.description?.trim(), //  (command.description.substr(0, 97) + command.description.length > 97 ? '...' : '') : 'No description!',
-        options: command.options || [],
+        //options: command.options || [],
       }));
 
-      await this.client.application.commands.set(commands);
+      //await this.client.application.commands.set(commands);
       console.log(`registered ${commands.length} slash commands!`);
-      */
-      // const guild = await this.client.guilds.fetch('751501408213401650', { force: true }); // that's the id of the test server
-      // await guild.commands.set(commands);
-      // console.log(command);
+      
+       const guild = await this.client.guilds.fetch('751501408213401650', { force: true }); // that's the id of the test server
+       await guild.commands.set(commands);
+       console.log(commands);
     }
     //const f = b.prefix;
     //if (!a.content.startsWith(f)) return;
     //const [g, ...h] = a.content.slice(f.length).trim().split(/ +/g);
 
-    const i =
-    this.client.commands.get(commands)
+    //const i = this.client.commands.get(commands)
     //this.client.commands.get(this.client.aliases.get(g.toLowerCase()));
 
     //* verification for commands if owner only , guild , if nsfw command or if args are required
 
-    if (i) {
+    /*if (i) {
       if (i.ownerOnly && !this.client.utils.checkOwner(a.author.id))
         return a.reply(
           "Sorry, this command can only be used by the bot owners."
@@ -196,6 +193,6 @@ module.exports = class extends Event {
         }
       }
     i.run(a, h);
-  }
-};
+    }
+  */};
 };
