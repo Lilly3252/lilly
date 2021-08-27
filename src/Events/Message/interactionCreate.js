@@ -2,13 +2,14 @@ const Event = require("../../Structures/Event");
 
 module.exports = class interactionCreate extends Event {
   async run(interaction, message) {
-    if (!interaction.isCommand()) return;
-
+    if (interaction.user.bot || !interaction.isCommand() || !interaction.guild)
+        return;
+    
     //console.log(interaction);
     console.log(
       `${interaction.commandName} command was used by ${interaction.user.username} in ${interaction.guildId} , in channel : ${interaction.channelId} `
     );
-    if (!this.client.application?.owner) await this.client.application?.fetch();
+    //if (!this.client.application?.owner) await this.client.application?.fetch();
 
     {
       const commands = [...this.client.commands.values()].map((command) => ({
@@ -17,12 +18,13 @@ module.exports = class interactionCreate extends Event {
         options: command.options ?? [],
       }));
 
-      await this.client.application.commands.set(commands);
+      // await this.client.application.commands.set(commands);
+      const command = this.client.commands.find(
+        (cmd) => cmd.name.toLowerCase() == interaction.commandName
+      );
+      if (!command) return interaction.reply("That is not a valid command!");
 
-      const i = this.client.commands.get(commands);
-      
-        i.run(interaction);
-      }
+      command.run(interaction, message, this.client);
     }
   }
-;
+};
