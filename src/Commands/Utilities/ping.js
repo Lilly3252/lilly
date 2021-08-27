@@ -1,4 +1,5 @@
 const Command = require('../../Structures/Command');
+const {CommandInteraction} = require("discord.js") 
 
 module.exports = class extends Command {
 
@@ -10,14 +11,16 @@ module.exports = class extends Command {
 	}
 
 	async run(interaction) {
-		await interaction.reply('Pong!');
-		/*const msg = await message.channel.send('Pinging...');
-
-		const latency = msg.createdTimestamp - message.createdTimestamp;
+		
+		const msg = await interaction.reply({ content : 'Pinging...'} , {fetchReply: true} );
+		
+		//const latency = msg.createdTimestamp - message.createdTimestamp;
 		const choices = ['Is this really my ping?', 'Is this okay? I can\'t look!', 'I hope it isn\'t bad!'];
 		const response = choices[Math.floor(Math.random() * choices.length)];
 
-		msg.edit(`${response} - Bot Latency: \`${latency}ms\`, API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
-	*/}
+		 interaction.editReply({ content: `${response} , API Latency: \`${Math.round(this.client.ws.ping)}ms\``, ephemeral: false });
+	}
 
 };
+
+//- Bot Latency: \`${latency}ms\`
