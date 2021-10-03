@@ -21,11 +21,11 @@ module.exports = class extends Command {
   }
   async run(a, b) {
     return isNaN(b[0])
-      ? a.channel.send("That is not a number!")
+      ? interaction.reply("That is not a number!")
       : void (await a.channel
           .setRateLimitPerUser(b[0])
           .then(() => {
-            a.channel.send(
+            interaction.reply(
               new MessageEmbed({
                 title: `Set the slow mode to ${b[0]} seconds`,
               })

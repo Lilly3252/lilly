@@ -21,7 +21,7 @@ module.exports = class extends Command {
   }
 
   async run(message, { time }) {
-	message.channel.send("this command is not complete , try again later!") 
+	interaction.reply("this command is not complete , try again later!") 
   // * make this work  
     /*const exists = await this.client.timers.exists(
       message.channel.id,
@@ -44,7 +44,7 @@ module.exports = class extends Command {
       message.author.id,
       title
     );
-    return message.channel.send(
+    return interaction.reply(
       `🕰️ Okay, I will remind you **"${title}"** ${display}.`
     );
 	*/}

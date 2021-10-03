@@ -15,7 +15,7 @@ module.exports = class extends (
   }
   async run(message,args) {
     let userID = args[0];
-    if(!userID) message.channel.send("an error occurred! please try again")
+    if(!userID) interaction.reply("an error occurred! please try again")
     const money = Math.floor(Math.random() * 200) + 1
     let add = await eco.addMoney(userID, false, money);
     let mentionedMemberMoney = await eco.fetchMoney(userID,false)

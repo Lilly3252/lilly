@@ -71,7 +71,7 @@ module.exports = class extends Command {
             a.guild.createdTimestamp
           ).fromNow()}`,
           "\u200B",
-        ])
+        ].join("\n"))
         .addField("Statistics", [
           `**❯ Role Count:** ${b.length}`,
           `**❯ Emoji Count:** ${e.size}`,
@@ -97,7 +97,7 @@ module.exports = class extends Command {
             c.filter((a) => "offline" === a.presence.status).size
           }`,
           "\u200B",
-        ])
+        ].join("\n"))
         .addField(
           `Roles [${b.length - 1}]`,
           10 > b.length
@@ -105,8 +105,8 @@ module.exports = class extends Command {
             : 10 < b.length
             ? this.client.utils.trimArray(b)
             : "None"
-        )
+        ).join("\n")
         .setTimestamp();
-    a.channel.send(f);
+    interaction.reply(f);
   }
 };

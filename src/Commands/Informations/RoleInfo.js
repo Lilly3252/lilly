@@ -30,7 +30,7 @@ module.exports = class extends Command {
           `**❯ Color:** ${c.color}`,
           `**❯ Hoisted:** ${c.hoist}`,
           `**❯ Mentionable:** ${c.mentionable}`,
-        ]);
-    a.channel.send(d);
+        ].join("\n"));
+    interaction.reply(d);
   }
 };

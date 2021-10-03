@@ -24,7 +24,7 @@ module.exports = class extends Command {
   async run(a, b) {
     const c = await Guild.findOne({ guildID: a.guild.id });
     let d = a.mentions.members.first() || a.guild.members.cache.get(b[0]);
-    if (!d) return a.channel.send("Please mention a user to be unmuted!");
+    if (!d) return interaction.reply("Please mention a user to be unmuted!");
     let e = b.slice(1).join(" ");
     e || (e = "No reason given");
     await MuteSchema.findOne(
@@ -32,7 +32,7 @@ module.exports = class extends Command {
       async (b, f) => {
         b && console.error(b),
           f && (await f.deleteOne({ user_id: d, guild_id: a.guild.id })),
-          f || a.channel.send("This member is not muted");
+          f || interaction.reply("This member is not muted");
         let g = new MessageEmbed()
             .setTitle("Congratulation!")
             .setColor("GREEN")
@@ -41,7 +41,7 @@ module.exports = class extends Command {
               `**❯ Member:** ${d.user.username}`,
               `**❯ Moderator:** ${a.author.tag} `,
               `**❯ Reason:** ${e}`,
-            ])
+            ].join("\n"))
             .setFooter(`Date: ${a.createdAt.toLocaleString()}`),
           h = a.guild.roles.cache.find((a) => "Muted" === a.name);
         if (!h)
@@ -62,14 +62,14 @@ module.exports = class extends Command {
             console.log(a.stack);
           }
         if (!d.roles.cache.has(h.id))
-          return a.channel.send("This member has no mute role.");
+          return interaction.reply("This member has no mute role.");
         d.roles.remove(h.id).then(() => {
           d
             .send(
               `Hello, you have been unmuted in ${a.guild.name}. Congratulation!`
             )
             .catch((a) => console.log(a)),
-            a.channel.send(`${d.user.username} was successfully unmuted.`);
+            interaction.reply(`${d.user.username} was successfully unmuted.`);
         });
         const i = c.logchannelID;
         i && null !== i && a.client.channels.cache.get(i).send(g);

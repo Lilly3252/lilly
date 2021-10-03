@@ -26,6 +26,6 @@ module.exports = class extends (
     const settings = await Guild.findOne({
         guildID: message.guild.id,
       });
-      message.channel.send(`this is your welcome message ${settings.PersonalizedWelcomeMessage}`)
+      interaction.reply(`this is your welcome message ${settings.PersonalizedWelcomeMessage}`)
     }
 }

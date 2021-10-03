@@ -12,5 +12,5 @@ module.exports = class extends Command {
   }
 
   async run(message) {
-message.channel.send("https://discord.gg/HMupQGUYZq , Come and have fun! ALL updates for Lilly is there. Come check it out!")}
+interaction.reply("https://discord.gg/HMupQGUYZq , Come and have fun! ALL updates for Lilly is there. Come check it out!")}
 };

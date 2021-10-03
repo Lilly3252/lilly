@@ -25,6 +25,6 @@ module.exports = class extends (
         `Money: ${u.money} 💸`
       );
     });
-    return message.channel.send(embed);
+    return interaction.reply(embed);
   }
 };

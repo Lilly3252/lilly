@@ -14,6 +14,6 @@ module.exports = class extends (
   }
   async run(message) {
     let money = await eco.fetchMoney(message.author.id);
-    return message.channel.send(`${message.author} has ${money} coins.`);
+    return interaction.reply(`${message.author} has ${money} coins.`);
   }
 };

@@ -28,7 +28,7 @@ module.exports = class extends Command {
         });
       });
       console.log("successfully locked the channels")
-      return message.channel.send("locked");
+      return interaction.reply("locked");
       
     }
       if ("false" === unlocked_locked) {
@@ -38,7 +38,7 @@ module.exports = class extends Command {
             SEND_MESSAGES: true,
           });
           console.log("successfully unlocked the channels")
-      }) ; return message.channel.send("unlocked");
+      }) ; return interaction.reply("unlocked");
     }
   }
   }
