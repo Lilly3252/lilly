@@ -12,7 +12,7 @@ module.exports = class extends Command {
   }
   async run(a) {
     const b = a.client.queue.get(a.guild.id);
-    if (!b) return a.channel.send("There is nothing playing.");
+    if (!b) return interaction.reply("There is nothing playing.");
     const c = new MessageEmbed()
       .setTitle("\uD83C\uDFB6Song Queue\uD83C\uDFB6")
       .setDescription(
@@ -20,6 +20,6 @@ module.exports = class extends Command {
       ${b.songs.map((a) => `**-** ${a.title}`).join("\n")}`
       )
       .setColor("RANDOM");
-    a.channel.send(c);
+    interaction.reply(c);
   }
 };

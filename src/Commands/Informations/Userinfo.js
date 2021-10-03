@@ -34,7 +34,7 @@ module.exports = class extends Command {
         ]
     });
   }
-  async run(a, [b]) {
+  async run(interaction, b) {
     const c =
         a.mentions.members.last() || a.guild.members.cache.get(b) || a.member,
       d = c.roles.cache
@@ -42,7 +42,7 @@ module.exports = class extends Command {
         .map((a) => a.toString())
         .slice(0, -1),
       e = c.user.flags.toArray(),
-      f = new MessageEmbed()
+      embed = new MessageEmbed()
         .setThumbnail(c.user.displayAvatarURL({ dynamic: !0, size: 512 }))
         .setColor(c.displayHexColor || "BLUE")
         .addField("User", [
@@ -63,7 +63,7 @@ module.exports = class extends Command {
           `**❯ Status:** ${c.user.presence.status}`,
           `**❯ Game:** ${c.user.presence.activities || "Not playing a game."}`,
           `\u200b`,
-        ])
+        ].join("\n"))
         .addField("Member", [
           `**❯ Highest Role:** ${
             c.roles.highest.id === a.guild.id ? "None" : c.roles.highest.name
@@ -78,7 +78,7 @@ module.exports = class extends Command {
               : "None"
           }`,
           `\u200b`,
-        ]);
-    return a.channel.send(f);
+        ].join("\n"));
+    return await interaction.reply({embeds: [embed]});
   }
 };

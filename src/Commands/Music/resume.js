@@ -14,7 +14,7 @@ module.exports = class extends Command {
     return b && !b.playing
       ? ((b.playing = !0),
         b.connection.dispatcher.resume(),
-        a.channel.send("\u25B6 Resumed the music for you!"))
-      : a.channel.send("There is nothing playing.");
+        interaction.reply("\u25B6 Resumed the music for you!"))
+      : interaction.reply("There is nothing playing.");
   }
 };

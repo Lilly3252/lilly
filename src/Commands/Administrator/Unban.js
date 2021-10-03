@@ -19,13 +19,13 @@ module.exports = class extends Command {
   }
   async run(a, b) {
     let c = b[0];
-    if (!b[0]) return a.channel.send("Please give me a userID!");
-    if (isNaN(b[0])) return a.channel.send("That ID is not a number !");
+    if (!b[0]) return interaction.reply("Please give me a userID!");
+    if (isNaN(b[0])) return interaction.reply("That ID is not a number !");
     let d = b.slice(1).join(" ");
     d || (d = "No reason given"),
       a.guild.fetchBans().then(async (b) => {
         if (0 == b.size)
-          return a.channel.send(
+          return interaction.reply(
             "No one can be unban because there is no user ban in this guild!"
           );
         let e = b.find((a) => a.user.id == c);
@@ -33,8 +33,8 @@ module.exports = class extends Command {
           ? void (await a.guild.members
               .unban(e.user, d)
               .catch((a) => console.log(a)),
-            a.channel.send(`**${e.user}** has been unban`))
-          : a.channel.send("this user is not banned");
+            interaction.reply(`**${e.user}** has been unban`))
+          : interaction.reply("this user is not banned");
       });
   }
 };

@@ -23,7 +23,7 @@ module.exports = class extends Command {
             const d = c.find((b) => b.id === a.id);
             d && b.addField(d.name, a.character, !0);
           });
-          const d = await a.channel.send(b);
+          const d = await interaction.reply(b);
           e.forEach((a) => {
             d.react(a.character);
           });
@@ -38,11 +38,11 @@ module.exports = class extends Command {
                   ? (d.roles.cache.has(c.id) && d.roles.remove(c),
                     b.users.remove(d.id))
                   : d.roles.add(c)
-                : a.channel.send(`The role with id ${f.id} has been deleted.`);
+                : interaction.reply(`The role with id ${f.id} has been deleted.`);
             } else b.remove();
           });
         } else
-          a.channel.send(
+          interaction.reply(
             "This server has no public roles, contact the staff to get a role."
           );
     });

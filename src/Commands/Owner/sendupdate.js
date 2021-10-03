@@ -21,7 +21,7 @@ module.exports = class extends Command {
       mChannel.send(argsresult);
     } else {
       argsresult = args.join(" ");
-      message.channel.send(argsresult);
+      interaction.reply(argsresult);
     }
   }
 };

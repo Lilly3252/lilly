@@ -13,7 +13,7 @@ module.exports = class extends Command {
   async run(a) {
     const b = a.client.queue.get(a.guild.id);
     if (!b)
-      return a.channel.send("There is nothing playing.").catch(console.error);
+      return interaction.reply("There is nothing playing.").catch(console.error);
     let c = null;
     try {
       (c = await lyricsFinder(b.songs[0].title, "")),
@@ -29,7 +29,7 @@ module.exports = class extends Command {
     return (
       2048 <= d.description.length &&
         (d.description = `${d.description.substr(0, 2045)}...`),
-      a.channel.send(d).catch(console.error)
+      interaction.reply(d).catch(console.error)
     );
   }
 };

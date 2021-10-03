@@ -22,7 +22,7 @@ module.exports = class extends Command {
   }
   async run(message , args ){
 	  const question = args.slice().join(" ")
-		return message.channel.send(stripIndents`
+		return interaction.reply(stripIndents`
 			_${question}_
 			🎱 ${answers[Math.floor(Math.random() * answers.length)]} 🎱
 		`);

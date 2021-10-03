@@ -20,5 +20,5 @@ module.exports = class extends Command {
       .addField(`this is a field ${emoji[":blobyes:"]}` , `this is the value lol ${emoji[":blobyes:"]}`)
       .setFooter(`this is a footer ${emoji[":blobyes:"]}`)
       
-      message.channel.send(embed)
+      interaction.reply(embed)
     }}

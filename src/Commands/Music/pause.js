@@ -13,7 +13,7 @@ module.exports = class extends Command {
     return b && b.playing
       ? ((b.playing = !1),
         b.connection.dispatcher.pause(),
-        a.channel.send("\u23F8 Paused the music for you!"))
-      : a.channel.send("There is nothing playing.");
+        interaction.reply("\u23F8 Paused the music for you!"))
+      : interaction.reply("There is nothing playing.");
   }
 };

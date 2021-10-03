@@ -12,7 +12,7 @@ module.exports = class extends Command {
   }
 
   async run(message) {
-	  message.channel.send("this command is not complete , try again later!")
+	  interaction.reply("this command is not complete , try again later!")
     // * make this work
    /* const exists = await this.client.timers.exists(
       message.channel.id,
@@ -21,6 +21,6 @@ module.exports = class extends Command {
     if (!exists)
       return message.reply("🕰️ You do not have a timer set in this channel.");
     await this.client.timers.deleteTimer(message.channel.id, message.author.id);
-    return message.channel.send("🕰️ Your timer has been deleted.");
+    return interaction.reply("🕰️ Your timer has been deleted.");
    */  }
 };

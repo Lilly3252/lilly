@@ -42,7 +42,7 @@ module.exports = class extends (
                 newRoleEmojiDoc
                   .save()
                   .then((savedDoc) =>
-                    message.channel.send(
+                    interaction.reply(
                       `Made the **${role.name}** role public and assigned it the emoji: ${emoji}`
                     )
                   )

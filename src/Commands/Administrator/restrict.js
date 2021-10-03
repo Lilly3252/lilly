@@ -37,7 +37,7 @@ module.exports = class extends Command {
         `**❯ Member:** ${e.user.username}`,
         `**❯ Moderator:** ${a.author.tag} `,
         `**❯ Reason:** ${f}`,
-      ])
+      ].join("\n"))
       .setTimestamp(new Date())
       .setFooter(`${d} restricted`);
     switch (d) {
@@ -63,7 +63,7 @@ module.exports = class extends Command {
               `Hello, you have been restricted in ${a.guild.name} for: ${f}`
             )
             .catch((a) => console.log(a)),
-            a.channel.send(`${e.user.username} was successfully restricted.`);
+            interaction.reply(`${e.user.username} was successfully restricted.`);
         });
         break;
       case "reaction":
@@ -87,7 +87,7 @@ module.exports = class extends Command {
               `Hello, you have been restricted in ${a.guild.name} for: ${f}`
             )
             .catch((a) => console.log(a)),
-            a.channel.send(`${e.user.username} was successfully restricted.`);
+            interaction.reply(`${e.user.username} was successfully restricted.`);
         });
         break;
       case "voice":
@@ -114,7 +114,7 @@ module.exports = class extends Command {
               `Hello, you have been restricted in ${a.guild.name} for: ${f}`
             )
             .catch((a) => console.log(a)),
-            a.channel.send(`${e.user.username} was successfully restricted.`);
+            interaction.reply(`${e.user.username} was successfully restricted.`);
         });
         const { channel: h } = a.member.voice;
         if (!e) return a.reply("Well ... Okay? but who??");

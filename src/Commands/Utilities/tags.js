@@ -18,12 +18,12 @@ module.exports = class extends Command {
     //add tag to DB
     if (args[0] === "add") {
       if (!name) {
-        return message.channel.send(
+        return interaction.reply(
           "You need a name , without that i can't save!"
         );
       }
       if (!content) {
-        return message.channel.send(
+        return interaction.reply(
           "You wanna make a tag without content? seriously?"
         );
       }
@@ -34,7 +34,7 @@ module.exports = class extends Command {
         async (err) => {
           if (err) console.error(err);
           if (args[1] === tagSchema.Name) {
-            return message.channel.send(
+            return interaction.reply(
               "This tag has the same name as another one."
             );
           }
@@ -47,7 +47,7 @@ module.exports = class extends Command {
                   Content: args[2]
               } ,
             });
-            newtag.save().then(() => message.channel.send("tag saved"));
+            newtag.save().then(() => interaction.reply("tag saved"));
           }
         }
       );
@@ -55,7 +55,7 @@ module.exports = class extends Command {
     // delete tag from DB
     else if (args[0] === "remove" || "del" || "delete") {
       if (!name) {
-        return message.channel.send(
+        return interaction.reply(
           "You need a name , without that i can't delete!"
         );
       } else

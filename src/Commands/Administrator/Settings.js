@@ -22,11 +22,11 @@ module.exports = class extends Command {
         //]
     });
   }
-  async run(message, args) {
+  async run(message, b) {
     const guild_db = await Guild.findOne({ guildID: message.guild.id });
     switch (
-      (b[0] ||
-        message.channel.send(
+      (!b[0] ||
+        interaction.reply(
           "You need to tell me at least 1 argument \n <ShowSettings>|<Anti-Raid>|<WelcomeChannel>|<ModLog>|<ModRole>|<Prefix>|<DeleteMessages>|<messageDeleteBulk>|<MessageUpdates>|<WelcomeMessage>"
         ),
       b[0])
@@ -61,44 +61,44 @@ module.exports = class extends Command {
             `**❯ MessageUpdate:** ${
               !!c.messageUpdateMode && c.messageUpdateMode
             }`,
-          ])
+          ].join("\n"))
           .setFooter(
             `Requested by ${a.author.username}`,
             a.author.displayAvatarURL({ dynamic: !0 })
           );
-        a.channel.send(d);
+        interaction.reply(d);
         break;
       case "Anti-Raid":
         "on" === b[1] &&
           (await c.updateOne({ antiRaidMode: !0 }),
-          a.channel.send("\u2705 AntiRaid Mode enable.")),
+          interaction.reply("\u2705 AntiRaid Mode enable.")),
           "off" === b[1] &&
             (await c.updateOne({ antiRaidMode: !1 }),
-            a.channel.send("\u274C AntiRaid Mode disable."));
+            interaction.reply("\u274C AntiRaid Mode disable."));
         break;
       case "MessageUpdates":
         "true" === b[1] &&
           (await c.updateOne({ messageUpdateMode: !0 }),
-          a.channel.send("\u2705 MessageUpdate has been enable.")),
+          interaction.reply("\u2705 MessageUpdate has been enable.")),
           "false" === b[1] &&
             (await c.updateOne({ messageUpdateMode: !1 }),
-            a.channel.send("\u274C MessageUpdate has been disable."));
+            interaction.reply("\u274C MessageUpdate has been disable."));
         break;
       case "MessageDeletes":
         "true" === b[1] &&
           (await c.updateOne({ messageDeleteMode: !0 }),
-          a.channel.send("\u2705 MessageDelete has been enable.")),
+          interaction.reply("\u2705 MessageDelete has been enable.")),
           "false" === b[1] &&
             (await c.updateOne({ messageDeleteMode: !1 }),
-            a.channel.send("\u274C MessageDelete has been disable."));
+            interaction.reply("\u274C MessageDelete has been disable."));
         break;
       case "messageBulkDelete":
         "true" === b[1] &&
           (await c.updateOne({ messageBulkDeleteMode: !0 }),
-          a.channel.send("\u2705 messageDeleteBulk has been enable.")),
+          interaction.reply("\u2705 messageDeleteBulk has been enable.")),
           "false" === b[1] &&
             (await c.updateOne({ messageBulkDeleteMode: !1 }),
-            a.channel.send("\u274C MessageDeleteBulk has been disable."));
+            interaction.reply("\u274C MessageDeleteBulk has been disable."));
         break;
       case "WelcomeChannel":
         const e = b[1];
@@ -114,7 +114,7 @@ module.exports = class extends Command {
             : await c
                 .updateOne({ welcomechannelID: e })
                 .then(() =>
-                  a.channel.send(`✅ Welcome Channel has been set to ${e}`)
+                  interaction.reply(`✅ Welcome Channel has been set to ${e}`)
                 );
         break;
       case "ModLog":
@@ -131,7 +131,7 @@ module.exports = class extends Command {
             : await c
                 .updateOne({ logchannelID: f })
                 .then(() =>
-                  a.channel.send(`✅ ModLog Channel has been set to ${f}`)
+                  interaction.reply(`✅ ModLog Channel has been set to ${f}`)
                 );
         break;
       case "Prefix":
@@ -143,21 +143,21 @@ module.exports = class extends Command {
             )
             .then((a) => a.delete({ timeout: 1e4 }));
         await c.updateOne({ prefix: g }),
-          a.channel.send(`✅ Your new prefix has been set to ${g}`);
+          interaction.reply(`✅ Your new prefix has been set to ${g}`);
         break;
       case "ModRole":
         const h = b[1];
         isNaN(h) && "false" === b[1]
           ? await c.updateOne({ moderatorRoleID: null })
           : (await c.updateOne({ moderatorRoleID: h }),
-            a.channel.send(`✅ ModRole has been set to ${h}`));
+            interaction.reply(`✅ ModRole has been set to ${h}`));
         break;
       case "WelcomeMessage":
         const i = b.slice(1).join(` `);
         isNaN(i) && "false" === b[1]
           ? await c.updateOne({ PersonalizedWelcomeMessage: null })
           : (await c.updateOne({ PersonalizedWelcomeMessage: i }),
-            a.channel.send(`✅ Welcome Message has been set to ${i}`));
+            interaction.reply(`✅ Welcome Message has been set to ${i}`));
     }
   }
 };

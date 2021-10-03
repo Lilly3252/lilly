@@ -22,6 +22,6 @@ module.exports = class extends Command {
     a.delete(),
       d
         ? ((c = b.slice(1).join(" ")), d.send(c))
-        : ((c = b.join(" ")), a.channel.send(c));
+        : ((c = b.join(" ")), interaction.reply(c));
   }
 };

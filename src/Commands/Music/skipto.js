@@ -15,7 +15,7 @@ module.exports = class extends Command {
         .reply("I need a number to be able to skip to the song..")
         .catch(console.error);
     const c = a.client.queue.get(a.guild.id);
-    if (!c) return a.channel.send("There is no queue.").catch(console.error);
+    if (!c) return interaction.reply("There is no queue.").catch(console.error);
     if (
       (function (a) {
         const { channelID: b } = a.voice,

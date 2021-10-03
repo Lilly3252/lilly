@@ -16,12 +16,12 @@ module.exports = class extends Command {
     /*const { channel: c } = a.member.voice;
     console.log(c)
     if (!c)
-      return a.channel.send(
+      return interaction.reply(
         "\u274C I'm sorry but you need to be in a voice channel to play music!"
       );
     const d = await ytdl.validateURL(b[0]);
     if (!d)
-      return a.channel.send(
+      return interaction.reply(
         `❌ Nuh No! i can't search by words , please enter a proper youtube link. `
       );
     const e = a.client.queue.get(a.guild.id),
@@ -34,7 +34,7 @@ module.exports = class extends Command {
     if (e)
       return (
         e.songs.push(g),
-        a.channel.send(`✅ **${g.title}** has been added to the queue!`)
+        interaction.reply(`✅ **${g.title}** has been added to the queue!`)
       );
     const h = {
       textChannel: a.channel,
@@ -67,7 +67,7 @@ module.exports = class extends Command {
         console.error(`I could not join the voice channel: ${b}`),
         a.client.queue.delete(a.guild.id),
         await c.leave(),
-        a.channel.send(`I could not join the voice channel: ${b}`)
+        interaction.reply(`I could not join the voice channel: ${b}`)
       );
     }
   */}

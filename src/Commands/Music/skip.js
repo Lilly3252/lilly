@@ -12,12 +12,12 @@ module.exports = class extends Command {
   async run(a) {
     const { channel: b } = a.member.voice;
     if (!b)
-      return a.channel.send(
+      return interaction.reply(
         "I'm sorry but you need to be in a voice channel to play music!"
       );
     const c = a.client.queue.get(a.guild.id);
     return c
       ? void c.connection.dispatcher.end("Skip command has been used!")
-      : a.channel.send("There is nothing playing that I could skip for you.");
+      : interaction.reply("There is nothing playing that I could skip for you.");
   }
 };

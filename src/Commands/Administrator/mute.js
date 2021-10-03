@@ -31,7 +31,7 @@ module.exports = class extends Command {
       { user_id: d, guild_id: a.guild.id },
       async (b, g) => {
         if ((b && console.error(b), g))
-          return a.channel.send(
+          return interaction.reply(
             "This member is already muted,you cannot mute this member twice"
           );
         if (!g) {
@@ -42,7 +42,7 @@ module.exports = class extends Command {
             reason: f,
             time: e,
           });
-          if (!d) return a.channel.send("Please mention a user to be muted!");
+          if (!d) return interaction.reply("Please mention a user to be muted!");
           let c = a.guild.roles.cache.find((a) => "Muted" === a.name);
           if (!c)
             try {
@@ -65,7 +65,7 @@ module.exports = class extends Command {
             d
               .send(`Hello, you have been muted in ${a.guild.name} for: ${f}`)
               .catch((a) => console.log(a)),
-              a.channel.send(`${d.user.username} was successfully muted.`);
+              interaction.reply(`${d.user.username} was successfully muted.`);
           }); if (!e) {return} else{
             setTimeout(async function () {
               await d.roles
@@ -87,7 +87,7 @@ module.exports = class extends Command {
             `**❯ Moderator:** ${a.author.tag} `,
             `**❯ Reason:** ${f}`,
             `**❯ Time:** ${e}`,
-          ])
+          ].join("\n"))
           .setFooter(`Date: ${a.createdAt.toLocaleString()}`);
         const i = c.logchannelID;
         i && null !== i && a.client.channels.cache.get(i).send(h);
