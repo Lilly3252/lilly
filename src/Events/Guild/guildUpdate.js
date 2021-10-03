@@ -6,9 +6,9 @@ module.exports = class extends Event {
   constructor(...a) {
     super(...a, { once: !1 });
   }
-  run(a) {
-    /*const b = await Guild.findOne({ guildID: a.guild.id}) 
-     b.updateOne({guildName: a.name})
+  run(oldGuild , newGuild) {
+    /*const b = await Guild.findOne({ guildID: oldGuild.guild.id}) 
+     b.updateOne({guildName: oldGuild.name})
     });
     b
       .save()
