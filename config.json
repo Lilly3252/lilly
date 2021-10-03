@@ -1,0 +1,9 @@
+{
+  "prefix": "*",
+  "T_prefix": "?",
+  "token": "TOKENHERE",
+  "owners": ["OWNERID_HERE"],
+  "defaultPerms": ["VIEW_CHANNEL","SEND_MESSAGES"],
+  "mongooseLink":"MONGOOSE_LINK_HERE",
+  "ClientID":"CLIENT_ID_HERE"
+}
