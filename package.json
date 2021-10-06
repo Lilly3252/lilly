@@ -17,7 +17,7 @@
     "discord-api-types": "^0.22.0",
     "discord-battleship": "^1.0.4",
     "discord-hangman": "^1.1.1",
-    "discord.js": "^13.0.0",
+    "discord.js": "^13.2.0",
     "discord.js-minesweeper": "^1.0.6",
     "glob": "^7.1.7",
     "lyrics-finder": "^21.7.0",

@@ -20,7 +20,7 @@ module.exports = class extends Command {
 			  ]
 		});
 	}
-	async run(interaction ,command) {
+	async run(interaction) {
 		const embed = new MessageEmbed()
 			.setColor('BLUE')
 			.setAuthor(`${interaction.guild.name} Help Menu`, interaction.guild.iconURL({ dynamic: true }))
@@ -28,6 +28,7 @@ module.exports = class extends Command {
 			.setFooter(`Requested by ${interaction.member.user.username}`, interaction.member.user.displayAvatarURL({ dynamic: true }))
 			.setTimestamp();
 
+		const command = interaction.options.getString('command');
 		if (command) {
 			const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.name.get(command));
 
