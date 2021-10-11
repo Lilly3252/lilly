@@ -20,7 +20,7 @@ module.exports = class extends Event {
 			
 
 		let i = 0;
-		setInterval(() => this.client.user.setActivity(`${this.client.prefix}help | ${activities}`, { type: 'WATCHING' }), 15000);
+		setInterval(() => this.client.user.setActivity(`/help | ${activities}`, { type: 'WATCHING' }), 15000);
 	}
 
 };

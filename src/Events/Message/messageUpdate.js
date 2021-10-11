@@ -4,13 +4,14 @@ const Event = require("../../Structures/Event"),
   { Util } = require("discord.js"),
   Guild = require("../../Database/models/Guild");
 module.exports = class extends Event {
-  async run(a, b) {
-    if (null === a.author || null === b.author) return;
-    if (null === a || null === b) return;
-    if (null === a.content || null === b.content) return;
-    if (a.content.includes("https:")) return;
-    if (!a.guild || !b.guild || a.author.bot || b.author.bot) return;
-    const c = await Guild.findOne({ guildID: a.guild.id });
+  async run(message, b) {
+    if (null === message.author || null === b.author) return;
+    if (null === message || null === b) return;
+    if (null === message.content || null === b.content) return;
+    if (message.content.includes("https:")) return;
+    if (!message.guild || !b.guild || message.author.bot || b.author.bot)
+      return;
+    const c = await Guild.findOne({ guildID: message.guild.id });
     if (!1 === c.messageUpdateMode) return;
     const d = new MessageEmbed()
       .setAuthor(
@@ -19,10 +20,13 @@ module.exports = class extends Event {
       )
       .addField("\u276F Channel", b.channel);
     let e = "";
-    if (/```(.*?)```/s.test(a.content) && /```(.*?)```/s.test(b.content)) {
-      const c = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(a.content);
+    if (
+      /```(.*?)```/s.test(message.content) &&
+      /```(.*?)```/s.test(b.content)
+    ) {
+      const c = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(message.content);
       if (!c || !c[2]) return;
-      const f = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(b.content);
+      const f = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(message.content);
       if (!f || !f[2]) return;
       if (c[2] === f[2]) return;
       const g = diff.diffLines(c[2], f[2], { newlineIsToken: !0 });
@@ -50,7 +54,7 @@ module.exports = class extends Event {
       );
     }
     d.addField("Link!!", `[Click here to see the message](${b.url})`, !0)
-      .setTimestamp(a.editedAt || b.editedAt || new Date())
+      .setTimestamp(message.editedAt || message.editedAt || new Date())
       .setFooter("Edited");
     const f = c.logchannelID;
     a.client.channels.cache.get(f).send(d);

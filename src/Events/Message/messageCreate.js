@@ -14,7 +14,7 @@ module.exports = class extends Event {
       console.log(message.content);
     }
 
-    const b = await Guild.findOne({ guildID: message.guild.id }, (b, c) => {
+    /*const b = await Guild.findOne({ guildID: message.guild.id }, (b, c) => {
       if ((b && console.error(b), !c)) {
         const b = new Guild({
           _id: mongoose.Types.ObjectId(),
@@ -44,14 +44,14 @@ module.exports = class extends Event {
       }
     });
     //*anti ping-spam auto-mod
-    /*const mRegex = /<@!?(\d+?)>/g;
+    const mRegex = /<@!?(\d+?)>/g;
     const m = a.content.match(mRegex);
     // !: need to know how to get rid of "Cannot read property 'length' of null" error here
     if(null === m.length){a.channel.send("no ping")}
     if (m.length > 2) {
       // TODO: VVVV need to know what consequences i need to put there VVVV
       a.channel.send(`i detected ${m.length} ping`);
-    }*/
+    }
     // * mentions , bot , bot role and moderator role
     const c = { ignoreEveryone: !0 };
     `<@!${message.guild.me.id}>` === message.content &&
@@ -78,22 +78,9 @@ module.exports = class extends Event {
     )
       return;
 
-    //*command (something) detection
-
-    // TODO : Do i really need that ? //*everything under that has been moved to interactionCreate
-    // if (!this.client.application?.owner) await this.client.application?.fetch();
-
-    if (
-      message.content.toLowerCase() === "!deploy" &&
-      message.author.id === this.client.application?.owner.id
-    ) {};
-    const command = this.client.commands.find(cmd => cmd.name == this.client.commands.CommandName)
-    if(!command){return}
-  
-      command.run(message , args);
     }
   }
 
-    
+*/
   
-
+  }}

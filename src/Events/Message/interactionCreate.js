@@ -2,26 +2,13 @@ const Event = require("../../Structures/Event");
 
 module.exports = class interactionCreate extends Event {
   async run(interaction) {
+    //console.log(interaction) // that works no need to check anymore
     if (interaction.user.bot || !interaction.isCommand() || !interaction.guild)
       return;
-console.log(interaction)
-
-   // console.log( `${interaction.commandName} command was used by ${interaction.user.username} in ${interaction.guildId} , in channel : ${interaction.channelId} ` );
-    //if (!this.client.application?.owner) await this.client.application?.fetch();
-
-    const commands = [...this.client.commands.values()].map((command) => ({
-      name: command.name,
-      description: command.description?.trim(),
-      options: command.options ?? [],
-    }));
-
-    // await this.client.application.commands.set(commands);
-    const command = this.client.commands.find(
-      (cmd) => cmd.name.toLowerCase() == interaction.commandName
-    );
-    
+    const command = this.client.commands.get(interaction.commandName);
+    //console.log(this.client.commands)
     //console.log(command)
-    if (!command) return interaction.reply("That is not a valid command!");
+    if (!command) return interaction.reply("Cannot find that command...");
 
     command.run(interaction);
   }
