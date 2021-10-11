@@ -1,12 +1,12 @@
 const path = require("path"),
   { promisify } = require("util"),
   glob = promisify(require("glob")),
-  Command = require("./Command.js"),
-  Event = require("./Event.js"),
-  inviteRegex =
-    /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi,
-  botInvRegex =
-    /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
+  Event = require("./Event.js");
+const inviteRegex =
+  /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
+const botInvRegex =
+  /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
+
 module.exports = class {
   constructor(a) {
     this.client = a;
@@ -54,6 +54,7 @@ module.exports = class {
   get directory() {
     return `${path.dirname(require.main.filename)}${path.sep}`;
   }
+
   trimArray(a, b = 10) {
     if (a.length > b) {
       const c = a.length - b;
@@ -71,50 +72,27 @@ module.exports = class {
   removeDuplicates(a) {
     return [...new Set(a)];
   }
-  capitalise(a) {
+  capitalize(a) {
     return a
       .split(" ")
       .map((a) => a.slice(0, 1).toUpperCase() + a.slice(1))
       .join(" ");
   }
-  checkOwner(a) {
-    return this.client.owners.includes(a);
-  }
+
   comparePerms(a, b) {
     return a.roles.highest.position < b.roles.highest.position;
   }
-  formatPerms(a) {
-    return a
-      .toLowerCase()
-      .replace(/(^|"|_)(\S)/g, (a) => a.toUpperCase())
-      .replace(/_/g, " ")
-      .replace(/Guild/g, "Server")
-      .replace(/Use Vad/g, "Use Voice Activity");
-  }
+
+
   formatArray(a, b = "conjunction") {
     return new Intl.ListFormat("en-GB", { style: "short", type: b }).format(a);
   }
   async loadCommands() {
     return glob(`${this.directory}commands/**/*.js`).then((commands) => {
       for (const commandFile of commands) {
-        delete require.cache[commandFile];
-        const { name } = path.parse(commandFile);
-        const File = require(commandFile);
-        if (!this.isClass(File))
-          throw new TypeError(`Command ${name} doesn't export a class.`);
-        const command = new File(this.client, name.toLowerCase());
-        if (!(command instanceof Command))
-          throw new TypeError(`Command ${name} doesn't belong in Commands.`);
-        const commands = [...this.client.commands.values()].map((command) => ({
-          name: command.name,
-          description: command.description?.trim(), //  (command.description.substr(0, 97) + command.description.length > 97 ? '...' : '') : 'No description!',
-          options: command.options || [],
-        }));
-        //console.log(commands)
-        if (this.client.application?.commands.set(commands));
-        this.client.commands.set(command.name, command);
-        //console.log(`i registered ${commands.length} commands!`)
-        //for (const a of d.aliases) this.client.aliases.set(a, d.name);
+        const command = require(commandFile);
+        //console.log(commandFile)
+        this.client.commands.set(command.data.name, command);
       }
     });
   }

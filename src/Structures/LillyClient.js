@@ -1,6 +1,6 @@
 const { Client, Collection, Permissions, Intents } = require("discord.js");
 const Util = require("./Util.js");
-const fs = require("fs");
+
 module.exports = class extends Client {
   constructor(a = {}) {
     super({
@@ -25,11 +25,8 @@ module.exports = class extends Client {
       ],
     });
     this.validate(a);
-
     this.commands = new Collection();
-    this.aliases = new Collection();
     this.events = new Collection();
-    this.queue = new Map();
     this.utils = new Util(this);
     this.owners = a.owners;
   }
@@ -38,12 +35,9 @@ module.exports = class extends Client {
     if ("object" != typeof a)
       throw new TypeError("Options should be a type of Object.");
     if (!a.token) throw new Error("You must pass the token for the client.");
-    if (((this.token = a.token), !a.prefix))
-      throw new Error("You must pass a prefix for the client.");
-    if ("string" != typeof a.prefix)
-      throw new TypeError("Prefix should be a type of String.");
-    if (((this.prefix = a.prefix), !a.defaultPerms))
-      throw new Error("You must pass default perm(s) for the Client.");
+    if ((this.token = a.token))
+      if (((this.prefix = a.prefix), !a.defaultPerms))
+        throw new Error("You must pass default perm(s) for the Client.");
     this.defaultPerms = new Permissions(a.defaultPerms).freeze();
   }
   async start(a = this.token) {
