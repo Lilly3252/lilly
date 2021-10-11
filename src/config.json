@@ -1,9 +1,8 @@
 {
-  "prefix": "*",
-  "T_prefix": "?",
-  "token": "TOKENHERE",
+  "GuildID":"GUILD_ID_HERE",
+  "token": "TOKEN_HERE",
   "owners": ["OWNERID_HERE"],
-  "defaultPerms": ["VIEW_CHANNEL","SEND_MESSAGES"],
-  "mongooseLink":"MONGOOSE_LINK_HERE",
-  "ClientID":"CLIENT_ID_HERE"
+  "defaultPerms": ["PERMISSIONS","HERE"],
+  "mongooseLink":"MONGO_DB_LINK_HERE",
+  "ClientID":"BOT_ID_HERE"
 }
