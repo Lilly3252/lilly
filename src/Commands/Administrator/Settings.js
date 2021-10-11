@@ -1,109 +1,62 @@
 const { SlashCommandBuilder } = require("@discordjs/builders"),
-  { MessageEmbed } = require("discord.js"),
-  Guild = require("../../Database/models/Guild");
+	{ MessageEmbed } = require("discord.js"),
+	Guild = require("../../Database/models/Guild");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 const { Permissions } = require("discord.js");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("settings")
-    .setDescription("show or add settings")
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("showsettings")
-        .setDescription("Show settings you have")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("anti-raid").setDescription("set anti-raid ON or OFF")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("welcomechannel")
-        .setDescription("set the welcome channel")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("modlog").setDescription("set the Mod Log channel")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("modrole").setDescription("set the Mod Role channel")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("deletemessages")
-        .setDescription("set the DeleteMessages event ON or OFF")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("messagedeletebulk")
-        .setDescription("set the messageDeleteBulk event ON or OFF")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("messageupdates")
-        .setDescription("set the MessageUpdates event ON or OFF")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("welcomemessage")
-        .setDescription("set the WelcomeMessage for your guild")
-    ),
+	data: new SlashCommandBuilder()
+		.setName("settings")
+		.setDescription("show or add settings")
+		.addSubcommand((subcommand) => subcommand.setName("showsettings").setDescription("Show settings you have"))
+		.addSubcommand((subcommand) => subcommand.setName("anti-raid").setDescription("set anti-raid ON or OFF"))
+		.addSubcommand((subcommand) => subcommand.setName("welcomechannel").setDescription("set the welcome channel"))
+		.addSubcommand((subcommand) => subcommand.setName("modlog").setDescription("set the Mod Log channel"))
+		.addSubcommand((subcommand) => subcommand.setName("modrole").setDescription("set the Mod Role channel"))
+		.addSubcommand((subcommand) => subcommand.setName("deletemessages").setDescription("set the DeleteMessages event ON or OFF"))
+		.addSubcommand((subcommand) => subcommand.setName("messagedeletebulk").setDescription("set the messageDeleteBulk event ON or OFF"))
+		.addSubcommand((subcommand) => subcommand.setName("messageupdates").setDescription("set the MessageUpdates event ON or OFF"))
+		.addSubcommand((subcommand) => subcommand.setName("welcomemessage").setDescription("set the WelcomeMessage for your guild")),
 
-  async run(interaction) {
-    if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
-      return interaction.reply(
-        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["ADMINISTRATOR"]);
-    }
-    if(!interaction.guild.me.permission.has(Permissions.FLAGS.ADMINISTRATOR)){
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["ADMINISTRATOR"])
-    }
-    
-    const guild_db = await Guild.findOne({ guildID: interaction.guild.id });
-    if (interaction.options.getSubcommand() === "showsettings") {
-      const d = new MessageEmbed()
-        .setAuthor(`${interaction.guild.name} Settings`)
-        .setThumbnail(interaction.guild.iconURL({ dynamic: !0 }))
-        .setDescription(
-          [
-            `**❯ Prefix:** ${guild_db.prefix}`,
-            `**❯ WelcomeChannelID:**${
-              guild_db.welcomechannelID
-                ? guild_db.welcomechannelID
-                : "Not defined yet"
-            }`,
-            `**❯ ModLogChannelID:** ${
-              guild_db.logchannelID ? guild_db.logchannelID : "Not defined yet"
-            }`,
-            `**❯ ModRoleID:** ${
-              guild_db.moderatorRoleID
-                ? guild_db.moderatorRoleID
-                : "Not defined yet"
-            } `,
-            `**❯ WelcomeMessage:**${
-              guild_db.PersonalizedWelcomeMessage
-                ? guild_db.PersonalizedWelcomeMessage
-                : "Not defined yet"
-            }`,
-            `**❯ Anti-raid:** ${
-              !!guild_db.antiRaidMode && guild_db.antiRaidMode
-            }`,
-            `**❯ MessageDelete** ${
-              !!guild_db.messageDeleteMode && guild_db.messageDeleteMode
-            }`,
-            `**❯ messageBulkDelete** ${
-              !!guild_db.messageBulkDeleteMode && guild_db.messageBulkDeleteMode
-            }`,
-            `**❯ MessageUpdate:** ${
-              !!guild_db.messageUpdateMode && guild_db.messageUpdateMode
-            }`,
-          ].join("\n")
-        )
-        .setFooter(
-          `Requested by ${interaction.user.username}`,
-          interaction.user.displayAvatarURL({ dynamic: !0 })
-        );
-      interaction.reply({ embeds: [d] });
-    }
-    //** NOTE : THIS NEEDS TO BE CONTINUED*/
-    /*
+	async run(interaction) {
+		if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+			return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["ADMINISTRATOR"]);
+		}
+		if (!interaction.guild.me.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+			return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["ADMINISTRATOR"]);
+		}
+
+		const guild_db = await Guild.findOne({ guildID: interaction.guild.id });
+		if (interaction.options.getSubcommand() === "showsettings") {
+			const d = new MessageEmbed()
+				.setAuthor(`${interaction.guild.name} Settings`)
+				.setThumbnail(interaction.guild.iconURL({ dynamic: !0 }))
+				.setDescription(
+					[
+						`**❯ Prefix:** ${guild_db.prefix}`,
+						`**❯ WelcomeChannelID:**${
+							guild_db.welcomechannelID ? guild_db.welcomechannelID : "Not defined yet"
+						}`,
+						`**❯ ModLogChannelID:** ${guild_db.logchannelID ? guild_db.logchannelID : "Not defined yet"}`,
+						`**❯ ModRoleID:** ${guild_db.moderatorRoleID ? guild_db.moderatorRoleID : "Not defined yet"} `,
+						`**❯ WelcomeMessage:**${
+							guild_db.PersonalizedWelcomeMessage
+								? guild_db.PersonalizedWelcomeMessage
+								: "Not defined yet"
+						}`,
+						`**❯ Anti-raid:** ${!!guild_db.antiRaidMode && guild_db.antiRaidMode}`,
+						`**❯ MessageDelete** ${!!guild_db.messageDeleteMode && guild_db.messageDeleteMode}`,
+						`**❯ messageBulkDelete** ${!!guild_db.messageBulkDeleteMode && guild_db.messageBulkDeleteMode}`,
+						`**❯ MessageUpdate:** ${!!guild_db.messageUpdateMode && guild_db.messageUpdateMode}`
+					].join("\n")
+				)
+				.setFooter(
+					`Requested by ${interaction.user.username}`,
+					interaction.user.displayAvatarURL({ dynamic: !0 })
+				);
+			interaction.reply({ embeds: [d] });
+		}
+		//** NOTE : THIS NEEDS TO BE CONTINUED*/
+		/*
         break;
       case "Anti-Raid":
         "on" === b[1] &&
@@ -197,5 +150,5 @@ module.exports = {
             interaction.reply(`✅ Welcome Message has been set to ${i}`));
                }
               */
-  },
+	}
 };
