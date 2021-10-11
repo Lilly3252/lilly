@@ -1,26 +1,14 @@
-const Command = require("../../Structures/Command");
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const moment = require("moment");
 const { shorten } = require("../../Structures/Util");
 
-module.exports = class extends Command {
-  constructor(...args) {
-    super(...args, {
-      
-      description: "Displays all the commands in the bot",
-      category: "📝Utilities",
-      usage: "[command] + thing to remember",
-      args: [
-        {
-          key: "time",
-          prompt: "What do you want me to remind you about, and in how long?",
-          type: "sherlock",
-        },
-      ],
-      
-    });
-  }
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('remind')
+        .setDescription('remind something for you.')
+  ,
 
-  async run(message, { time }) {
+  async run(interaction, { time }) {
 	interaction.reply("this command is not complete , try again later!") 
   // * make this work  
     /*const exists = await this.client.timers.exists(

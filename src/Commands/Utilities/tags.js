@@ -1,18 +1,16 @@
-const Command = require("../../Structures/Command");
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 const mongoose = require("mongoose");
 const tagSchema = require("../../Database/models/tags");
 
-module.exports = class extends Command {
-  constructor(...args) {
-    super(...args, {
-      description: "tags!!!!!",
-      category: "📝Utilities",
-      usage: "<Add>+<name> + <content> / <Remove> + <name>",
-      
-    });
-  }
-
-  async run(message, args) {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('tags')
+        .setDescription('tags.')
+,
+  async run(interaction, args) {
+    interaction.reply("this command is not completed yet");
+    /*
     const name = args[1];
     const content = args[2];
     //add tag to DB
@@ -63,5 +61,5 @@ module.exports = class extends Command {
           guildID: message.guild.id,
         });
     }
-  }
+  */}
 };

@@ -1,37 +1,35 @@
-const Command = require("../../Structures/Command"),
+const { SlashCommandBuilder } = require('@discordjs/builders'),
   { MessageEmbed } = require("discord.js"),
   Guild = require("../../Database/models/Guild"),
   MuteSchema = require("../../Database/models/MuteSchema");
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      description: "unmute a member.",
-      category: "\uD83D\uDD14Administrator",
-      usage: `<MentionMember>`,
-      userPerms: ["ADMINISTRATOR"],
-      botPerms: ["MANAGE_ROLES", "MUTE_MEMBERS"],
-      options: [
-        {
-          type: "USER",
-          name: 'member',
-          description: 'member to unmute.',
-          required: true
-        }
-      ]
-    });
-  }
-  async run(a, b) {
-    const c = await Guild.findOne({ guildID: a.guild.id });
+  const { Permissions } = require("discord.js");
+const SYSTEM = require("./../../Structures/messageSystem.json");
+
+  module.exports = {
+    data : new SlashCommandBuilder()
+            .setName('unmute')
+            .setDescription('unmute a member.')
+            .addMentionableOption(option => option.setName('member').setDescription('Mention someone'))
+    ,
+  async run(interaction, b) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"]
+      );
+    }
+    if(!interaction.guild.me.permission.has(Permissions.FLAGS.MUTE_MEMBERS)){
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"])
+    }
+    const c = await Guild.findOne({ guildID: interaction.guild.id });
     let d = a.mentions.members.first() || a.guild.members.cache.get(b[0]);
     if (!d) return interaction.reply("Please mention a user to be unmuted!");
     let e = b.slice(1).join(" ");
     e || (e = "No reason given");
     await MuteSchema.findOne(
-      { user_id: d, guild_id: a.guild.id },
+      { user_id: d, guild_id: interaction.guild.id },
       async (b, f) => {
         b && console.error(b),
-          f && (await f.deleteOne({ user_id: d, guild_id: a.guild.id })),
+          f && (await f.deleteOne({ user_id: d, guild_id: interaction.guild.id })),
           f || interaction.reply("This member is not muted");
         let g = new MessageEmbed()
             .setTitle("Congratulation!")
@@ -72,7 +70,7 @@ module.exports = class extends Command {
             interaction.reply(`${d.user.username} was successfully unmuted.`);
         });
         const i = c.logchannelID;
-        i && null !== i && a.client.channels.cache.get(i).send(g);
+        i && null !== i && a.client.channels.cache.get(i).send({ embeds: [g] });
       }
     );
   }

@@ -1,16 +1,10 @@
-const Command = require("../../Structures/Command");
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-module.exports = class extends Command {
-  constructor(...args) {
-    super(...args, {
-      
-      description: "Displays the link to get updates for Lilly",
-      category: `⁉️Informations`,
-      usage: "[command]",
-      
-    });
-  }
-
-  async run(message) {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('dev')
+        .setDescription('developer server for lilly.')
+  ,
+  async run(interaction) {
 interaction.reply("https://discord.gg/HMupQGUYZq , Come and have fun! ALL updates for Lilly is there. Come check it out!")}
 };

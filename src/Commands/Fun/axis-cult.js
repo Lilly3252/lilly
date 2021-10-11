@@ -1,17 +1,12 @@
-const Command = require('../../Structures/Command');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const teachings = require('../../Structures/JSONs/axis-cult.json');
 
-module.exports = class extends Command {
-	constructor(...args) {
-	  super(...args, {
-		
-		description: "well...",
-		category: "💃Fun",
-		usage: "",
-		
-	  });
-	}
-	async run(msg) {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('axis-cult')
+        .setDescription('no description needed i think.')
+	,
+	async run(interaction) {
 		return msg.channel.send(teachings[Math.floor(Math.random() * teachings.length)]);
 	}
 };

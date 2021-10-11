@@ -1,27 +1,33 @@
-const Command = require("../../Structures/Command"),
-  Guild = require("../../Database/models/Guild"),
-  { MessageEmbed } = require("discord.js");
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      category: "\uD83D\uDD14Administrator",
-      description: "Adds a restrict role to a Guild Member",
-      usage: "<restriction> + <GuildMember> + [reason]",
-      userPerms: ["ADMINISTRATOR"],
-      botPerm: ["ADMINISTRATOR"],
-      options: [
-          {
-            type: "USER",
-            name: "member",
-            description: "Member to restrict",
-            required: true
-          }
-        ]
-    });
-  }
-  async run(a, b) {
-    const c = await Guild.findOne({ guildID: a.guild.id }),
+const { SlashCommandBuilder } = require("@discordjs/builders");
+(Guild = require("../../Database/models/Guild")),
+  ({ MessageEmbed } = require("discord.js"));
+  const { Permissions } = require("discord.js");
+const SYSTEM = require("./../../Structures/messageSystem.json");
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("restrict")
+    .setDescription("restrict a member.")
+    .addStringOption((option) =>
+      option
+        .setName("restrictions")
+        .setDescription("choose a restriction")
+        .setRequired(true)
+        .addChoice("Embed", "embed")
+        .addChoice("Reaction", "reaction")
+        .addChoice("Voice", "voice"))
+    .addMentionableOption((option) =>
+        option.setName("member").setDescription("Mention someone to restrict"))
+    ,
+  async run(interaction, b) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"]
+      );
+    }
+    if(!interaction.guild.me.permission.has(Permissions.FLAGS.MANAGE_ROLES)){
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_ROLES"])
+    }
+    const c = await Guild.findOne({ guildID: interaction.guild.id }),
       d = b[0],
       e = a.mentions.members.first() || a.guild.members.cache.get(b[1]),
       f = b.slice(2).join(" ") || "No reason given.";
@@ -32,12 +38,15 @@ module.exports = class extends Command {
       )
       .setTitle("Restricted!")
       .setColor("DARK_ORANGE")
-      .addField("Moderation", [
-        `**❯ Action:** ${d} restriction`,
-        `**❯ Member:** ${e.user.username}`,
-        `**❯ Moderator:** ${a.author.tag} `,
-        `**❯ Reason:** ${f}`,
-      ].join("\n"))
+      .addField(
+        "Moderation",
+        [
+          `**❯ Action:** ${d} restriction`,
+          `**❯ Member:** ${e.user.username}`,
+          `**❯ Moderator:** ${a.author.tag} `,
+          `**❯ Reason:** ${f}`,
+        ].join("\n")
+      )
       .setTimestamp(new Date())
       .setFooter(`${d} restricted`);
     switch (d) {
@@ -63,7 +72,9 @@ module.exports = class extends Command {
               `Hello, you have been restricted in ${a.guild.name} for: ${f}`
             )
             .catch((a) => console.log(a)),
-            interaction.reply(`${e.user.username} was successfully restricted.`);
+            interaction.reply(
+              `${e.user.username} was successfully restricted.`
+            );
         });
         break;
       case "reaction":
@@ -87,7 +98,9 @@ module.exports = class extends Command {
               `Hello, you have been restricted in ${a.guild.name} for: ${f}`
             )
             .catch((a) => console.log(a)),
-            interaction.reply(`${e.user.username} was successfully restricted.`);
+            interaction.reply(
+              `${e.user.username} was successfully restricted.`
+            );
         });
         break;
       case "voice":
@@ -114,7 +127,9 @@ module.exports = class extends Command {
               `Hello, you have been restricted in ${a.guild.name} for: ${f}`
             )
             .catch((a) => console.log(a)),
-            interaction.reply(`${e.user.username} was successfully restricted.`);
+            interaction.reply(
+              `${e.user.username} was successfully restricted.`
+            );
         });
         const { channel: h } = a.member.voice;
         if (!e) return a.reply("Well ... Okay? but who??");
@@ -122,6 +137,6 @@ module.exports = class extends Command {
         e.voice.setChannel(null);
     }
     const h = c.logchannelID;
-    h && null !== h && a.client.channels.cache.get(h).send(g);
-  }
+    h && null !== h && a.client.channels.cache.get(h).send({ embeds: [g] });
+  },
 };

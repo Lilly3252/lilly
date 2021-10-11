@@ -1,26 +1,20 @@
-const Command = require("../../Structures/Command");
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-module.exports = class extends Command {
-  constructor(...args) {
-    super(...args, {
-      
-      description: "delete a reminder",
-      category: "📝Utilities",
-      usage: "[command]",
-      
-    });
-  }
-
-  async run(message) {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('delete-reminder')
+        .setDescription('delete a reminder.')
+  ,
+  async run(interaction) {
 	  interaction.reply("this command is not complete , try again later!")
     // * make this work
-   /* const exists = await this.client.timers.exists(
+   /* const exists = await interaction.client.timers.exists(
       message.channel.id,
       message.author.id
     );
     if (!exists)
       return message.reply("🕰️ You do not have a timer set in this channel.");
-    await this.client.timers.deleteTimer(message.channel.id, message.author.id);
+    await interaction.client.timers.deleteTimer(message.channel.id, message.author.id);
     return interaction.reply("🕰️ Your timer has been deleted.");
    */  }
 };

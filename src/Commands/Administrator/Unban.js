@@ -1,23 +1,25 @@
-const Command = require("../../Structures/Command");
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      category: "\uD83D\uDD14Administrator",
-      description: "Unban someone",
-      usage: "[userID]",
-      userPerms: ["ADMINISTRATOR"],
-      options: [
-        {
-          type: "USER",
-          name: 'member',
-          description: 'userID to unban.',
-          required: true
-        }
-      ]
-    });
-  }
-  async run(a, b) {
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { Permissions } = require("discord.js");
+const SYSTEM = require("./../../Structures/messageSystem.json");
+module.exports = {
+  data : new SlashCommandBuilder()
+          .setName('unban')
+          .setDescription('unban a member.')
+          .addStringOption((option) =>
+      option
+        .setName("id")
+        .setDescription("put a id")
+        .setRequired(true))
+  ,
+  async run(interaction, b) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["BAN_MEMBERS"]
+      );
+    }
+    if(!interaction.guild.me.permission.has(Permissions.FLAGS.BAN_MEMBERS)){
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"])
+    }
     let c = b[0];
     if (!b[0]) return interaction.reply("Please give me a userID!");
     if (isNaN(b[0])) return interaction.reply("That ID is not a number !");
