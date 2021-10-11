@@ -1,0 +1,8 @@
+{
+  "GuildID":"GUILD_ID_HERE",
+  "token": "TOKEN_HERE",
+  "owners": ["OWNERID_HERE"],
+  "defaultPerms": ["PERMISSIONS","HERE"],
+  "mongooseLink":"MONGO_DB_LINK_HERE",
+  "ClientID":"BOT_ID_HERE"
+}

@@ -6,7 +6,7 @@ module.exports = class extends Event {
   constructor(...a) {
     super(...a, { once: !1 });
   }
-  async run(a) {
+  async run(interaction) {
     if (!a.guild) return;
     const b = `${moment(a.user.createdTimestamp).format("LL")} (${moment(
         a.user.createdTimestamp

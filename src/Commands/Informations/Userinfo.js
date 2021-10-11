@@ -1,4 +1,4 @@
-const Command = require("../../Structures/Command"),
+const { SlashCommandBuilder } = require('@discordjs/builders'),
   { MessageEmbed } = require("discord.js"),
   moment = require("moment"),
   flags = {
@@ -16,24 +16,11 @@ const Command = require("../../Structures/Command"),
     VERIFIED_BOT: "Verified Bot",
     VERIFIED_DEVELOPER: "Verified Bot Developer",
   };
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      description:
-        "Displays information about a provided user or the message author.",
-      category: "\u2049\uFE0FInformations",
-      usage: "[user]",
-      options: [
-          {
-            type: "USER",
-            name: "user",
-            description: "Displays information about a provided user or the message author.",
-            required: true
-          }
-        ]
-    });
-  }
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('userinfo')
+        .setDescription('Info of a user.')
+  ,
   async run(interaction, b) {
     const c =
         a.mentions.members.last() || a.guild.members.cache.get(b) || a.member,
@@ -66,7 +53,7 @@ module.exports = class extends Command {
         ].join("\n"))
         .addField("Member", [
           `**❯ Highest Role:** ${
-            c.roles.highest.id === a.guild.id ? "None" : c.roles.highest.name
+            c.roles.highest.id === interaction.guild.id ? "None" : c.roles.highest.name
           }`,
           `**❯ Server Join Date:** ${moment(c.joinedAt).format("LL LTS")}`,
           `**❯ Hoist Role:** ${c.roles.hoist ? c.roles.hoist.name : "None"}`,
@@ -74,7 +61,7 @@ module.exports = class extends Command {
             10 > d.length
               ? d.join(", ")
               : 10 < d.length
-              ? this.client.utils.trimArray(d)
+              ? interaction.client.utils.trimArray(d)
               : "None"
           }`,
           `\u200b`,

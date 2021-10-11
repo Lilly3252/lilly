@@ -1,15 +1,12 @@
-const Command = require('../../Structures/Command');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 //**DONE  */
-module.exports = class extends Command {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('pong.')
 
-	constructor(...args) {
-		super(...args, {
-			description: 'This provides the ping of the bot',
-			category: '📝Utilities',
-		});
-	}
-
+	,
 	async run(interaction) {
 		
 		const msg = await interaction.reply({ content : 'Pinging...', fetchReply: true} );
@@ -18,7 +15,7 @@ module.exports = class extends Command {
 		const choices = ['Is this really my ping?', 'Is this okay? I can\'t look!', 'I hope it isn\'t bad!'];
 		const response = choices[Math.floor(Math.random() * choices.length)];
 
-		 interaction.editReply({ content: `${response} - Bot Latency: \`${latency}ms\` , API Latency: \`${Math.round(this.client.ws.ping)}ms\``, ephemeral: false });
+		 interaction.editReply({ content: `${response} - Bot Latency: \`${latency}ms\` , API Latency: \`${Math.round(interaction.client.ws.ping)}ms\``, ephemeral: false });
 	}
 
 };

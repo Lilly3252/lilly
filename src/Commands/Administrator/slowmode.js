@@ -1,25 +1,23 @@
-const Command = require("../../Structures/Command"),
+const { SlashCommandBuilder } = require('@discordjs/builders'),
   { MessageEmbed } = require("discord.js");
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      description:
-        "Place a slowmode to a channel.In seconds",
-      category: "\uD83D\uDD14Administrator",
-      usage: `<number(seconds)>`,
-      userPerms: ["ADMINISTRATOR"],
-      options: [
-          {
-            type: "NUMBER",
-            name: "seconds",
-            description: "seconds needed to slowmode",
-            required: true
-          }
-        ]
-    });
-  }
-  async run(a, b) {
+  const { Permissions } = require("discord.js");
+const SYSTEM = require("./../../Structures/messageSystem.json");
+  module.exports = {
+    data : new SlashCommandBuilder()
+            .setName('slowmode')
+            .setDescription('slowmode a channel.')
+            .addMentionableOption(option => option.setName('channel').setDescription('channel name'))
+            .addNumberOption(option => option.setName('number').setDescription('Enter a number'))     
+    ,
+  async run(interaction, b) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["ADMINISTRATOR"]
+      );
+    }
+    if(!interaction.guild.me.permission.has(Permissions.FLAGS.MANAGE_CHANNELS)){
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"])
+    }
     return isNaN(b[0])
       ? interaction.reply("That is not a number!")
       : void (await a.channel

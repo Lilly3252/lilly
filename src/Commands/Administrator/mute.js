@@ -1,34 +1,32 @@
-const Command = require("../../Structures/Command"),
+const { SlashCommandBuilder } = require('@discordjs/builders'),
   { MessageEmbed } = require("discord.js"),
   Guild = require("../../Database/models/Guild"),
   mongoose = require("mongoose"),
   MuteSchema = require("../../Database/models/MuteSchema"),
   ms = require("ms");
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      description: "mute a member.",
-      category: "\uD83D\uDD14Administrator",
-      usage: `<member> [reason]`,
-      userPerms: ["ADMINISTRATOR"],
-      botPerm: ["ADMINISTRATOR"],
-      options: [
-        {
-          type: "USER",
-          name: 'member',
-          description: 'member to mute.',
-          required: true
-        }
-      ]
-    });
-  }
-  async run(a, b) {
-    const c = await Guild.findOne({ guildID: a.guild.id });
+  const { Permissions } = require("discord.js");
+const SYSTEM = require("./../../Structures/messageSystem.json");
+  module.exports = {
+    data : new SlashCommandBuilder()
+            .setName('mute')
+            .setDescription('mute a member.')
+            .addMentionableOption(option => option.setName('member').setDescription('Mention a member'))
+    ,
+  async run(interaction, b) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"]
+      );
+    }
+    if(!interaction.guild.me.permission.has(Permissions.FLAGS.MUTE_MEMBERS)){
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"])
+    }
+    const c = await Guild.findOne({ guildID: interaction.guild.id });
     let d = a.mentions.members.first() || a.guild.members.cache.get(b[0]),
       e = b[1],
       f = b.slice(2).join(" ") || "No reason given.";
     await MuteSchema.findOne(
-      { user_id: d, guild_id: a.guild.id },
+      { user_id: d, guild_id: interaction.guild.id },
       async (b, g) => {
         if ((b && console.error(b), g))
           return interaction.reply(
@@ -38,7 +36,7 @@ module.exports = class extends Command {
           const b = new MuteSchema({
             _id: mongoose.Types.ObjectId(),
             user_id: d,
-            guild_id: a.guild.id,
+            guild_id: interaction.guild.id,
             reason: f,
             time: e,
           });
@@ -70,7 +68,7 @@ module.exports = class extends Command {
             setTimeout(async function () {
               await d.roles
                 .remove(c.id, `Temporary mute expired.`)
-                .then(b.deleteOne({ user_id: d, guild_id: a.guild.id }));
+                .then(b.deleteOne({ user_id: d, guild_id: interaction.guild.id }));
             }, ms(e));
           }
             b
@@ -90,7 +88,7 @@ module.exports = class extends Command {
           ].join("\n"))
           .setFooter(`Date: ${a.createdAt.toLocaleString()}`);
         const i = c.logchannelID;
-        i && null !== i && a.client.channels.cache.get(i).send(h);
+        i && null !== i && a.client.channels.cache.get(i).send({ embeds: [h] });
       }
     );
   }

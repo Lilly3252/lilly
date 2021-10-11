@@ -1,16 +1,11 @@
-const Command = require('../../Structures/Command');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const bunny = require('../../Structures/JSONs/bunny-fact.json');
-module.exports = class extends Command {
-	constructor(...args) {
-	  super(...args, {
-		
-		description: "Want a bunny fact?",
-		category: "💃Fun",
-		usage: "",
-		
-	  });
-	}
-	async run(msg) {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('bunny')
+        .setDescription('tells you a bunny fact.')
+	,
+	async run(interaction) {
 		return msg.channel.send(bunny[Math.floor(Math.random() * bunny.length)]);
 	}
 };

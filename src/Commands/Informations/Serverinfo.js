@@ -1,4 +1,4 @@
-const Command = require("../../Structures/Command"),
+const { SlashCommandBuilder } = require('@discordjs/builders'),
   { MessageEmbed } = require("discord.js"),
   moment = require("moment"),
   filterLevels = {
@@ -29,18 +29,12 @@ const Command = require("../../Structures/Command"),
     "us-west": "US West",
     "us-south": "US South",
   };
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      description:
-        "Displays information about the server that said message was run in.",
-      category: "\u2049\uFE0FInformations",
-      usage: "",
-      
-    });
-  }
-  async run(a) {
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('serverinfo')
+        .setDescription('Ban a member.')
+ ,
+  async run(interaction) {
     const b = a.guild.roles.cache
         .sort((c, a) => a.position - c.position)
         .map((a) => a.toString()),
@@ -53,7 +47,7 @@ module.exports = class extends Command {
         .setThumbnail(a.guild.iconURL({ dynamic: !0 }))
         .addField("General", [
           `**❯ Name:** ${a.guild.name}`,
-          `**❯ ID:** ${a.guild.id}`,
+          `**❯ ID:** ${interaction.guild.id}`,
           `**❯ Owner:** ${a.guild.owner.user.tag} (${a.guild.ownerID})`,
           `**❯ Region:** ${regions[a.guild.region]}`,
           `**❯ Boost Tier:** ${
@@ -103,10 +97,10 @@ module.exports = class extends Command {
           10 > b.length
             ? b.join(", ")
             : 10 < b.length
-            ? this.client.utils.trimArray(b)
+            ? interaction.client.utils.trimArray(b)
             : "None"
         ).join("\n")
         .setTimestamp();
-    interaction.reply(f);
+    interaction.reply({ embeds: [f] });
   }
 };

@@ -1,22 +1,22 @@
-const Command = require("../../Structures/Command");
-module.exports = class extends Command {
-  constructor(...a) {
-    super(...a, {
-      
-      category: "\uD83D\uDD14Administrator",
-      description: "Echo your message to this channel or to another channel",
-      usage: "[ChannelMention] <message>",
-      userPerms: ["ADMINISTRATOR"],
-      options:[
-        {
-          type: 'STRING',
-          name: "say",
-          description: 'What to say',
-          required: true,
-        }]
-    });
-  }
-  async run(a, b) {
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { Permissions } = require("discord.js");
+const SYSTEM = require("./../../Structures/messageSystem.json");
+module.exports = {
+  data : new SlashCommandBuilder()
+          .setName('say')
+          .setDescription('say something.')
+          .addStringOption(option => option.setName('message').setDescription('message to say'))
+          
+  ,
+  async run(interaction, b) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_MESSAGES"]
+      );
+    }
+    if(!interaction.guild.me.permission.has(Permissions.FLAGS.MANAGE_MESSAGES)){
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_MESSAGES"])
+    }
     let c,
       d = a.mentions.channels.first();
     a.delete(),

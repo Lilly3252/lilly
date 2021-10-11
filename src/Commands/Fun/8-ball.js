@@ -1,26 +1,16 @@
 
 const { stripIndents } = require('common-tags');
 const answers = require('../../Structures/JSONs/8-ball.json');
-const Command = require("../../Structures/Command");
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 
-module.exports = class extends Command {
-  constructor(...args) {
-    super(...args, {
-      description: "ask me a question, i will answer",
-	  category: "💃Fun",
-      usage: "<Question>",
-      options: [
-          {
-            type: "STRING",
-            name: "question",
-            description: "what is the question",
-            required: true
-          }
-        ]
-    });
-  }
-  async run(message , args ){
+module.exports = {
+data : new SlashCommandBuilder()
+        .setName('8-balls')
+        .setDescription('ask a question , Lilly will answer you.')
+        .addStringOption(option => option.setName('question').setDescription('question to ask.'))
+  ,
+  async run(interaction,  args){
 	  const question = args.slice().join(" ")
 		return interaction.reply(stripIndents`
 			_${question}_
