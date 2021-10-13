@@ -3,13 +3,13 @@ const { MessageReaction, User } = require("discord.js");
 
 /**
  *  * TO-DO : do i really need this?
- * 
+ *
  * @param {MessageReaction} reaction
  * @param {User} user
  */
 module.exports = class extends Event {
-  async run(reaction, user) {
-    /*if (user.bot) return;
+	async run(reaction, user) {
+		/*if (user.bot) return;
     let member = reaction.message.guild.members.cache.get(user.id);
     ReactionModel.findOne(
       {
@@ -30,5 +30,6 @@ module.exports = class extends Event {
       }
     );
     //console.log(ReactionModel)
-    */}
+    */
+	}
 };
