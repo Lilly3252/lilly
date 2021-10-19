@@ -1,14 +1,14 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const roasts = require('../../Structures/JSONs/roast.json');
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const roasts = require("../../Structures/JSONs/roast.json");
 
 module.exports = {
-data : new SlashCommandBuilder()
-        .setName('roast')
-        .setDescription('roast someone.')
-		.addMentionableOption(option => option.setName('member').setDescription('Mention a member to roast'))
-	,
+	data: new SlashCommandBuilder()
+		.setName("roast")
+		.setDescription("roast someone.")
+		.addUserOption((option) => option.setName("target").setDescription("Select a user").setRequired(true)),
 	async run(interaction) {
-		const member = msg.mentions.members.first() ;  
-		return msg.channel.send(`${member.user.username}, ${roasts[Math.floor(Math.random() * roasts.length)]}`);
+		const member = interaction.options.getMember("target");
+		if(member){return interaction.reply(`${member.username}, ${roasts[Math.floor(Math.random() * roasts.length)]}`);}
+		
 	}
 };
