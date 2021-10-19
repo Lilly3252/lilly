@@ -1,16 +1,13 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const mongoose = require("mongoose");
 const tagSchema = require("../../Database/models/tags");
 
 module.exports = {
-data : new SlashCommandBuilder()
-        .setName('tags')
-        .setDescription('tags.')
-,
-  async run(interaction, args) {
-    interaction.reply("this command is not completed yet");
-    /*
+	data: new SlashCommandBuilder().setName("tags").setDescription("tags."),
+	async run(interaction, args) {
+		interaction.reply("this command is not completed yet");
+		/*
     const name = args[1];
     const content = args[2];
     //add tag to DB
@@ -27,7 +24,7 @@ data : new SlashCommandBuilder()
       }
       await tagSchema.findOne(
         {
-          guildID: message.guild.id,
+          guildID: interaction.guild.id,
         },
         async (err) => {
           if (err) console.error(err);
@@ -39,7 +36,7 @@ data : new SlashCommandBuilder()
           if (args[1] !== tagSchema.Name) {
             const newtag = new tagSchema({
               _id: mongoose.Types.ObjectId(),
-              guildID: message.guild.id,
+              guildID: interaction.guild.id,
               Tag:{
                   Name: args[1],
                   Content: args[2]
@@ -58,8 +55,9 @@ data : new SlashCommandBuilder()
         );
       } else
         tagSchema.findOneAndDelete({
-          guildID: message.guild.id,
+          guildID: interaction.guild.id,
         });
     }
-  */}
+  */
+	}
 };
