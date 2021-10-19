@@ -7,14 +7,14 @@ const { MessageEmbed } = require("discord.js");
 // Line 83 to 125 credit to ShinoTheShino
 
 module.exports = class extends Event {
-	async run(message) {
-		if (/*!message.guild || */ message.author.bot) return;
-		// checking the dbc
-		if ((message.channel.type = "DM")) {
-			console.log(message.content);
-		}
+  async run(message) {
+    if (/*!message.guild || */ message.author.bot) return;
+    // checking the dbc
+    if ((message.channel.type = "DM")) {
+      console.log(message.content);
+    }
 
-		/*const b = await Guild.findOne({ guildID: message.guild.id }, (b, c) => {
+    /*const b = await Guild.findOne({ guildID: message.guild.id }, (b, c) => {
       if ((b && console.error(b), !c)) {
         const b = new Guild({
           _id: mongoose.Types.ObjectId(),
@@ -82,5 +82,5 @@ module.exports = class extends Event {
   }
 
 */
-	}
+  }
 };
