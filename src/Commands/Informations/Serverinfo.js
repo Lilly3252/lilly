@@ -31,6 +31,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders"),
 module.exports = {
 	data: new SlashCommandBuilder().setName("serverinfo").setDescription("Information of the server."),
 	async run(interaction) {
+		
 		const b = interaction.guild.roles.cache.sort((c, a) => a.position - c.position).map((a) => a.toString()),
 			c = interaction.guild.members.cache,
 			d = interaction.guild.channels.cache,
@@ -38,14 +39,13 @@ module.exports = {
 			f = new MessageEmbed()
 				.setDescription(`**Guild information for __${interaction.guild.name}__**`)
 				.setColor("BLUE")
-				.setThumbnail(a.guild.iconURL({ dynamic: !0 }))
+				.setThumbnail(interaction.guild.iconURL({ dynamic: !0 }))
 				.addField(
 					"General",
 					[
 						`**❯ Name:** ${interaction.guild.name}`,
 						`**❯ ID:** ${interaction.guild.id}`,
-						`**❯ Owner:** ${interaction.guild.owner.user.tag} (${interaction.guild.ownerID})`,
-						`**❯ Region:** ${regions[interaction.guild.region]}`,
+						`**❯ OwnerID:** ${interaction.guild.ownerId}`,
 						`**❯ Boost Tier:** ${interaction.guild.premiumTier ? `Tier ${interaction.guild.premiumTier}` : "None"}`,
 						`**❯ Explicit Filter:** ${filterLevels[interaction.guild.explicitContentFilter]}`,
 						`**❯ Verification Level:** ${verificationLevels[interaction.guild.verificationLevel]}`,
@@ -60,29 +60,29 @@ module.exports = {
 					`**❯ Emoji Count:** ${e.size}`,
 					`**❯ Regular Emoji Count:** ${e.filter((a) => !a.animated).size}`,
 					`**❯ Animated Emoji Count:** ${e.filter((a) => a.animated).size}`,
-					`**❯ Member Count:** ${a.guild.memberCount}`,
+					`**❯ Member Count:** ${interaction.guild.memberCount}`,
 					`**❯ Humans:** ${c.filter((a) => !a.user.bot).size}`,
 					`**❯ Bots:** ${c.filter((a) => a.user.bot).size}`,
 					`**❯ Text Channels:** ${d.filter((a) => "text" === a.type).size}`,
 					`**❯ Voice Channels:** ${d.filter((a) => "voice" === a.type).size}`,
-					`**❯ Boost Count:** ${a.guild.premiumSubscriptionCount || "0"}`,
+					`**❯ Boost Count:** ${interaction.guild.premiumSubscriptionCount || "0"}`,
 					"\u200B"
-				])
+				].join("\n"))
 				.addField(
 					"Presence",
 					[
-						`**❯ Online:** ${c.filter((a) => "online" === a.presence.status).size}`,
-						`**❯ Idle:** ${c.filter((a) => "idle" === a.presence.status).size}`,
-						`**❯ Do Not Disturb:** ${c.filter((a) => "dnd" === a.presence.status).size}`,
-						`**❯ Offline:** ${c.filter((a) => "offline" === a.presence.status).size}`,
+						`**❯ Online:** ${c.filter((a) => "online" === a.presence?.status).size}`,
+						`**❯ Idle:** ${c.filter((a) => "idle" === a.presence?.status).size}`,
+						`**❯ Do Not Disturb:** ${c.filter((a) => "dnd" === a.presence?.status).size}`,
+						`**❯ Offline:** ${c.filter((a) => "offline" === a.presence?.status).size}`,
 						"\u200B"
 					].join("\n")
 				)
 				.addField(
 					`Roles [${b.length - 1}]`,
-					10 > b.length ? b.join(", ") : 10 < b.length ? interaction.client.utils.trimArray(b) : "None"
+					[10 > b.length ? b.join(", ") : 10 < b.length ? interaction.client.utils.trimArray(b) : "None"].join("\n")
 				)
-				.join("\n")
+				
 				.setTimestamp();
 		interaction.reply({ embeds: [f] });
 	}

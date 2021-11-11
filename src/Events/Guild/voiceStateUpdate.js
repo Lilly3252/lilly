@@ -6,7 +6,7 @@ module.exports = class extends Event {
     });
   }
   run(oldState, newState) {
-    console.log(`${oldState.member.id} (${oldState.member.user.tag}) on ${oldState.channelID} Named : ${oldState.channel ? oldState.channel.name : null} been moved to ${newState.channelID} Named : ${newState.channel ? newState.channel.name : null}`);
+    console.log(`${oldState.member.id} (${oldState.member.user.tag}) on ${oldState.channelId} Named : ${oldState.channel ? oldState.channel.name : null} been moved to ${newState.channelId} Named : ${newState.channel ? newState.channel.name : null}`);
 
     //get a message on a specific channel on connection V
 

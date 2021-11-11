@@ -13,6 +13,7 @@ module.exports = class extends Event {
     if ((message.channel.type = "DM")) {
       console.log(message.content);
     }
+  
 
     /*const b = await Guild.findOne({ guildID: message.guild.id }, (b, c) => {
       if ((b && console.error(b), !c)) {

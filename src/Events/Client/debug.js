@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 	run(info) {
 		//console.log(
-		// `DEBUG: Info: ${info} websocket status: ${this.client.ws.status} `
-		// );
+		 //`DEBUG: Info: ${info} websocket status: ${this.client.ws.status} `
+		 //);
 	}
 };

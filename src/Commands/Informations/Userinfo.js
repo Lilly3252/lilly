@@ -22,8 +22,9 @@ module.exports = {
     .setDescription("Info of a user.")
     .addUserOption((option) => option.setName("target").setDescription("Select a user").setRequired(true)),
   async run(interaction) {
+    
     const c = interaction.options.getMember("target");
-
+    
     const d = c.roles.cache
         .sort((c, a) => a.position - c.position)
         .map((a) => a.toString())
@@ -44,7 +45,7 @@ module.exports = {
             })})`,
             `**❯ Time Created:** ${moment(c.user.createdTimestamp).format("LT")} ${moment(c.user.createdTimestamp).format("LL")} ${moment(c.user.createdTimestamp).fromNow()}`,
             `**❯ Status:** ${c.presence.status}`,
-            `**❯ Game:** ${c.presence.activities[0] || "Not playing a game."}`,
+            `**❯ Game / Custom status:** ${c.presence.activities[0].state || "Not playing a game."}`,
             `\u200b`
           ].join("\n")
         )

@@ -14,7 +14,7 @@ module.exports = class extends Event {
       return;
     }
 
-    const length = [messages.values()].length;
+    const length = [...messages.values()].length;
     const channel = messages.first().channel.name;
 
     const embed = new MessageEmbed()

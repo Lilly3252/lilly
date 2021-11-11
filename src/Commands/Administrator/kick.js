@@ -28,7 +28,7 @@ module.exports = {
       .setTitle("Sayonara!")
       .setColor("ORANGE")
       .addField("Moderation", [`**❯ Action:** Kick`, `**❯ Member:** ${member.user.username}`, `**❯ Moderator:** ${a.author.tag} `, `**❯ Reason:** ${e}`].join("\n"))
-      .setFooter(`Date: ${a.createdAt.toLocaleString()}`);
+      .setFooter(`Date: ${interaction.createdAt.toLocaleString()}`);
 
     member
       .send(`Hello, you have been kicked from ${interaction.guild.name} for: ${e}.\n `) // sending a DM message to the MEMBER is found... NOT BOT... -_-
@@ -36,6 +36,6 @@ module.exports = {
       .catch((a) => console.log(a)),
       interaction.reply(`**${member.user.tag}** has been kicked`); // message sending if successfully kick
     const g = c.logchannelID; // finding the channel ID through db
-    g && null !== g && a.client.channels.cache.get(g).send({ embeds: [f] }); // send it to the channel if id found
+    g && null !== g && interaction.client.channels.cache.get(g).send({ embeds: [f] }); // send it to the channel if id found
   }
 };

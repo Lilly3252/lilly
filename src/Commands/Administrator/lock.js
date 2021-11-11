@@ -24,7 +24,7 @@ module.exports = {
         });
       });
 
-      return interaction.reply("locked");
+      return interaction.reply("This channel has been successfully locked for moderation purposes");
     }
     if (false === unlocked_locked) {
       let role = interaction.channel.guild.roles.cache.get(interaction.guild.id);
@@ -33,7 +33,7 @@ module.exports = {
           SEND_MESSAGES: true
         });
       });
-      return interaction.reply("unlocked");
+      return interaction.reply("This channel has been unlocked!");
     }
   }
 };

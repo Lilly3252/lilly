@@ -8,7 +8,7 @@ module.exports = {
     .setDescription("restrict a member.")
     .addMentionableOption((option) => option.setName("member").setDescription("Mention someone to restrict").setRequired(true))
     .addStringOption((option) => option.setName("restrictions").setDescription("choose a restriction").setRequired(true)
-          .addChoice("Embed", "embed").addChoice("Reaction", "reaction").addChoice("Voice", "voice")),
+          .addChoice("Embed", "embed").addChoice("Reaction", "reaction").addChoice("Voice", "voice").setRequired(true)),
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
       return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"]);

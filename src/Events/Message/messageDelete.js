@@ -3,23 +3,26 @@ const Event = require("../../Structures/Event"),
   Guild = require("../../Database/models/Guild");
 
 module.exports = class extends Event {
-  async run(a) {
-    
-    const b = await Guild.findOne({ guildID: a.guild.id });
-    if (b.messageDeleteMode === !1) {
+  async run(message) {
+    if (message.partial) {
       return;
-    }
-    if (!(b.messageDeleteMode === !1) && a.guild && null !== a.author) {
-      const c = new MessageEmbed().setAuthor(`${a.author.tag} (${a.author.id})`, a.author.displayAvatarURL()).addField("\u276F Channel", [a.channel].join("\n")).setTimestamp(new Date()).setFooter(`Deleted by: ${a.interaction.user.username}`);
-
-      a.content && c.addField("\u276F Content", [`${a.content.substring(0, 1020)}`].join("\n")),
-        a.attachments.size && c.addField("\u276F Attachment(s)", [`• ${a.attachments.map((a) => a.proxyURL).join("\n\u2022 ")}`].join("\n")),
-        !a.content && a.embeds.length && c.addField("\u276F Embeds", [`${a.embeds.length}`].join("\n"));
-      if (a.embeds.length) {
-        c.addField("\u276F Embed Description", [`${a.embeds[0].description}`].join("\n"));
+    } else {
+      const b = await Guild.findOne({ guildID: message.guild.id });
+      if (b.messageDeleteMode === !1) {
+        return;
       }
-      const d = b.logchannelID;
-      d && null !== d && a.client.channels.cache.get(d).send({ embeds: [c] });
+      if (!(b.messageDeleteMode === !1) && message.guild && null !== message.author) {
+        const deleteEmbed = new MessageEmbed().setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL()).addField("\u276F Channel", [message.channel].join("\n")).setTimestamp(new Date()).setFooter(`Deleted by: ${message.interaction.user.username}`);
+
+        message.content && deleteEmbed.addField("\u276F Content", [`${message.content.substring(0, 1020)}`].join("\n")),
+          message.attachments.size && deleteEmbed.addField("\u276F Attachment(s)", [`• ${message.attachments.map((a) => a.proxyURL).join("\n\u2022 ")}`].join("\n")),
+          !message.content && message.embeds.length && deleteEmbed.addField("\u276F Embeds", [`${message.embeds.length}`].join("\n"));
+        if (message.embeds.length) {
+          deleteEmbed.addField("\u276F Embed Description", [`${message.embeds[0].description}`].join("\n"));
+        }
+        const d = b.logchannelID;
+        d && null !== d && message.client.channels.cache.get(d).send({ embeds: [deleteEmbed] });
+      }
     }
   }
 };
