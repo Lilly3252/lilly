@@ -64,7 +64,7 @@ module.exports = class {
     return new Intl.ListFormat("en-GB", { style: "short", type: b }).format(a);
   }
   async loadCommands() {
-    return glob(`${this.directory}commands/**/*.js`).then((commands) => {
+    return glob(`${this.directory}Commands/**/*.js`).then((commands) => {
       for (const commandFile of commands) {
         const command = require(commandFile);
         //console.log(commandFile)
@@ -73,7 +73,7 @@ module.exports = class {
     });
   }
   async loadEvents() {
-    return glob(`${this.directory}events/**/*.js`).then((events) => {
+    return glob(`${this.directory}Events/**/*.js`).then((events) => {
       for (const eventFile of events) {
         delete require.cache[eventFile];
         const { name } = path.parse(eventFile);
