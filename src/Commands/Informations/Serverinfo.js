@@ -33,13 +33,13 @@ module.exports = {
 	async run(interaction) {
 		
 		const b = interaction.guild.roles.cache.sort((c, a) => a.position - c.position).map((a) => a.toString()),
-			c = interaction.guild.members.cache,
+			member = interaction.guild.members.cache,
 			d = interaction.guild.channels.cache,
 			e = interaction.guild.emojis.cache,
 			f = new MessageEmbed()
 				.setDescription(`**Guild information for __${interaction.guild.name}__**`)
 				.setColor("BLUE")
-				.setThumbnail(interaction.guild.iconURL({ dynamic: !0 }))
+				.setThumbnail(interaction.guild.iconURL({ dynamic: true }))
 				.addField(
 					"General",
 					[
@@ -61,20 +61,21 @@ module.exports = {
 					`**❯ Regular Emoji Count:** ${e.filter((a) => !a.animated).size}`,
 					`**❯ Animated Emoji Count:** ${e.filter((a) => a.animated).size}`,
 					`**❯ Member Count:** ${interaction.guild.memberCount}`,
-					`**❯ Humans:** ${c.filter((a) => !a.user.bot).size}`,
-					`**❯ Bots:** ${c.filter((a) => a.user.bot).size}`,
-					`**❯ Text Channels:** ${d.filter((a) => "text" === a.type).size}`,
-					`**❯ Voice Channels:** ${d.filter((a) => "voice" === a.type).size}`,
+					`**❯ Humans:** ${member.filter((a) => !a.user.bot).size}`,
+					`**❯ Bots:** ${member.filter((a) => a.user.bot).size}`,
+					`**❯ Text Channels:** ${d.filter((channel) => "GUILD_TEXT" === channel.type).size}`,
+					`**❯ Voice Channels:** ${d.filter((channel) => "GUILD_VOICE" === channel.type).size}`,
+					`**❯ Stage Channels:** ${d.filter((channel) => "GUILD_STAGE_VOICE" === channel.type).size}`,
 					`**❯ Boost Count:** ${interaction.guild.premiumSubscriptionCount || "0"}`,
 					"\u200B"
 				].join("\n"))
 				.addField(
 					"Presence",
 					[
-						`**❯ Online:** ${c.filter((a) => "online" === a.presence?.status).size}`,
-						`**❯ Idle:** ${c.filter((a) => "idle" === a.presence?.status).size}`,
-						`**❯ Do Not Disturb:** ${c.filter((a) => "dnd" === a.presence?.status).size}`,
-						`**❯ Offline:** ${c.filter((a) => "offline" === a.presence?.status).size}`,
+						`**❯ Online:** ${member.filter((guildmember) => "online" === guildmember.presence?.status).size}`,
+						`**❯ Idle:** ${member.filter((guildmember) => "idle" === guildmember.presence?.status).size}`,
+						`**❯ Do Not Disturb:** ${member.filter((guildmember) => "dnd" === guildmember.presence?.status).size}`,
+						`**❯ Offline:** ${member.filter((guildmember) => null === guildmember.presence).size}`,
 						"\u200B"
 					].join("\n")
 				)
