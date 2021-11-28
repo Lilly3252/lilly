@@ -9,8 +9,8 @@ module.exports = {
     .setName("ban")
     .setDescription("Ban a member.")
     .addUserOption((option) => option.setName("target").setDescription("Select a user").setRequired(true))
-    .addStringOption((option) => option.setName("reason").setDescription("reason to kick").setRequired(true)),
-  //! needs to be verified /
+    .addStringOption((option) => option.setName("reason").setDescription("reason to ban").setRequired(true)),
+  
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
       return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["BAN_MEMBERS"]);
@@ -25,11 +25,11 @@ module.exports = {
     let f = new MessageEmbed()
       .setTitle("Ban Hammer Used!")
       .setColor("RED")
-      .addField("Moderation", [`**❯ Action:** Ban`, `**❯ Member:** ${member.user.username}`, `**❯ Moderator:** ${a.author.tag} `, `**❯ Reason:** ${e}`].join("\n"))
+      .addField("Moderation", [`**❯ Action:** Ban`, `**❯ Member:** ${member.user.username}`, `**❯ Moderator:** ${interaction.user.tag} `, `**❯ Reason:** ${e}`].join("\n"))
       .setFooter(`Date: ${interaction.createdAt.toLocaleString()}`);
     member
       .send(`Hello, you have been banned from ${interaction.guild.name} for: ${e}`)
-      .then(() => interaction.guild.ban(member))
+      .then(() => interaction.guild.members.ban(member))
       .catch((a) => console.log(a)),
       interaction.reply(`**${member.user.tag}** has been banned`);
     const g = c.logchannelID;
