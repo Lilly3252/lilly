@@ -35,7 +35,7 @@ module.exports = {
 					"System",
 					[
 						`**❯ Platform:** ${process.platform}`,
-						`**❯ Uptime:** ${ms(1e3 * os.uptime(), { long: !0 })}`,
+						`**❯ Uptime:** ${ms(1e3 * process.uptime(), { long: !0 })}`,
 						`**❯ CPU:**`,
 						`\u3000 Cores: ${os.cpus().length}`,
 						`\u3000 Model: ${b.model}`,
