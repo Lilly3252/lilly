@@ -2,8 +2,10 @@ const path = require("path"),
   { promisify } = require("util"),
   glob = promisify(require("glob")),
   Event = require("./Event.js");
-const inviteRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
-const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
+const inviteRegex =
+  /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
+const botInvRegex =
+  /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
 
 module.exports = class {
   constructor(a) {
@@ -16,19 +18,37 @@ module.exports = class {
 
   list(a, b = "and") {
     const c = a.length;
-    return 0 === c ? "" : 1 === c ? a[0] : `${a.slice(0, -1).join(", ")}${1 < c ? `${2 < c ? "," : ""} ${b} ` : ""}${a.slice(-1)}`;
+    return 0 === c
+      ? ""
+      : 1 === c
+        ? a[0]
+        : `${a.slice(0, -1).join(", ")}${1 < c ? `${2 < c ? "," : ""} ${b} ` : ""
+        }${a.slice(-1)}`;
   }
   formatNumberK(a) {
-    return 999 < a ? `${(a / 1e3).toLocaleString(void 0, { maximumFractionDigits: 1 })}K` : a;
+    return 999 < a
+      ? `${(a / 1e3).toLocaleString(void 0, { maximumFractionDigits: 1 })}K`
+      : a;
   }
-  stripInvites(a, { guild: b = !0, bot: c = !0, text: d = "[redacted invite]" } = {}) {
-    return b && (a = a.replace(inviteRegex, d)), c && (a = a.replace(botInvRegex, d)), a;
+  stripInvites(
+    a,
+    { guild: b = true, bot: c = true, text: d = "[redacted invite]" } = {}
+  ) {
+    return (
+      b && (a = a.replace(inviteRegex, d)),
+      c && (a = a.replace(botInvRegex, d)),
+      a
+    );
   }
   delay(a) {
     return new Promise((b) => setTimeout(b, a));
   }
   isClass(a) {
-    return "function" == typeof a && "object" == typeof a.prototype && "class" === a.toString().substring(0, 5);
+    return (
+      "function" == typeof a &&
+      "object" == typeof a.prototype &&
+      "class" === a.toString().substring(0, 5)
+    );
   }
   get directory() {
     return `${path.dirname(require.main.filename)}${path.sep}`;
@@ -44,7 +64,8 @@ module.exports = class {
   formatBytes(a) {
     if (0 === a) return "0 Bytes";
     const b = Math.floor(Math.log(a) / Math.log(1024));
-    return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]}`;
+    return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]
+      }`;
   }
   removeDuplicates(a) {
     return [...new Set(a)];
@@ -67,7 +88,6 @@ module.exports = class {
     return glob(`${this.directory}Commands/**/*.js`).then((commands) => {
       for (const commandFile of commands) {
         const command = require(commandFile);
-        //console.log(commandFile)
         this.client.commands.set(command.data.name, command);
       }
     });
@@ -78,9 +98,12 @@ module.exports = class {
         delete require.cache[eventFile];
         const { name } = path.parse(eventFile);
         const File = require(eventFile);
-        if (!this.isClass(File)) throw new TypeError(`Event ${name} doesn't export a class!`);
+        if (!this.isClass(File))
+          throw new TypeError(`Event ${name} doesn't export a class!`);
         const event = new File(this.client, name);
-        if (!(event instanceof Event)) throw new TypeError(`Event ${name} doesn't belong in Events`);
+
+        if (!(event instanceof Event))
+          throw new TypeError(`Event ${name} doesn't belong in Events`);
         this.client.events.set(event.name, event);
         event.emitter[event.type](name, (...args) => event.run(...args));
       }

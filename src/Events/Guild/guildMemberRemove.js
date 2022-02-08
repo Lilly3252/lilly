@@ -4,13 +4,17 @@ const Event = require("../../Structures/Event.js"),
   Guild = require("../../Database/models/Guild");
 module.exports = class extends Event {
   constructor(...a) {
-    super(...a, { once: !1 });
+    super(...a, { once: false });
   }
-  async run(interaction) {
+  async run(a) {
     if (!a.guild) return;
     const b = await Guild.findOne({ guildID: a.guild.id }),
-      c = new MessageEmbed().setColor("RANDOM").setAuthor(`${a.user.tag} (${a.id})`, a.user.displayAvatarURL()).setFooter("User left").setTimestamp(new Date()),
+      c = new MessageEmbed()
+        .setColor("RANDOM")
+        .setAuthor({name:`${a.user.tag} (${a.id})`,iconURL: a.user.displayAvatarURL()})
+        .setFooter({text:"User left"})
+        .setTimestamp(new Date()),
       d = a.guild.channels.cache.get(b.welcomechannelID);
-    d && d.send(c);
+    d && d.send({embeds : [c]});
   }
 };

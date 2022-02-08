@@ -2,7 +2,7 @@ const Event = require("../../Structures/Event.js"),
   mongoose = require("mongoose"),
   Guild = require("../../Database/models/Guild"),
   config = require("../../config.json");
-  const fs = require("fs");
+const fs = require("fs");
 
 module.exports = class extends Event {
   constructor(...a) {
@@ -21,7 +21,7 @@ module.exports = class extends Event {
       messageDeleteMode: false,
       messageUpdateMode: false,
       messageBulkDeleteMode: false,
-      PersonalizedWelcomeMessage: null
+      PersonalizedWelcomeMessage: null,
     });
     b
       .save()
@@ -29,9 +29,9 @@ module.exports = class extends Event {
       .catch((a) => console.error(a)),
       console.log("I have joined a new server! Saved to DB.");
 
-   // const tagFiles = fs.readdirSync(`src/Tags/${folder}/`).filter((file) => file.endsWith(".toml"))
-     // for (const file of tagFiles) {
-      //if(!file){
-       // fs.writeFile(`${a.name}.toml`){ encoding: 'utf8' }
-      }
+    // const tagFiles = fs.readdirSync(`src/Tags/${folder}/`).filter((file) => file.endsWith(".toml"))
+    // for (const file of tagFiles) {
+    //if(!file){
+    // fs.writeFile(`${a.name}.toml`){ encoding: 'utf8' }
   }
+};

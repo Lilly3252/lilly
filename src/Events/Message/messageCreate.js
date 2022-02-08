@@ -1,87 +1,54 @@
 const Event = require("../../Structures/Event");
-const config = require("../../config.json");
-const mongoose = require("mongoose");
 const Guild = require("../../Database/models/Guild");
 const { MessageEmbed } = require("discord.js");
 
-// Line 83 to 125 credit to ShinoTheShino
 
 module.exports = class extends Event {
   async run(message) {
-    if (/*!message.guild || */ message.author.bot) return;
-    // checking the dbc
-    if ((message.channel.type = "DM")) {
-      console.log(message.content);
-    }
-  
-
-    /*const b = await Guild.findOne({ guildID: message.guild.id }, (b, c) => {
-      if ((b && console.error(b), !c)) {
-        const b = new Guild({
-          _id: mongoose.Types.ObjectId(),
-          guildID: message.guild.id,
-          guildName: message.guild.name,
-          prefix: config.prefix,
-          moderatorRoleID: null,
-          welcomechannelID: null,
-          logchannelID: null,
-          antiRaidMode: false,
-          messageBulkDeleteMode: false,
-          messageDeleteMode: false,
-          messageUpdateMode: false,
-          PersonalizedWelcomeMessage: null,
-        });
-        return (
-          b
-            .save()
-            .then((a) => console.log(a))
-            .catch((a) => console.error(a)),
-          message.channel
-            .send(
-              "This server was not in our database! We have now added and you should be able to use bot commands."
-            )
-            .then((a) => a.delete({ timeout: 1e4 }))
-        );
-      }
-    });
-    //*anti ping-spam auto-mod
-    const mRegex = /<@!?(\d+?)>/g;
-    const m = a.content.match(mRegex);
-    // !: need to know how to get rid of "Cannot read property 'length' of null" error here
-    if(null === m.length){a.channel.send("no ping")}
-    if (m.length > 2) {
-      // TODO: VVVV need to know what consequences i need to put there VVVV
-      a.channel.send(`i detected ${m.length} ping`);
-    }
-    // * mentions , bot , bot role and moderator role
-    const c = { ignoreEveryone: !0 };
-    `<@!${message.guild.me.id}>` === message.content &&
-      message.channel.send(`My commands are Slash commands now.`),
-      message.mentions.has("775530518485270559", c) &&
-        message.channel.send(`Role mentioned , what's up?`);
-
+    if (!message.guild || message.author.bot) return;
+    const b = await Guild.findOne({ guildID: message.guild.id });
     const d = b.moderatorRoleID;
     const e = b.logchannelID;
+    // * mentions(ping) & moderator role
+    const c = { ignoreEveryone: true };
+    const mRegex = /<@!?(\d+?)>/g;
+    const m = message.content.match(mRegex);
+
+   /* const bannedEmbed = new MessageEmbed()
+      .setTitle("Auto-mod spam-ping detection")
+      .setColor('DARK_RED')
+      .addField(
+        "Moderation",
+        [
+          `**❯ Action:** Ban`,
+          `**❯ Member:** ${member.user.username}`,
+          `**❯ Moderator:** ${interaction.user.tag} `,
+          `**❯ Reason:** Spam Detection`,
+        ].join("\n")
+      )
+      .setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
+
+    if (!m?.length) { return }
+    if (m?.length > 8) {
+      message.member.ban({ days: 1, reason: "Spam Detection" }).then(() => message.client.channels.cache.get(e).send({ embeds: [bannedEmbed] }));
+    }
+*/
+    const modMentionEmbed = new MessageEmbed()
+      .setTitle("Moderator Mentioned")
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription([
+        `**Person who mentioned**: ${message.member}`,
+        `**Channel**: ${message.channel}`,
+        `**Content**: ${message.content}`,
+      ].join("\n"))
+      .addField("\u200B", `[Click here to see the message](${message.url})`)
+
     if (
       message.mentions.has(d, c) &&
-      (message.client.channels.cache.get(e).send(
-        new MessageEmbed()
-          .setTitle("Moderator Mentioned")
-          .setThumbnail(a.guild.iconURL({ dynamic: !0 }))
-          .setDescription([
-            `**Person who mentioned**: ${message.member}`,
-            `**Channel**: ${message.channel}`,
-            `**Content**: ${message.content}`,
-          ])
-          .addField("\u200B", `[Click here to see the message](${message.url})`)
-      ),
-      !e && !d)
+      (message.client.channels.cache.get(e).send({ embeds: [modMentionEmbed] }),
+        !e && !d)
     )
       return;
 
-    }
-  }
-
-*/
   }
 };

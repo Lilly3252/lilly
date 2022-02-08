@@ -63,7 +63,10 @@
 				"MANAGE_THREADS": "❌Error: You're missing MANAGE_THREADS Permission to use that command!",
 				"USE_PUBLIC_THREADS": "❌Error: You're missing USE_PUBLIC_THREADS Permission to use that command!",
 				"USE_PRIVATE_THREADS": "❌Error: You're missing USE_PRIVATE_THREADS Permission to use that command!",
-				"USE_EXTERNAL_STICKERS": "❌Error: You're missing USE_EXTERNAL_STICKERS Permission to use that command!"
+				"USE_EXTERNAL_STICKERS": "❌Error: You're missing USE_EXTERNAL_STICKERS Permission to use that command!",
+				"SEND_MESSAGES_IN_THREADS": "❌Error: You're missing SEND_MESSAGES_IN_THREADS Permission to use that command!",
+				"START_EMBEDDED_ACTIVITIES": "❌Error:You're missing START_EMBEDDED_ACTIVITIES Permission to use that command!",
+				"MODERATE_MEMBERS": "❌Error: You're missing MODERATE_MEMBERS Permission to use that command!"
 			},
 			"BOT_PERM": {
 				"CREATE_INSTANT_INVITE": "❌Error: I am missing CREATE_INSTANT_INVITE Permission to use that command!",
@@ -102,7 +105,10 @@
 				"MANAGE_THREADS": "❌Error: I am missing MANAGE_THREADS Permission to use that command!",
 				"USE_PUBLIC_THREADS": "❌Error: I am missing USE_PUBLIC_THREADS Permission to use that command!",
 				"USE_PRIVATE_THREADS": "❌Error: I am missing USE_PRIVATE_THREADS Permission to use that command!",
-				"USE_EXTERNAL_STICKERS": "❌Error: I am missing USE_EXTERNAL_STICKERS Permission to use that command!"
+				"USE_EXTERNAL_STICKERS": "❌Error: I am missing USE_EXTERNAL_STICKERS Permission to use that command!",
+				"SEND_MESSAGES_IN_THREADS": "❌Error: I am missing SEND_MESSAGES_IN_THREADS Permission to use that command!",
+				"START_EMBEDDED_ACTIVITIES": "❌Error: I am missing START_EMBEDDED_ACTIVITIES Permission to use that command!",
+				"MODERATE_MEMBERS": "❌Error: I am missing MODERATE_MEMBERS Permission to use that command!"
 			}
 		}
 	}

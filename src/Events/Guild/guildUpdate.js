@@ -4,7 +4,7 @@ const Guild = require("../../Database/models/Guild");
 const config = require("../../config.json");
 module.exports = class extends Event {
   constructor(...a) {
-    super(...a, { once: !1 });
+    super(...a, { once: false });
   }
   run(oldGuild, newGuild) {
     /*const b = await Guild.findOne({ guildID: oldGuild.guild.id}) 

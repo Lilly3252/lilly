@@ -3,17 +3,14 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 //NOTE TO SELF : add a .toml creation file for guildCreate event. Every guild will have its toml file
 
 module.exports = {
-	data: new SlashCommandBuilder()
-    .setName("tags")
-    .setDescription("tags.")
-    /*.addStringOption((option) => option.setName("action").setDescription("Choose a action").setRequired(true)
+  data: new SlashCommandBuilder().setName("tags").setDescription("tags."),
+  /*.addStringOption((option) => option.setName("action").setDescription("Choose a action").setRequired(true)
         .addChoice("Create", "create").addChoice("Delete", "delete").addChoice("Modify", "modify").setRequired(true))
     .addStringOption((option) => option.setName("query").setDescription("Specify a tag name").setRequired(true))
     .addStringOption((option) => option.setName("message").setDescription("message to write").setRequired(true))
-    */,
-	async run(interaction, args) {
-		interaction.reply("this command is not completed yet");
-/*
+    */ async run(interaction) {
+    interaction.reply("this command is not completed yet");
+    /*
 const action_name = interaction.options.getString("action");
 const query = interaction.options.getString("query");
 const message = interaction.options.getString("message");
@@ -21,7 +18,7 @@ const message = interaction.options.getString("message");
 const tagFiles = fs.readdirSync(`src/Tags/${folder}/`).filter((file) => file.endsWith(".toml"))
 for (const file of tagFiles) {
       if(!file){
-        fs.writeFile(`${a.name}.toml`){ encoding: 'utf8' }
+        fs.writeFile(`${interaction.guild.name}.toml`){ encoding: 'utf8' }
       }
   }
 
@@ -61,6 +58,6 @@ switch (action_name) {
 
       break;
   }
-*/ 
-	}
+*/
+  },
 };

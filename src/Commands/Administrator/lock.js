@@ -6,7 +6,12 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("lock")
     .setDescription("Lock a channel")
-    .addBooleanOption((option) => option.setName("choice").setDescription("Select a boolean").setRequired(true)),
+    .addBooleanOption((option) =>
+      option
+        .setName("choice")
+        .setDescription("Select a boolean")
+        .setRequired(true)
+    ),
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
       return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"]);
@@ -20,7 +25,7 @@ module.exports = {
 
       interaction.channel.guild.channels.cache.forEach(async (text_channel) => {
         await text_channel.permissionOverwrites.edit(role, {
-          SEND_MESSAGES: false
+          SEND_MESSAGES: false,
         });
       });
 
@@ -30,10 +35,10 @@ module.exports = {
       let role = interaction.channel.guild.roles.cache.get(interaction.guild.id);
       interaction.channel.guild.channels.cache.forEach(async (text_channel) => {
         await text_channel.permissionOverwrites.edit(role, {
-          SEND_MESSAGES: true
+          SEND_MESSAGES: true,
         });
       });
       return interaction.reply("This channel has been unlocked!");
     }
-  }
+  },
 };

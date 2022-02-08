@@ -3,11 +3,13 @@ const moment = require("moment");
 const { shorten } = require("../../Structures/Util");
 
 module.exports = {
-	data: new SlashCommandBuilder().setName("remind").setDescription("remind something for you."),
-	async run(interaction, { time }) {
-		interaction.reply("this command is not complete , try again later!");
-		// * make this work
-		/*const exists = await this.client.timers.exists(
+  data: new SlashCommandBuilder()
+    .setName("remind")
+    .setDescription("remind something for you."),
+  async run(interaction, { time }) {
+    interaction.reply("this command is not complete , try again later!");
+    // * make this work
+    /*const exists = await this.client.timers.exists(
       interaction.channel.id,
       interaction.author.id
     );
@@ -31,6 +33,6 @@ module.exports = {
     return interaction.reply(
       `🕰️ Okay, I will remind you **"${title}"** ${display}.`
     );
-	*/
-	}
+  */
+  },
 };

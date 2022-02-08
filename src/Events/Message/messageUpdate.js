@@ -9,35 +9,53 @@ module.exports = class extends Event {
     if (null === message || null === b) return;
     if (null === message.content || null === b.content) return;
     if (message.content.includes("https:")) return;
-    if (!message.guild || !b.guild || message.author.bot || b.author.bot) return;
+    if (!message.guild || !b.guild || message.author.bot || b.author.bot)
+      return;
     const c = await Guild.findOne({ guildID: message.guild.id });
-    if (!1 === c.messageUpdateMode) return;
-    const d = new MessageEmbed().setAuthor(`${b.author.tag} (${b.author.id})`, b.author.displayAvatarURL()).addField("\u276F Channel", [b.channel].join("\n"));
+    if (false === c.messageUpdateMode) return;
+    const d = new MessageEmbed()
+      .setAuthor({name:
+        `${b.author.tag} (${b.author.id})`,
+        iconURL: b.author.displayAvatarURL()}
+      )
+      .addField("\u276F Channel", [b.channel].join("\n"));
     let e = "";
-    if (/```(.*?)```/s.test(message.content) && /```(.*?)```/s.test(b.content)) {
+    if (
+      /```(.*?)```/s.test(message.content) &&
+      /```(.*?)```/s.test(b.content)
+    ) {
       const c = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(message.content);
       if (!c || !c[2]) return;
       const f = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(message.content);
       if (!f || !f[2]) return;
       if (c[2] === f[2]) return;
-      const g = diff.diffLines(c[2], f[2], { newlineIsToken: !0 });
+      const g = diff.diffLines(c[2], f[2], { newlineIsToken: true });
       for (const a of g) {
         if ("\n" === a.value) continue;
         const b = a.added ? "+ " : a.removed ? "- " : "";
         e += `${b}${a.value.replace(/\n/g, "")}\n`;
       }
-      d.addField("\u276F Modified Message", [`${"```diff\n"}${e.substring(0, 1e3)}${"\n```"}`].join("\n"));
+      d.addField(
+        "\u276F Modified Message",
+        [`${"```diff\n"}${e.substring(0, 1e3)}${"\n```"}`].join("\n")
+      );
     } else {
-      const c = diff.diffWords(Util.escapeMarkdown(message.content), Util.escapeMarkdown(b.content));
+      const c = diff.diffWords(
+        Util.escapeMarkdown(message.content),
+        Util.escapeMarkdown(b.content)
+      );
       for (const a of c) {
         const b = a.added ? "**" : a.removed ? "~~" : "";
         e += `${b}${a.value}${b}`;
       }
-      d.addField("\u276F Modified Message", [`${e.substring(0, 1020)}` || "\u200B"].join("\n"));
+      d.addField(
+        "\u276F Modified Message",
+        [`${e.substring(0, 1020)}` || "\u200B"].join("\n")
+      );
     }
-    d.addField("Link!!", `[Click here to see the message](${b.url})`, !0)
+    d.addField("Link!!", `[Click here to see the message](${b.url})`, true)
       .setTimestamp(message.editedAt || message.editedAt || new Date())
-      .setFooter("Edited");
+      .setFooter({text:"Edited"});
     const f = c.logchannelID;
     message.client.channels.cache.get(f).send({ embeds: [d] });
   }
