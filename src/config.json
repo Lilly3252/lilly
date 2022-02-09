@@ -1,8 +1,8 @@
 {
-  "GuildID":"GUILD_ID_HERE",
-  "token": "TOKEN_HERE",
-  "owners": ["OWNERID_HERE"],
-  "defaultPerms": ["PERMISSIONS","HERE"],
-  "mongooseLink":"MONGO_DB_LINK_HERE",
-  "ClientID":"BOT_ID_HERE"
+	"GuildID": "751501408213401650",
+	"token": "TOKEN",
+	"owners": ["165922734461812736"],
+	"defaultPerms": ["VIEW_CHANNEL", "SEND_MESSAGES"],
+	"mongooseLink": "mongodb+srv://Lilly-dev:PASSWORD@lillybot.43rtj.mongodb.net/Lilly-dev",
+	"ClientID": "775530257645830145"
 }

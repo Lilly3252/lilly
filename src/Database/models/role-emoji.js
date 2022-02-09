@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const roleEmojiSchema = new Schema({
   guildID: String,
   id: String,
-  character: String,
+  character: String
 });
 
 const RoleEmoji = model("role-emoji", roleEmojiSchema);

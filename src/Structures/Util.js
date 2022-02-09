@@ -21,9 +21,8 @@ module.exports = class {
     return 0 === c
       ? ""
       : 1 === c
-      ? a[0]
-      : `${a.slice(0, -1).join(", ")}${
-          1 < c ? `${2 < c ? "," : ""} ${b} ` : ""
+        ? a[0]
+        : `${a.slice(0, -1).join(", ")}${1 < c ? `${2 < c ? "," : ""} ${b} ` : ""
         }${a.slice(-1)}`;
   }
   formatNumberK(a) {
@@ -33,7 +32,7 @@ module.exports = class {
   }
   stripInvites(
     a,
-    { guild: b = !0, bot: c = !0, text: d = "[redacted invite]" } = {}
+    { guild: b = true, bot: c = true, text: d = "[redacted invite]" } = {}
   ) {
     return (
       b && (a = a.replace(inviteRegex, d)),
@@ -65,9 +64,8 @@ module.exports = class {
   formatBytes(a) {
     if (0 === a) return "0 Bytes";
     const b = Math.floor(Math.log(a) / Math.log(1024));
-    return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${
-      ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]
-    }`;
+    return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]
+      }`;
   }
   removeDuplicates(a) {
     return [...new Set(a)];
@@ -83,21 +81,19 @@ module.exports = class {
     return a.roles.highest.position < b.roles.highest.position;
   }
 
-
   formatArray(a, b = "conjunction") {
     return new Intl.ListFormat("en-GB", { style: "short", type: b }).format(a);
   }
   async loadCommands() {
-    return glob(`${this.directory}commands/**/*.js`).then((commands) => {
+    return glob(`${this.directory}Commands/**/*.js`).then((commands) => {
       for (const commandFile of commands) {
         const command = require(commandFile);
-        //console.log(commandFile)
         this.client.commands.set(command.data.name, command);
       }
     });
   }
   async loadEvents() {
-    return glob(`${this.directory}events/**/*.js`).then((events) => {
+    return glob(`${this.directory}Events/**/*.js`).then((events) => {
       for (const eventFile of events) {
         delete require.cache[eventFile];
         const { name } = path.parse(eventFile);
@@ -105,6 +101,7 @@ module.exports = class {
         if (!this.isClass(File))
           throw new TypeError(`Event ${name} doesn't export a class!`);
         const event = new File(this.client, name);
+
         if (!(event instanceof Event))
           throw new TypeError(`Event ${name} doesn't belong in Events`);
         this.client.events.set(event.name, event);

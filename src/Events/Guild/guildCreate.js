@@ -2,9 +2,11 @@ const Event = require("../../Structures/Event.js"),
   mongoose = require("mongoose"),
   Guild = require("../../Database/models/Guild"),
   config = require("../../config.json");
+const fs = require("fs");
+
 module.exports = class extends Event {
   constructor(...a) {
-    super(...a, { once: !1 });
+    super(...a, { once: false });
   }
   run(a) {
     const b = new Guild({
@@ -15,10 +17,10 @@ module.exports = class extends Event {
       moderatorRoleID: null,
       welcomechannelID: null,
       logchannelID: null,
-      antiRaidMode: !1,
-      messageDeleteMode: !1,
-      messageUpdateMode: !1,
-      messageBulkDeleteMode: !1,
+      antiRaidMode: false,
+      messageDeleteMode: false,
+      messageUpdateMode: false,
+      messageBulkDeleteMode: false,
       PersonalizedWelcomeMessage: null,
     });
     b
@@ -26,5 +28,10 @@ module.exports = class extends Event {
       .then((a) => console.log(a))
       .catch((a) => console.error(a)),
       console.log("I have joined a new server! Saved to DB.");
+
+    // const tagFiles = fs.readdirSync(`src/Tags/${folder}/`).filter((file) => file.endsWith(".toml"))
+    // for (const file of tagFiles) {
+    //if(!file){
+    // fs.writeFile(`${a.name}.toml`){ encoding: 'utf8' }
   }
 };

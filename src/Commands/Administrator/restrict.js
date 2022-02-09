@@ -1,142 +1,111 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-(Guild = require("../../Database/models/Guild")),
-  ({ MessageEmbed } = require("discord.js"));
-  const { Permissions } = require("discord.js");
+const Guild = require("../../Database/models/Guild");
+const { Permissions, MessageEmbed } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
+const Embed = require("./../../Structures/messageEmbeds")
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("restrict")
     .setDescription("restrict a member.")
-    .addStringOption((option) =>
-      option
-        .setName("restrictions")
-        .setDescription("choose a restriction")
-        .setRequired(true)
-        .addChoice("Embed", "embed")
-        .addChoice("Reaction", "reaction")
-        .addChoice("Voice", "voice"))
-    .addMentionableOption((option) =>
-        option.setName("member").setDescription("Mention someone to restrict"))
-    ,
-  async run(interaction, b) {
+    .addMentionableOption((option) => option.setName("member").setDescription("Mention someone to restrict").setRequired(true))
+    .addStringOption((option) => option.setName("restrictions").setDescription("Choose a restriction").setRequired(true)
+      .addChoice("Embed", "embed").addChoice("Reaction", "reaction").addChoice("Voice", "voice").addChoice("Slash", "slash").setRequired(true))
+    .addStringOption((option) => option.setName("reasons").setDescription("Specify a reason").setRequired(true)),
+  async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
-      return interaction.reply(
-        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"]
-      );
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"]);
     }
-    if(!interaction.guild.me.permission.has(Permissions.FLAGS.MANAGE_ROLES)){
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_ROLES"])
+    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
+      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_ROLES"]);
     }
-    const c = await Guild.findOne({ guildID: interaction.guild.id }),
-      d = b[0],
-      e = a.mentions.members.first() || a.guild.members.cache.get(b[1]),
-      f = b.slice(2).join(" ") || "No reason given.";
-    let g = new MessageEmbed()
-      .setAuthor(
-        `${a.author.tag} (${a.author.id})`,
-        a.author.displayAvatarURL()
-      )
-      .setTitle("Restricted!")
-      .setColor("DARK_ORANGE")
-      .addField(
-        "Moderation",
-        [
-          `**❯ Action:** ${d} restriction`,
-          `**❯ Member:** ${e.user.username}`,
-          `**❯ Moderator:** ${a.author.tag} `,
-          `**❯ Reason:** ${f}`,
-        ].join("\n")
-      )
-      .setTimestamp(new Date())
-      .setFooter(`${d} restricted`);
-    switch (d) {
+    const c = await Guild.findOne({ guildID: interaction.guild.id })
+    const e = interaction.options.getMentionable("member")
+    const reason = interaction.options.getString("reasons");
+    const restriction_name = interaction.options.getString("restrictions");
+
+    switch (restriction_name) {
       case "embed":
-        let b = a.guild.roles.cache.find((a) => "Embed Restriction" === a.name);
+        let b = interaction.guild.roles.cache.find((a) => "Embed Restriction" === a.name);
         if (!b)
           try {
-            (b = await a.guild.roles.create({
-              data: { name: "Embed Restriction", color: "#514f48" },
+            (b = await interaction.guild.roles.create({
+              name: "Embed Restriction", color: "#514f48"
             })),
-              a.guild.channels.cache.forEach(async (a) => {
-                await a.updateOverwrite(b, {
-                  EMBED_LINKS: !1,
-                  ATTACH_FILES: !1,
+              interaction.guild.channels.cache.forEach(async (text_channel) => {
+                await text_channel.permissionOverwrites.edit(b, {
+                  EMBED_LINKS: false,
+                  ATTACH_FILES: false
                 });
               });
           } catch (a) {
             console.log(a.stack);
           }
         e.roles.add(b).then(() => {
-          e
-            .send(
-              `Hello, you have been restricted in ${a.guild.name} for: ${f}`
-            )
-            .catch((a) => console.log(a)),
-            interaction.reply(
-              `${e.user.username} was successfully restricted.`
-            );
+          e.send(`Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`).catch((a) => console.log(a)), interaction.reply({ content: `${e.user.username} was successfully restricted.`, ephemeral: true });
         });
         break;
       case "reaction":
-        let c = a.guild.roles.cache.find(
-          (a) => "Reaction Restriction" === a.name
-        );
+        let c = interaction.guild.roles.cache.find((a) => "Reaction Restriction" === a.name);
         if (!c)
           try {
-            (c = await a.guild.roles.create({
-              data: { name: "Reaction Restriction", color: "#514f48" },
+            (c = await interaction.guild.roles.create({
+              name: "Reaction Restriction", color: "#514f48"
             })),
-              a.guild.channels.cache.forEach(async (a) => {
-                await a.updateOverwrite(c, { ADD_REACTIONS: !1 });
+              interaction.guild.channels.cache.forEach(async (text_channel) => {
+                await text_channel.permissionOverwrites.edit(c, {
+                  ADD_REACTIONS: false
+                });
               });
           } catch (a) {
             console.log(a.stack);
           }
         e.roles.add(c).then(() => {
-          e
-            .send(
-              `Hello, you have been restricted in ${a.guild.name} for: ${f}`
-            )
-            .catch((a) => console.log(a)),
-            interaction.reply(
-              `${e.user.username} was successfully restricted.`
-            );
+          e.send(`Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`).catch((a) => console.log(a)), interaction.reply({ content: `${e.user.username} was successfully restricted.`, ephemeral: true });
+        });
+        break;
+      case "slash":
+        let SlashRole = interaction.guild.roles.cache.find((a) => "Slash Restriction" === a.name);
+        if (!SlashRole)
+          try {
+            (SlashRole = await interaction.guild.roles.create({
+              name: "Slash Restriction", color: "#514f48",
+            })),
+              interaction.guild.channels.cache.forEach(async (text_channel) => {
+                await text_channel.permissionOverwrites.edit(SlashRole, {
+                  USE_APPLICATION_COMMANDS: false
+                });
+              });
+          } catch (a) {
+            console.log(a.stack);
+          }
+        e.roles.add(SlashRole).then(() => {
+          e.send(`Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`).catch((a) => console.log(a)), interaction.reply({ content: `${e.user.username} was successfully restricted.`, ephemeral: true });
         });
         break;
       case "voice":
-        let g = a.guild.roles.cache.find((a) => "Voice Restriction" === a.name);
+        let g = interaction.guild.roles.cache.find((a) => "Voice Restriction" === a.name);
         if (!g)
           try {
-            (g = await a.guild.roles.create({
-              data: { name: "Voice Restriction", color: "#514f48" },
+            (g = await interaction.guild.roles.create({
+              name: "Voice Restriction", color: "#514f48"
             })),
-              a.guild.channels.cache.forEach(async (a) => {
-                await a.updateOverwrite(g, {
-                  STREAM: !1,
-                  CONNECT: !1,
-                  SPEAK: !1,
-                  USE_VAD: !1,
+              interaction.guild.channels.cache.forEach(async (text_channel) => {
+                await text_channel.permissionOverwrites.edit(g, {
+                  STREAM: false,
+                  CONNECT: false,
+                  SPEAK: false,
+                  USE_VAD: false
                 });
               });
           } catch (a) {
             console.log(a.stack);
           }
         e.roles.add(g).then(() => {
-          e
-            .send(
-              `Hello, you have been restricted in ${a.guild.name} for: ${f}`
-            )
-            .catch((a) => console.log(a)),
-            interaction.reply(
-              `${e.user.username} was successfully restricted.`
-            );
+          e.send(`Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`).catch((a) => console.log(a)), interaction.reply({ content: `${e.user.username} was successfully restricted.`, ephemeral: true });
         });
-        const { channel: h } = a.member.voice;
-        if (!e) return a.reply("Well ... Okay? but who??");
-        if (!h) return a.reply("That user/bot isn't in a voice channel.");
         e.voice.setChannel(null);
     }
     const h = c.logchannelID;
-    h && null !== h && a.client.channels.cache.get(h).send({ embeds: [g] });
-  },
+    h && null !== h && interaction.client.channels.cache.get(h).send({ embeds: [Embed.RestrictEmbed(interaction, reason, restriction_name, e)] });
+  }
 };

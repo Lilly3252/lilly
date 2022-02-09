@@ -12,13 +12,13 @@ module.exports = class extends Event {
     if (!message.guild || !b.guild || message.author.bot || b.author.bot)
       return;
     const c = await Guild.findOne({ guildID: message.guild.id });
-    if (!1 === c.messageUpdateMode) return;
+    if (false === c.messageUpdateMode) return;
     const d = new MessageEmbed()
-      .setAuthor(
+      .setAuthor({name:
         `${b.author.tag} (${b.author.id})`,
-        b.author.displayAvatarURL()
+        iconURL: b.author.displayAvatarURL()}
       )
-      .addField("\u276F Channel", b.channel);
+      .addField("\u276F Channel", [b.channel].join("\n"));
     let e = "";
     if (
       /```(.*?)```/s.test(message.content) &&
@@ -29,7 +29,7 @@ module.exports = class extends Event {
       const f = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(message.content);
       if (!f || !f[2]) return;
       if (c[2] === f[2]) return;
-      const g = diff.diffLines(c[2], f[2], { newlineIsToken: !0 });
+      const g = diff.diffLines(c[2], f[2], { newlineIsToken: true });
       for (const a of g) {
         if ("\n" === a.value) continue;
         const b = a.added ? "+ " : a.removed ? "- " : "";
@@ -37,11 +37,11 @@ module.exports = class extends Event {
       }
       d.addField(
         "\u276F Modified Message",
-        `${"```diff\n"}${e.substring(0, 1e3)}${"\n```"}`
+        [`${"```diff\n"}${e.substring(0, 1e3)}${"\n```"}`].join("\n")
       );
     } else {
       const c = diff.diffWords(
-        Util.escapeMarkdown(a.content),
+        Util.escapeMarkdown(message.content),
         Util.escapeMarkdown(b.content)
       );
       for (const a of c) {
@@ -50,13 +50,13 @@ module.exports = class extends Event {
       }
       d.addField(
         "\u276F Modified Message",
-        `${e.substring(0, 1020)}` || "\u200B"
+        [`${e.substring(0, 1020)}` || "\u200B"].join("\n")
       );
     }
-    d.addField("Link!!", `[Click here to see the message](${b.url})`, !0)
+    d.addField("Link!!", `[Click here to see the message](${b.url})`, true)
       .setTimestamp(message.editedAt || message.editedAt || new Date())
-      .setFooter("Edited");
+      .setFooter({text:"Edited"});
     const f = c.logchannelID;
-    a.client.channels.cache.get(f).send(d);
+    message.client.channels.cache.get(f).send({ embeds: [d] });
   }
 };

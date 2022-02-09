@@ -4,24 +4,15 @@ const Util = require("./Util.js");
 module.exports = class extends Client {
   constructor(a = {}) {
     super({
-      disableMentions: "everyone",
       partials: ["MESSAGE", "CHANNEL", "REACTION", "USER", "GUILD_MEMBER"],
       intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_BANS,
-        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-        Intents.FLAGS.GUILD_INTEGRATIONS,
-        Intents.FLAGS.GUILD_WEBHOOKS,
-        Intents.FLAGS.GUILD_INVITES,
         Intents.FLAGS.GUILD_VOICE_STATES,
         Intents.FLAGS.GUILD_PRESENCES,
         Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-        Intents.FLAGS.GUILD_MESSAGE_TYPING,
         Intents.FLAGS.DIRECT_MESSAGES,
-        Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-        Intents.FLAGS.DIRECT_MESSAGE_TYPING,
       ],
     });
     this.validate(a);
@@ -41,6 +32,8 @@ module.exports = class extends Client {
     this.defaultPerms = new Permissions(a.defaultPerms).freeze();
   }
   async start(a = this.token) {
-    this.utils.loadCommands(), this.utils.loadEvents(), await super.login(a);
+    await this.utils.loadCommands(),
+      await this.utils.loadEvents(),
+      await super.login(a);
   }
 };

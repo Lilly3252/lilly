@@ -7,19 +7,16 @@ const commands = [];
 const modules = ["Administrator", "Fun", "Informations", "Utilities"]; // subfolder of Command folder
 
 modules.forEach((folder) => {
- 
-      const commandFiles = fs
-        .readdirSync(`src/Commands/${folder}/`)
-        .filter((file) => file.endsWith(".js"));
-    
-      for (const file of commandFiles) {
-        //console.log(file)
-        const command = require(`./Commands/${folder}/${file}`);
-        //console.log(command)
-        commands.push(command.data.toJSON());
-        
-      }
-    });
+  const commandFiles = fs
+    .readdirSync(`src/Commands/${folder}/`)
+    .filter((file) => file.endsWith(".js"));
+
+  for (const file of commandFiles) {
+    const command = require(`./Commands/${folder}/${file}`);
+
+    commands.push(command.data.toJSON());
+  }
+});
 
 const clientId = config.ClientID;
 const guildId = config.GuildID;
