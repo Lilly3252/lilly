@@ -76,6 +76,14 @@ module.exports = class {
       .map((a) => a.slice(0, 1).toUpperCase() + a.slice(1))
       .join(" ");
   }
+  toTitleCase(str) {
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
 
   comparePerms(a, b) {
     return a.roles.highest.position < b.roles.highest.position;

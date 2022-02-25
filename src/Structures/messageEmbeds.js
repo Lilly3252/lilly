@@ -1,5 +1,6 @@
 
 const { MessageEmbed, version: djsversion } = require("discord.js");
+const { time } = require("@discordjs/builders");
 const moment = require("moment")
 const { version } = require("./../../package.json");
 const ms = require("ms")
@@ -10,7 +11,7 @@ module.exports.MuteEmbed = function (interaction, member, reason, time) {
         .setColor("YELLOW")
         .addField("Moderation",
             [
-                `**❯ Action:** ${interaction.commandName}`,
+                `**❯ Action:** Timeout`,
                 `**❯ Member:** ${member.user}`,
                 `**❯ Moderator:** ${interaction.member.user.tag} `,
                 `**❯ Reason:** ${reason}`,
@@ -36,7 +37,7 @@ module.exports.AdminEmbed = function (interaction, member, reason) {
         .setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
     return Admin
 }
-module.exports.UserInfoEmbed = function (interaction, member, role, flag, flags) {
+module.exports.UserInfoEmbed = function (interaction, member, role, flag, flags, created) {
     const UserInfo = new MessageEmbed()
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
         .setColor(member.displayHexColor || "BLUE")
@@ -49,7 +50,7 @@ module.exports.UserInfoEmbed = function (interaction, member, role, flag, flags)
                 `**❯ Flags:** ${flag.length ? flag.map((a) => flags[a]).join(", ") : "None"
                 }`,
                 `**❯ Avatar:** [Link to avatar](${member.user.displayAvatarURL({ dynamic: true })})`,
-                `**❯ Time Created:** ${moment(member.user.createdTimestamp).format("LT")} ${moment(member.user.createdTimestamp).format("LL")} ${moment(member.user.createdTimestamp).fromNow()}`,
+                `**❯ Time Created:** ${created}`,
                 `**❯ Status:** ${member.presence?.status}`,
                 `**❯ Game / Custom status:** ${member.presence?.activities[0]?.state || "Not playing a game."
                 }`,
@@ -92,7 +93,7 @@ module.exports.SettingEmbed = function (interaction, guild_db) {
         });
     return Setting
 }
-module.exports.ServerInfoEmbed = function (interaction, owner, member, b, d, e, filterLevels, verificationLevels) {
+module.exports.ServerInfoEmbed = function (interaction, owner, member, b, d, e, filterLevels, verificationLevels, server_create) {
     const ServerInfo = new MessageEmbed()
         .setDescription(`**Guild information for __${interaction.guild.name}__**`)
         .setColor("BLUE")
@@ -105,7 +106,7 @@ module.exports.ServerInfoEmbed = function (interaction, owner, member, b, d, e, 
                 `**❯ Boost Tier:** ${interaction.guild.premiumTier ? `Tier ${interaction.guild.premiumTier}` : "None"}`,
                 `**❯ Explicit Filter:** ${filterLevels[interaction.guild.explicitContentFilter]}`,
                 `**❯ Verification Level:** ${verificationLevels[interaction.guild.verificationLevel]}`,
-                `**❯ Time Created:** ${moment(interaction.guild.createdTimestamp).format("LT")} ${moment(interaction.guild.createdTimestamp).format("LL")} ${moment(interaction.guild.createdTimestamp).fromNow()}`,
+                `**❯ Time Created:** ${server_create}`,
                 "\u200B",
             ].join("\n")
         )
@@ -143,7 +144,7 @@ module.exports.ServerInfoEmbed = function (interaction, owner, member, b, d, e, 
         .setTimestamp();
     return ServerInfo
 }
-module.exports.BotInfoEmbed = function (interaction, b) {
+module.exports.BotInfoEmbed = function (interaction, b, bot_create) {
     const BotInfo = new MessageEmbed()
         .setThumbnail(interaction.client.user.displayAvatarURL())
         .setColor(interaction.guild.me.displayHexColor || "BLUE")
@@ -154,7 +155,7 @@ module.exports.BotInfoEmbed = function (interaction, b) {
                 `**❯ Servers:** ${interaction.client.guilds.cache.size.toLocaleString()} `,
                 `**❯ Users:** ${interaction.client.guilds.cache.reduce((c, a) => c + a.memberCount, 0).toLocaleString()}`,
                 `**❯ Channels:** ${interaction.client.channels.cache.size.toLocaleString()}`,
-                `**❯ Creation Date:** ${moment.utc(interaction.client.user.createdTimestamp).format("Do MMMM YYYY HH:mm:ss")}`,
+                `**❯ Creation Date:** ${bot_create}`,
                 `**❯ Node.js:** ${process.version}`,
                 `**❯ Version:** v${version}`,
                 `**❯ Discord.js:** v${djsversion}`,
@@ -180,16 +181,49 @@ module.exports.BotInfoEmbed = function (interaction, b) {
 
     return BotInfo
 }
-module.exports.RestrictEmbed = function (interaction, reason,restriction_name , e) {
+module.exports.RestrictEmbed = function (interaction, reason, restriction_name, e) {
     const restrict = new MessageEmbed()
-    .setAuthor({ name: `${interaction.user.tag} (${interaction.user.id})`, iconURL: interaction.user.displayAvatarURL() })
-    .setColor("DARK_ORANGE")
-    .addField("Moderation", [
-        `**❯ Action:** ${restriction_name} restriction`, 
-        `**❯ Member:** ${e.user.username}`, 
-        `**❯ Moderator:** ${interaction.user.tag} `, 
-        `**❯ Reason:** ${reason}`].join("\n"))
-    .setTimestamp(new Date())
-    .setFooter({ text: `${restriction_name} restricted` });
+        .setAuthor({ name: `${interaction.user.tag} (${interaction.user.id})`, iconURL: interaction.user.displayAvatarURL() })
+        .setColor("DARK_ORANGE")
+        .addField("Moderation", [
+            `**❯ Action:** ${restriction_name} restriction`,
+            `**❯ Member:** ${e.user.username}`,
+            `**❯ Moderator:** ${interaction.user.tag} `,
+            `**❯ Reason:** ${reason}`].join("\n"))
+        .setTimestamp(new Date())
+        .setFooter({ text: `${restriction_name} restricted` });
     return restrict
+}
+module.exports.RoleEmbed = function (c) {
+    RoleEmbed = new MessageEmbed()
+        .setTimestamp()
+        .setColor(c.color)
+        .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+        .setDescription(`**Role information**`)
+        .addField(
+            "Role",
+            [
+                `**❯ Name:** ${c.name}`,
+                `**❯ Role ID:** ${c.id}`,
+                `**❯ Color:** ${c.color}`,
+                `**❯ Hoisted:** ${c.hoist}`,
+                `**❯ Mentionable:** ${c.mentionable}`,
+            ].join("\n")
+        );
+    return RoleEmbed
+}
+module.exports.ChannelEmbed = function (interaction, chanCreateTime, channel, channeltypes, ChannelType) {
+    const ChanEmbeds = new MessageEmbed()
+        .setTitle(`${interaction.guild.name}'s Channel Info`)
+        .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+        .addField(`❯ Name: `, `${interaction.client.utils.toTitleCase(channel.name)}, (${channel.id})`, true)
+        .addField(`❯ Created At:`, `${chanCreateTime}`, true)
+        .addField("Informations", [
+            `**❯ NSFW:** ${channel.nsfw ? channel.nsfw : "False"}`,
+            `**❯ Slowmode:** ${channel.rateLimitPerUser ? channel.rateLimitPerUser + " Seconds" : "None"}`,
+            `**❯ Private Channel:** ${channel.permissionsFor(interaction.guild.id).has("VIEW_CHANNEL") ? "False" : "True"}`,
+        ].join("\n"))
+        .addField(`❯ Topic:`, ` ${channel.topic ? channel.topic : "no topic"}`, true)
+        .addField(`❯ Type:`, ` ${channeltypes.length ? channeltypes.map((a) => ChannelType[a]) : "Cannot provide this information."}`, true)
+    return ChanEmbeds
 }
