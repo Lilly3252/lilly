@@ -18,6 +18,7 @@ module.exports = {
     }
 
     const member = interaction.options.getMember("target");
+    console.log(member)
     const reason = interaction.options.getString("reason");
     const guild_log = await guild.findOne({ guildID: interaction.guild.id })
 

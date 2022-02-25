@@ -37,6 +37,7 @@ module.exports = {
     }).catch((err) => console.log(err));
 
     const i = guild.logchannelID;
-    i && null !== i && interaction.client.channels.cache.get(i).send({ embeds: [Embed.MuteEmbed(interaction , member , reason , time)] });
+    i && null !== i && interaction.client.channels.cache.get(i).send({ embeds: [Embed.MuteEmbed(interaction , member , reason , time)] }).catch((err) => console.log(err));
   },
 };
+
