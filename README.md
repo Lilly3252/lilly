@@ -21,13 +21,9 @@
 [![MIT License](https://img.shields.io/github/license/Lilly3252/lilly-dev?logo=MIT)](https://github.com/Lilly3252/lilly-dev/blob/main/LICENSE)
 
 </div>
-    <br />
-    <a href="https://github.com/Lilly3252/lilly-dev">View Demo</a>
-    ·
     <a href="https://github.com/Lilly3252/lilly-dev/issues">Report Bug</a>
     ·
     <a href="https://github.com/Lilly3252/lilly-dev/issues">Request Feature</a>
-  </p>
 </div>
 
 
