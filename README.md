@@ -1,11 +1,11 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/Lilly3252/lilly-dev">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png">
+    <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png" alt="Logo">
   </a>
 
-<h3 align="center">Lilly Discord Bot</h3>
+
 
   <p align="center">
     to be filled .. 
