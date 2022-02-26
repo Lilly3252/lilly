@@ -4,7 +4,7 @@
 [![Forks](https://img.shields.io/github/forks/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/network)
 [![Stargazers](https://img.shields.io/github/stars/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/stargazers)
 [![Issues](https://img.shields.io/github/issues/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/issues)
-[![MIT License](https://img.shields.io/github/license/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/github/license/Lilly3252/lilly-dev?logo=MIT)](https://github.com/Lilly3252/lilly-dev/blob/main/LICENSE)
 
 
 
