@@ -1,15 +1,4 @@
-<div id="top"></div>
 
-![GitHub top language](https://img.shields.io/github/languages/top/Lilly3252/lilly-dev)
-[![Forks](https://img.shields.io/github/forks/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/network)
-[![Stargazers](https://img.shields.io/github/stars/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/stargazers)
-[![Issues](https://img.shields.io/github/issues/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/issues)
-[![MIT License](https://img.shields.io/github/license/Lilly3252/lilly-dev?logo=MIT)](https://github.com/Lilly3252/lilly-dev/blob/main/LICENSE)
-
-
-
-
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/Lilly3252/lilly-dev">
@@ -23,6 +12,15 @@
     <br />
     <a href="https://github.com/Lilly3252/lilly-dev"><strong></strong></a>
     <br />
+<div align="center"
+
+![GitHub top language](https://img.shields.io/github/languages/top/Lilly3252/lilly-dev)
+[![Forks](https://img.shields.io/github/forks/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/network)
+[![Stargazers](https://img.shields.io/github/stars/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/stargazers)
+[![Issues](https://img.shields.io/github/issues/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/issues)
+[![MIT License](https://img.shields.io/github/license/Lilly3252/lilly-dev?logo=MIT)](https://github.com/Lilly3252/lilly-dev/blob/main/LICENSE)
+
+</div>
     <br />
     <a href="https://github.com/Lilly3252/lilly-dev">View Demo</a>
     ·
@@ -71,7 +69,7 @@
 ### Built With
 
 * [Node.js](https://nodejs.org)
-* [discord.js](https://discord.js.org/#/)
+* [Discord.js](https://discord.js.org/#/)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
