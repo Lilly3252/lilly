@@ -4,6 +4,9 @@
   <a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png#gh-dark-mode-only">
     <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png#gh-dark-mode-only" alt="Logo">
   </a>
+<a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo-light.png#gh-light-mode-only">
+    <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo-light.png#gh-light-mode-only" alt="Logo">
+  </a>
 
 
 
