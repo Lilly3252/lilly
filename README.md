@@ -1,8 +1,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png">
-    <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png" alt="Logo">
+  <a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png#gh-dark-mode-only">
+    <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png#gh-dark-mode-only" alt="Logo">
   </a>
 
 
