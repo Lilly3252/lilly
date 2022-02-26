@@ -19,9 +19,9 @@
 <h3 align="center">Lilly Discord Bot</h3>
 
   <p align="center">
-    project_description
+    to be filled .. 
     <br />
-    <a href="https://github.com/Lilly3252/lilly-dev"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Lilly3252/lilly-dev"><strong></strong></a>
     <br />
     <br />
     <a href="https://github.com/Lilly3252/lilly-dev">View Demo</a>
