@@ -1,11 +1,11 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png#gh-dark-mode-only">
-    <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo.png#gh-dark-mode-only" alt="Logo">
+  <a href="https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only">
+    <img src="https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only" alt="Logo">
   </a>
-<a href="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo-light.png#gh-light-mode-only">
-    <img src="https://github.com/Lilly3252/lilly-dev/blob/main/src/Images/logo-light.png#gh-light-mode-only" alt="Logo">
+<a href="https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only">
+    <img src="https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only" alt="Logo">
   </a>
 
 
@@ -13,20 +13,20 @@
   <p align="center">
     to be filled .. 
     <br />
-    <a href="https://github.com/Lilly3252/lilly-dev"><strong></strong></a>
+    <a href="https://github.com/Lilly3252/lilly"><strong></strong></a>
     <br />
 <div align="center"
 
-![GitHub top language](https://img.shields.io/github/languages/top/Lilly3252/lilly-dev)
-[![Forks](https://img.shields.io/github/forks/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/network)
-[![Stargazers](https://img.shields.io/github/stars/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/stargazers)
-[![Issues](https://img.shields.io/github/issues/Lilly3252/lilly-dev)](https://github.com/Lilly3252/lilly-dev/issues)
-[![MIT License](https://img.shields.io/github/license/Lilly3252/lilly-dev?logo=MIT)](https://github.com/Lilly3252/lilly-dev/blob/main/LICENSE)
+![GitHub top language](https://img.shields.io/github/languages/top/Lilly3252/lilly)
+[![Forks](https://img.shields.io/github/forks/Lilly3252/lilly)](https://github.com/Lilly3252/lilly/network)
+[![Stargazers](https://img.shields.io/github/stars/Lilly3252/lilly)](https://github.com/Lilly3252/lilly/stargazers)
+[![Issues](https://img.shields.io/github/issues/Lilly3252/lilly)](https://github.com/Lilly3252/lilly/issues)
+[![MIT License](https://img.shields.io/github/license/Lilly3252/lilly?logo=MIT)](https://github.com/Lilly3252/lilly/blob/main/LICENSE)
 
 </div>
-    <a href="https://github.com/Lilly3252/lilly-dev/issues">Report Bug</a>
+    <a href="https://github.com/Lilly3252/lilly/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Lilly3252/lilly-dev/issues">Request Feature</a>
+    <a href="https://github.com/Lilly3252/lilly/issues">Request Feature</a>
 </div>
 
 
@@ -125,7 +125,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Discord - Lilith#3252
 
-Project Link: [https://github.com/Lilly3252/lilly-dev](https://github.com/Lilly3252/lilly-dev)
+Project Link: [https://github.com/Lilly3252/lilly](https://github.com/Lilly3252/lilly)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -133,8 +133,8 @@ Project Link: [https://github.com/Lilly3252/lilly-dev](https://github.com/Lilly3
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-<a href="https://github.com/Lilly3252/lilly-dev/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Lilly3252/lilly-dev" />
+<a href="https://github.com/Lilly3252/lilly/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Lilly3252/lilly" />
 </a>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
