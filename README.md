@@ -22,6 +22,7 @@
 [![Stargazers](https://img.shields.io/github/stars/Lilly3252/lilly)](https://github.com/Lilly3252/lilly/stargazers)
 [![Issues](https://img.shields.io/github/issues/Lilly3252/lilly)](https://github.com/Lilly3252/lilly/issues)
 [![MIT License](https://img.shields.io/github/license/Lilly3252/lilly?logo=MIT)](https://github.com/Lilly3252/lilly/blob/main/LICENSE)
+[![CodeFactor](https://www.codefactor.io/repository/github/lilly3252/lilly/badge)](https://www.codefactor.io/repository/github/lilly3252/lilly)
 
 </div>
     <a href="https://github.com/Lilly3252/lilly/issues">Report Bug</a>
@@ -123,7 +124,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Discord - Lilith#3252
+Discord - [Lilith#3252](https://discord.com/users/165922734461812736)
 
 Project Link: [https://github.com/Lilly3252/lilly](https://github.com/Lilly3252/lilly)
 
