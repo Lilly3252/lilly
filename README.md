@@ -91,9 +91,9 @@
 | /mute|None|GuildMember|Mute a GuildMember permanantly
 | /purge|None|Number|Delete messages (1 to 100)
 | /restrict|(Choices) Role|GuildMember|Restrict a GuildMember
-| /settings|Settings|ID|Change settings for your Guild
+| /settings|Anti-raid/welcomeChan/ModLog/ModRole/Event trigger..|ID|Change settings for your Guild
 | /slowmode|None|Channel|Add slowmode to a channel
-| /timeout|Time|GuildMember|Timeout a GuildMember
+| /timeout|(Choices) Time|GuildMember|Timeout a GuildMember
 #### Informations
 |Command Name | Sub commands | Options |Description |
 |-------------|--------------|---------|------------|
