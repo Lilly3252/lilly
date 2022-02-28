@@ -81,7 +81,28 @@
 
 
 ### Commands
-- This will be filled soon
+#### Moderation
+|Command Name | Sub commands | Options |Description |
+|-------------|--------------|---------|------------|
+| /ban | None | GuildMember | Ban a GuildMember|
+| /unban|None|ID|Unban a GuildMember|
+| /kick|None|GuildMember|Kick a GuildMember
+| /lock|None|Channel|Lock a channel
+| /mute|None|GuildMember|Mute a GuildMember permanantly
+| /purge|None|Number|Delete messages (1 to 100)
+| /restrict|(Choices) Role|GuildMember|Restrict a GuildMember
+| /settings|Settings|ID|Change settings for your Guild
+| /slowmode|None|Channel|Add slowmode to a channel
+| /timeout|Time|GuildMember|Timeout a GuildMember
+#### Informations
+|Command Name | Sub commands | Options |Description |
+|-------------|--------------|---------|------------|
+| /info|Channel/Role/User/Bot/Server|Based on the Subcommand chosen|Get Information desired
+#### Utilities
+|Command Name | Sub commands | Options |Description |
+|-------------|--------------|---------|------------|
+| /ping|None|None|Get Lilly's ping
+| /timezone|Timezone|None|Get a timezone based on your Local Timezone
 
 
 
