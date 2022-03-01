@@ -17,4 +17,4 @@ COPY . .
 RUN npm install pm2 -g
 
 # Start the bot using pm2 so errors won't kill the container, Learn More: https://discordjs.guide/improving-dev-environment/pm2.html#installation
-CMD [ "pm2-runtime", "start", "src/refresh.js" ]
+CMD [ "pm2-runtime", "start", "src/docker.js" ]
