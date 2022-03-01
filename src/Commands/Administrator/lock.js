@@ -14,10 +14,10 @@ module.exports = {
     ),
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     const unlocked_locked = interaction.options.getBoolean("choice");
     if (true === unlocked_locked) {

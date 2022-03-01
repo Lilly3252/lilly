@@ -12,9 +12,9 @@ module.exports = {
 
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"],ephemeral:true});
     } if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"],ephemeral:true});
     }
 
     const member = interaction.options.getMember("target");

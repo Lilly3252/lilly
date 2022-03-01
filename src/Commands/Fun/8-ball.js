@@ -7,7 +7,7 @@ module.exports = {
     .setName("8-balls")
     .setDescription("ask a question , Lilly will answer you.")
     .addStringOption((option) =>
-      option.setName("question").setDescription("question to ask.")
+      option.setName("question").setDescription("question to ask.").setRequired(true)
     ),
   async run(interaction, args) {
     const question = interaction.options.getString("question");

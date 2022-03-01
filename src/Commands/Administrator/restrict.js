@@ -13,10 +13,10 @@ module.exports = {
     .addStringOption((option) => option.setName("reasons").setDescription("Specify a reason").setRequired(true)),
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"],ephemeral:true});
     }
     if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_ROLES"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_ROLES"],ephemeral:true});
     }
     const c = await Guild.findOne({ guildID: interaction.guild.id })
     const e = interaction.options.getMentionable("member")

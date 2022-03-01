@@ -120,12 +120,12 @@ const { Permissions } = require("discord.js");
         const choices = interaction.options.getBoolean("choice");
         true === choices &&
           (await guild_db.updateOne({ antiRaidMode: true }),
-          interaction.reply({
-            content: "\u2705 AntiRaid Mode enable.",
-            ephemeral: true,
-          })),
+            interaction.reply({
+              content: "\u2705 AntiRaid Mode enable.",
+              ephemeral: true,
+            })),
           false === choices &&
-            (await guild_db.updateOne({ antiRaidMode: false }),
+          (await guild_db.updateOne({ antiRaidMode: false }),
             interaction.reply({
               content: "\u274C AntiRaid Mode disable.",
               ephemeral: true,
@@ -136,12 +136,12 @@ const { Permissions } = require("discord.js");
         const choices = interaction.options.getBoolean("choice");
         true === choices &&
           (await guild_db.updateOne({ messageUpdateMode: true }),
-          interaction.reply({
-            content: "\u2705 MessageUpdate has been enable.",
-            ephemeral: true,
-          })),
+            interaction.reply({
+              content: "\u2705 MessageUpdate has been enable.",
+              ephemeral: true,
+            })),
           false === choices &&
-            (await guild_db.updateOne({ messageUpdateMode: false }),
+          (await guild_db.updateOne({ messageUpdateMode: false }),
             interaction.reply({
               content: "\u274C MessageUpdate has been disable.",
               ephemeral: true,
@@ -152,12 +152,12 @@ const { Permissions } = require("discord.js");
         const choices = interaction.options.getBoolean("choice");
         true === choices &&
           (await guild_db.updateOne({ messageDeleteMode: true }),
-          interaction.reply({
-            content: "\u2705 MessageDelete has been enable.",
-            ephemeral: true,
-          })),
+            interaction.reply({
+              content: "\u2705 MessageDelete has been enable.",
+              ephemeral: true,
+            })),
           false === choices &&
-            (await guild_db.updateOne({ messageDeleteMode: false }),
+          (await guild_db.updateOne({ messageDeleteMode: false }),
             interaction.reply({
               content: "\u274C MessageDelete has been disable.",
               ephemeral: true,
@@ -168,12 +168,12 @@ const { Permissions } = require("discord.js");
         const choices = interaction.options.getBoolean("choice");
         true === choices &&
           (await guild_db.updateOne({ messageBulkDeleteMode: true }),
-          interaction.reply({
-            content: "\u2705 messageDeleteBulk has been enable.",
-            ephemeral: true,
-          })),
+            interaction.reply({
+              content: "\u2705 messageDeleteBulk has been enable.",
+              ephemeral: true,
+            })),
           false === choices &&
-            (await guild_db.updateOne({ messageBulkDeleteMode: false }),
+          (await guild_db.updateOne({ messageBulkDeleteMode: false }),
             interaction.reply({
               content: "\u274C MessageDeleteBulk has been disable.",
               ephemeral: true,
@@ -198,16 +198,16 @@ const { Permissions } = require("discord.js");
           (await guild_db.updateOne({ logchannelID: null })),
           isNaN(f) && "false" !== i
             ? interaction.reply({
-                content:
-                  "\u274C You need to give me a channelID to set this setting.",
+              content:
+                "\u274C You need to give me a channelID to set this setting.",
+              ephemeral: true,
+            })
+            : await guild_db.updateOne({ logchannelID: f }).then(() =>
+              interaction.reply({
+                content: `✅ ModLog Channel has been set to ${f}`,
                 ephemeral: true,
               })
-            : await guild_db.updateOne({ logchannelID: f }).then(() =>
-                interaction.reply({
-                  content: `✅ ModLog Channel has been set to ${f}`,
-                  ephemeral: true,
-                })
-              );
+            );
       }
       //ModRole ID Setup
       if (interaction.options.getSubcommand() === "modrole") {

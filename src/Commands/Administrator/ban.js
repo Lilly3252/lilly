@@ -11,9 +11,9 @@ module.exports = {
     .addStringOption((option) => option.setName("reason").setDescription("reason to ban").setRequired(true)),
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["BAN_MEMBERS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["BAN_MEMBERS"],ephemeral:true});
     } if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"],ephemeral:true});
     }
     const c = await Guild.findOne({ guildID: interaction.guild.id })
     const member = interaction.options.getMember("target");

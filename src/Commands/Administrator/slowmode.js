@@ -10,16 +10,16 @@ module.exports = {
     .setDescription("slowmode a channel.")
     .addMentionableOption((option) =>
       option.setName("channel").setDescription("channel name")
-    )
+    .setRequired(true))
     .addNumberOption((option) =>
-      option.setName("number").setDescription("Enter a number")
+      option.setName("number").setDescription("Enter a number").setRequired(true)
     ),
   async run(interaction, b) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     return isNaN(b[0])
       ? interaction.reply("That is not a number!")

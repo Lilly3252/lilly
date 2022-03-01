@@ -20,10 +20,10 @@ module.exports = {
 
   async run(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MODERATE_MEMBERS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MODERATE_MEMBERS"],ephemeral:true});
     }
     if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS)) {
-      return interaction.reply(SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MODERATE_MEMBERS"]);
+      return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MODERATE_MEMBERS"],ephemeral:true});
     }
     const member = interaction.options.getMember("target");
     const time = interaction.options.getString("time");

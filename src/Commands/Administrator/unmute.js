@@ -12,6 +12,7 @@ module.exports = {
       option.setName("member").setDescription("Mention someone")
         .setRequired(true)),
   async run(interaction) {
+    await interaction.reply({ content: "This command is not finished yet.", ephemeral: true })
     /*if (!interaction.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
       return interaction.reply(
         SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"]

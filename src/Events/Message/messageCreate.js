@@ -14,13 +14,13 @@ module.exports = class extends Event {
     // * mentions(ping) & moderator role
     const c = { ignoreEveryone: true };
 
-    const mRegex = /<@!?(\d+?)>/g;
-    const m = message.content.match(mRegex);
+    //const mRegex = /<@!?(\d+?)>/g;
+    //const m = message.content.match(mRegex);
 
-    if (!m?.length) { return }
-    if (m?.length > 8) {
-      message.channel.send("ok shut the fuck up...");
-    }
+    //if (!m?.length) { return }
+    //if (m?.length > 8) {
+    //message.channel.send("ok shut the fuck up...");
+    //}
 
     const modMentionEmbed = new MessageEmbed()
       .setTitle("Moderator Mentioned")

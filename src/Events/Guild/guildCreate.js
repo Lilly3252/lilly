@@ -29,9 +29,5 @@ module.exports = class extends Event {
       .catch((a) => console.error(a)),
       console.log("I have joined a new server! Saved to DB.");
 
-    // const tagFiles = fs.readdirSync(`src/Tags/${folder}/`).filter((file) => file.endsWith(".toml"))
-    // for (const file of tagFiles) {
-    //if(!file){
-    // fs.writeFile(`${a.name}.toml`){ encoding: 'utf8' }
   }
 };
