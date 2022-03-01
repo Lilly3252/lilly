@@ -1,8 +1,8 @@
 {
-	"GuildID": "751501408213401650",
-	"token": "TOKEN",
-	"owners": ["165922734461812736"],
-	"defaultPerms": ["VIEW_CHANNEL", "SEND_MESSAGES"],
-	"mongooseLink": "mongodb+srv://Lilly-dev:PASSWORD@lillybot.43rtj.mongodb.net/Lilly-dev",
-	"ClientID": "775530257645830145"
+  "GuildID": "751501408213401650",
+  "token": "TOKEN",
+  "owners": ["165922734461812736"],
+  "defaultPerms": ["VIEW_CHANNEL", "SEND_MESSAGES"],
+  "mongooseLink": "mongodb+srv://Lilly-dev:0LvGgXtEILiQrfuu@lillybot.43rtj.mongodb.net/Lilly-dev",
+  "ClientID": "775530257645830145"
 }

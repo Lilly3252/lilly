@@ -15,6 +15,26 @@ module.exports = class extends Client {
         Intents.FLAGS.DIRECT_MESSAGES,
       ],
     });
+
+    if (process.env.TOKEN) {
+      a = {
+        // check if owners has a ,
+        owners: process.env.OWNERS.includes(",")
+          ? process.env.OWNERS.split(",")
+          : process.env.OWNERS,
+
+        token: process.env.TOKEN,
+        prefix: process.env.PREFIX,
+        mongooseLink: process.env.MONGOOSE_URI,
+        ClientID: process.env.CLIENT_ID,
+        GuildID: process.env.GUILD_ID,
+        defaultPerms: new Permissions([
+          "VIEW_CHANNEL",
+          "SEND_MESSAGES",
+        ]).freeze(),
+      };
+    }
+
     this.validate(a);
     this.commands = new Collection();
     this.events = new Collection();
