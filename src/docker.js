@@ -1,2 +1,2 @@
-const refreshScript = require("./src/refresh.js");
-const indexScript = require("./src/index.js");
+const refreshScript = require("./refresh.js");
+const indexScript = require("./index.js");
