@@ -1,0 +1,25 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-lilly:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push lilly to GHCR
+        run: |
+          docker build . --tag ghcr.io/Lilly3252/lilly:latest
+          docker push ghcr.io/Lilly3252/lilly:latest
