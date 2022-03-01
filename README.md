@@ -102,7 +102,7 @@
 |Command Name | Sub commands | Options |Description |
 |-------------|--------------|---------|------------|
 | /ping|None|None|Get Lilly's ping
-| /timezone|Timezone|None|Get a timezone based on your Local Timezone
+| /timezone|(Choices) Timezone|None|Get a timezone based on your Local Timezone
 
 
 
