@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const config = require("./config.json");
@@ -18,9 +19,11 @@ modules.forEach((folder) => {
   }
 });
 
-const clientId = config.ClientID;
-const guildId = config.GuildID;
-const rest = new REST({ version: "9" }).setToken(config.token);
+const clientId = process.env.CLIENT_ID ?? config.ClientID;
+const guildId = process.env.GUILD_ID ?? config.GuildID;
+const rest = new REST({ version: "9" }).setToken(
+  process.env.TOKEN ?? config.token
+);
 
 (async () => {
   try {
