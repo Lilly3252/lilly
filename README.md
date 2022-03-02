@@ -156,7 +156,7 @@ Project Link: [https://github.com/Lilly3252/lilly](https://github.com/Lilly3252/
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 <a href="https://github.com/Lilly3252/lilly/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Lilly3252/lilly" />
+  <img src="https://contrib.rocks/image?repo=Lilly3252/lilly"/>
 </a>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
