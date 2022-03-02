@@ -3,6 +3,6 @@
   "token": "TOKEN",
   "owners": ["165922734461812736"],
   "defaultPerms": ["VIEW_CHANNEL", "SEND_MESSAGES"],
-  "mongooseLink": "mongodb+srv://Lilly-dev:0LvGgXtEILiQrfuu@lillybot.43rtj.mongodb.net/Lilly-dev",
+  "mongooseLink": "mongodb+srv://Lilly-dev:PASSPORT@lillybot.43rtj.mongodb.net/DBNAME",
   "ClientID": "775530257645830145"
 }
