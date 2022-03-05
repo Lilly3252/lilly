@@ -1,11 +1,11 @@
 const { SlashCommandBuilder, time } = require("@discordjs/builders");
-const Embed = require("../../Structures/messageEmbeds")
-const os = require("os")
+const Embed = require("../../Structures/messageEmbeds");
+const os = require("os");
 const filterLevels = {
   DISABLED: "Off",
   MEMBERS_WITHOUT_ROLES: "No Role",
   ALL_MEMBERS: "Everyone",
-}
+};
 const verificationLevels = {
   NONE: "None",
   LOW: "Low",
@@ -25,53 +25,109 @@ const ChannelType = {
   GUILD_PUBLIC_THREAD: "Public Thread Channel",
   GUILD_PRIVATE_THREAD: "Private Thread Channel",
   GUILD_STAGE_VOICE: "Stage Channel",
-  UNKNOWN: "Unidentified Channel"
-}
+  UNKNOWN: "Unidentified Channel",
+};
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("info")
     .setDescription("Informations.")
-    .addSubcommand((subcommand) => subcommand.setName("channel").setDescription("Select a channel.")
-      .addChannelOption((option) => option.setName("channel").setDescription("Select a channel.").setRequired(true)))
-    .addSubcommand((subcommand) => subcommand.setName("role").setDescription("Select a role.")
-      .addRoleOption((option) => option.setName("role").setDescription("Select a role.").setRequired(true)))
-    .addSubcommand((subcommand) => subcommand.setName("bot").setDescription("Get information of the bot."))
-    .addSubcommand((subcommand) => subcommand.setName("user").setDescription("Get information of a user.")
-      .addUserOption((option) => option.setName("target").setDescription("Select a user").setRequired(true)))
-    .addSubcommand((subcommand) => subcommand.setName("server").setDescription("Get information of the server."))
-  ,
-
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("channel")
+        .setDescription("Select a channel.")
+        .addChannelOption((option) =>
+          option
+            .setName("channel")
+            .setDescription("Select a channel.")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("role")
+        .setDescription("Select a role.")
+        .addRoleOption((option) =>
+          option
+            .setName("role")
+            .setDescription("Select a role.")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand.setName("bot").setDescription("Get information of the bot.")
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("user")
+        .setDescription("Get information of a user.")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("Select a user")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("server")
+        .setDescription("Get information of the server.")
+    ),
   async run(interaction) {
-
-
     if (interaction.options.getSubcommand() === "channel") {
+      const channel = interaction.options.getChannel("channel");
+      const channeltypes = channel.type.split();
+      const chanCreateTime = time(channel.createdAt, "R");
 
-      const channel = interaction.options.getChannel('channel');
-      const channeltypes = channel.type.split()
-      const chanCreateTime = time(channel.createdAt, 'R')
-
-      await interaction.reply({ embeds: [Embed.ChannelEmbed(interaction, chanCreateTime, channel, channeltypes, ChannelType)], ephemeral: true });
+      await interaction.reply({
+        embeds: [
+          Embed.ChannelEmbed(
+            interaction,
+            chanCreateTime,
+            channel,
+            channeltypes,
+            ChannelType
+          ),
+        ],
+      });
     }
     if (interaction.options.getSubcommand() === "role") {
-      const c = interaction.options.getRole("role")
+      const c = interaction.options.getRole("role");
 
-      interaction.reply({ embeds: [Embed.RoleEmbed(c)], ephemeral: true });
+      interaction.reply({ embeds: [Embed.RoleEmbed(interaction, c)] });
     }
     if (interaction.options.getSubcommand() === "server") {
-      const server_create = time(interaction.guild.createdAt, "R")
+      const server_create = time(interaction.guild.createdAt, "R");
       const owner = await interaction.guild.fetchOwner();
-      const b = interaction.guild.roles.cache.sort((c, a) => a.position - c.position).map((a) => a.toString());
-      const member = interaction.guild.members.cache
-      const d = interaction.guild.channels.cache
-      const e = interaction.guild.emojis.cache
+      const b = interaction.guild.roles.cache
+        .sort((c, a) => a.position - c.position)
+        .map((a) => a.toString());
+      const member = interaction.guild.members.cache;
+      const d = interaction.guild.channels.cache;
+      const e = interaction.guild.emojis.cache;
 
-      interaction.reply({ embeds: [Embed.ServerInfoEmbed(interaction, owner, member, b, d, e, filterLevels, verificationLevels, server_create)] })
+      interaction.reply({
+        embeds: [
+          Embed.ServerInfoEmbed(
+            interaction,
+            owner,
+            member,
+            b,
+            d,
+            e,
+            filterLevels,
+            verificationLevels,
+            server_create
+          ),
+        ],
+      });
     }
     if (interaction.options.getSubcommand() === "bot") {
       const b = os.cpus()[0];
-      const bot_create = time(interaction.client.user.createdAt, "R")
-      await interaction.reply({ embeds: [Embed.BotInfoEmbed(interaction, b, bot_create)], ephemeral: true });
+      const bot_create = time(interaction.client.user.createdAt, "R");
+      await interaction.reply({
+        embeds: [Embed.BotInfoEmbed(interaction, b, bot_create)],
+      });
     }
     if (interaction.options.getSubcommand() === "user") {
       const member = interaction.options.getMember("target");
@@ -88,16 +144,19 @@ module.exports = {
         TEAM_USER: "Team User",
         SYSTEM: "System",
         VERIFIED_BOT: "Verified Bot",
-        VERIFIED_DEVELOPER: "Verified Bot Developer"
-      }
-      const created = time(member.user.createdAt, "R")
-      const flag = member.user.flags.toArray()
+        VERIFIED_DEVELOPER: "Verified Bot Developer",
+      };
+      const created = time(member.user.createdAt, "R");
+      const flag = member.user.flags.toArray();
       const role = member.roles.cache
         .sort((c, a) => a.position - c.position)
         .map((a) => a.toString())
-        .slice(0, -1)
-      return interaction.reply({ embeds: [Embed.UserInfoEmbed(interaction, member, role, flag, flags, created)], ephemeral: true });
+        .slice(0, -1);
+      return interaction.reply({
+        embeds: [
+          Embed.UserInfoEmbed(interaction, member, role, flag, flags, created),
+        ],
+      });
     }
-
   },
 };

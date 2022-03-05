@@ -311,7 +311,7 @@ module.exports.RestrictEmbed = function (
     .setFooter({ text: `${restriction_name} restricted` });
   return restrict;
 };
-module.exports.RoleEmbed = function (c) {
+module.exports.RoleEmbed = function (interaction, c) {
   RoleEmbed = new MessageEmbed()
     .setTimestamp()
     .setColor(c.color)
