@@ -11,28 +11,12 @@ module.exports = {
       option.setName("target").setDescription("Select a user").setRequired(true)
     )
     .addStringOption((option) =>
-      option
-        .setName("time")
-        .setDescription("time for timeout")
-        .addChoices([
-          ["5min", "300000"],
-          ["10min", "600000"],
-          ["15min", "900000"],
-          ["30min", "1800000"],
-          ["45min", "2700000"],
-          ["1d", "86400000"],
-          ["2d", "172800000"],
-          ["3d", "259200000"],
-          ["4d", "345600000"],
-          ["5d", "432000000"],
-          ["6d", "518400000"],
-          ["1week", "604800000"],
-          ["2weeks", "1209600000"],
-          ["28days", "2419200000"],
-        ])
+      option.setName("time").setDescription("time for timeout")
+        .addChoices([["5min", "300000"],["10min", "600000"],["15min", "900000"],
+          ["30min", "1800000"],["45min", "2700000"],["1d", "86400000"],["2d", "172800000"],
+          ["3d", "259200000"],["4d", "345600000"],["5d", "432000000"],["6d", "518400000"],
+          ["1week", "604800000"],["2weeks", "1209600000"],["28days", "2419200000"]]).setRequired(true))
         .setRequired(true)
-    )
-    .setRequired(true)
     .addStringOption((option) =>
       option
         .setName("reason")
