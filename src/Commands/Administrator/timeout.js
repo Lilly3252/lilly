@@ -16,7 +16,7 @@ module.exports = {
           ["30min", "1800000"],["45min", "2700000"],["1d", "86400000"],["2d", "172800000"],
           ["3d", "259200000"],["4d", "345600000"],["5d", "432000000"],["6d", "518400000"],
           ["1week", "604800000"],["2weeks", "1209600000"],["28days", "2419200000"]]).setRequired(true))
-        .setRequired(true)
+        
     .addStringOption((option) =>
       option
         .setName("reason")
