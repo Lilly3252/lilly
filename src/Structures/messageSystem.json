@@ -11,7 +11,9 @@
       "NO_CHANNEL_ID": "❌ Error: You need to tell me a channel ID to work..",
       "NO_PREFIX_MENTIONED": "❌ Error: No prefix mentioned, please try again!",
       "NO_USER_ID": "❌ Error: That's not a user ID!",
-      "NO_USER_BANNED": "❌ Error: Nobody was banned from this server."
+      "NO_USER_BANNED": "❌ Error: Nobody was banned from this server.",
+      "MODERATION_DENIED": "❌ Error: Moderation action cannot be done on this member.",
+      
     },
     "MUSIC": {
       "NOTHING_PLAYING": "❌ Error: There's nothing playing at this moment!",
