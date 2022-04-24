@@ -1,0 +1,172 @@
+import { CommandInteraction, Permissions } from "discord.js";
+import { Command } from "@sapphire/framework";
+const Embed = require("./../structure/messageEmbeds");
+import Guild from "./../Database/Guild";
+import SYSTEM from "./../structure/messageSystem.json";
+import mongoose from "mongoose";
+
+export class SettingCommand extends Command {
+  public constructor(context: Command.Context) {
+    super(context, {
+      description: "Settings",
+      chatInputCommand: {
+        register: true,
+      },
+    });
+  }
+
+  public async chatInputRun(interaction: CommandInteraction<"cached">) {
+    if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      return interaction.reply(
+        SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["ADMINISTRATOR"]
+      );
+    }
+
+    const guild_db = await Guild.findOne({
+      guildID: interaction.guild.id,
+    }).then(async (guild: typeof Guild) => {
+      if (!guild) {
+        await Guild.create({
+          _id: new mongoose.Types.ObjectId(),
+          guildID: interaction.guild.id,
+          guildName: interaction.guild.name,
+          prefix: "l!",
+          moderatorRoleID: null,
+          welcomechannelID: null,
+          logchannelID: null,
+          antiRaidMode: false,
+          messageDeleteMode: false,
+          messageUpdateMode: false,
+          messageBulkDeleteMode: false,
+          PersonalizedWelcomeMessage: null,
+        });
+        return Guild.findOne({ guildID: interaction.guild.id });
+      } else {
+        return guild;
+      }
+    });
+    if (interaction.options.getSubcommand() === "showsettings") {
+      interaction.reply({
+        embeds: [Embed.SettingEmbed(interaction, guild_db)],
+        ephemeral: true,
+      });
+    }
+    //**SUB COMMANDS */
+    if (interaction.options.getSubcommand() === "anti-raid") {
+      const choices = interaction.options.getBoolean("choice");
+      true === choices &&
+        (await guild_db.updateOne({ antiRaidMode: true }),
+        interaction.reply({
+          content: "\u2705 AntiRaid Mode enable.",
+          ephemeral: true,
+        })),
+        false === choices &&
+          (await guild_db.updateOne({ antiRaidMode: false }),
+          interaction.reply({
+            content: "\u274C AntiRaid Mode disable.",
+            ephemeral: true,
+          }));
+    }
+    // MessageUpdate event
+    if (interaction.options.getSubcommand() === "messageupdates") {
+      const choices = interaction.options.getBoolean("choice");
+      true === choices &&
+        (await guild_db.updateOne({ messageUpdateMode: true }),
+        interaction.reply({
+          content: "\u2705 MessageUpdate has been enable.",
+          ephemeral: true,
+        })),
+        false === choices &&
+          (await guild_db.updateOne({ messageUpdateMode: false }),
+          interaction.reply({
+            content: "\u274C MessageUpdate has been disable.",
+            ephemeral: true,
+          }));
+    }
+    //MessageDelete Event
+    if (interaction.options.getSubcommand() === "messagedelete") {
+      const choices = interaction.options.getBoolean("choice");
+      true === choices &&
+        (await guild_db.updateOne({ messageDeleteMode: true }),
+        interaction.reply({
+          content: "\u2705 MessageDelete has been enable.",
+          ephemeral: true,
+        })),
+        false === choices &&
+          (await guild_db.updateOne({ messageDeleteMode: false }),
+          interaction.reply({
+            content: "\u274C MessageDelete has been disable.",
+            ephemeral: true,
+          }));
+    }
+    //MessageDeleteBulk Event
+    if (interaction.options.getSubcommand() === "messagedeletebulk") {
+      const choices = interaction.options.getBoolean("choice");
+      true === choices &&
+        (await guild_db.updateOne({ messageBulkDeleteMode: true }),
+        interaction.reply({
+          content: "\u2705 messageDeleteBulk has been enable.",
+          ephemeral: true,
+        })),
+        false === choices &&
+          (await guild_db.updateOne({ messageBulkDeleteMode: false }),
+          interaction.reply({
+            content: "\u274C MessageDeleteBulk has been disable.",
+            ephemeral: true,
+          }));
+    }
+    //WelcomeChannel Setup
+    if (interaction.options.getSubcommand() === "welcomechannel") {
+      const e = interaction.options.getString("id") as string;
+      isNaN(+e) && "false" === e
+        ? await guild_db.updateOne({ welcomechannelID: null })
+        : (await guild_db.updateOne({ welcomechannelID: e }),
+          interaction.reply({
+            content: `✅ Welcome Channel has been set to ${e}`,
+            ephemeral: true,
+          }));
+    }
+    //ModLog channelID setup
+    if (interaction.options.getSubcommand() === "modlog") {
+      const f = interaction.options.getString("id") as string;
+      isNaN(+f) &&
+        "false" === f &&
+        (await guild_db.updateOne({ logchannelID: null })),
+        isNaN(+f) && "false" !== f
+          ? interaction.reply({
+              content:
+                "\u274C You need to give me a channelID to set this setting.",
+              ephemeral: true,
+            })
+          : await guild_db.updateOne({ logchannelID: f }).then(() =>
+              interaction.reply({
+                content: `✅ ModLog Channel has been set to ${f}`,
+                ephemeral: true,
+              })
+            );
+    }
+    //ModRole ID Setup
+    if (interaction.options.getSubcommand() === "modrole") {
+      const h = interaction.options.getRole("role");
+      h == null || h == undefined
+        ? await guild_db.updateOne({ moderatorRoleID: null })
+        : (await guild_db.updateOne({ moderatorRoleID: h.id }),
+          interaction.reply({
+            content: `✅ ModRole has been set to ${h}`,
+            ephemeral: true,
+          }));
+    }
+    // WelcomeMessage Setup
+    //**Need to be tested */
+    if (interaction.options.getSubcommand() === "welcomemessage") {
+      const i = interaction.options.getString("input");
+      "false" === i
+        ? await guild_db.updateOne({ PersonalizedWelcomeMessage: null })
+        : (await guild_db.updateOne({ PersonalizedWelcomeMessage: i }),
+          interaction.reply({
+            content: `✅ Welcome Message has been set to ${i}`,
+            ephemeral: true,
+          }));
+    }
+  }
+}
