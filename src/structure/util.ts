@@ -58,6 +58,7 @@ const Util = class {
     }
     return a;
   }
+
   formatBytes(a: number) {
     if (0 === a) return "0 Bytes";
     const b = Math.floor(Math.log(a) / Math.log(1024));
