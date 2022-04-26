@@ -1,14 +1,32 @@
-import type { Channel, CommandInteraction, DataManager, Emoji, EmojiResolvable, ExplicitContentFilterLevel, GuildChannel, GuildMember, GuildMemberResolvable, GuildResolvable, Role, VerificationLevel } from 'discord.js';
-import type { ChannelTypes } from 'discord.js/typings/enums';
-const { MessageEmbed, version: djsversion } = require("discord.js");
-const { time } = require("@discordjs/builders");
-const moment = require("moment");
-const { version } = require("./../../package.json");
-const ms = require("ms");
-const os = require("os");
 
-module.exports.MuteEmbed = function (interaction:CommandInteraction<"cached">, member:GuildMember, reason:string, time:string) {
-  const mute = new MessageEmbed()
+import {
+  Channel,
+  MessageEmbed,
+  CommandInteraction,
+  DataManager,
+  Emoji,
+  EmojiResolvable,
+  ExplicitContentFilterLevel,
+  GuildChannel,
+  GuildMember,
+  GuildMemberResolvable,
+  GuildResolvable,
+  Role,
+  VerificationLevel,
+} from "discord.js";
+import type { ChannelTypes } from "discord.js/typings/enums";
+import * as Package from "./../../package.json";
+import ms from "ms";
+import os from "os";
+
+
+export function MuteEmbed(
+  interaction: CommandInteraction<"cached">,
+  member: GuildMember,
+  reason: string,
+  time: string
+) {
+  return new MessageEmbed()
     .setColor("YELLOW")
     .addField(
       "Moderation",
@@ -21,15 +39,14 @@ module.exports.MuteEmbed = function (interaction:CommandInteraction<"cached">, m
       ].join("\n")
     )
     .setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
-  return mute;
-};
+}
 
-module.exports.AdminEmbed = function (
+ export function AdminEmbed(
   interaction: CommandInteraction<"cached">,
   member: GuildMember,
-  reason:string
+  reason: string
 ) {
-  const Admin = new MessageEmbed()
+  return new MessageEmbed()
     .setColor("DARK_RED")
     .addField(
       "Moderation",
@@ -41,17 +58,16 @@ module.exports.AdminEmbed = function (
       ].join("\n")
     )
     .setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
-  return Admin;
 };
-module.exports.UserInfoEmbed = function (
+export function UserInfoEmbed (
   interaction: CommandInteraction<"cached">,
   member: GuildMember,
   role: any,
   flag: string[],
   flags: { [x: string]: string },
   created: string
-): any {
-  const UserInfo = new MessageEmbed()
+) {
+  return new MessageEmbed()
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
     .setColor(member.displayHexColor || "BLUE")
     .addField(
@@ -84,7 +100,7 @@ module.exports.UserInfoEmbed = function (
             ? "None"
             : member.roles.highest.name
         }`,
-        `**❯ Server Join Date:** ${moment(member.joinedAt).format("LL LTS")}`,
+        `**❯ Server Join Date:** ${member.joinedTimestamp}`,
         `**❯ Hoist Role:** ${
           member.roles.hoist ? member.roles.hoist.name : "None"
         }`,
@@ -98,12 +114,23 @@ module.exports.UserInfoEmbed = function (
         `\u200b`,
       ].join("\n")
     );
-  return UserInfo;
 };
-module.exports.SettingEmbed = function (interaction:CommandInteraction<"cached">, guild_db: { welcomechannelID: string; logchannelID: string; moderatorRoleID: string; PersonalizedWelcomeMessage:string; antiRaidMode: boolean; messageDeleteMode: boolean; messageBulkDeleteMode: boolean; messageUpdateMode: boolean; }) {
-  const Setting = new MessageEmbed()
+export function SettingEmbed(
+  interaction: CommandInteraction<"cached">,
+  guild_db: {
+    welcomechannelID: string;
+    logchannelID: string;
+    moderatorRoleID: string;
+    PersonalizedWelcomeMessage: string;
+    antiRaidMode: boolean;
+    messageDeleteMode: boolean;
+    messageBulkDeleteMode: boolean;
+    messageUpdateMode: boolean;
+  }
+) {
+  return new MessageEmbed()
     .setAuthor({ name: `${interaction.guild.name} Settings` })
-    .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+    .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
     .setDescription(
       [
         `**❯ Prefix:** Slash commands !`,
@@ -141,9 +168,8 @@ module.exports.SettingEmbed = function (interaction:CommandInteraction<"cached">
       text: `Requested by ${interaction.user.username}`,
       iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}`,
     });
-  return Setting;
 };
-module.exports.ServerInfoEmbed = (
+export function ServerInfoEmbed (
   interaction: CommandInteraction<"cached">,
   owner: GuildMember,
   member: DataManager<string, GuildMember, GuildMemberResolvable>,
@@ -153,11 +179,11 @@ module.exports.ServerInfoEmbed = (
   filterLevels: ExplicitContentFilterLevel,
   verificationLevels: VerificationLevel,
   server_create: string
-) => {
-  const ServerInfo = new MessageEmbed()
+) {
+  return new MessageEmbed()
     .setDescription(`**Guild information for __${interaction.guild.name}__**`)
     .setColor("BLUE")
-    .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+    .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
     .addField(
       "General",
       [
@@ -261,12 +287,15 @@ module.exports.ServerInfoEmbed = (
       ].join("\n")
     )
     .setTimestamp();
-  return ServerInfo;
 };
-module.exports.BotInfoEmbed = function (interaction:CommandInteraction<"cached">, b: { model: any; speed: any; }, bot_create: any) {
-  if(!interaction.client.user) return
-  if(!interaction.guild.me) return
-  const BotInfo = new MessageEmbed()
+export function BotInfoEmbed(
+  interaction: CommandInteraction<"cached">,
+  b: { model: any; speed: any },
+  bot_create: any
+) {
+  if (!interaction.client.user) return;
+  if (!interaction.guild.me) return;
+ return new MessageEmbed()
     .setThumbnail(interaction.client.user.displayAvatarURL())
     .setColor(interaction.guild.me.displayHexColor || "BLUE")
     .addField(
@@ -281,8 +310,8 @@ module.exports.BotInfoEmbed = function (interaction:CommandInteraction<"cached">
         `**❯ Channels:** ${interaction.client.channels.cache.size.toLocaleString()}`,
         `**❯ Creation Date:** ${bot_create}`,
         `**❯ Node.js:** ${process.version}`,
-        `**❯ Version:** v${version}`,
-        `**❯ Discord.js:** v${djsversion}`,
+        `**❯ Version:** v${Package.version}`,
+        `**❯ Discord.js:** v${Package.dependencies["discord.js"]}`,
         "\u200B",
       ].join("\n")
     )
@@ -311,16 +340,14 @@ module.exports.BotInfoEmbed = function (interaction:CommandInteraction<"cached">
       true
     )
     .setTimestamp();
-
-  return BotInfo;
 };
-module.exports.RestrictEmbed = function (
+export function RestrictEmbed(
   interaction: CommandInteraction<"cached">,
-  reason:string,
-  restriction_name:string,
-  e:GuildMember
+  reason: string,
+  restriction_name: string,
+  e: GuildMember
 ) {
-  const restrict = new MessageEmbed()
+  return new MessageEmbed()
     .setAuthor({
       name: `${interaction.user.tag} (${interaction.user.id})`,
       iconURL: interaction.user.displayAvatarURL(),
@@ -337,13 +364,16 @@ module.exports.RestrictEmbed = function (
     )
     .setTimestamp(new Date())
     .setFooter({ text: `${restriction_name} restricted` });
-  return restrict;
+ 
 };
-module.exports.RoleEmbed = function (interaction:CommandInteraction<"cached">, c:Role) {
-  const RoleEmbed = new MessageEmbed()
+export function RoleEmbed(
+  interaction: CommandInteraction<"cached">,
+  c: Role
+) {
+ return new MessageEmbed()
     .setTimestamp()
     .setColor(c.color)
-    .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+    .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
     .setDescription(`**Role information**`)
     .addField(
       "Role",
@@ -355,16 +385,17 @@ module.exports.RoleEmbed = function (interaction:CommandInteraction<"cached">, c
         `**❯ Mentionable:** ${c.mentionable}`,
       ].join("\n")
     );
-  return RoleEmbed;
 };
-module.exports.ChannelEmbed = (interaction: CommandInteraction<"cached">,
+export function ChannelEmbed(
+  interaction: CommandInteraction<"cached">,
   chanCreateTime: any,
   channel: GuildChannel,
   channeltypes: any,
-  ChannelType: ChannelTypes[]) => {
+  ChannelType: ChannelTypes[]
+) {
   const ChanEmbeds = new MessageEmbed()
     .setTitle(`${interaction.guild.name}'s Channel Info`)
-    .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+    .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
     .addField(
       `❯ Name: `,
       `${interaction.client.utils.toTitleCase(channel.name)}, (${channel.id})`,
@@ -376,12 +407,16 @@ module.exports.ChannelEmbed = (interaction: CommandInteraction<"cached">,
       "Informations",
       [
         `**❯ NSFW:** ${channel.nsfw ? channel.nsfw : "False"}`,
-        `**❯ Slowmode:** ${channel.rateLimitPerUser
-          ? channel.rateLimitPerUser + " Seconds"
-          : "None"}`,
-        `**❯ Private Channel:** ${channel.permissionsFor(interaction.guild.id)?.has("VIEW_CHANNEL")
-          ? "False"
-          : "True"}`,
+        `**❯ Slowmode:** ${
+          channel.rateLimitPerUser
+            ? channel.rateLimitPerUser + " Seconds"
+            : "None"
+        }`,
+        `**❯ Private Channel:** ${
+          channel.permissionsFor(interaction.guild.id)?.has("VIEW_CHANNEL")
+            ? "False"
+            : "True"
+        }`,
       ].join("\n")
     ).addField(
       `❯ Topic:`,
@@ -392,9 +427,7 @@ module.exports.ChannelEmbed = (interaction: CommandInteraction<"cached">,
 
   ChanEmbeds.addField(
     `❯ Type:`,
-    ` ${channel
-      ? channel.type
-      : "Cannot provide this information."}`,
+    ` ${channel ? channel.type : "Cannot provide this information."}`,
     true
   );
   return ChanEmbeds;
