@@ -1,11 +1,10 @@
 require("dotenv").config();
-import { SapphireClient, BucketScope } from "@sapphire/framework";
-import { Collection} from "discord.js";
-import type Util from './util';
+import * as framework from "@sapphire/framework";
+import utils from './util';
 
-export class Lillyclient extends SapphireClient {
-  util: Collection<undefined, typeof Util>; // thats completely wrong
-
+export default class client extends framework.SapphireClient {
+  utils: typeof utils;
+ 
   public constructor() {
     super({
       presence: {
@@ -24,10 +23,11 @@ export class Lillyclient extends SapphireClient {
         filteredCommands: ["ping"], // Ignore the `ping` command
         filteredUsers: ["YOUR_ID"], // Ignore the bot owner
         limit: 2, // Allow 2 uses before ratelimiting
-        scope: BucketScope.Channel, // Scope cooldown to channel
+        scope: framework.BucketScope.Channel, // Scope cooldown to channel
       },
       shards: "auto",
-    });
-    this.util = new Collection(); // thats maybe ok
+      
+    }),
+    this.utils = utils;
   }
 }
