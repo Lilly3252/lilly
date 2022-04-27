@@ -1,32 +1,18 @@
 
-import {
-  Channel,
-  MessageEmbed,
-  CommandInteraction,
-  DataManager,
-  Emoji,
-  EmojiResolvable,
-  ExplicitContentFilterLevel,
-  GuildChannel,
-  GuildMember,
-  GuildMemberResolvable,
-  GuildResolvable,
-  Role,
-  VerificationLevel,
-} from "discord.js";
-import type { ChannelTypes } from "discord.js/typings/enums";
+import * as discordJs from "discord.js";
+import type * as enums from "discord.js/typings/enums";
 import * as Package from "./../../package.json";
 import ms from "ms";
 import os from "os";
 
 
 export function MuteEmbed(
-  interaction: CommandInteraction<"cached">,
-  member: GuildMember,
+  interaction: discordJs.CommandInteraction<"cached">,
+  member: discordJs.GuildMember,
   reason: string,
   time: string
 ) {
-  return new MessageEmbed()
+  return new discordJs.MessageEmbed()
     .setColor("YELLOW")
     .addField(
       "Moderation",
@@ -42,11 +28,11 @@ export function MuteEmbed(
 }
 
  export function AdminEmbed(
-  interaction: CommandInteraction<"cached">,
-  member: GuildMember,
+  interaction: discordJs.CommandInteraction<"cached">,
+  member: discordJs.GuildMember,
   reason: string
 ) {
-  return new MessageEmbed()
+  return new discordJs.MessageEmbed()
     .setColor("DARK_RED")
     .addField(
       "Moderation",
@@ -59,15 +45,16 @@ export function MuteEmbed(
     )
     .setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
 };
+
 export function UserInfoEmbed (
-  interaction: CommandInteraction<"cached">,
-  member: GuildMember,
+  interaction: discordJs.CommandInteraction<"cached">,
+  member: discordJs.GuildMember,
   role: any,
   flag: string[],
   flags: { [x: string]: string },
   created: string
 ) {
-  return new MessageEmbed()
+  return new discordJs.MessageEmbed()
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
     .setColor(member.displayHexColor || "BLUE")
     .addField(
@@ -116,7 +103,7 @@ export function UserInfoEmbed (
     );
 };
 export function SettingEmbed(
-  interaction: CommandInteraction<"cached">,
+  interaction: discordJs.CommandInteraction<"cached">,
   guild_db: {
     welcomechannelID: string;
     logchannelID: string;
@@ -128,7 +115,7 @@ export function SettingEmbed(
     messageUpdateMode: boolean;
   }
 ) {
-  return new MessageEmbed()
+  return new discordJs.MessageEmbed()
     .setAuthor({ name: `${interaction.guild.name} Settings` })
     .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
     .setDescription(
@@ -170,17 +157,17 @@ export function SettingEmbed(
     });
 };
 export function ServerInfoEmbed (
-  interaction: CommandInteraction<"cached">,
-  owner: GuildMember,
-  member: DataManager<string, GuildMember, GuildMemberResolvable>,
-  b: Role[],
-  d: DataManager<string, Channel, GuildResolvable>,
-  e: DataManager<string, Emoji, EmojiResolvable>,
-  filterLevels: ExplicitContentFilterLevel,
-  verificationLevels: VerificationLevel,
+  interaction: discordJs.CommandInteraction<"cached">,
+  owner: discordJs.GuildMember,
+  member: discordJs.DataManager<string, discordJs.GuildMember, discordJs.GuildMemberResolvable>,
+  b: discordJs.Role[],
+  d: discordJs.DataManager<string, discordJs.Channel, discordJs.GuildResolvable>,
+  e: discordJs.DataManager<string, discordJs.Emoji, discordJs.EmojiResolvable>,
+  filterLevels: discordJs.ExplicitContentFilterLevel,
+  verificationLevels: discordJs.VerificationLevel,
   server_create: string
 ) {
-  return new MessageEmbed()
+  return new discordJs.MessageEmbed()
     .setDescription(`**Guild information for __${interaction.guild.name}__**`)
     .setColor("BLUE")
     .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
@@ -211,29 +198,29 @@ export function ServerInfoEmbed (
         `**❯ Role Count:** ${b.length}`,
         `**❯ Emoji Count:** ${e.cache.size}`,
         `**❯ Regular Emoji Count:** ${
-          e.cache.filter((a: Emoji) => !a.animated).size
+          e.cache.filter((a: discordJs.Emoji) => !a.animated).size
         }`,
         `**❯ Animated Emoji Count:** ${
-          e.cache.filter((a: Emoji) => a.animated as true).size
+          e.cache.filter((a: discordJs.Emoji) => a.animated as true).size
         }`,
         `**❯ Member Count:** ${interaction.guild.memberCount}`,
         `**❯ Humans:** ${
-          member.cache.filter((a: GuildMember) => !a.user.bot).size
+          member.cache.filter((a: discordJs.GuildMember) => !a.user.bot).size
         }`,
         `**❯ Bots:** ${
-          member.cache.filter((a: GuildMember) => a.user.bot).size
+          member.cache.filter((a: discordJs.GuildMember) => a.user.bot).size
         }`,
         `**❯ Text Channels:** ${
-          d.cache.filter((channel: Channel) => channel.type === "GUILD_TEXT")
+          d.cache.filter((channel: discordJs.Channel) => channel.type === "GUILD_TEXT")
             .size
         }`,
         `**❯ Voice Channels:** ${
-          d.cache.filter((channel: Channel) => channel.type === "GUILD_VOICE")
+          d.cache.filter((channel: discordJs.Channel) => channel.type === "GUILD_VOICE")
             .size
         }`,
         `**❯ Stage Channels:** ${
           d.cache.filter(
-            (channel: Channel) => channel.type === "GUILD_STAGE_VOICE"
+            (channel: discordJs.Channel) => channel.type === "GUILD_STAGE_VOICE"
           ).size
         }`,
         `**❯ Boost Count:** ${
@@ -247,30 +234,30 @@ export function ServerInfoEmbed (
       [
         `**❯ Online:** ${
           member.cache.filter(
-            (guildmember: GuildMember) =>
+            (guildmember: discordJs.GuildMember) =>
               "online" === guildmember.presence?.status
           ).size
         }`,
         `**❯ Idle:** ${
           member.cache.filter(
-            (guildmember: GuildMember) =>
+            (guildmember: discordJs.GuildMember) =>
               "idle" === guildmember.presence?.status
           ).size
         }`,
         `**❯ Do Not Disturb:** ${
           member.cache.filter(
-            (guildmember: GuildMember) => "dnd" === guildmember.presence?.status
+            (guildmember: discordJs.GuildMember) => "dnd" === guildmember.presence?.status
           ).size
         }`,
         `**❯ Offline:** ${
           member.cache.filter(
-            (guildmember: GuildMember) =>
+            (guildmember: discordJs.GuildMember) =>
               "offline" === guildmember.presence?.status
           ).size
         }`,
         `**❯ No presence detected:** ${
           member.cache.filter(
-            (guildmember: GuildMember) => null === guildmember.presence
+            (guildmember: discordJs.GuildMember) => null === guildmember.presence
           ).size
         }`,
         "\u200B",
@@ -289,13 +276,13 @@ export function ServerInfoEmbed (
     .setTimestamp();
 };
 export function BotInfoEmbed(
-  interaction: CommandInteraction<"cached">,
+  interaction: discordJs.CommandInteraction<"cached">,
   b: { model: any; speed: any },
   bot_create: any
 ) {
   if (!interaction.client.user) return;
   if (!interaction.guild.me) return;
- return new MessageEmbed()
+ return new discordJs.MessageEmbed()
     .setThumbnail(interaction.client.user.displayAvatarURL())
     .setColor(interaction.guild.me.displayHexColor || "BLUE")
     .addField(
@@ -342,12 +329,12 @@ export function BotInfoEmbed(
     .setTimestamp();
 };
 export function RestrictEmbed(
-  interaction: CommandInteraction<"cached">,
+  interaction: discordJs.CommandInteraction<"cached">,
   reason: string,
   restriction_name: string,
-  e: GuildMember
+  e: discordJs.GuildMember
 ) {
-  return new MessageEmbed()
+  return new discordJs.MessageEmbed()
     .setAuthor({
       name: `${interaction.user.tag} (${interaction.user.id})`,
       iconURL: interaction.user.displayAvatarURL(),
@@ -367,10 +354,10 @@ export function RestrictEmbed(
  
 };
 export function RoleEmbed(
-  interaction: CommandInteraction<"cached">,
-  c: Role
+  interaction: discordJs.CommandInteraction<"cached">,
+  c: discordJs.Role
 ) {
- return new MessageEmbed()
+ return new discordJs.MessageEmbed()
     .setTimestamp()
     .setColor(c.color)
     .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
@@ -387,13 +374,13 @@ export function RoleEmbed(
     );
 };
 export function ChannelEmbed(
-  interaction: CommandInteraction<"cached">,
+  interaction: discordJs.CommandInteraction<"cached">,
   chanCreateTime: any,
-  channel: GuildChannel,
+  channel: discordJs.GuildChannel,
   channeltypes: any,
-  ChannelType: ChannelTypes[]
+  ChannelType: enums.ChannelTypes[]
 ) {
-  const ChanEmbeds = new MessageEmbed()
+  const ChanEmbeds = new discordJs.MessageEmbed()
     .setTitle(`${interaction.guild.name}'s Channel Info`)
     .setThumbnail(interaction.guild.iconURL({ dynamic: true })!)
     .addField(
