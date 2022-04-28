@@ -160,7 +160,7 @@ export function ServerInfoEmbed (
   interaction: discordJs.CommandInteraction<"cached">,
   owner: discordJs.GuildMember,
   member: discordJs.DataManager<string, discordJs.GuildMember, discordJs.GuildMemberResolvable>,
-  b: discordJs.Role[],
+  b: string[],
   d: discordJs.DataManager<string, discordJs.Channel, discordJs.GuildResolvable>,
   e: discordJs.DataManager<string, discordJs.Emoji, discordJs.EmojiResolvable>,
   filterLevels: discordJs.ExplicitContentFilterLevel,
