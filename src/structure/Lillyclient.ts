@@ -1,9 +1,14 @@
 require("dotenv").config();
 import * as framework from "@sapphire/framework";
-import utils from './util';
+import type utils from './util';
 
+declare module "discord.js" {
+  interface Client {
+    utils: utils;
+  }
+}
 export default class client extends framework.SapphireClient {
-  utils: typeof utils;
+  
  
   public constructor() {
     super({
@@ -27,7 +32,7 @@ export default class client extends framework.SapphireClient {
       },
       shards: "auto",
       
-    }),
-    this.utils = utils;
+    })
   }
 }
+
