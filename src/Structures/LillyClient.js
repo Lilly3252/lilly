@@ -4,7 +4,7 @@ const process = require ("node:process");
 module.exports = class extends Client {
   constructor(a = {}) {
     super({
-      partials: ["MESSAGE", "CHANNEL", "REACTION", "USER", "GUILD_MEMBER"],
+      partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User, Partials.GuildMember,Partials.GuildScheduledEvent,Partials.ThreadMember],
       intents: [
         GatewayIntentBits.FLAGS.GUILDS,
         GatewayIntentBits.FLAGS.GUILD_MEMBERS,
