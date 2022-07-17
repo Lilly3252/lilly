@@ -16,7 +16,7 @@ module.exports = class extends Event {
         message.guild &&
         null !== message.author
       ) {
-        const deleteEmbed = new MessageEmbed()
+        const deleteEmbed = new EmbedBuilder()
           .setAuthor({
             name:
               `${message.author.tag} (${message.author.id})`, iconURL:

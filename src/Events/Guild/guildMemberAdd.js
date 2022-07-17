@@ -14,7 +14,7 @@ module.exports = class extends Event {
     const c = await Guild.findOne({ guildID: member.guild.id });
     const welcomechannel = c.welcomechannelID;
     
-    const welcomeEmbed = new MessageEmbed()
+    const welcomeEmbed = new EmbedBuilder()
       .setColor("RANDOM")
       .setAuthor({ name: `${member.user.tag} (${member.id})`, iconURL: member.user.displayAvatarURL() })
       .addField("Information", [

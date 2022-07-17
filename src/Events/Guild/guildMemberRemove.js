@@ -9,7 +9,7 @@ module.exports = class extends Event {
   async run(a) {
     if (!a.guild) return;
     const b = await Guild.findOne({ guildID: a.guild.id }),
-      c = new MessageEmbed()
+      c = new EmbedBuilder()
         .setColor("RANDOM")
         .setAuthor({name:`${a.user.tag} (${a.id})`,iconURL: a.user.displayAvatarURL()})
         .setFooter({text:"User left"})

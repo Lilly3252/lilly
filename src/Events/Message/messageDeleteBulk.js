@@ -17,7 +17,7 @@ module.exports = class extends Event {
     const length = [...messages.values()].length;
     const channel = messages.first().channel.name;
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setAuthor({
         name:
           `${messages.first().author.tag} (${messages.first().author.id})`, iconURL:

@@ -1,18 +1,18 @@
-const { Client, Collection, Permissions, Intents } = require("discord.js");
+const { Client, Collection, Permissions, GatewayIntentBits , Partials} = require("discord.js");
 const Util = require("./Util.js");
-
+const process = require ("node:process");
 module.exports = class extends Client {
   constructor(a = {}) {
     super({
       partials: ["MESSAGE", "CHANNEL", "REACTION", "USER", "GUILD_MEMBER"],
       intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_BANS,
-        Intents.FLAGS.GUILD_VOICE_STATES,
-        Intents.FLAGS.GUILD_PRESENCES,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.DIRECT_MESSAGES,
+        GatewayIntentBits.FLAGS.GUILDS,
+        GatewayIntentBits.FLAGS.GUILD_MEMBERS,
+        GatewayIntentBits.FLAGS.GUILD_BANS,
+        GatewayIntentBits.FLAGS.GUILD_VOICE_STATES,
+        GatewayIntentBits.FLAGS.GUILD_PRESENCES,
+        GatewayIntentBits.FLAGS.GUILD_MESSAGES,
+        GatewayIntentBits.FLAGS.DIRECT_MESSAGES,
       ],
     });
 

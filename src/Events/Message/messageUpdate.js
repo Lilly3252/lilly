@@ -13,7 +13,7 @@ module.exports = class extends Event {
       return;
     const c = await Guild.findOne({ guildID: message.guild.id });
     if (false === c.messageUpdateMode) return;
-    const d = new MessageEmbed()
+    const d = new EmbedBuilder()
       .setAuthor({name:
         `${b.author.tag} (${b.author.id})`,
         iconURL: b.author.displayAvatarURL()}

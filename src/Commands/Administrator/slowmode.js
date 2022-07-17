@@ -24,7 +24,7 @@ module.exports = {
     return isNaN(b[0])
       ? interaction.reply("That is not a number!")
       : void (await a.channel.setRateLimitPerUser(b[0]).then(() => {
-        interaction.reply(new MessageEmbed({ title: `Set the slow mode to ${b[0]} seconds` }), { ephemeral: true });
+        interaction.reply(new EmbedBuilder({ title: `Set the slow mode to ${b[0]} seconds` }), { ephemeral: true });
       })
         .catch((a) => console.log(a)));
   },

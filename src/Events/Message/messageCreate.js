@@ -22,7 +22,7 @@ module.exports = class extends Event {
     //message.channel.send("ok shut the fuck up...");
     //}
 
-    const modMentionEmbed = new MessageEmbed()
+    const modMentionEmbed = new EmbedBuilder()
       .setTitle("Moderator Mentioned")
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription([

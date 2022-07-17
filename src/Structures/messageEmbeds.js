@@ -6,7 +6,7 @@ const ms = require("ms");
 const os = require("os");
 
 module.exports.MuteEmbed = function (interaction, member, reason, time) {
-  const mute = new MessageEmbed()
+  const mute = new EmbedBuilder()
     .setColor("YELLOW")
     .addField(
       "Moderation",
@@ -23,7 +23,7 @@ module.exports.MuteEmbed = function (interaction, member, reason, time) {
 };
 
 module.exports.AdminEmbed = function (interaction, member, reason) {
-  const Admin = new MessageEmbed()
+  const Admin = new EmbedBuilder()
     .setColor("DARK_RED")
     .addField(
       "Moderation",
@@ -45,7 +45,7 @@ module.exports.UserInfoEmbed = function (
   flags,
   created
 ) {
-  const UserInfo = new MessageEmbed()
+  const UserInfo = new EmbedBuilder()
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
     .setColor(member.displayHexColor || "BLUE")
     .addField(
@@ -93,7 +93,7 @@ module.exports.UserInfoEmbed = function (
   return UserInfo;
 };
 module.exports.SettingEmbed = function (interaction, guild_db) {
-  const Setting = new MessageEmbed()
+  const Setting = new EmbedBuilder()
     .setAuthor({ name: `${interaction.guild.name} Settings` })
     .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
     .setDescription(
@@ -146,7 +146,7 @@ module.exports.ServerInfoEmbed = function (
   verificationLevels,
   server_create
 ) {
-  const ServerInfo = new MessageEmbed()
+  const ServerInfo = new EmbedBuilder()
     .setDescription(`**Guild information for __${interaction.guild.name}__**`)
     .setColor("BLUE")
     .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
@@ -238,7 +238,7 @@ module.exports.ServerInfoEmbed = function (
   return ServerInfo;
 };
 module.exports.BotInfoEmbed = function (interaction, b, bot_create) {
-  const BotInfo = new MessageEmbed()
+  const BotInfo = new EmbedBuilder()
     .setThumbnail(interaction.client.user.displayAvatarURL())
     .setColor(interaction.guild.me.displayHexColor || "BLUE")
     .addField(
@@ -292,7 +292,7 @@ module.exports.RestrictEmbed = function (
   restriction_name,
   e
 ) {
-  const restrict = new MessageEmbed()
+  const restrict = new EmbedBuilder()
     .setAuthor({
       name: `${interaction.user.tag} (${interaction.user.id})`,
       iconURL: interaction.user.displayAvatarURL(),
@@ -312,7 +312,7 @@ module.exports.RestrictEmbed = function (
   return restrict;
 };
 module.exports.RoleEmbed = function (interaction, c) {
-  RoleEmbed = new MessageEmbed()
+  RoleEmbed = new EmbedBuilder()
     .setTimestamp()
     .setColor(c.color)
     .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
@@ -336,7 +336,7 @@ module.exports.ChannelEmbed = function (
   channeltypes,
   ChannelType
 ) {
-  const ChanEmbeds = new MessageEmbed()
+  const ChanEmbeds = new EmbedBuilder()
     .setTitle(`${interaction.guild.name}'s Channel Info`)
     .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
     .addField(
