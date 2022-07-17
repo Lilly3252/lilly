@@ -6,13 +6,13 @@ module.exports = class extends Client {
     super({
       partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User, Partials.GuildMember,Partials.GuildScheduledEvent,Partials.ThreadMember],
       intents: [
-        GatewayIntentBits.FLAGS.GUILDS,
-        GatewayIntentBits.FLAGS.GUILD_MEMBERS,
-        GatewayIntentBits.FLAGS.GUILD_BANS,
-        GatewayIntentBits.FLAGS.GUILD_VOICE_STATES,
-        GatewayIntentBits.FLAGS.GUILD_PRESENCES,
-        GatewayIntentBits.FLAGS.GUILD_MESSAGES,
-        GatewayIntentBits.FLAGS.DIRECT_MESSAGES,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildBans,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.DirectMessages,
       ],
     });
 
