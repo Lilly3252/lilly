@@ -18,10 +18,7 @@ module.exports = {
         .setName("restrictions")
         .setDescription("Choose a restriction")
         .setRequired(true)
-        .addChoice("Embed", "embed")
-        .addChoice("Reaction", "reaction")
-        .addChoice("Voice", "voice")
-        .addChoice("Slash", "slash")
+        .addChoices({name:"Embed", value:"embed"},{name:"Reaction", value:"reaction"},{name:"Voice", value:"voice"},{name:"Slash", value:"slash"})
         .setRequired(true)
     )
     .addStringOption((option) =>

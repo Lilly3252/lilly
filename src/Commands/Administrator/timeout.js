@@ -12,10 +12,10 @@ module.exports = {
     )
     .addStringOption((option) =>
       option.setName("time").setDescription("time for timeout")
-        .addChoices([["5min", "300000"],["10min", "600000"],["15min", "900000"],
-          ["30min", "1800000"],["45min", "2700000"],["1d", "86400000"],["2d", "172800000"],
-          ["3d", "259200000"],["4d", "345600000"],["5d", "432000000"],["6d", "518400000"],
-          ["1week", "604800000"],["2weeks", "1209600000"],["28days", "2419200000"]]).setRequired(true))
+        .addChoices({name:"5min",value: "300000"},{name:"10min",value: "600000"},{name:"15min",value: "900000"},
+          {name:"30min",value: "1800000"},{name:"45min", value:"2700000"},{name:"1d", value:"86400000"},{name:"2d", value:"172800000"},
+          {name:"3d", value:"259200000"},{name:"4d", value:"345600000"},{name:"5d", value:"432000000"},{name:"6d",value: "518400000"},
+          {name:"1week", value:"604800000"},{name:"2weeks", value:"1209600000"},{name:"28days",value: "2419200000"}).setRequired(true))
         
     .addStringOption((option) =>
       option

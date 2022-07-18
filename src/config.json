@@ -2,7 +2,6 @@
   "GuildID": "751501408213401650",
   "token": "TOKEN",
   "owners": ["165922734461812736"],
-  "defaultPerms": ["VIEW_CHANNEL", "SEND_MESSAGES"],
-  "mongooseLink": "mongodb+srv://Lilly-dev:PASSPORT@lillybot.43rtj.mongodb.net/DBNAME",
+  "mongooseLink": "mongodb+srv://Lilly:PbOpDRKS5im2GUzo@lilly.eq7v3jw.mongodb.net/lilly",
   "ClientID": "775530257645830145"
 }
