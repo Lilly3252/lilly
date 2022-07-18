@@ -2,6 +2,6 @@
   "GuildID": "751501408213401650",
   "token": "TOKEN",
   "owners": ["165922734461812736"],
-  "mongooseLink": "mongodb+srv://Lilly:PbOpDRKS5im2GUzo@lilly.eq7v3jw.mongodb.net/lilly",
+  "mongooseLink": "mongodb+srv://Lilly:password@lilly.eq7v3jw.mongodb.net/db",
   "ClientID": "775530257645830145"
 }
