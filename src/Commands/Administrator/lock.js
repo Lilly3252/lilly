@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 //**WORKS */
 module.exports = {
@@ -13,10 +13,10 @@ module.exports = {
         .setRequired(true)
     ),
   async run(interaction) {
-    if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
-    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
+    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     const unlocked_locked = interaction.options.getBoolean("choice");

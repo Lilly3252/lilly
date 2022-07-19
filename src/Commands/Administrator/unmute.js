@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
 const Guild = require("../../Database/models/Guild")
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 const AdminEmbed = require("./../../Structures/messageEmbeds")
 //! needs to be checked//
@@ -13,12 +13,12 @@ module.exports = {
         .setRequired(true)),
   async run(interaction) {
     await interaction.reply({ content: "This command is not finished yet.", ephemeral: true })
-    /*if (!interaction.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
+    /*if (!interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply(
         SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"]
       );
     }
-    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
+    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply(
         SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"]
       );

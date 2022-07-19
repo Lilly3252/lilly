@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const Embed = require("./../../Structures/messageEmbeds");
 const Guild = require("../../Database/models/Guild");
 const SYSTEM = require("./../../Structures/messageSystem.json");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 (mongoose = require("mongoose")),
   (module.exports = {
     data: new SlashCommandBuilder()
@@ -79,7 +79,7 @@ const { Permissions } = require("discord.js");
       ),
     async run(interaction) {
       if (
-        !interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
+        !interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)
       ) {
         return interaction.reply(
           SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["ADMINISTRATOR"]

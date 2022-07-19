@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,14 +11,14 @@ module.exports = {
 
   async run(interaction, b) {
     if (
-      !interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+      !interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)
     ) {
       return interaction.reply(
         {content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_MESSAGES"],ephemeral:true}
       );
     }
     if (
-      !interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+      !interaction.guild.me.permissions.has(PermissionsBitField.Flags.ManageMessages)
     ) {
       return interaction.reply(
         {content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_MESSAGES"],ephemeral:true}

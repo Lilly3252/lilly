@@ -14,9 +14,12 @@ console.log("im connected with mongoose!");
 
 process.on('unhandledRejection', error => {
 	console.error('Unhandled promise rejection:', error);
+  if (error.codeName === "AtlasError"){
+    console.log("Unhandled promise rejection: You forgot to enter the uri for mongoose..")
+  }
 });
-process.on('uncaughtException', (err) => {
-  console.error('uncaughtException:' , err)
+process.on('uncaughtException', (err , origin) => {
+  console.error('uncaughtException:' , err , origin)
 });
 process.on('warning', (warning) => {
   console.warn(warning.name);    

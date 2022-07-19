@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const guild = require("../../Database/models/Guild");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 const Embed = require("./../../Structures/messageEmbeds");
 
@@ -19,13 +19,13 @@ module.exports = {
     ),
 
   async run(interaction) {
-    if (!interaction.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"],
         ephemeral: true,
       });
     }
-    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MUTE_MEMBERS)) {
+    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"],
         ephemeral: true,

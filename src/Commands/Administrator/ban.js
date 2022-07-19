@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 const Guild = require("../../Database/models/Guild");
 const Embed = require("./../../Structures/messageEmbeds");
@@ -15,13 +15,13 @@ module.exports = {
       option.setName("reason").setDescription("reason to ban").setRequired(true)
     ),
   async run(interaction) {
-    if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["BAN_MEMBERS"],
         ephemeral: true,
       });
     }
-    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"],
         ephemeral: true,

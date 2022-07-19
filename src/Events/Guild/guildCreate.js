@@ -13,7 +13,6 @@ module.exports = class extends Event {
       _id: mongoose.Types.ObjectId(),
       guildID: a.id,
       guildName: a.name,
-      prefix: config.prefix,
       moderatorRoleID: null,
       welcomechannelID: null,
       logchannelID: null,

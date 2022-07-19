@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Guild = require("../../Database/models/Guild");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 const Embed = require("./../../Structures/messageEmbeds");
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 
   async run(interaction) {
     if (
-      !interaction.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS)
+      !interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)
     ) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MODERATE_MEMBERS"],
@@ -34,7 +34,7 @@ module.exports = {
       });
     }
     if (
-      !interaction.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS)
+      !interaction.guild.me.permissions.has(PermissionsBitField.Flags.ModerateMembers)
     ) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MODERATE_MEMBERS"],

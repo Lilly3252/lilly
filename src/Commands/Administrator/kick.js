@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Guild = require("../../Database/models/Guild");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const SYSTEM = require("./../../Structures/messageSystem.json");
 const Embed = require("./../../Structures/messageEmbeds");
 
@@ -18,13 +18,13 @@ module.exports = {
         .setRequired(true)
     ),
   async run(interaction) {
-    if (!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["KICK_MEMBERS"],
         ephemeral: true,
       });
     }
-    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["KICK_MEMBERS"],
         ephemeral: true,

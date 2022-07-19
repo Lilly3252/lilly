@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, time } = require("@discordjs/builders");
 const Embed = require("../../Structures/messageEmbeds");
 const os = require("os");
+const {ChannelTypes}=require("discord.js")
 const filterLevels = {
   DISABLED: "Off",
   MEMBERS_WITHOUT_ROLES: "No Role",
@@ -14,19 +15,7 @@ const verificationLevels = {
   VERY_HIGH:
     "\u253B\u2501\u253B \uFF90\u30FD(\u0CA0\u76CA\u0CA0)\u30CE\u5F61\u253B\u2501\u253B",
 };
-const ChannelType = {
-  GUILD_TEXT: "Text Channel",
-  GUILD_VOICE: "Voice Channel",
-  DM: "Direct Message Channel",
-  GROUP_DM: "Direct Message Group Channel",
-  GUILD_CATEGORY: "Category",
-  GUILD_NEWS: "News Channel",
-  GUILD_NEWS_THREAD: "News Thread Channel",
-  GUILD_PUBLIC_THREAD: "Public Thread Channel",
-  GUILD_PRIVATE_THREAD: "Private Thread Channel",
-  GUILD_STAGE_VOICE: "Stage Channel",
-  UNKNOWN: "Unidentified Channel",
-};
+
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -76,7 +65,7 @@ module.exports = {
   async run(interaction) {
     if (interaction.options.getSubcommand() === "channel") {
       const channel = interaction.options.getChannel("channel");
-      const channeltypes = channel.type.split();
+      
       const chanCreateTime = time(channel.createdAt, "R");
 
       await interaction.reply({
@@ -85,8 +74,8 @@ module.exports = {
             interaction,
             chanCreateTime,
             channel,
-            channeltypes,
-            ChannelType
+            
+            
           ),
         ],
       });
