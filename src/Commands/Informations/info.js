@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, time } = require("@discordjs/builders");
 const Embed = require("../../Structures/messageEmbeds");
 const os = require("os");
-const {ChannelTypes}=require("discord.js")
+
 const filterLevels = {
   DISABLED: "Off",
   MEMBERS_WITHOUT_ROLES: "No Role",
@@ -91,7 +91,7 @@ module.exports = {
       const b = interaction.guild.roles.cache
         .sort((c, a) => a.position - c.position)
         .map((a) => a.toString());
-      const member = interaction.guild.members.cache;
+      const member = interaction.guild.members.members.cache;
       const d = interaction.guild.channels.cache;
       const e = interaction.guild.emojis.cache;
 

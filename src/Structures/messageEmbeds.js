@@ -169,7 +169,7 @@ module.exports.ServerInfoEmbed = function (
             `**❯ Emoji Count:** ${e.size}`,
             `**❯ Regular Emoji Count:** ${e.filter((a) => !a.animated).size}`,
             `**❯ Animated Emoji Count:** ${e.filter((a) => a.animated).size}`,
-            `**❯ Member Count:** ${interaction.guild.memberCount}`,
+            `**❯ Member Count:** ${interaction.guild.members.memberCount}`,
             `**❯ Humans:** ${member.filter((a) => !a.user.bot).size}`,
             `**❯ Bots:** ${member.filter((a) => a.user.bot).size}`,
             `**❯ Text Channels:** ${d.filter((channel) => "GUILD_TEXT" === channel.type).size
@@ -227,7 +227,7 @@ module.exports.ServerInfoEmbed = function (
 module.exports.BotInfoEmbed = function (interaction, b, bot_create) {
   const BotInfo = new EmbedBuilder()
     .setThumbnail(interaction.client.user.displayAvatarURL())
-    .setColor(interaction.guild.members.displayHexColor || "Blue")
+    .setColor(interaction.guild.members.members.displayHexColor || "Blue")
     .addFields([{
       name: "General", value: [
         `**❯ Client:** ${interaction.client.user.tag} (${interaction.client.user.id})`,

@@ -18,7 +18,7 @@ module.exports = {
       );
     }
     if (
-      !interaction.guild.me.permissions.has(PermissionsBitField.Flags.ManageMessages)
+      !interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageMessages)
     ) {
       return interaction.reply(
         {content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_MESSAGES"],ephemeral:true}

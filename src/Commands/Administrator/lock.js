@@ -16,7 +16,7 @@ module.exports = {
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
-    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     const unlocked_locked = interaction.options.getBoolean("choice");

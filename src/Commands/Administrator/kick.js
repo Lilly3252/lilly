@@ -24,7 +24,7 @@ module.exports = {
         ephemeral: true,
       });
     }
-    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+    if (!interaction.guild.members.members.me.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["KICK_MEMBERS"],
         ephemeral: true,

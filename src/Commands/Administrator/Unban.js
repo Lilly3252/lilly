@@ -12,7 +12,7 @@ module.exports = {
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["BAN_MEMBERS"],ephemeral:true});
     }
-    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"],ephemeral:true});
     }
     let banned_person = interaction.options.getString("id");
@@ -25,7 +25,7 @@ module.exports = {
 
       let e = b.find((a) => a.user.id == banned_person);
       return e
-        ? void (await interaction.guild.members.unban(e.user, d)
+        ? void (await interaction.guild.members.members.unban(e.user, d)
           .catch((a) => console.log(a)),
           interaction.reply({ content: `**${e.user}** has been unban`, ephemeral: true }))
         : interaction.reply({ content: "this user is not banned", ephemeral: true });

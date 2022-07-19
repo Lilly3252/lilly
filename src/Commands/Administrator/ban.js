@@ -21,7 +21,7 @@ module.exports = {
         ephemeral: true,
       });
     }
-    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"],
         ephemeral: true,
@@ -40,7 +40,7 @@ module.exports = {
       .send(
         `Hello, you have been banned from ${interaction.guild.name} for: ${reason}`
       )
-      .then(() => interaction.guild.members.ban(member))
+      .then(() => interaction.guild.members.members.ban(member))
       .catch((a) => console.log(a)),
       interaction.reply({
         content: `**${member.user.tag}** has been banned`,

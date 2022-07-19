@@ -11,7 +11,7 @@ module.exports = {
   async run(interaction) {
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_MESSAGES"],ephemeral:true});
-    } if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
+    } if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_MESSAGES"],ephemeral:true});
     }
     const count = interaction.options.getString("number");

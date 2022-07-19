@@ -25,7 +25,7 @@ module.exports = {
         ephemeral: true,
       });
     }
-    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"],
         ephemeral: true,

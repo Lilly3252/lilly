@@ -18,7 +18,7 @@ module.exports = {
         SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"]
       );
     }
-    if (!interaction.guild.me.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply(
         SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MUTE_MEMBERS"]
       );

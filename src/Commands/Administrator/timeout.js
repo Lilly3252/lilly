@@ -34,7 +34,7 @@ module.exports = {
       });
     }
     if (
-      !interaction.guild.me.permissions.has(PermissionsBitField.Flags.ModerateMembers)
+      !interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ModerateMembers)
     ) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MODERATE_MEMBERS"],
