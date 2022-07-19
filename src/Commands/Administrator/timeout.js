@@ -22,10 +22,11 @@ module.exports = {
         .setName("reason")
         .setDescription("reason to timeout")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.ModerateMembers),
 
   async run(interaction) {
-    if (
+    /*if (
       !interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)
     ) {
       return interaction.reply({
@@ -40,7 +41,7 @@ module.exports = {
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MODERATE_MEMBERS"],
         ephemeral: true,
       });
-    }
+    }*/
     const member = interaction.options.getMember("target");
     const time = interaction.options.getString("time");
     const reason = interaction.options.getString("reason");

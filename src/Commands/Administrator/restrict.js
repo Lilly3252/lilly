@@ -26,9 +26,10 @@ module.exports = {
         .setName("reasons")
         .setDescription("Specify a reason")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.ManageRoles),
   async run(interaction) {
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
+   /* if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_ROLES"],
         ephemeral: true,
@@ -39,7 +40,7 @@ module.exports = {
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_ROLES"],
         ephemeral: true,
       });
-    }
+    }*/
     const c = await Guild.findOne({ guildID: interaction.guild.id });
     const e = interaction.options.getMentionable("member");
     const reason = interaction.options.getString("reasons");

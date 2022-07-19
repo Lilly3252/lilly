@@ -16,10 +16,11 @@ module.exports = {
         .setName("reason")
         .setDescription("reason to mute")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.MuteMembers),
 
   async run(interaction) {
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
+    /*if (!interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MUTE_MEMBERS"],
         ephemeral: true,
@@ -31,7 +32,7 @@ module.exports = {
         ephemeral: true,
       });
     }
-
+*/
     const member = interaction.options.getMember("target");
     const reason = interaction.options.getString("reason");
     const guild_log = await guild.findOne({ guildID: interaction.guild.id });

@@ -13,14 +13,15 @@ module.exports = {
     .setRequired(true))
     .addNumberOption((option) =>
       option.setName("number").setDescription("Enter a number").setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.ManageChannels),
   async run(interaction, b) {
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
+    /*if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"],ephemeral:true});
-    }
+    }*/
     return isNaN(b[0])
       ? interaction.reply("That is not a number!")
       : void (await a.channel.setRateLimitPerUser(b[0]).then(() => {

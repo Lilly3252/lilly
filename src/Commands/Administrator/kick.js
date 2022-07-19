@@ -16,20 +16,21 @@ module.exports = {
         .setName("reason")
         .setDescription("reason to kick")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers),
   async run(interaction) {
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+    /*if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["KICK_MEMBERS"],
         ephemeral: true,
       });
     }
-    if (!interaction.guild.members.members.me.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       return interaction.reply({
         content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["KICK_MEMBERS"],
         ephemeral: true,
       });
-    }
+    }*/
     const c = await Guild.findOne({ guildID: interaction.guild.id });
     const member = interaction.options.getMember("target");
     const reason = interaction.options.getString("reason");

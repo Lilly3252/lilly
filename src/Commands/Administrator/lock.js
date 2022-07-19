@@ -11,14 +11,15 @@ module.exports = {
         .setName("choice")
         .setDescription("Select a boolean")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.ManageChannels),
   async run(interaction) {
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
+    /*if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["MANAGE_CHANNELS"],ephemeral:true});
     }
     if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
       return interaction.reply({content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_CHANNELS"],ephemeral:true});
-    }
+    }*/
     const unlocked_locked = interaction.options.getBoolean("choice");
     if (true === unlocked_locked) {
       let role = interaction.channel.guild.roles.cache.get(interaction.guild.id);

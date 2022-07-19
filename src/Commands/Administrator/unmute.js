@@ -10,7 +10,8 @@ module.exports = {
     .setDescription("unmute a member.")
     .addMentionableOption((option) =>
       option.setName("member").setDescription("Mention someone")
-        .setRequired(true)),
+        .setRequired(true))
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.MuteMembers),
   async run(interaction) {
     await interaction.reply({ content: "This command is not finished yet.", ephemeral: true })
     /*if (!interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {

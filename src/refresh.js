@@ -21,7 +21,7 @@ modules.forEach((folder) => {
 
 const clientId = process.env.CLIENT_ID ?? config.ClientID;
 const guildId = process.env.GUILD_ID ?? config.GuildID;
-const rest = new REST({ version: "9" }).setToken(
+const rest = new REST({ version: "10" }).setToken(
   process.env.TOKEN ?? config.token
 );
 

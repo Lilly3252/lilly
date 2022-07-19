@@ -7,10 +7,11 @@ module.exports = {
     .setDescription("say something.")
     .addStringOption((option) =>
       option.setName("message").setDescription("message to say")
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.ManageMessages),
 
   async run(interaction, b) {
-    if (
+   /* if (
       !interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)
     ) {
       return interaction.reply(
@@ -23,7 +24,7 @@ module.exports = {
       return interaction.reply(
         {content:SYSTEM.ERROR.PERMISSIONS.BOT_PERM["MANAGE_MESSAGES"],ephemeral:true}
       );
-    }
+    }*/
     let c,
       d = a.mentions.channels.first();
     a.delete(),

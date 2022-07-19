@@ -76,16 +76,17 @@ const { PermissionsBitField } = require("discord.js");
           .addStringOption((option) =>
             option.setName("message").setDescription("Enter a message")
           )
-      ),
+      )
+      .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
     async run(interaction) {
-      if (
+      /*if (
         !interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)
       ) {
         return interaction.reply(
           SYSTEM.ERROR.PERMISSIONS.MEMBER_PERM["ADMINISTRATOR"]
         );
       }
-
+*/
       const guild_db = await Guild.findOne({
         guildID: interaction.guild.id,
       }).then(async (guild) => {
