@@ -126,10 +126,7 @@ module.exports = {
       const created = time(member.user.createdAt, "R");
       const flag = member.user.flags.toArray()
       console.log(flag)
-      const role = member.roles.cache
-        .sort((c, a) => a.position - c.position)
-        .map((a) => a.toString())
-        .slice(0, -1);
+      const role = member.roles.cache.sort((c, a) => a.position - c.position).map((a) => a.toString()).slice(0, -1);
       return interaction.reply({
         embeds: [
           Embed.UserInfoEmbed(interaction, member, role, flag, flags, created),
