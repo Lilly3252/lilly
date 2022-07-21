@@ -166,7 +166,7 @@ module.exports.ServerInfoEmbed = function (
             `**❯ Emoji Count:** ${e.size}`,
             `**❯ Regular Emoji Count:** ${e.filter((a) => !a.animated).size}`,
             `**❯ Animated Emoji Count:** ${e.filter((a) => a.animated).size}`,
-            `**❯ Member Count:** ${interaction.guild.members.memberCount}`,
+            `**❯ Member Count:** ${interaction.guild.memberCount}`,
             `**❯ Humans:** ${member.filter((a) => !a.user.bot).size}`,
             `**❯ Bots:** ${member.filter((a) => a.user.bot).size}`,
             `**❯ Text Channels:** ${d.filter((channel) => ChannelType.GuildText === channel.type).size
