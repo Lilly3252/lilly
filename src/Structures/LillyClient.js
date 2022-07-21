@@ -2,7 +2,7 @@ require("dotenv").config();
 const { Client, Collection, GatewayIntentBits , Partials} = require("discord.js");
 const Util = require("./Util.js");
 const process = require ("node:process");
-const config  = require("./../config.json");
+//const config  = require("./../config.json");
 
 module.exports = class extends Client {
   constructor(a = {}) {

@@ -4,7 +4,7 @@ const config = require("./config.json");
 const client = new LillyClient(config);
 const mongoose = require("mongoose");
 const process = require ("node:process");
-mongoose.connect(process.env.MONGOOSE_URI ?? config.mongooseLink, {
+mongoose.connect(process.env.MONGOOSE_URI /*?? config.mongooseLink*/, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
