@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, time } = require("@discordjs/builders");
 const Embed = require("../../Structures/messageEmbeds");
 const os = require("os");
-
+const {UserFlagsBitField} = require("discord.js")
 
 
 module.exports = {
@@ -106,22 +106,26 @@ module.exports = {
     if (interaction.options.getSubcommand() === "user") {
       const member = interaction.options.getMember("target");
       const flags = {
-        DISCORD_EMPLOYEE: "Discord Employee",
-        DISCORD_PARTNER: "Discord Partner",
-        BUGHUNTER_LEVEL_1: "Bug Hunter (Level 1)",
-        BUGHUNTER_LEVEL_2: "Bug Hunter (Level 2)",
-        HYPESQUAD_EVENTS: "HypeSquad Events",
-        HOUSE_BRAVERY: "House of Bravery",
-        HOUSE_BRILLIANCE: "House of Brilliance",
-        HOUSE_BALANCE: "House of Balance",
-        EARLY_SUPPORTER: "Early Supporter",
-        TEAM_USER: "Team User",
-        SYSTEM: "System",
-        VERIFIED_BOT: "Verified Bot",
-        VERIFIED_DEVELOPER: "Verified Bot Developer",
+        BotHTTPInteractions : "HTTP Interaction Only",
+        Staff: "Discord Employee",
+        Partner: "Discord Partner",
+        BugHunterLevel1: "Bug Hunter (Level 1)",
+        BugHunterLevel2: "Bug Hunter (Level 2)",
+        HypeSquadOnlineHouse1: "House of Bravery",
+        HypeSquadOnlineHouse2: "House of Brilliance",
+        HypeSquadOnlineHouse3: "House of Balance",
+        Hypesquad: "Hypesquad",
+        Quarantined : "Quarantined Account",
+        Spammer: "Spammer User" , 
+        PremiumEarlySupporter: "Early Nitro Supporter",
+        TeamPseudoUser: "Team User",
+        VerifiedBot: "Verified Bot",
+        VerifiedDeveloper: "Early Verified Bot Developer",
+        CertifiedModerator: "Discord Certified Moderator",
       };
       const created = time(member.user.createdAt, "R");
-      const flag = member.user.flags.toArray();
+      const flag = member.user.flags.toArray()
+      console.log(flag)
       const role = member.roles.cache
         .sort((c, a) => a.position - c.position)
         .map((a) => a.toString())
