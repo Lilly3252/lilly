@@ -26,7 +26,7 @@ module.exports = {
 
       let e = b.find((a) => a.user.id == banned_person);
       return e
-        ? void (await interaction.guild.members.members.unban(e.user, d)
+        ? void (await interaction.guild.members.unban(e.user, d)
           .catch((a) => console.log(a)),
           interaction.reply({ content: `**${e.user}** has been unban`, ephemeral: true }))
         : interaction.reply({ content: "this user is not banned", ephemeral: true });

@@ -1,4 +1,4 @@
-const { EmbedBuilder, version: djsversion, PermissionsBitField, ChannelFlags, ChannelType } = require("discord.js");
+const { EmbedBuilder, version: djsversion, PermissionsBitField, ChannelFlags, ChannelType, GuildExplicitContentFilter, GuildVerificationLevel } = require("discord.js");
 const { time } = require("@discordjs/builders");
 const moment = require("moment");
 const { version } = require("./../../package.json");
@@ -134,8 +134,6 @@ module.exports.ServerInfoEmbed = function (
   b,
   d,
   e,
-  filterLevels,
-  verificationLevels,
   server_create
 ) {
   const ServerInfo = new EmbedBuilder()
@@ -154,9 +152,8 @@ module.exports.ServerInfoEmbed = function (
               ? `Tier ${interaction.guild.premiumTier}`
               : "None"
             }`,
-            `**❯ Explicit Filter:** ${filterLevels[interaction.guild.explicitContentFilter]
-            }`,
-            `**❯ Verification Level:** ${verificationLevels[interaction.guild.verificationLevel]
+            `**❯ Explicit Filter:** ${GuildExplicitContentFilter[interaction.guild.explicitContentFilter]}`,
+            `**❯ Verification Level:** ${GuildVerificationLevel[interaction.guild.verificationLevel]
             }`,
             `**❯ Time Created:** ${server_create}`,
             "\u200B",
@@ -172,11 +169,11 @@ module.exports.ServerInfoEmbed = function (
             `**❯ Member Count:** ${interaction.guild.members.memberCount}`,
             `**❯ Humans:** ${member.filter((a) => !a.user.bot).size}`,
             `**❯ Bots:** ${member.filter((a) => a.user.bot).size}`,
-            `**❯ Text Channels:** ${d.filter((channel) => "GUILD_TEXT" === channel.type).size
+            `**❯ Text Channels:** ${d.filter((channel) => ChannelType.GuildText === channel.type).size
             }`,
-            `**❯ Voice Channels:** ${d.filter((channel) => "GUILD_VOICE" === channel.type).size
+            `**❯ Voice Channels:** ${d.filter((channel) => ChannelType.GuildVoice === channel.type).size
             }`,
-            `**❯ Stage Channels:** ${d.filter((channel) => "GUILD_STAGE_VOICE" === channel.type).size
+            `**❯ Stage Channels:** ${d.filter((channel) => ChannelType.GuildStageVoice === channel.type).size
             }`,
             `**❯ Boost Count:** ${interaction.guild.premiumSubscriptionCount || "0"
             }`,
@@ -227,7 +224,7 @@ module.exports.ServerInfoEmbed = function (
 module.exports.BotInfoEmbed = function (interaction, b, bot_create) {
   const BotInfo = new EmbedBuilder()
     .setThumbnail(interaction.client.user.displayAvatarURL())
-    .setColor(interaction.guild.members.members.displayHexColor || "Blue")
+    .setColor(interaction.guild.members.me.displayHexColor || "Blue")
     .addFields([{
       name: "General", value: [
         `**❯ Client:** ${interaction.client.user.tag} (${interaction.client.user.id})`,

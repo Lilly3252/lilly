@@ -41,7 +41,7 @@ module.exports = {
       .send(
         `Hello, you have been banned from ${interaction.guild.name} for: ${reason}`
       )
-      .then(() => interaction.guild.members.members.ban(member))
+      .then(() => interaction.guild.members.ban(member))
       .catch((a) => console.log(a)),
       interaction.reply({
         content: `**${member.user.tag}** has been banned`,
