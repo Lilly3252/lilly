@@ -1,0 +1,67 @@
+import type { Collection, ChatInputCommandInteraction, AutocompleteInteraction, ContextMenuInteraction, ModalSubmitInteraction, SlashCommandBuilder , SlashCommandSubcommandsOnlyBuilder} from 'discord.js';
+import { ContextMenuCommandBuilder } from "discord.js"
+import * as Util from "./util.js";
+import type client from './lillyClient.js';
+
+declare module "discord.js" {
+  interface Client {
+    utils: Util;
+    commands: Collection<string, SlashCommand | ContextCommand>,
+    event: Collection<string, event>
+    modals: Collection<string, ModalCommand>
+  }
+}
+
+interface event {
+  name: string;
+  client: client;
+  type: string;
+  emitter: string;
+  once: boolean;
+  /**
+     * @param args Arguments...
+     */
+  run(...args: unknown[]): Promise<void>;
+}
+
+interface SlashCommand {
+  /**
+   * Data as SlashCommandBuilder.
+   */
+  slashy: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder;
+  /** 
+   * 
+   * @param {CommandInteraction} interaction 
+   */
+  run(interaction: ChatInputCommandInteraction | AutocompleteInteraction): Promise<void>;
+}
+interface ModalCommand {
+  /**
+   * Custom id of the modal.
+   */
+  customId: string;
+  /**
+   * The method this command executes if called.
+   * 
+   * @param {ModalSubmitInteraction} interaction The CommandInteraction object from the interactionCreate event or collector.
+   */
+  run(interaction: ModalSubmitInteraction): Promise<void>;
+}
+
+interface ContextCommand {
+  /**
+   * The data as ContextCommand
+   */
+  context: ContextMenuCommandBuilder;
+  /**
+   * If the command is owner only.
+   */
+  ownerOnly?: boolean;
+
+  /**
+   * The method this command executes if called.
+   * 
+   * @param {ContextMenuInteraction} interaction The ContextMenuInteraction object from the interactionCreate event or collector.
+   */
+  run(interaction: ContextMenuInteraction): Promise<void>;
+}
