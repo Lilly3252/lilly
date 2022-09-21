@@ -3,9 +3,10 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommand } from "../../structures/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json";
-import { prisma } from "../../index.js";
-import * as Embed from "../../structures/messageEmbeds.js";
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"}; 
+//import { prisma } from "../../index.js";
+//import * as Embed from "../../structures/messageEmbeds.js";
+
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("kick")
     .setDescription("kick a member.")
@@ -19,7 +20,7 @@ export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
 
 
 export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<void> => {
-    const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
+    //const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
     const member = interaction.options.getMember("target");
     const reason = interaction.options.getString("reason");
 
@@ -45,11 +46,11 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
         });
 
 
-    const data = database?.logChannelID;
+  /*  const data = database?.logChannelID;
     if (!data || data === null) { return }
     const LogChannel = interaction.client.channels.cache.get(data);
     if (!LogChannel || LogChannel === null) { return }
     if (LogChannel?.isTextBased()) {
         LogChannel?.send({ embeds: [Embed.AdminEmbed(interaction, member!, reason!)] });
     }
-}
+*/}

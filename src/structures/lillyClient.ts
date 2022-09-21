@@ -23,6 +23,7 @@ export default class client extends Client {
         GatewayIntentBits.GuildPresences,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.MessageContent
         
       ],
     });

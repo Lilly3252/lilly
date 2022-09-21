@@ -1,4 +1,4 @@
-import type { Collection, ChatInputCommandInteraction, AutocompleteInteraction, ContextMenuInteraction, ModalSubmitInteraction, SlashCommandBuilder , SlashCommandSubcommandsOnlyBuilder} from 'discord.js';
+import type { Collection, ChatInputCommandInteraction, AutocompleteInteraction,ContextMenuCommandInteraction, ModalSubmitInteraction, SlashCommandBuilder ,SlashCommandSubcommandsOnlyBuilder  } from 'discord.js';
 import { ContextMenuCommandBuilder } from "discord.js"
 import * as Util from "./util.js";
 import type client from './lillyClient.js';
@@ -9,6 +9,7 @@ declare module "discord.js" {
     commands: Collection<string, SlashCommand | ContextCommand>,
     event: Collection<string, event>
     modals: Collection<string, ModalCommand>
+    contextCommand: Collection<string,ContextCommand>
   }
 }
 
@@ -28,7 +29,7 @@ interface SlashCommand {
   /**
    * Data as SlashCommandBuilder.
    */
-  slashy: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder;
+  slashy:Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup" >|SlashCommandSubcommandsOnlyBuilder
   /** 
    * 
    * @param {CommandInteraction} interaction 
@@ -63,5 +64,5 @@ interface ContextCommand {
    * 
    * @param {ContextMenuInteraction} interaction The ContextMenuInteraction object from the interactionCreate event or collector.
    */
-  run(interaction: ContextMenuInteraction): Promise<void>;
+  run(interaction: ContextMenuCommandInteraction): Promise<void>;
 }

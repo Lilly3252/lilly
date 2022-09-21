@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { config } from 'dotenv';
 config();
-import { PrismaClient } from '@prisma/client'
-export const prisma = new PrismaClient({ errorFormat: 'pretty' })
+//import { PrismaClient } from '@prisma/client'
+//export const prisma = new PrismaClient({ errorFormat: 'pretty' })
 import LillyClient from "./structures/lillyClient.js";
 const client = new LillyClient();
 import process from "node:process";
 
 
-prisma.$connect()
+//prisma.$connect()
 client.start();
 console.log("im connected with db!");
 

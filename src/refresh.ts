@@ -13,13 +13,13 @@ const modules = ["administrator", "fun", "information", "utilities"];
 
 modules.forEach(async (folder) => {
     const commandFiles = fs
-        .readdirSync(`src/commands/${folder}/`)
+        .readdirSync(`./dist/src/commands/${folder}/`)
         .filter((file: string) => file.endsWith(".js"));
 
     for (const file of commandFiles) {
         const command : SlashCommand = await import(`./commands/${folder}/${file}`);
         await commands.push(command.slashy.toJSON());
-    }
+   console.log(command.slashy) }
 });
 
 const clientId = process.env.CLIENT_ID!;

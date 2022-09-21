@@ -2,9 +2,10 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommand } from "../../structures/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json";
-import * as Embed from "../../structures/messageEmbeds.js";
-import { prisma } from "../../index.js";
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"};
+//import * as Embed from "../../structures/messageEmbeds.js";
+//import { prisma } from "../../index.js";
+
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("timeout")
     .setDescription("timeout a member.")
@@ -39,7 +40,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
     const member = interaction.options.getMember("target")!;
     const time = interaction.options.getString("time")!;
     const reason = interaction.options.getString("reason")!;
-    const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
+    //const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
     if (!member.moderatable || !member.manageable) {
         await interaction.reply({
             content: SYSTEM.ERROR.ADMIN.MODERATION_DENIED,
@@ -61,12 +62,12 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
         })
         .catch((err) => console.log(err));
 
-    const g = database?.logChannelID;
-    if (!g || g === null) { return }
-    const LogChannel = interaction.client.channels.cache.get(g);
-    if (!LogChannel || LogChannel === null) { return }
-    if (LogChannel?.isTextBased()) {
-        LogChannel?.send({ embeds: [Embed.AdminEmbed(interaction, member!, reason!)] });
-    }
+  //  const g = database?.logChannelID;
+    //if (!g || g === null) { return }
+    //const LogChannel = interaction.client.channels.cache.get(g);
+    //if (!LogChannel || LogChannel === null) { return }
+    //if (LogChannel?.isTextBased()) {
+     //   LogChannel?.send({ embeds: [Embed.AdminEmbed(interaction, member!, reason!)] });
+   // }
 
 };

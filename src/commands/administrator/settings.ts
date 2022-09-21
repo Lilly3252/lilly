@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
+import type { ChatInputCommandInteraction, /*PermissionFlagsBits*/ } from "discord.js";
 import type { SlashCommand } from "../../structures/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import { prisma } from "../../index.js";
-import * as Embed from "../../structures/messageEmbeds.js";
+//import { prisma } from "../../index.js";
+//import * as Embed from "../../structures/messageEmbeds.js";
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("settings")
@@ -87,7 +87,7 @@ export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     )
 
 export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<void> => {
-    const guild_db = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } })
+   /* const guild_db = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } })
         .then(async (guild) => {
             if (!guild) {
                 await prisma.guild.create({
@@ -112,10 +112,10 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             embeds: [Embed.SettingEmbed(interaction, guild_db!)],
             ephemeral: true,
         });
-    }
+    }*/
     //**SUB COMMANDS */
     if (interaction.options.getSubcommand() === "anti-raid") {
-        const choices = interaction.options.getBoolean("choice");
+        /*const choices = interaction.options.getBoolean("choice");
         if (choices === true) {
             await prisma.guild.update({ where: { guildID: interaction.guild.id }, data: { antiRaidMode: true } }),
                 interaction.reply({
@@ -234,11 +234,11 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
                 ephemeral: true,
             })
         }
-    }
+    }*/
     // WelcomeMessage Setup
     //**Need to be tested */
     if (interaction.options.getSubcommand() === "welcomemessage") {
-        const i = interaction.options.getString("input");
+        /*const i = interaction.options.getString("input");
         if (i) {
             await prisma.guild.update({ where: { guildID: interaction.guild.id }, data: { personalizedWelcomeMessage: i } })
             return void interaction.reply({
@@ -251,7 +251,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
                 content: `✅ Welcome Message has been deleted`,
                 ephemeral: true,
             })
-        }
+        */  }
 
     }
-};
+}

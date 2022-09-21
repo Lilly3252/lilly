@@ -1,5 +1,5 @@
 import * as discordJs from "discord.js";
-import * as Package from "./../../package.json";
+import * as Package from "./../../package.json" assert {type: "json"};
 import ms from "ms";
 import os from "os";
 import process from 'process';
@@ -11,7 +11,7 @@ export function MuteEmbed(
     member: discordJs.GuildMember,
     reason: string,
     time: string
-) {
+): discordJs.EmbedBuilder {
     return new discordJs.EmbedBuilder()
         .setColor(discordJs.Colors["Yellow"])
         .addFields([{

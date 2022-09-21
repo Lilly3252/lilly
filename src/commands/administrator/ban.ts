@@ -2,9 +2,9 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommand } from "../../structures/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json";
-import { prisma } from "../../index.js";
-import * as Embed from "../../structures/messageEmbeds.js";
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"}
+//import { prisma } from "../../index.js";
+//import * as Embed from "../../structures/messageEmbeds.js";
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("ban")
@@ -25,7 +25,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             ephemeral: true,
         });
     }
-    const c = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
+  //  const c = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
     const member = interaction.options.getMember("target");
     const reason = interaction.options.getString("reason");
     if (!member?.moderatable || !member?.manageable) {
@@ -43,13 +43,13 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             content: `**${member?.user.tag}** has been banned`,
             ephemeral: true,
         });
-    const g = c?.logChannelID;
+  /*  const g = c?.logChannelID;
     if (!g || g === null) { return }
     const LogChannel = interaction.client.channels.cache.get(g);
     if (!LogChannel || LogChannel === null) { return }
     if (LogChannel?.isTextBased()) {
         LogChannel?.send({ embeds: [Embed.AdminEmbed(interaction, member!, reason!)] });
     }
-};
+*/};
 
 

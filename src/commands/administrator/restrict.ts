@@ -4,9 +4,10 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommand } from "../../structures/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json";
-import * as Embed from "../../structures/messageEmbeds.js";
-import { prisma } from "../../index.js";
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"};
+//import * as Embed from "../../structures/messageEmbeds.js";
+//import { prisma } from "../../index.js";
+
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("restrict")
     .setDescription("restrict a member.")
@@ -40,11 +41,11 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             ephemeral: true,
         });
     }
-    const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
+   // const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
     const member = interaction.options.getMember("member")!;
     const reason = interaction.options.getString("reasons")!;
     const restriction_name = interaction.options.getString("restrictions")!;
-    const data = database?.logChannelID;
+   // const data = database?.logChannelID;
 
     if (!member.moderatable || !member.manageable) {
         await interaction.reply({
@@ -156,12 +157,12 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
 
     }
 
-    if (!data || data === null) { return }
-    const LogChannel = interaction.client.channels.cache.get(data);
-    if (!LogChannel || LogChannel === null) { return }
-    if (LogChannel?.isTextBased()) {
-        LogChannel?.send({
-            embeds: [Embed.RestrictEmbed(interaction, reason, restriction_name, member)],
-        });
-    }
+//    if (!data || data === null) { return }
+ //   const LogChannel = interaction.client.channels.cache.get(data);
+  //  if (!LogChannel || LogChannel === null) { return }
+   // if (LogChannel?.isTextBased()) {
+    //    LogChannel?.send({
+      //      embeds: [Embed.RestrictEmbed(interaction, reason, restriction_name, member)],
+       // });
+ //   }
 }

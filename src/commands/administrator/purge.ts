@@ -3,7 +3,8 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommand } from "../../structures/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json";
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"};
+
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("purge").setDescription("purge messages in a channel")
     .addNumberOption((option) => option.setName("number").setDescription("number of messages from 1-99").setRequired(true))
