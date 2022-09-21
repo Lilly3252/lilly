@@ -1,0 +1,37 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model guild {
+    guildID                    String  @unique
+    name                       String
+    moderatorRole              String? @unique
+    logChannelID               String? @unique
+    welcomeChannelID           String? @unique
+    personalizedWelcomeMessage String?
+    antiRaidMode               Boolean @default(false)
+    messageDeleteMode          Boolean @default(false)
+    messageBulkDeleteMode      Boolean @default(false)
+    messageUpdateMode          Boolean @default(false)
+}
+
+model user {
+    guildID    String @unique
+    usernameID String @unique
+    tags       tags[]
+}
+
+model tags {
+    guildID     String  
+    name        String  @unique
+    description String
+    username    String
+    usageCount  Int     @default(0)
+    User        user?   @relation(fields: [userGuildID], references: [guildID])
+    userGuildID String?
+}

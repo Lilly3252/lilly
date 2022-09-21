@@ -1,37 +1,30 @@
 {
-  "name": "lillydev",
+  "name": "lilly-ts",
+  "description": "<br />\r <div align=\"center\">\r   <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\" alt=\"Logo\">\r   </a>\r <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\" alt=\"Logo\">\r   </a>",
   "version": "1.0.0",
-  "description": "dev version",
-  "main": "src/index.js",
+  "main": "dist/src/index.js",
+  "type": "module",
   "scripts": {
-    "dev": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "refresh": "node src/refresh.js"
+    "build": "tsc -p ./",
+    "start": "node --experimental-json-modules dist/src/index.js",
+    "refresh": "node --experimental-json-modules dist/src/refresh.js"
   },
-  "author": "lilith3252",
+  "author": "Lauriane j.veilleux",
   "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/esm": "^1.0.2",
+    "@types/ms": "^0.7.31",
+    "@types/node": "^18.7.13",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "eslint": "^8.23.0"
+  },
   "dependencies": {
-    "@discordjs/rest": "^1.0.0",
-    "common-tags": "^1.8.0",
-    "diff": "^5.0.0",
-    "discord-api-types": "^0.36.2",
-    "discord.js": "^14.0.1",
-    "dotenv": "^16.0.0",
-    "glob": "^7.2.0",
-    "moment": "^2.29.2",
-    "mongoose": "^6.4.6",
-    "ms": "^2.1.3",
-    "twilio": "^3.79.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Lilly3252/lilly.git"
-  },
-  "keywords": [
-    "bot"
-  ],
-  "bugs": {
-    "url": "https://github.com/Lilly3252/lilly/issues"
-  },
-  "homepage": "https://github.com/Lilly3252/lilly#readme"
+    "@sapphire/type": "^2.2.4",
+    "@types/common-tags": "^1.8.1",
+    "common-tags": "^1.8.2",
+    "discord.js": "^14.4.0",
+    "dotenv": "^16.0.1",
+    "typescript": "^4.8.2"
+  }
 }
