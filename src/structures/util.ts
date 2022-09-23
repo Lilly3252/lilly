@@ -152,6 +152,7 @@ export default class Utils {
     const eventFiles = readdirSync(path.resolve(__dirnameForEvent, 'events')).filter(file => file.toString().endsWith('.js'));
     
     for (const eventFile of eventFiles) {
+// might need a delete require.cache[eventFile] but its ESM ... good luck.. 
       const event: event = await import((pathToFileURL(path.resolve(__dirnameForEvent, 'events', eventFile)).toString()));
       if (event.once) {
         this.client.on(event.name, (...args) => event.run(...args));
