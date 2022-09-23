@@ -4,7 +4,6 @@ import type { SlashCommand, event } from './index.js';
 import type lillyclient from './lillyClient.js';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { dirname } from 'path';
-
 const __filenameForCommands = fileURLToPath("file:///C:/Users/lilly/Documents/GitHub/Lilly-TS/dist/src/commands");
 const __dirnameForCommands = dirname(__filenameForCommands);
 const __filenameForEvent = fileURLToPath("file:///C:/Users/lilly/Documents/GitHub/Lilly-TS/dist/src/events");
@@ -151,6 +150,7 @@ export default class Utils {
   }
   async loadEvents() {
     const eventFiles = readdirSync(path.resolve(__dirnameForEvent, 'events')).filter(file => file.toString().endsWith('.js'));
+    
     for (const eventFile of eventFiles) {
       const event: event = await import((pathToFileURL(path.resolve(__dirnameForEvent, 'events', eventFile)).toString()));
       if (event.once) {

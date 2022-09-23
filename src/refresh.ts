@@ -8,7 +8,9 @@ import fs from "fs";
 import process from 'process';
 import type  { SlashCommand } from './structures/index.js';
 
-const commands: unknown[] = [];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const commands: any[]=[];
 const modules = ["administrator", "fun", "information", "utilities"];
 
 modules.forEach(async (folder) => {
@@ -19,7 +21,7 @@ modules.forEach(async (folder) => {
     for (const file of commandFiles) {
         const command : SlashCommand = await import(`./commands/${folder}/${file}`);
         await commands.push(command.slashy.toJSON());
-   console.log(command.slashy) }
+    }
 });
 
 const clientId = process.env.CLIENT_ID!;
