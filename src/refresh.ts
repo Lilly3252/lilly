@@ -10,7 +10,7 @@ import type  { SlashCommand } from './structures/index.js';
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const commands: any[]=[];
+const commands: any[]=[]; // might change that back to unknown[]=[]
 const modules = ["administrator", "fun", "information", "utilities"];
 
 modules.forEach(async (folder) => {
