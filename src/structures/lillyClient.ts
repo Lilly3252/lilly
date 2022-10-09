@@ -1,5 +1,4 @@
-import { config } from 'dotenv';
-config();
+import "dotenv/config"
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import * as process from "node:process";
 import Util from './util.js';

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { config } from 'dotenv';
-config();
+import "dotenv/config"
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v10";
 import fs from "fs";

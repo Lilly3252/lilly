@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { config } from 'dotenv';
-config();
+import "dotenv/config"
 //import { PrismaClient } from '@prisma/client'
 //export const prisma = new PrismaClient({ errorFormat: 'pretty' })
 import LillyClient from "./structures/lillyClient.js";
