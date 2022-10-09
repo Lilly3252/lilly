@@ -1,10 +1,9 @@
-import type { event } from "../../structures/index.js"
-import type { Guild } from "discord.js";
-
+import type { event } from '../../structures/index.js';
+import type { Guild } from 'discord.js';
 
 export const name: event['name'] = 'guildUpdate';
-export const once: event["once"] = false
+export const once: event['once'] = false;
 
-export const run: event["run"] = async (oldGuild:Guild, newGuild:Guild): Promise<void> => {
-    console.log(`${oldGuild.name} updated to ${newGuild.name}`)
-}
+export const run: event['run'] = async (oldGuild: Guild, newGuild: Guild): Promise<void> => {
+	console.log(`${oldGuild.name} updated to ${newGuild.name}`);
+};
