@@ -6,3 +6,4 @@ package-lock.json
 package.json
 src/config.json
 src/config.json
+dist/
