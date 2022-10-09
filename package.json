@@ -1,30 +1,32 @@
 {
-  "name": "lilly-ts",
-  "description": "<br />\r <div align=\"center\">\r   <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\" alt=\"Logo\">\r   </a>\r <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\" alt=\"Logo\">\r   </a>",
-  "version": "1.0.0",
-  "main": "dist/src/index.js",
-  "type": "module",
-  "scripts": {
-    "build": "tsc -p ./",
-    "start": "node --experimental-json-modules dist/src/index.js",
-    "refresh": "node --experimental-json-modules dist/src/refresh.js"
-  },
-  "author": "Lauriane j.veilleux",
-  "license": "MIT",
-  "devDependencies": {
-    "@tsconfig/esm": "^1.0.2",
-    "@types/ms": "^0.7.31",
-    "@types/node": "^18.7.13",
-    "@typescript-eslint/eslint-plugin": "^5.35.1",
-    "@typescript-eslint/parser": "^5.35.1",
-    "eslint": "^8.23.0"
-  },
-  "dependencies": {
-    "@sapphire/type": "^2.2.4",
-    "@types/common-tags": "^1.8.1",
-    "common-tags": "^1.8.2",
-    "discord.js": "^14.4.0",
-    "dotenv": "^16.0.1",
-    "typescript": "^4.8.2"
-  }
+	"name": "lilly-ts",
+	"description": "<br />\r <div align=\"center\">\r   <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\" alt=\"Logo\">\r   </a>\r <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\" alt=\"Logo\">\r   </a>",
+	"version": "1.0.0",
+	"main": "dist/src/index.js",
+	"type": "module",
+	"scripts": {
+		"build": "tsc -p ./",
+		"start": "node --experimental-json-modules dist/src/index.js",
+		"refresh": "node --experimental-json-modules dist/src/refresh.js",
+		"lint": "prettier --write ."
+	},
+	"author": "Lauriane j.veilleux",
+	"license": "MIT",
+	"devDependencies": {
+		"@tsconfig/esm": "^1.0.2",
+		"@types/ms": "^0.7.31",
+		"@types/node": "^18.7.13",
+		"@typescript-eslint/eslint-plugin": "^5.35.1",
+		"@typescript-eslint/parser": "^5.35.1",
+		"eslint": "^8.23.0",
+		"prettier": "^2.7.1"
+	},
+	"dependencies": {
+		"@sapphire/type": "^2.2.4",
+		"@types/common-tags": "^1.8.1",
+		"common-tags": "^1.8.2",
+		"discord.js": "^14.4.0",
+		"dotenv": "^16.0.1",
+		"typescript": "^4.8.2"
+	}
 }

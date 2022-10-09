@@ -1,13 +1,12 @@
-import type { event } from "../../structures/index.js"
-import type { GuildMember } from "discord.js";
-
+import type { event } from '../../structures/index.js';
+import type { GuildMember } from 'discord.js';
 
 export const name: event['name'] = 'guildMemberAdd';
-export const once: event["once"] = false
+export const once: event['once'] = false;
 
-export const run: event["run"] = async (member:GuildMember): Promise<void> => {
-    if (!member.guild) return;
-    /*const created_account = `${moment(member.user.createdTimestamp).format("LL")} (${moment(
+export const run: event['run'] = async (member: GuildMember): Promise<void> => {
+	if (!member.guild) return;
+	/*const created_account = `${moment(member.user.createdTimestamp).format("LL")} (${moment(
       member.user.createdTimestamp
     ).fromNow()})`
     const c = await Guild.findOne({ guildID: member.guild.id });
@@ -26,5 +25,4 @@ export const run: event["run"] = async (member:GuildMember): Promise<void> => {
     if (!welcomechannel || welcomechannel === null) return;
     member.client.channels.cache.get(welcomechannel).send({ embeds: [welcomeEmbed] });
     }*/
-}
-
+};

@@ -34,8 +34,8 @@
 		"moduleResolution": "nodenext",
 		"resolveJsonModule": true,
 		"sourceRoot": "./src",
-        "outDir": "./dist",       
-        "baseUrl": "./",
+		"outDir": "./dist",
+		"baseUrl": "./",
 		// Completeness
 		"skipLibCheck": true
 	}
