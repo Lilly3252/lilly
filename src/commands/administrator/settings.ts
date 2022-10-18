@@ -1,67 +1,93 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { ChatInputCommandInteraction /*PermissionFlagsBits*/ } from 'discord.js';
-import type { SlashCommand } from '../../structures/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
+import type { ChatInputCommandInteraction, /*PermissionFlagsBits*/ } from "discord.js";
+import type { SlashCommand } from "../../structures/index.js";
+import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 //import { prisma } from "../../index.js";
 //import * as Embed from "../../structures/messageEmbeds.js";
 
-export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
-	.setName('settings')
-	.setDescription('show or add settings')
-	.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-	.addSubcommand((subcommand) => subcommand.setName('showsettings').setDescription('Show settings you have'))
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('anti-raid')
-			.setDescription('set anti-raid ON or OFF')
-			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean')),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('welcomechannel')
-			.setDescription('set the welcome channel')
-			.addChannelOption((option) => option.setName('channel').setDescription('Select a channel.').setRequired(true)),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('modlog')
-			.setDescription('set the Mod Log channel')
-			.addChannelOption((option) => option.setName('channel').setDescription('Select a channel.').setRequired(true)),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('modrole')
-			.setDescription('set the Mod Role channel')
-			.addRoleOption((option) => option.setName('role').setDescription('Enter a Role')),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('messagedelete')
-			.setDescription('set the DeleteMessages event ON or OFF')
-			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean')),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('messagedeletebulk')
-			.setDescription('set the messageDeleteBulk event ON or OFF')
-			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean')),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('messageupdates')
-			.setDescription('set the MessageUpdates event ON or OFF')
-			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean')),
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName('welcomemessage')
-			.setDescription('set the WelcomeMessage for your guild')
-			.addStringOption((option) => option.setName('message').setDescription('Enter a message')),
-	);
+export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
+    .setName("settings")
+    .setDescription("show or add settings")
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("showsettings")
+            .setDescription("Show settings you have")
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("anti-raid")
+            .setDescription("set anti-raid ON or OFF")
+            .addBooleanOption((option) =>
+                option.setName("choice").setDescription("Select a boolean")
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("welcomechannel")
+            .setDescription("set the welcome channel")
+            .addChannelOption((option) =>
+                option
+                    .setName("channel")
+                    .setDescription("Select a channel.")
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("modlog")
+            .setDescription("set the Mod Log channel")
+            .addChannelOption((option) =>
+                option
+                    .setName("channel")
+                    .setDescription("Select a channel.")
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("modrole")
+            .setDescription("set the Mod Role channel")
+            .addRoleOption((option) =>
+                option.setName("role").setDescription("Enter a Role")
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("messagedelete")
+            .setDescription("set the DeleteMessages event ON or OFF")
+            .addBooleanOption((option) =>
+                option.setName("choice").setDescription("Select a boolean")
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("messagedeletebulk")
+            .setDescription("set the messageDeleteBulk event ON or OFF")
+            .addBooleanOption((option) =>
+                option.setName("choice").setDescription("Select a boolean")
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("messageupdates")
+            .setDescription("set the MessageUpdates event ON or OFF")
+            .addBooleanOption((option) =>
+                option.setName("choice").setDescription("Select a boolean")
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName("welcomemessage")
+            .setDescription("set the WelcomeMessage for your guild")
+            .addStringOption((option) =>
+                option.setName("message").setDescription("Enter a message")
+            )
+    )
 
-export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<void> => {
-	/* const guild_db = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } })
+export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<void> => {
+   /* const guild_db = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } })
         .then(async (guild) => {
             if (!guild) {
                 await prisma.guild.create({
@@ -87,9 +113,9 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
             ephemeral: true,
         });
     }*/
-	//**SUB COMMANDS */
-	if (interaction.options.getSubcommand() === 'anti-raid') {
-		/*const choices = interaction.options.getBoolean("choice");
+    //**SUB COMMANDS */
+    if (interaction.options.getSubcommand() === "anti-raid") {
+        /*const choices = interaction.options.getBoolean("choice");
         if (choices === true) {
             await prisma.guild.update({ where: { guildID: interaction.guild.id }, data: { antiRaidMode: true } }),
                 interaction.reply({
@@ -209,10 +235,10 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
             })
         }
     }*/
-		// WelcomeMessage Setup
-		//**Need to be tested */
-		if (interaction.options.getSubcommand() === 'welcomemessage') {
-			/*const i = interaction.options.getString("input");
+    // WelcomeMessage Setup
+    //**Need to be tested */
+    if (interaction.options.getSubcommand() === "welcomemessage") {
+        /*const i = interaction.options.getString("input");
         if (i) {
             await prisma.guild.update({ where: { guildID: interaction.guild.id }, data: { personalizedWelcomeMessage: i } })
             return void interaction.reply({
@@ -225,7 +251,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
                 content: `✅ Welcome Message has been deleted`,
                 ephemeral: true,
             })
-        */
-		}
-	}
-};
+        */  }
+
+    }
+}
