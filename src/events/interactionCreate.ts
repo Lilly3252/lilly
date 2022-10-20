@@ -28,6 +28,7 @@ const handleCommand = async (interaction: ChatInputCommandInteraction | ContextM
     try {
         if (interaction.isChatInputCommand()) {
             const command = interaction.client.commands.get(interaction.commandName) as SlashCommand;
+            console.log(command)
             if (command) {
                 await command.run(interaction);
                
@@ -39,8 +40,8 @@ const handleCommand = async (interaction: ChatInputCommandInteraction | ContextM
                 await command.run(interaction);
             }
         }
-    } catch (err: unknown) {
-        return void interaction.reply("Cannot find that command...");
+    } catch (err: any) {
+        return void console.error(err);
     }
 };
 
