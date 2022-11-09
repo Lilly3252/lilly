@@ -24,7 +24,7 @@ export default class client extends Client {
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.MessageContent
-        
+
       ],
     });
     this.commands = new Collection();
@@ -36,4 +36,5 @@ export default class client extends Client {
       await this.utils.loadEvents(),
       await super.login(process.env.TOKEN);
   }
+
 }

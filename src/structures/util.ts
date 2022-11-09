@@ -1,11 +1,9 @@
 import { readdirSync } from 'fs';
 import path from 'path';
-import type { SlashCommand, event } from './index.js';
+import type { SlashCommand, event } from './@types/index.js';
 import type lillyclient from './lillyClient.js';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { dirname } from 'path';
-//const __filenameForCommands = fileURLToPath("file:///C:/Users/lilly/Documents/GitHub/Lilly-TS/dist/src/commands");
-//const __dirnameForCommands = dirname(__filenameForCommands);
 const __filenameForEvent = fileURLToPath("file:///C:/Users/lilly/Documents/GitHub/Lilly-TS/dist/src/events");
 const __dirnameForEvent = dirname(__filenameForEvent);
 import fs from "fs";
@@ -21,8 +19,6 @@ export default class Utils {
   }
   shorten({ a, b = 2000 }: { a: string; b?: number; }): string {
     return shorten();
-
-
     function shorten(): string {
       return a.length > b ? `${a.substring(0, b - 3)}...` : a;
     }
@@ -30,7 +26,6 @@ export default class Utils {
 
   list(a: unknown[], b = "and") {
     return list();
-
     function list() {
       const c = a.length;
       return c === 0
@@ -42,7 +37,6 @@ export default class Utils {
   }
   formatNumberK(a: number) {
     return formatNumber();
-
     function formatNumber() {
       return a > 999
         ? `${(a / 1e3).toLocaleString(void 0, { maximumFractionDigits: 1 })}K`
@@ -54,7 +48,6 @@ export default class Utils {
     { guild: b = true, bot: c = true, text: d = "[redacted invite]" } = {}
   ) {
     return stripInvites();
-
     function stripInvites() {
       return b && (a = a.replace(inviteRegex, d)),
         c && (a = a.replace(botInvRegex, d)),
@@ -63,14 +56,12 @@ export default class Utils {
   }
   delay(a: number) {
     return delay();
-
     function delay() {
       return new Promise((b) => setTimeout(b, a));
     }
   }
   isClass(a: { prototype: unknown; toString: () => string; }) {
     return isClass();
-
     function isClass() {
       return typeof a == "function" &&
         typeof a.prototype == "object" &&
@@ -80,7 +71,6 @@ export default class Utils {
 
   trimArray(a: string[], b = 10) {
     return trimArray();
-
     function trimArray() {
       if (a.length > b) {
         const c = a.length - b;
@@ -99,7 +89,6 @@ export default class Utils {
   }
   capitalize(a: string) {
     return capitalize();
-
     function capitalize() {
       return a
         .split(" ")
@@ -109,7 +98,6 @@ export default class Utils {
   }
   toTitleCase(str: string) {
     return toTitleCase();
-
     function toTitleCase() {
       return str.replace(
         /\w\S*/g,
@@ -122,7 +110,6 @@ export default class Utils {
 
   comparePerms(a: { roles: { highest: { position: number; }; }; }, b: { roles: { highest: { position: number; }; }; }) {
     return comparePerms();
-
     function comparePerms() {
       return a.roles.highest.position < b.roles.highest.position;
     }
@@ -130,7 +117,6 @@ export default class Utils {
 
   formatArray(a: string, b = "conjunction") {
     return formatArray();
-
     function formatArray() {
       return new Intl.ListFormat("en-GB", {
         style: "short",
@@ -141,7 +127,6 @@ export default class Utils {
 
   async loadCommands() {
     const modules = ["administrator", "fun", "information", "utilities"];
-
     for (const folder of modules) {
       const commandFiles = fs
         .readdirSync(`./dist/src/commands/${folder}/`)

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { SlashCommand } from "../../structures/index.js";
+import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json" assert {type:"json"} ;
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"};
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("unban").setDescription("unban a member.")
@@ -15,15 +15,15 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
     if (!interaction.guild.members.me?.permissions.has(PermissionsBitField.Flags.BanMembers)) {
         return void interaction.reply({ content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"], ephemeral: true });
     }
-    const banned_person = interaction.options.getString("id")!;
-    if (isNaN(+banned_person))
+    const bannedPerson = interaction.options.getString("id")!;
+    if (isNaN(+bannedPerson))
         return void interaction.reply({ content: SYSTEM.ERROR.ADMIN.NO_USER_ID, ephemeral: true });
     const d = interaction.options.getString("reason")!;
     interaction.guild.bans.fetch().then(async (guildban) => {
         if (guildban.size == 0)
             return interaction.reply({ content: SYSTEM.ERROR.ADMIN.NO_USER_BANNED, ephemeral: true });
 
-        const findBanned = guildban.find((a) => a.user.id == banned_person);
+        const findBanned = guildban.find((a) => a.user.id == bannedPerson);
         return findBanned
             ? void (await interaction.guild.members.unban(findBanned.user, d)
                 .catch((a) => console.log(a)),

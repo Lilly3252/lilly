@@ -1,7 +1,7 @@
 
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import type { SlashCommand } from "src/structures/index.js";
-import cat from "../../Structures/JSONs/cat-fact.json" assert {type:"json"} ;
+import type { SlashCommand } from "src/structures/@types/index.js";
+import cat from "../../Structures/JSONs/funCommands/cat-fact.json" assert {type:"json"} ;
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
   .setName("cat")

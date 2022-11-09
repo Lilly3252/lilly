@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { SlashCommand } from "../../structures/index.js";
+import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import SYSTEM from "../../structures/messageSystem.json" assert {type:"json"} ;
 

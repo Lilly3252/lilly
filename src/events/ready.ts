@@ -1,4 +1,4 @@
-import type { event } from "./../structures/index.js"
+import type { event } from "../structures/@types/index.js"
 
 
 export const name: event['name'] = 'ready';

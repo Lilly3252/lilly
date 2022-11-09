@@ -1,4 +1,4 @@
-import type { event } from "../structures/index.js"
+import type { event } from "../structures/@types/index.js"
 import type { GuildMember } from "discord.js";
 
 

@@ -6,7 +6,7 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v10";
 import fs from "fs";
 import process from 'process';
-import type  { SlashCommand } from './structures/index.js';
+import type  { SlashCommand } from './structures/@types/index.js';
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

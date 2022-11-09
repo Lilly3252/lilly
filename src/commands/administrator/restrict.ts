@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { SlashCommand } from "../../structures/index.js";
+import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import SYSTEM from "../../structures/messageSystem.json" assert {type:"json"} ;
 //import * as Embed from "../../structures/messageEmbeds.js";
@@ -44,7 +44,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
    // const database = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
     const member = interaction.options.getMember("member")!;
     const reason = interaction.options.getString("reasons")!;
-    const restriction_name = interaction.options.getString("restrictions")!;
+    const restrictionName = interaction.options.getString("restrictions")!;
    // const data = database?.logChannelID;
 
     if (!member.moderatable || !member.manageable) {
@@ -53,20 +53,20 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             ephemeral: true,
         });
     }
-    switch (restriction_name) {
+    switch (restrictionName) {
         case "embed": {
-            let Embedrole = interaction.guild.roles.cache.find((role) => role.name === "Embed Restriction");
-            if (!Embedrole)
+            let embedRole = interaction.guild.roles.cache.find((role) => role.name === "Embed Restriction");
+            if (!embedRole)
                 try {
-                    (Embedrole = await interaction.guild.roles.create({
+                    (embedRole = await interaction.guild.roles.create({
                         name: "Embed Restriction",
                         color: "#514f48",
                     })),
-                        Embedrole.permissions.remove("EmbedLinks", "AttachFiles");
+                        embedRole.permissions.remove("EmbedLinks", "AttachFiles");
                 } catch (a: any) {
                     console.log(a.stack);
                 }
-            member.roles.add(Embedrole!).then(() => {
+            member.roles.add(embedRole!).then(() => {
                 member
                     .send(
                         `Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`
@@ -80,18 +80,18 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             break;
         }
         case "reaction": {
-            let Reactionrole = interaction.guild.roles.cache.find((role) => role.name === "Reaction Restriction");
-            if (!Reactionrole)
+            let reactionRole = interaction.guild.roles.cache.find((role) => role.name === "Reaction Restriction");
+            if (!reactionRole)
                 try {
-                    (Reactionrole = await interaction.guild.roles.create({
+                    (reactionRole = await interaction.guild.roles.create({
                         name: "Reaction Restriction",
                         color: "#514f48",
                     })),
-                        Reactionrole.permissions.remove("AddReactions");
+                        reactionRole.permissions.remove("AddReactions");
                 } catch (a: any) {
                     console.log(a.stack);
                 }
-            member.roles.add(Reactionrole!).then(() => {
+            member.roles.add(reactionRole!).then(() => {
                 member
                     .send(
                         `Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`
@@ -105,19 +105,18 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             break;
         }
         case "slash": {
-            let Slashrole = interaction.guild.roles.cache.find((role) => role.name === "Slash Restriction");
-            if (!Slashrole)
+            let slashRole = interaction.guild.roles.cache.find((role) => role.name === "Slash Restriction");
+            if (!slashRole)
                 try {
-                    (Slashrole = await interaction.guild.roles.create({
+                    (slashRole = await interaction.guild.roles.create({
                         name: "Slash Restriction",
                         color: "#514f48",
                     })),
-                        Slashrole.permissions.remove("UseApplicationCommands")
+                        slashRole.permissions.remove("UseApplicationCommands")
                 } catch (a: any) {
                     console.log(a.stack);
                 }
-            member.roles.add(Slashrole!).then(() => {
-                member
+            member.roles.add(slashRole!).then(() => {         member
                     .send(
                         `Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`
                     )
@@ -130,18 +129,18 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
             break;
         }
         case "voice": {
-            let Voicerole = interaction.guild.roles.cache.find((role) => role.name === "Voice Restriction");
-            if (!Voicerole)
+            let voiceRole = interaction.guild.roles.cache.find((role) => role.name === "Voice Restriction");
+            if (!voiceRole)
                 try {
-                    (Voicerole = await interaction.guild.roles.create({
+                    (voiceRole = await interaction.guild.roles.create({
                         name: "Voice Restriction",
                         color: "#514f48",
                     })),
-                        Voicerole.permissions.remove("Stream", "Connect", "Speak", "UseVAD")
+                        voiceRole.permissions.remove("Stream", "Connect", "Speak", "UseVAD")
                 } catch (a: any) {
                     console.log(a.stack);
                 }
-            member.roles.add(Voicerole!).then(() => {
+            member.roles.add(voiceRole!).then(() => {
                 member
                     .send(
                         `Hello, you have been restricted in ${interaction.guild.name} for: ${reason}`
@@ -162,7 +161,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
   //  if (!LogChannel || LogChannel === null) { return }
    // if (LogChannel?.isTextBased()) {
     //    LogChannel?.send({
-      //      embeds: [Embed.RestrictEmbed(interaction, reason, restriction_name, member)],
+      //      embeds: [Embed.RestrictEmbed(interaction, reason, restrictionName, member)],
        // });
  //   }
 }

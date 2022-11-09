@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { SlashCommand } from "../../structures/index.js";
+import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json" assert {type:"json"}; 
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"};
 //import { prisma } from "../../index.js";
 //import * as Embed from "../../structures/messageEmbeds.js";
 

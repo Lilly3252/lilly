@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { event,ContextCommand,  ModalCommand, SlashCommand } from "../structures/index.js"
-import type { Interaction,AutocompleteInteraction,ModalSubmitInteraction, ChatInputCommandInteraction, ContextMenuCommandInteraction} from "discord.js";
+import type { event, ContextCommand, ModalCommand, SlashCommand } from "../structures/@types/index.js"
+import type { Interaction, AutocompleteInteraction, ModalSubmitInteraction, ChatInputCommandInteraction, ContextMenuCommandInteraction } from "discord.js";
 
 
 export const name: event['name'] = 'interactionCreate';
@@ -20,7 +20,7 @@ export const run: event["run"] = async (interaction: Interaction<"cached">): Pro
     if (interaction.isModalSubmit()) {
         return void handleModal(interaction);
     }
-    if(interaction.isButton()){
+    if (interaction.isButton()) {
         console.log(interaction)
     }
 };
@@ -28,14 +28,13 @@ const handleCommand = async (interaction: ChatInputCommandInteraction | ContextM
     try {
         if (interaction.isChatInputCommand()) {
             const command = interaction.client.commands.get(interaction.commandName) as SlashCommand;
-            console.log(command)
             if (command) {
                 await command.run(interaction);
-               
+
             }
         }
         if (interaction.isContextMenuCommand()) {
-            const command = interaction.client.commands.get(interaction.commandName) as ContextCommand ;
+            const command = interaction.client.commands.get(interaction.commandName) as ContextCommand;
             if (command) {
                 await command.run(interaction);
             }

@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { SlashCommand } from "src/structures/index.js";
-import roasts from "../../Structures/JSONs/roast.json" assert {type:"json"} ;
+import type { SlashCommand } from "src/structures/@types/index.js";
+import roasts from "../../Structures/JSONs/funCommands/roast.json" assert {type:"json"} ;
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
   .setName("roast").setDescription("roast someone.")

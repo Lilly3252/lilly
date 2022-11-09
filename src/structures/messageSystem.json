@@ -14,13 +14,6 @@
         "NO_USER_BANNED": "❌ Error: Nobody was banned from this server.",
         "MODERATION_DENIED": "❌ Error: Moderation action cannot be done on this member."
       },
-      "MUSIC": {
-        "NOTHING_PLAYING": "❌ Error: There's nothing playing at this moment!",
-        "NO_VALIDATE": "❌ Error: I cant search by words, please provide a link!",
-        "CHANNEL_JOINED": "❌ Error: I'm not in a channel..?",
-        "USER_NOT_JOINED": "❌ Error: User is not in a channel!",
-        "NO_SONG": "❌ Error: There's no song that i could skip or stop for you."
-      },
       "COMMANDS": {
         "OWNER_ONLY": "❌ Error: Sorry, this command can only be used by the bot owners.",
         "SERVER_ONLY": "❌ Error: Sorry, this command can only be used in a discord server.",

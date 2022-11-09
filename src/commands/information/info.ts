@@ -1,81 +1,76 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ChatInputCommandInteraction, TextChannel, time } from "discord.js";
-import type { SlashCommand } from "../../structures/index.js";
+import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import * as Embed from "../../structures/messageEmbeds.js";
 import os from "os";
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
-.setName("info")
-.setDescription("Information.")
-.setDefaultMemberPermissions(PermissionsBitField.Flags.ManageRoles)
-.addSubcommand((subcommand) =>
-  subcommand
-    .setName("channel")
-    .setDescription("Select a channel.")
-    .addChannelOption((option) =>
-      option
-        .setName("channel")
-        .setDescription("Select a channel.")
-        .setRequired(true)
-    )
-)
-.addSubcommand((subcommand) =>
-  subcommand
-    .setName("role")
-    .setDescription("Select a role.")
-    .addRoleOption((option) =>
-      option
-        .setName("role")
-        .setDescription("Select a role.")
-        .setRequired(true)
-    )
-)
-.addSubcommand((subcommand) =>
-  subcommand.setName("bot").setDescription("Get information of the bot.")
-)
-.addSubcommand((subcommand) =>
-  subcommand
-    .setName("user")
-    .setDescription("Get information of a user.")
-    .addUserOption((option) =>
-      option
-        .setName("target")
-        .setDescription("Select a user")
-        .setRequired(true)
-    )
-)
-.addSubcommand((subcommand) =>
-  subcommand
-    .setName("server")
-    .setDescription("Get information of the server.")
-)
+  .setName("info")
+  .setDescription("Information.")
+  .setDefaultMemberPermissions(PermissionsBitField.Flags.ManageRoles)
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("channel")
+      .setDescription("Select a channel.")
+      .addChannelOption((option) =>
+        option
+          .setName("channel")
+          .setDescription("Select a channel.")
+          .setRequired(true)
+      )
+  )
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("role")
+      .setDescription("Select a role.")
+      .addRoleOption((option) =>
+        option
+          .setName("role")
+          .setDescription("Select a role.")
+          .setRequired(true)
+      )
+  )
+  .addSubcommand((subcommand) =>
+    subcommand.setName("bot").setDescription("Get information of the bot.")
+  )
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("user")
+      .setDescription("Get information of a user.")
+      .addUserOption((option) =>
+        option
+          .setName("target")
+          .setDescription("Select a user")
+          .setRequired(true)
+      )
+  )
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("server")
+      .setDescription("Get information of the server.")
+  )
 
 
 export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<void> => {
-    if (interaction.options.getSubcommand() === "channel") {
+  if (interaction.options.getSubcommand() === "channel") {
     const channel = interaction.options.getChannel("channel") as TextChannel;
-    
     const chanCreateTime = time(channel?.createdAt!, "R");
-
+    
     await interaction.reply({
-      embeds: [
-        Embed.ChannelEmbed(
-          interaction,
-          chanCreateTime,
-          channel,
-        ),
-      ],
+      embeds: [Embed.ChannelEmbed(interaction,chanCreateTime,channel)],
     });
   }
+
   if (interaction.options.getSubcommand() === "role") {
     const c = interaction.options.getRole("role");
 
     interaction.reply({ embeds: [Embed.RoleEmbed(interaction, c!)] });
   }
+
   if (interaction.options.getSubcommand() === "server") {
-    const server_create = time(interaction.guild.createdAt, "R");
+    const serverCreate = time(interaction.guild.createdAt, "R");
     const owner = await interaction.guild.fetchOwner();
     const b = interaction.guild.roles.cache
       .sort((c, a) => a.position - c.position)
@@ -85,30 +80,22 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
     const e = interaction.guild.emojis;
 
     interaction.reply({
-      embeds: [
-        Embed.ServerInfoEmbed(
-          interaction,
-          owner,
-          member,
-          b,
-          d,
-          e,
-          server_create
-        ),
-      ],
+      embeds: [Embed.ServerInfoEmbed(interaction,owner,member,b,d,e,serverCreate)],
     });
   }
+
   if (interaction.options.getSubcommand() === "bot") {
     const b = os.cpus()[0];
-    const bot_create = time(interaction.client.user?.createdAt!, "R");
+    const botCreate = time(interaction.client.user?.createdAt!, "R");
     await interaction.reply({
-      embeds: [Embed.BotInfoEmbed(interaction, b!, bot_create)!],
+      embeds: [Embed.BotInfoEmbed(interaction, b!, botCreate)!],
     });
   }
+
   if (interaction.options.getSubcommand() === "user") {
     const member = interaction.options.getMember("target");
     const flags = {
-      BotHTTPInteractions : "HTTP Interaction Only",
+      BotHTTPInteractions: "HTTP Interaction Only",
       Staff: "Discord Employee",
       Partner: "Discord Partner",
       BugHunterLevel1: "Bug Hunter (Level 1)",
@@ -117,8 +104,8 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
       HypeSquadOnlineHouse2: "House of Brilliance",
       HypeSquadOnlineHouse3: "House of Balance",
       Hypesquad: "Hypesquad",
-      Quarantined : "Quarantined Account",
-      Spammer: "Spammer User" , 
+      Quarantined: "Quarantined Account",
+      Spammer: "Spammer User",
       PremiumEarlySupporter: "Early Nitro Supporter",
       TeamPseudoUser: "Team User",
       VerifiedBot: "Verified Bot",

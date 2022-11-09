@@ -1,6 +1,6 @@
 import { stripIndents } from "common-tags";
-import answers from "../../Structures/JSONs/8-ball.json" assert {type:"json"};
-import type { SlashCommand } from "src/structures/index.js";
+import answers from "../../Structures/JSONs/funCommands/8-ball.json" assert {type:"json"};
+import type { SlashCommand } from "src/structures/@types/index.js";
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 
 

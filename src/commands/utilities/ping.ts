@@ -1,5 +1,5 @@
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { SlashCommand } from "../../structures/index.js";
+import type { SlashCommand } from "../../structures/@types/index.js";
 import { SlashCommandBuilder } from "discord.js";
 //import emoji from "../../structures/JSONs/emoji.json" assert {type : "json"};
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
