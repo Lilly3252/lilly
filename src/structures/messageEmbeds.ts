@@ -85,9 +85,7 @@ export function UserInfoEmbed(
         }])
 
     // THANKS FOR THEHAIRY#0285 FOR THIS PART
-    // eslint-disable-next-line no-unsafe-optional-chaining
     for (const activity of [...member.presence?.activities.values()]) {
-        console.log(activity)
         switch (activity.type) {
             case ActivityType.Playing: {
                 if (activity.name === "Visual Studio Code") {
