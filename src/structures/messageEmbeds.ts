@@ -84,7 +84,7 @@ export function UserInfoEmbed(
                 ].join("\n")
         }])
 
-    // THANKS FOR THEHAIRY#0285 FOR THIS PART
+    // THANKS TO THEHAIRY#0285 FOR THIS PART
     for (const activity of [...member.presence?.activities.values()]) {
         switch (activity.type) {
             case ActivityType.Playing: {
