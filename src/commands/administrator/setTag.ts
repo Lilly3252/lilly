@@ -41,7 +41,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
               //  where: { name: name },
                // data: {
                  //   "name": name,
-                  //  "description": message
+                  //  "description": messageD
                 }
             //)
             interaction.reply(`Successfully modified a tag with ${name}`)

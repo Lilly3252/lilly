@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction, RESTJSONErrorCodes } from "discord.js";
 import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json" assert {type:"json"} ;
+import SYSTEM from "../../structures/messageSystem.json" assert {type: "json"};
 
 export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setName("say")
@@ -25,7 +25,11 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
     const message = interaction.options.getString("message")!;
     const d = interaction.options.getChannel("channel")!;
     if (d?.isTextBased()) {
-        d.send(message)
+        d.send(message).catch(error => {
+            if (error.code === RESTJSONErrorCodes.InvalidFormBodyOrContentType) {
+                interaction.reply("i wont send that..")
+            }
+        })
     } else {
         return void interaction.reply("i cant send messages in a channel that is not a text channel.")
     }

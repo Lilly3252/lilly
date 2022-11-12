@@ -84,7 +84,8 @@ export function UserInfoEmbed(
                 ].join("\n")
         }])
 
-    // THANKS TO THEHAIRY#0285 FOR THIS PART
+    // THANKS FOR THEHAIRY#0285 FOR THIS PART
+    // eslint-disable-next-line no-unsafe-optional-chaining
     for (const activity of [...member.presence?.activities.values()]) {
         switch (activity.type) {
             case ActivityType.Playing: {

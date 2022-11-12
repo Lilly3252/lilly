@@ -10,7 +10,7 @@ import process from "node:process";
 client.start();
 //console.log("im connected with db!");
 
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', (error) => {
     console.error('Unhandled promise rejection:', error);
 });
 
