@@ -35,49 +35,8 @@ export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
     );
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-const jobClassData = {
-    Gladiator: Emoji[':Gladiator:'],
-    Paladin: Emoji[':Paladin:'],
-    Marauder: Emoji[':Marauder:'],
-    Warrior: Emoji[':Warrior:'],
-    'Dark Knight': Emoji[':Dark Knight:'],
-    Gunbreaker: Emoji[':Gunbreaker:'],
-    Conjurer: Emoji[':Conjurer:'],
-    'White Mage': Emoji[':White Mage:'],
-    Arcanist: Emoji[':Arcanist:'],
-    Scholar: Emoji[':Scholar:'],
-    Astrologian: Emoji[':Astrologian:'],
-    Sage: Emoji[':Sage:'],
-    Pugilist: Emoji[':Pugilist:'],
-    Monk: Emoji[':Monk:'],
-    Lancer: Emoji[':Lancer:'],
-    Dragoon: Emoji[':Dragoon:'],
-    Rogue: Emoji[':Rogue:'],
-    Ninja: Emoji[':Ninja:'],
-    Samurai: Emoji[':Samurai:'],
-    Reaper: Emoji[':Reaper:'],
-    Archer: Emoji[':Archer:'],
-    Bard: Emoji[':Bard:'],
-    Machinist: Emoji[':Machinist:'],
-    Dancer: Emoji[':Dancer:'],
-    'Black Mage': Emoji[':Black Mage:'],
-    Thaumaturge: Emoji[':Thaumaturge:'],
-    Summoner: Emoji[':Summoner:'],
-    'Red Mage': Emoji[':Red Mage:'],
-    'Blue Mage (Limited Job)': Emoji[':Blue Mage (Limited Job):'],
-    Carpenter: Emoji[':Carpenter:'],
-    Blacksmith: Emoji[':Blacksmith:'],
-    Armorer: Emoji[':Armorer:'],
-    Goldsmith: Emoji[':Goldsmith:'],
-    Leatherworker: Emoji[':Leatherworker:'],
-    Weaver: Emoji[':Weaver:'],
-    Alchemist: Emoji[':Alchemist:'],
-    Culinarian: Emoji[':Culinarian:'],
-    Miner: Emoji[':Miner:'],
-    Botanist: Emoji[':Botanist:'],
-    Fisher: Emoji[':Fisher:'],
-};
+
+
 export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<void> => {
     switch (interaction.options.getSubcommand()) {
         case 'character': {
@@ -89,7 +48,9 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
                 const resolvedCharacter = await fetch(
                     `https://xivapi.com/character/search?name=${firstName}+${lastName}&server=${server}`,
                 ).then((x) => x.json())
-                if (resolvedCharacter.Pagination.Results !== 1) { return void await interaction.editReply("Nothing found !") } // resolvedCharacter.Pagination.Results returns 0 if nothing found
+                if (resolvedCharacter.Pagination.Results !== 1) {
+                    return void await interaction.editReply("Nothing found !")
+                } // resolvedCharacter.Pagination.Results returns 0 if nothing found
 
                 const id = resolvedCharacter.Results[0].ID;
                 const character = (await fetch(`https://xivapi.com/character/${id}?data=FC`).then(async (x) => {
@@ -126,16 +87,73 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
                         },
                     ]);
                 }
-
-                //embed.setFooter({
-                //  text: `${character.Character.ClassJobs?.map((f: ClassJob) => f.UnlockedState?.Name).join(' ') ?? 'none'}`,
-                //});
+                
+                
+                const jobClassData = {
+                    Gladiator: Emoji[':Gladiator:'],
+                    Paladin: Emoji[':Paladin:'],
+                    Marauder: Emoji[':Marauder:'],
+                    Warrior: Emoji[':Warrior:'],
+                    'Dark Knight': Emoji[':Dark Knight:'],
+                    Gunbreaker: Emoji[':Gunbreaker:'],
+                    Conjurer: Emoji[':Conjurer:'],
+                    'White Mage': Emoji[':White Mage:'],
+                    Arcanist: Emoji[':Arcanist:'],
+                    Scholar: Emoji[':Scholar:'],
+                    Astrologian: Emoji[':Astrologian:'],
+                    Sage: Emoji[':Sage:'],
+                    Pugilist: Emoji[':Pugilist:'],
+                    Monk: Emoji[':Monk:'],
+                    Lancer: Emoji[':Lancer:'],
+                    Dragoon: Emoji[':Dragoon:'],
+                    Rogue: Emoji[':Rogue:'],
+                    Ninja: Emoji[':Ninja:'],
+                    Samurai: Emoji[':Samurai:'],
+                    Reaper: Emoji[':Reaper:'],
+                    Archer: Emoji[':Archer:'],
+                    Bard: Emoji[':Bard:'],
+                    Machinist: Emoji[':Machinist:'],
+                    Dancer: Emoji[':Dancer:'],
+                    'Black Mage': Emoji[':Black Mage:'],
+                    Thaumaturge: Emoji[':Thaumaturge:'],
+                    Summoner: Emoji[':Summoner:'],
+                    'Red Mage': Emoji[':Red Mage:'],
+                    'Blue Mage (Limited Job)': Emoji[':Blue Mage (Limited Job):'],
+                    Carpenter: Emoji[':Carpenter:'],
+                    Blacksmith: Emoji[':Blacksmith:'],
+                    Armorer: Emoji[':Armorer:'],
+                    Goldsmith: Emoji[':Goldsmith:'],
+                    Leatherworker: Emoji[':Leatherworker:'],
+                    Weaver: Emoji[':Weaver:'],
+                    Alchemist: Emoji[':Alchemist:'],
+                    Culinarian: Emoji[':Culinarian:'],
+                    Miner: Emoji[':Miner:'],
+                    Botanist: Emoji[':Botanist:'],
+                    Fisher: Emoji[':Fisher:'],
+                };
+                const jobs = character.Character.ClassJobs
+                if (jobs) {
+                    const jobAvailable = jobs.map((f: ClassJob) => f.UnlockedState.Name)
+                    const jobTransformed = jobAvailable.map((a:string) => jobClassData[a])
+                    
+                    embed.addFields({
+                        name: "Jobs", value: [
+                            `**Tank:**${jobTransformed.slice(0, 4).join(" ")}`,
+                            `**Healer:**${jobTransformed.slice(4, 8).join(" ")}`,
+                            `**DPS:**${jobTransformed.slice(8, 20).join(" ")}`,
+                            `**Crafter:**${jobTransformed.slice(20, 28).join(" ")}`,
+                            `**Gatherer:**${jobTransformed.slice(28, 31).join(" ")}`
+                        ].join("\n")
+                    })
+                }
 
                 interaction.editReply({ embeds: [embed] });
             }
-            catch {
+            catch (err) {
+                console.log(err)
                 interaction.editReply("hmm nope")
             }
+
         }
     }
 };
