@@ -111,14 +111,15 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
       VerifiedBot: "Verified Bot",
       VerifiedDeveloper: "Early Verified Bot Developer",
       CertifiedModerator: "Discord Certified Moderator",
+      ActiveDeveloper: "Active Developer"
     };
-    const created = time(member?.user.createdAt!, "R");
+    const created = time(member?.user.createdAt!, "R")
+    const joinedServer = time(member?.joinedTimestamp!, "R");
     const flag = member?.user.flags?.toArray()
-    console.log(flag)
     const role = member?.roles.cache.sort((c, a) => a.position - c.position).map((a) => a.toString()).slice(0, -1);
     return void interaction.reply({
       embeds: [
-        Embed.UserInfoEmbed(interaction, member!, role, flag!, flags, created),
+        Embed.UserInfoEmbed(interaction, member!, role, flag!, flags, created,joinedServer),
       ],
     });
   }

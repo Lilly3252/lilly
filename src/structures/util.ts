@@ -1,11 +1,11 @@
 import { readdirSync } from 'fs';
-import path from 'path';
+//import path from 'path';
 import type { SlashCommand, event } from './@types/index.js';
 import type lillyclient from './lillyClient.js';
-import { fileURLToPath, pathToFileURL } from 'url';
-import { dirname } from 'path';
-const __filenameForEvent = fileURLToPath("file:///C:/Users/lilly/Documents/GitHub/Lilly-TS/dist/src/events");
-const __dirnameForEvent = dirname(__filenameForEvent);
+//import { fileURLToPath, pathToFileURL } from 'url';
+//import { dirname } from 'path';
+//const __filenameForEvent = fileURLToPath(import.meta.url);
+//const __dirnameForEvent = dirname(__filenameForEvent);
 import fs from "fs";
 const inviteRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
 const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
@@ -138,11 +138,10 @@ export default class Utils {
     }
   }
   async loadEvents() {
-    const eventFiles = readdirSync(path.resolve(__dirnameForEvent, 'events')).filter(file => file.toString().endsWith('.js'));
+    const eventFiles = readdirSync(`./dist/src/events`).filter(file => file.toString().endsWith('.js'));
 
     for (const eventFile of eventFiles) {
-      const event: event = await import((pathToFileURL(path.resolve(__dirnameForEvent, 'events', eventFile)).toString()));
-      //console.log(event)
+      const event: event = await import(`../events/${eventFile}`);
       if (event.once) {
         this.client.on(event.name, (...args) => event.run(...args));
       } else {

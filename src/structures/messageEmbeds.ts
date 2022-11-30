@@ -43,7 +43,7 @@ export function AdminEmbed(
 export function UserInfoEmbed(
     interaction: ChatInputCommandInteraction<"cached">, member: GuildMember,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    role: any, flag: string[], flags: { [x: string]: string }, created: string) {
+    role: any, flag: string[], flags: { [x: string]: string }, created: string , joinedServer:string) {
     const embed = new EmbedBuilder()
         .setThumbnail(member.user.displayAvatarURL({ forceStatic: true, size: 512 }))
         .setColor(member.displayHexColor || Colors["Blue"])
@@ -72,7 +72,7 @@ export function UserInfoEmbed(
                         ? "None"
                         : member.roles.highest.name
                     }`,
-                    `**❯ Server Join Date:** ${member.joinedTimestamp}`,
+                    `**❯ Server Join Date:** ${joinedServer}`,
                     `**❯ Hoist Role:** ${member.roles.hoist ? member.roles.hoist.name : "None"
                     }`,
                     `**❯ Roles [${role.length}]:** ${role.length < 10
@@ -83,10 +83,8 @@ export function UserInfoEmbed(
                     }`,
                 ].join("\n")
         }])
-
-    // THANKS TO THEHAIRY#0285 FOR THIS PART
     // eslint-disable-next-line no-unsafe-optional-chaining
-    for (const activity of [...member.presence?.activities.values()]) {
+    for (const activity of member.presence?.activities.values()!) {
         switch (activity.type) {
             case ActivityType.Playing: {
                 if (activity.name === "Visual Studio Code") {
@@ -119,9 +117,6 @@ export function UserInfoEmbed(
                 embed.addFields([{ name: `Streaming a video`, value: "Blabla" }]);
                 break;
             }
-            //default: {
-            //  embed.addFields([{ name: `Doing nothing`, value: "no activity detected" }]);
-            //}
         }
     }
     return embed
