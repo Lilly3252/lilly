@@ -24,9 +24,10 @@
 	"dependencies": {
 		"@sapphire/type": "^2.2.4",
 		"@types/common-tags": "^1.8.1",
+		"@xivapi/angular-client": "^1.8.1",
 		"common-tags": "^1.8.2",
-		"discord.js": "^14.4.0",
+		"discord.js": "^14.7.0",
 		"dotenv": "^16.0.1",
-		"typescript": "^4.8.2"
+		"typescript": "^4.9.3"
 	}
 }
