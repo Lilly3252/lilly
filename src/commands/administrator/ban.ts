@@ -2,7 +2,7 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommand } from "../../structures/@types/index.js";
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import SYSTEM from "../../structures/messageSystem.json" assert {type:"json"} 
+import { botPermissionDenied, errors, successful } from "../../structures/constants/constants.js";
 //import { prisma } from "../../index.js";
 //import * as Embed from "../../structures/messageEmbeds.js";
 
@@ -18,19 +18,19 @@ export const slashy: SlashCommand["slashy"] = new SlashCommandBuilder()
     .setDefaultMemberPermissions(PermissionsBitField.Flags.BanMembers)
 
 
-export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<void> => {
+export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<any> => {
     if (!interaction.guild.members.me?.permissions.has(PermissionsBitField.Flags.BanMembers)) {
-        return void interaction.reply({
-            content: SYSTEM.ERROR.PERMISSIONS.BOT_PERM["BAN_MEMBERS"],
+        return  interaction.reply({
+            content: botPermissionDenied("BanMembers"),
             ephemeral: true,
         });
     }
   //  const c = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
-    const member = interaction.options.getMember("target");
+    const member = interaction.options.getMember("target")!;
     const reason = interaction.options.getString("reason");
     if (!member?.moderatable || !member?.manageable) {
         await interaction.reply({
-            content: SYSTEM.ERROR.ADMIN.MODERATION_DENIED,
+            content: errors.moderationDenied,
             ephemeral: true,
         });
     }
@@ -40,7 +40,7 @@ export const run: SlashCommand["run"] = async (interaction: ChatInputCommandInte
         .then(() => interaction.guild.members.ban(member!))
         .catch((a) => console.log(a)),
         interaction.reply({
-            content: `**${member?.user.tag}** has been banned`,
+            content: successful.ban(member.user.username),
             ephemeral: true,
         });
   /*  const g = c?.logChannelID;
