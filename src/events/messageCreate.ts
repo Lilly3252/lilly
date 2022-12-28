@@ -6,7 +6,7 @@ export const once: event["once"] = false
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//export const run: event["run"] = async (message: Message): Promise<void> => {
+//export const run: event["run"] = async (message: Message): Promise<any> => {
    /* console.log(message.content)
     if (message.author.bot) { return }
     else {

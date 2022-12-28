@@ -6,7 +6,7 @@ export default class Event {
     client!: event["client"];
     once!: event["once"];
     emitter!: event["emitter"]
-    run(..._args: unknown[]): Promise<void> {
+    run(..._args: unknown[]): Promise<any> {
         throw new Error(`The run method has not been implemented in ${this.name}`);
     }
 }
