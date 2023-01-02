@@ -10,17 +10,17 @@ export const run: event['run'] = async (message: Message<true>): Promise<any> =>
 		return;
 	} else {
 		const database = await Guild.findOne({ guildID: message.guild.id });
-		if (database?.messageDeleteMode === false) {
+		if (!database?.messageDeleteMode) {
 			return;
 		}
-		if (database?.messageDeleteMode === true && message.guild && message.author !== null) {
-			const moderatorChannel = database?.logChannelID;
-			if (!moderatorChannel || moderatorChannel === null) return;
+		if (message.guild && message.author !== null) {
+			const moderatorChannel = database.logChannelID;
+			if (!moderatorChannel) return;
 			const logChannel = message?.client.channels.cache.get(moderatorChannel);
-			if (!logChannel || logChannel === null) {
+			if (!logChannel) {
 				return;
 			}
-			if (logChannel?.isTextBased()) {
+			if (logChannel.isTextBased()) {
 				logChannel.send({ embeds: [messageDeleteEmbed(message)] });
 			}
 		}
