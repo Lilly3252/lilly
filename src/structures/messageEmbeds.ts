@@ -1,25 +1,4 @@
-import {
-	ChannelType,
-	GuildExplicitContentFilter,
-	GuildVerificationLevel,
-	ChatInputCommandInteraction,
-	GuildMember,
-	EmbedBuilder,
-	Colors,
-	DataManager,
-	GuildMemberResolvable,
-	Channel,
-	GuildChannelResolvable,
-	Emoji,
-	EmojiResolvable,
-	Role,
-	TextChannel,
-	PermissionsBitField,
-	ActivityType,
-	Collection,
-	Snowflake,
-	Message,
-} from 'discord.js';
+import { ChannelType, GuildExplicitContentFilter, GuildVerificationLevel, ChatInputCommandInteraction, GuildMember, EmbedBuilder, Colors, DataManager, GuildMemberResolvable, Channel, GuildChannelResolvable, Emoji, EmojiResolvable, Role, PermissionsBitField, ActivityType, Collection, Snowflake, Message, GuildTextBasedChannel, TextChannel } from 'discord.js';
 import * as Package from './../../package.json' assert { type: 'json' };
 import ms from 'ms';
 import os from 'os';
@@ -27,7 +6,7 @@ import process from 'process';
 import emoji from './JSONs/emoji.json' assert { type: 'json' };
 import type { guildSetting } from './@types/database.js';
 
-export function MuteEmbed(interaction: ChatInputCommandInteraction<'cached'>, member: GuildMember, reason: string, time: string): EmbedBuilder {
+export function muteEmbed(interaction: ChatInputCommandInteraction<'cached'>, member: GuildMember, reason: string, time: string): EmbedBuilder {
 	return new EmbedBuilder()
 		.setColor(Colors['Yellow'])
 		.addFields([
@@ -38,7 +17,7 @@ export function MuteEmbed(interaction: ChatInputCommandInteraction<'cached'>, me
 		])
 		.setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
 }
-export function AdminEmbed(interaction: ChatInputCommandInteraction<'cached'>, member: GuildMember, reason: string) {
+export function adminEmbed(interaction: ChatInputCommandInteraction<'cached'>, member: GuildMember, reason: string) {
 	return new EmbedBuilder()
 		.setColor(Colors['DarkRed'])
 		.addFields([
@@ -49,7 +28,7 @@ export function AdminEmbed(interaction: ChatInputCommandInteraction<'cached'>, m
 		])
 		.setFooter({ text: `Date: ${interaction.createdAt.toLocaleString()}` });
 }
-export function UserInfoEmbed(
+export function userInfoEmbed(
 	interaction: ChatInputCommandInteraction<'cached'>,
 	member: GuildMember,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,12 +59,7 @@ export function UserInfoEmbed(
 			},
 			{
 				name: 'Member',
-				value: [
-					`**❯ Highest Role:** ${member.roles.highest.id === interaction.guild.id ? 'None' : member.roles.highest.name}`,
-					`**❯ Server Join Date:** ${joinedServer}`,
-					`**❯ Hoist Role:** ${member.roles.hoist ? member.roles.hoist.name : 'None'}`,
-					`**❯ Roles [${role.length}]:** ${role.length < 10 ? role.join(', ') : role.length > 10 ? interaction.client.utils.trimArray(role) : 'None'}`,
-				].join('\n'),
+				value: [`**❯ Highest Role:** ${member.roles.highest.id === interaction.guild.id ? 'None' : member.roles.highest.name}`, `**❯ Server Join Date:** ${joinedServer}`, `**❯ Hoist Role:** ${member.roles.hoist ? member.roles.hoist.name : 'None'}`, `**❯ Roles [${role.length}]:** ${role.length < 10 ? role.join(', ') : role.length > 10 ? interaction.client.utils.trimArray(role) : 'None'}`].join('\n'),
 			},
 		]);
 	// eslint-disable-next-line no-unsafe-optional-chaining
@@ -125,9 +99,12 @@ export function UserInfoEmbed(
 			}
 		}
 	}
+	if (embed.data.fields?.length! > 20) {
+		embed.spliceFields(-1, 1, { name: ':(', value: 'No more activity can be shown due to limits' });
+	}
 	return embed;
 }
-export function SettingEmbed(interaction: ChatInputCommandInteraction<'cached'>, guild_db: guildSetting) {
+export function settingEmbed(interaction: ChatInputCommandInteraction<'cached'>, guild_db: guildSetting) {
 	return (
 		new EmbedBuilder()
 			.setAuthor({ name: `${interaction.guild.name} Settings` })
@@ -150,15 +127,7 @@ export function SettingEmbed(interaction: ChatInputCommandInteraction<'cached'>,
 			})
 	);
 }
-export function ServerInfoEmbed(
-	interaction: ChatInputCommandInteraction<'cached'>,
-	owner: GuildMember,
-	member: DataManager<string, GuildMember, GuildMemberResolvable>,
-	b: string[],
-	d: DataManager<string, Channel, GuildChannelResolvable>,
-	e: DataManager<string, Emoji, EmojiResolvable>,
-	server_create: string,
-) {
+export function serverInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>, owner: GuildMember, member: DataManager<string, GuildMember, GuildMemberResolvable>, b: string[], d: DataManager<string, Channel, GuildChannelResolvable>, e: DataManager<string, Emoji, EmojiResolvable>, server_create: string) {
 	return (
 		new EmbedBuilder()
 			.setDescription(`**Guild information for __${interaction.guild.name}__**`)
@@ -168,16 +137,7 @@ export function ServerInfoEmbed(
 			.addFields([
 				{
 					name: 'General',
-					value: [
-						`**❯ Name:** ${interaction.guild.name}`,
-						`**❯ ID:** ${interaction.guild.id}`,
-						`**❯ Owner:** ${owner.user.tag} (${owner.id})`,
-						`**❯ Boost Tier:** ${interaction.guild.premiumTier ? `Tier ${interaction.guild.premiumTier}` : 'None'}`,
-						`**❯ Explicit Filter:** ${GuildExplicitContentFilter[interaction.guild.explicitContentFilter]}`,
-						`**❯ Verification Level:** ${GuildVerificationLevel[interaction.guild.verificationLevel]}`,
-						`**❯ Time Created:** ${server_create}`,
-						'\u200B',
-					].join('\n'),
+					value: [`**❯ Name:** ${interaction.guild.name}`, `**❯ ID:** ${interaction.guild.id}`, `**❯ Owner:** ${owner.user.tag} (${owner.id})`, `**❯ Boost Tier:** ${interaction.guild.premiumTier ? `Tier ${interaction.guild.premiumTier}` : 'None'}`, `**❯ Explicit Filter:** ${GuildExplicitContentFilter[interaction.guild.explicitContentFilter]}`, `**❯ Verification Level:** ${GuildVerificationLevel[interaction.guild.verificationLevel]}`, `**❯ Time Created:** ${server_create}`, '\u200B'].join('\n'),
 				},
 				{
 					name: 'statistic',
@@ -215,7 +175,7 @@ export function ServerInfoEmbed(
 			.setTimestamp()
 	);
 }
-export function BotInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>, b: os.CpuInfo, bot_create: string) {
+export function botInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>, b: os.CpuInfo, bot_create: string) {
 	if (!interaction.client.user) return undefined;
 	if (!interaction.guild.members.me) return undefined;
 	return new EmbedBuilder()
@@ -239,17 +199,7 @@ export function BotInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>,
 			},
 			{
 				name: 'System',
-				value: [
-					`**❯ Platform:** ${process.platform}`,
-					`**❯ Uptime:** ${ms(1e3 * process.uptime(), { long: true })}`,
-					`**❯ CPU:**`,
-					`\u3000 Cores: ${os.cpus().length}`,
-					`\u3000 Model: ${b.model}`,
-					`\u3000 Speed: ${b.speed}MHz`,
-					`**❯ Memory:**`,
-					`\u3000 Total: ${interaction.client.utils.formatBytes(process.memoryUsage().heapTotal)}`,
-					`\u3000 Used: ${interaction.client.utils.formatBytes(process.memoryUsage().heapUsed)}`,
-				].join('\n'),
+				value: [`**❯ Platform:** ${process.platform}`, `**❯ Uptime:** ${ms(1e3 * process.uptime(), { long: true })}`, `**❯ CPU:**`, `\u3000 Cores: ${os.cpus().length}`, `\u3000 Model: ${b.model}`, `\u3000 Speed: ${b.speed}MHz`, `**❯ Memory:**`, `\u3000 Total: ${interaction.client.utils.formatBytes(process.memoryUsage().heapTotal)}`, `\u3000 Used: ${interaction.client.utils.formatBytes(process.memoryUsage().heapUsed)}`].join('\n'),
 			},
 			{
 				name: 'Code',
@@ -259,7 +209,7 @@ export function BotInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>,
 		])
 		.setTimestamp();
 }
-export function RestrictEmbed(interaction: ChatInputCommandInteraction<'cached'>, reason: string, restriction_name: string, e: GuildMember) {
+export function restrictEmbed(interaction: ChatInputCommandInteraction<'cached'>, reason: string, restriction_name: string, e: GuildMember) {
 	return new EmbedBuilder()
 		.setAuthor({
 			name: `${interaction.user.tag} (${interaction.user.id})`,
@@ -275,7 +225,7 @@ export function RestrictEmbed(interaction: ChatInputCommandInteraction<'cached'>
 		.setTimestamp(new Date())
 		.setFooter({ text: `${restriction_name} restricted` });
 }
-export function RoleEmbed(interaction: ChatInputCommandInteraction<'cached'>, c: Role) {
+export function roleEmbed(interaction: ChatInputCommandInteraction<'cached'>, c: Role) {
 	return (
 		new EmbedBuilder()
 			.setTimestamp()
@@ -291,7 +241,7 @@ export function RoleEmbed(interaction: ChatInputCommandInteraction<'cached'>, c:
 			])
 	);
 }
-export function ChannelEmbed(
+export function channelEmbed(
 	interaction: ChatInputCommandInteraction<'cached'>,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	chanCreateTime: any,
@@ -313,11 +263,7 @@ export function ChannelEmbed(
 		chanEmbeds.addFields([
 			{
 				name: 'Information',
-				value: [
-					`**❯ NSFW:** ${channel.nsfw ? channel.nsfw : 'False'}`,
-					`**❯ Slowmode:** ${channel.rateLimitPerUser ? channel.rateLimitPerUser + ' Seconds' : 'None'}`,
-					`**❯ Private Channel:** ${channel.permissionsFor(interaction.guild.id)?.has(PermissionsBitField.Flags.ViewChannel) ? 'False' : 'True'}`,
-				].join('\n'),
+				value: [`**❯ NSFW:** ${channel.nsfw ? channel.nsfw : 'False'}`, `**❯ Slowmode:** ${channel.rateLimitPerUser ? channel.rateLimitPerUser + ' Seconds' : 'None'}`, `**❯ Private Channel:** ${channel.permissionsFor(interaction.guild.id)?.has(PermissionsBitField.Flags.ViewChannel) ? 'False' : 'True'}`].join('\n'),
 			},
 			{ name: `❯ Topic:`, value: ` ${channel.topic ? channel.topic : 'no topic'}`, inline: true },
 		]);
@@ -369,15 +315,29 @@ export function messageDeleteEmbed(message: Message) {
 	}
 	return deleteEmbed;
 }
-
-export function messageDeleteBulkEmbed(messages: Collection<Snowflake, Message<true>>, deletedMessageChannel: string | undefined, length: number) {
+export function messageDeleteBulkEmbed(messages: Collection<Snowflake, Message<true>>, deletedMessageChannel: GuildTextBasedChannel, length: number) {
 	const messageDeleteBulkEmbed = new EmbedBuilder()
 		.setAuthor({
 			name: `${messages.first()?.author.tag} (${messages.first()?.author.id})`,
 			iconURL: messages.first()?.author.displayAvatarURL(),
 		})
-		.setTitle(`${length} Messages purged in #${deletedMessageChannel}`)
-		.setDescription(messages.map((message) => `**❯** [${message.author.tag}]: ${message.content}`).join('\n'))
+		.addFields({ name: '\u276F Channel', value: [deletedMessageChannel.name].join('\n') });
+	if (messages.first()!.content.length > 1024) {
+		messageDeleteBulkEmbed.addFields({
+			name: '\u276F Messages',
+			value: messages
+				.map((message) => `**❯** [${message.author.tag}]: ${message.content.substring(0, 200)}`)
+				.join('\n')
+				.substring(0, 1024),
+		});
+	} else {
+		messageDeleteBulkEmbed.addFields({
+			name: '\u276F Messages',
+			value: messages.map((message) => `**❯** [${message.author.tag}]: ${message.content}`).join('\n'),
+		});
+	}
+
+	messageDeleteBulkEmbed
 		.setFooter({ text: `${length} latest shown` })
 		.setColor('#dd5f53')
 		.setTimestamp();
