@@ -8,7 +8,7 @@ export const once: event['once'] = false;
 
 export const run: event['run'] = async (messages: Collection<Snowflake, Message<true>> , channel:GuildTextBasedChannel): Promise<any> => {
 	const settings = await Guild.findOne({guildID: messages.first()?.guild?.id});
-
+//console.log(channel)
 	if (!settings?.messageBulkDeleteMode || !messages.first()?.author ) {
 		return;
 	}

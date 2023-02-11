@@ -12,11 +12,11 @@ export default class Utils {
 	constructor(a: lillyclient) {
 		this.client = a;
 	}
-	shorten({ a, b = 2000 }: { a: string; b?: number }): string {
-		return shorten();
+	shorten({ a, b = 1024 }: { a: string; b?: number }): string {
 		function shorten(): string {
-			return a.length > b ? `${a.substring(0, b - 3)}...` : a;
+			return a.length > b ? `${a.substring(0, b - 3)}...` : a; 
 		}
+		return shorten();
 	}
 
 	list(a: unknown[], b = 'and') {

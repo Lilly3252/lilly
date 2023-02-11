@@ -10,4 +10,5 @@ export const run: event['run'] = async (oldState: VoiceState, newState: VoiceSta
     on ${oldState.channelId}, Named : ${oldState.channel ? oldState.channel.name : null} 
     been moved to ${newState.channelId}, Named : ${newState.channel ? newState.channel.name : null}
     `);
+    //console.log("Member deaf: " + newState.serverDeaf)
 };

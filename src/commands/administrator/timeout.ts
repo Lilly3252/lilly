@@ -69,6 +69,6 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	//const LogChannel = interaction.client.channels.cache.get(g);
 	//if (!LogChannel || LogChannel === null) { return }
 	//if (LogChannel?.isTextBased()) {
-	//   LogChannel?.send({ embeds: [Embed.AdminEmbed(interaction, member!, reason!)] });
+	//   LogChannel?.send({ embeds: [Embed.adminEmbed(interaction, member!, reason!)] });
 	// }
 };

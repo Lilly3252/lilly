@@ -1,4 +1,4 @@
-import type { ChatInputCommandInteraction, GuildMember, PermissionFlagsBits, User } from 'discord.js';
+import { type ChatInputCommandInteraction, type GuildMember, type PermissionFlagsBits, type User} from 'discord.js';
 
 
 export const errors = {
@@ -40,3 +40,4 @@ export const successful = {
 	mute: (member: GuildMember | string) => `**${member}** has been muted.`,
 	kick: (member: GuildMember | string) => `**${member}** has been kicked.`,
 } as const;
+

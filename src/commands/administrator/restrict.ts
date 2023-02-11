@@ -129,7 +129,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	//  if (!LogChannel || LogChannel === null) { return }
 	// if (LogChannel?.isTextBased()) {
 	//    LogChannel?.send({
-	//      embeds: [Embed.RestrictEmbed(interaction, reason, restrictionName, member)],
+	//      embeds: [Embed.restrictEmbed(interaction, reason, restrictionName, member)],
 	// });
 	//   }
 };

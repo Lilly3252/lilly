@@ -31,10 +31,10 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN!);
 	try {
 		console.log('Started refreshing application (/) commands.');
 
-		const data = await rest.put(Routes.applicationCommands(clientId!), {
+		await rest.put(Routes.applicationCommands(clientId!), {
 			body: commands,
 		});
-		console.log(data);
+		//console.log(data);
 		console.log(
 			`Successfully reloaded application (/) commands. ${commands.length} commands has been refreshed`,
 		);

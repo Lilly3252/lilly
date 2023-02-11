@@ -69,7 +69,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	});
 	if (interaction.options.getSubcommand() === 'showsettings') {
 		interaction.reply({
-			embeds: [Embed.SettingEmbed(interaction, guild_db!)],
+			embeds: [Embed.settingEmbed(interaction, guild_db!)],
 			ephemeral: true,
 		});
 		console.log("i've been run.");

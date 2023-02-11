@@ -1,13 +1,13 @@
-/*import type { Message } from "discord.js";
-import type { event } from "../structures/index.js"
-//import url from "./../structures/JSONs/url.json" assert {type:"json"} ;
+import type { Message } from "discord.js";
+import type { event } from "../structures/@types/index.js"
+import url from "./../structures/JSONs/url.json" assert {type:"json"} ;
 export const name: event['name'] = 'messageCreate';
 export const once: event["once"] = false
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-//export const run: event["run"] = async (message: Message): Promise<any> => {
-   /* console.log(message.content)
+ //eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const run: event["run"] = async (message: Message): Promise<any> => {
+   
     if (message.author.bot) { return }
     else {
         const array1 = url.domains;
@@ -19,4 +19,4 @@ export const once: event["once"] = false
             }
         }
     }
-}*/
+}

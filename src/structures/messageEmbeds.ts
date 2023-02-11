@@ -1,4 +1,4 @@
-import { ChannelType, GuildExplicitContentFilter, GuildVerificationLevel, ChatInputCommandInteraction, GuildMember, EmbedBuilder, Colors, DataManager, GuildMemberResolvable, Channel, GuildChannelResolvable, Emoji, EmojiResolvable, Role, PermissionsBitField, ActivityType, Collection, Snowflake, Message, GuildTextBasedChannel, TextChannel } from 'discord.js';
+import { ChannelType, GuildExplicitContentFilter, GuildVerificationLevel, ChatInputCommandInteraction, GuildMember, EmbedBuilder, Colors, DataManager, type GuildMemberResolvable, type Channel, type GuildChannelResolvable, Emoji, type EmojiResolvable, Role, PermissionsBitField, ActivityType, Collection, type Snowflake, Message,type GuildTextBasedChannel, TextChannel } from 'discord.js';
 import * as Package from './../../package.json' assert { type: 'json' };
 import ms from 'ms';
 import os from 'os';
@@ -69,7 +69,7 @@ export function userInfoEmbed(
 				if (activity.name === 'Visual Studio Code') {
 					embed.addFields([
 						{
-							name: 'Playing a game',
+							name: 'Coding session',
 							value: [`**❯ Name:** ${activity.name}`, `**❯ Workspace:** ${activity.details ? activity.details : 'No workspace.'}`, `**❯ Details:** ${activity.state ? activity.state : 'No detail available.'}`].join('\n'),
 						},
 					]);

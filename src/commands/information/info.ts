@@ -31,20 +31,20 @@ export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	)
 	.addSubcommand((subcommand) => subcommand.setName('server').setDescription('Get information of the server.'));
 
-export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<any> => {
+export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<"cached">): Promise<any> => {
 	if (interaction.options.getSubcommand() === 'channel') {
 		const channel = interaction.options.getChannel('channel') as TextChannel;
 		const chanCreateTime = time(channel?.createdAt!, 'R');
 
 		await interaction.reply({
-			embeds: [Embed.ChannelEmbed(interaction, chanCreateTime, channel)],
+			embeds: [Embed.channelEmbed(interaction, chanCreateTime, channel)],
 		});
 	}
 
 	if (interaction.options.getSubcommand() === 'role') {
 		const c = interaction.options.getRole('role');
 
-		interaction.reply({ embeds: [Embed.RoleEmbed(interaction, c!)] });
+		interaction.reply({ embeds: [Embed.roleEmbed(interaction, c!)] });
 	}
 
 	if (interaction.options.getSubcommand() === 'server') {
@@ -56,15 +56,15 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		const e = interaction.guild.emojis;
 
 		interaction.reply({
-			embeds: [Embed.ServerInfoEmbed(interaction, owner, member, b, d, e, serverCreate)],
+			embeds: [Embed.serverInfoEmbed(interaction, owner, member, b, d, e, serverCreate)],
 		});
 	}
 
 	if (interaction.options.getSubcommand() === 'bot') {
 		const b = os.cpus()[0];
-		const botCreate = time(interaction.client.user?.createdAt!, 'R');
+		const botCreate = time(interaction.client.user.createdAt, 'R');
 		await interaction.reply({
-			embeds: [Embed.BotInfoEmbed(interaction, b!, botCreate)!],
+			embeds: [Embed.botInfoEmbed(interaction, b!, botCreate)!],
 		});
 	}
 
@@ -90,14 +90,14 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			ActiveDeveloper: 'Active Developer',
 		};
 		const created = time(member?.user.createdAt!, 'R');
-		const joinedServer = time(member?.joinedTimestamp!, 'R');
+		const joinedServer = time(member?.joinedAt!, 'R');
 		const flag = member?.user.flags?.toArray();
 		const role = member?.roles.cache
 			.sort((c, a) => a.position - c.position)
 			.map((a) => a.toString())
 			.slice(0, -1);
 		return  interaction.reply({
-			embeds: [Embed.UserInfoEmbed(interaction, member!, role, flag!, flags, created, joinedServer)],
+			embeds: [Embed.userInfoEmbed(interaction, member!, role, flag!, flags, created, joinedServer)],
 		});
 	}
 };
