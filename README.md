@@ -8,7 +8,7 @@
   </a>
 
   <p align="center">
-    to be filled .. 
+    to be filled ..
     <br />
     <a href="https://github.com/Lilly3252/lilly"><strong></strong></a>
     <br />
@@ -70,29 +70,37 @@
 ## Getting Started
 
 ### Commands
-#### Moderation
-|Command Name | Sub commands | Options |Description |
-|-------------|--------------|---------|------------|
-| /ban | None | GuildMember | Ban a GuildMember|
-| /unban|None|ID|Unban a GuildMember|
-| /kick|None|GuildMember|Kick a GuildMember
-| /lock|None|Channel|Lock a channel
-| /mute|None|GuildMember|Mute a GuildMember permanently
-| /purge|None|Number|Delete messages (1 to 100)
-| /restrict|(Choices) Role|GuildMember|Restrict a GuildMember
-| /settings|Anti-raid/welcomeChan/ModLog/ModRole/Event trigger..|ID|Change settings for your Guild
-| /slowmode|None|Channel|Add slowmode to a channel
-| /timeout|(Choices) Time|GuildMember|Timeout a GuildMember
-#### Informations
-|Command Name | Sub commands | Options |Description |
-|-------------|--------------|---------|------------|
-| /info|Channel/Role/User/Bot/Server|Based on the Subcommand chosen|Get Information desired| 
-/ffxiv|None|None|Information about a character in FFXIV
-#### Utilities
-|Command Name | Sub commands | Options |Description |
-|-------------|--------------|---------|------------|
-| /ping|None|None|Get Lilly's ping
 
+#### Moderation
+
+| Command Name | Sub commands                                 | Options            | Description                                        |
+| ------------ | -------------------------------------------- | ------------------ | -------------------------------------------------- |
+| /ban         | None                                         | GuildMember        | Ban a GuildMember                                  |
+| /blacklist   | None                                         | GuildMember        | blacklist a GuildMember from doing lilly's command |
+| /unban       | None                                         | ID                 | Unban a GuildMember                                |
+| /kick        | None                                         | GuildMember        | Kick a GuildMember                                 |
+| /lock        | None                                         | Channel            | Lock a channel                                     |
+| /mute        | None                                         | GuildMember        | Mute a GuildMember permanently                     |
+| /purge       | None                                         | Number             | Delete messages (1 to 100)                         |
+| /restrict    | None                                         | Role & GuildMember | Restrict a GuildMember                             |
+| /settings    | Anti-raid/welcomeChan/ModLog/Event trigger.. | ID                 | Change settings for your Guild                     |
+| /slowmode    | None                                         | Channel            | Add slowmode to a channel                          |
+| /timeout     | None                                         | Time & GuildMember | Timeout a GuildMember                              |
+
+#### Informations
+
+| Command Name | Sub commands                 | Options                             | Description                                            |
+| ------------ | ---------------------------- | ----------------------------------- | ------------------------------------------------------ |
+| /info        | Channel/Role/User/Bot/Server | Based on the Subcommand chosen      | Get Information desired                                |
+| /ffxiv       | Character / Free-company     | Based on the Subcommand chosen      | Information about a Character or Free-company in FFXIV |
+| /inventory   | To be determined             | To be determined                    | Get your inventory                                     |
+| /tags        | None                         | Autocomplete command based on input | Show a tag!                                            |
+
+#### Utilities
+
+| Command Name | Sub commands | Options | Description      |
+| ------------ | ------------ | ------- | ---------------- |
+| /ping        | None         | None    | Get Lilly's ping |
 
 <!-- USAGE EXAMPLES -->
 
