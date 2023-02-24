@@ -1,8 +1,8 @@
-import type { ChatInputCommandInteraction } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction , SlashCommandBuilder } from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+
 //import emoji from "../../structures/JSONs/emoji.json" assert {type : "json"};
-import { successful } from '../../structures/constants/constants.js';
+import { successful } from '#constants/constants.js';
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder().setName('ping').setDescription('pong.');
 
 export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<any> => {

@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { ChatInputCommandInteraction } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import { successful , botPermissionDenied, errors} from '../../structures/constants/constants.js';
 
+import type { SlashCommand } from '#type/index.js';
+import { ChatInputCommandInteraction, PermissionsBitField, SlashCommandBuilder } from 'discord.js';
+import { successful, botPermissionDenied, errors } from '#constants/constants.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('slowmode')
@@ -15,18 +14,18 @@ export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 
 export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<any> => {
 	if (!interaction.guild.members.me?.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
-		return  interaction.reply({ content: botPermissionDenied("ManageChannels"), ephemeral: true });
+		return interaction.reply({ content: botPermissionDenied('ManageChannels'), ephemeral: true });
 	}
 	const channel = interaction.options.getChannel('channel')!;
 	const time = interaction.options.getNumber('number')!;
 	if (isNaN(time)) {
-		interaction.reply({content:errors.notNumber});
+		interaction.reply({ content: errors.notNumber });
 	} else {
 		if (channel.isTextBased()) {
 			await channel
 				.setRateLimitPerUser(time)
 				.then(() => {
-					interaction.reply({content:successful.slowmode(time),ephemeral:true})
+					interaction.reply({ content: successful.slowmode(time), ephemeral: true });
 				})
 				.catch((a: any) => console.log(a));
 		}

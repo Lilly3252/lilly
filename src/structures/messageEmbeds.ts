@@ -1,10 +1,12 @@
-import { ChannelType, GuildExplicitContentFilter, GuildVerificationLevel, ChatInputCommandInteraction, GuildMember, EmbedBuilder, Colors, DataManager, type GuildMemberResolvable, type Channel, type GuildChannelResolvable, Emoji, type EmojiResolvable, Role, PermissionsBitField, ActivityType, Collection, type Snowflake, Message,type GuildTextBasedChannel, TextChannel } from 'discord.js';
+import { ChannelType, GuildExplicitContentFilter, GuildVerificationLevel, ChatInputCommandInteraction, GuildMember, EmbedBuilder, Colors, DataManager, type GuildMemberResolvable, type Channel, type GuildChannelResolvable, Emoji, type EmojiResolvable, Role, PermissionsBitField, ActivityType, Collection, type Snowflake, Message, type GuildTextBasedChannel, TextChannel, escapeMarkdown } from 'discord.js';
 import * as Package from './../../package.json' assert { type: 'json' };
 import ms from 'ms';
 import os from 'os';
+import * as diff from 'diff';
 import process from 'process';
 import emoji from './JSONs/emoji.json' assert { type: 'json' };
-import type { guildSetting } from './@types/database.js';
+import type { guildSetting } from './types/database.js';
+import type { CharacterResponse } from '@xivapi/angular-client';
 
 export function muteEmbed(interaction: ChatInputCommandInteraction<'cached'>, member: GuildMember, reason: string, time: string): EmbedBuilder {
 	return new EmbedBuilder()
@@ -87,7 +89,7 @@ export function userInfoEmbed(
 			case ActivityType.Listening: {
 				embed.addFields([
 					{
-						name: 'Currently Listening' + emoji[':Spotify:'],
+						name: `Currently Listening \u0020 ${emoji[':Spotify:']}`,
 						value: [`**❯ Name:** ${activity.details}`, `**❯ Artist:** ${activity.state}`].join('\n'),
 					},
 				]);
@@ -342,4 +344,90 @@ export function messageDeleteBulkEmbed(messages: Collection<Snowflake, Message<t
 		.setColor('#dd5f53')
 		.setTimestamp();
 	return messageDeleteBulkEmbed;
+}
+export function messageUpdateEmbed(oldMessage: Message<true>, newMessage: Message<true>) {
+	const messageUpEmbed = new EmbedBuilder()
+	.setAuthor({ name: `${newMessage.author.tag} (${newMessage.author.id})` })
+	.addFields({ name: '\u276F Channel', value: [oldMessage.channel].join('\n') });
+
+	let e = '';
+	if (/```(.*?)```/s.test(oldMessage.content) && /```(.*?)```/s.test(newMessage.content)) {
+		const c = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(oldMessage.content);
+		if (!c || !c[2]) {return messageUpEmbed;}
+
+		const f = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(newMessage.content);
+		if (!f || !f[2]) {return messageUpEmbed;}
+		if (c[2] === f[2]) {return messageUpEmbed;}
+
+		const g = diff.diffLines(c[2], f[2], { newlineIsToken: true });
+		for (const a of g) {
+			if (a.value === '\n') continue;
+			const b = a.added ? '+ ' : a.removed ? '- ' : '';
+			e += `${b}${a.value.replace(/\n/g, '')}\n`;
+		}
+
+		messageUpEmbed
+		.addFields({ name: '\u276F Modified Message', value: [`${'```diff\n'}${e.substring(0, 1e3)}${'\n```'}`].join('\n') });
+	} else {
+		const c = diff.diffWords(escapeMarkdown(oldMessage.content), escapeMarkdown(newMessage.content));
+		for (const a of c) {
+			const b = a.added ? '**' : a.removed ? '~~' : '';
+			e += `${b}${a.value}${b}`;
+		}
+		messageUpEmbed
+		.addFields({ name: '\u276F Modified Message', value: `${e.substring(0, 1020)}` || '\u200B' });
+	}
+	messageUpEmbed
+		.addFields({ name: 'link!', value: `[Click here to see the message!](${oldMessage.url})` })
+		.setTimestamp(oldMessage.editedAt || newMessage.editedAt || new Date())
+		.setFooter({ text: 'Edited!' });
+	return messageUpEmbed;
+}
+export function ffxivCharacterEmbed(character:CharacterResponse){
+	const ffxivCharacterEmbed = new EmbedBuilder();
+	ffxivCharacterEmbed.setTitle(`${character.Character.Name}, ${character.Character.Nameday}`);
+	ffxivCharacterEmbed.setImage(`${character.Character.Portrait}`);
+	ffxivCharacterEmbed.addFields([
+		{
+			name: 'Information:',
+			value: `
+		**Server:** ${character.Character.Server}, ${character.Character.DC}
+		**Language:** ${character.Character.Lang ?? 'English'}
+		**Tribes:** ${character.Character.Tribe ? character.Character.Tribe : 'No Tribes'}
+	`,
+		},
+	]);
+
+	if (character.FreeCompany) {
+		ffxivCharacterEmbed.addFields([
+			{
+				name: 'Free Company',
+				value: `
+			**Free company name:** ${character.FreeCompany.Name ? character.FreeCompany.Name : 'N/A'}
+			**Active:** ${character.FreeCompany.Active ? character.FreeCompany.Active : 'N/A'} 
+			**Approx. Active Member:** ${character.FreeCompany.ActiveMemberCount ? character.FreeCompany.ActiveMemberCount : 'N/A'}
+			**Estate:** ${character.FreeCompany.Estate.Plot ? character.FreeCompany.Estate.Plot : 'N/A'}
+			**Recruitment:** ${character.FreeCompany.Recruitment ? character.FreeCompany.Recruitment : 'Closed'}
+		`,
+			},
+		]);
+	}
+	return ffxivCharacterEmbed
+}
+export function ffxivFreeCompanyEmbed(freeCompany:any){
+	const ffxivFreeCompanyEmbed = new EmbedBuilder()
+	.setTitle(`${freeCompany.FreeCompany.Name}, (${freeCompany.FreeCompany.Tag})`)
+	.addFields([
+		{
+			name: 'Information',
+			value: `
+		**Name**: ${freeCompany.FreeCompany.Name}(Rank: ${freeCompany.FreeCompany.Rank}),
+		**Formed**: ${freeCompany.FreeCompany.Formed},
+		**Server**:${freeCompany.FreeCompany.Server},
+		**Recruitment**:${freeCompany.FreeCompany.Recruitment},
+`,
+		},
+	])
+	.setFooter({ text: freeCompany.FreeCompany.Slogan });
+	return ffxivFreeCompanyEmbed
 }

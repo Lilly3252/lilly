@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import type { guildSetting } from 'src/structures/@types/database.js';
+import type { guildSetting, links } from '#type/database.js';
 
 const settingSchema = new Schema<guildSetting>({
 	guildID: { type: String },
@@ -10,5 +10,7 @@ const settingSchema = new Schema<guildSetting>({
 	messageDeleteMode: { type: Boolean, default: false },
 	messageBulkDeleteMode: { type: Boolean, default: false },
 	messageUpdateMode: { type: Boolean, default: false },
+	urlLinkDetection: { type: Boolean, default: false },
+	urlLinks: { type: Map<String, links> },
 });
 export default model<guildSetting>('guild', settingSchema);

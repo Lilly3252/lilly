@@ -19,13 +19,12 @@ export default class client extends Client {
 			intents: [
 				GatewayIntentBits.Guilds,
 				GatewayIntentBits.GuildMembers,
-				GatewayIntentBits.GuildBans,
-				GatewayIntentBits.GuildVoiceStates,
+				GatewayIntentBits.GuildModeration,
 				GatewayIntentBits.GuildPresences,
 				GatewayIntentBits.GuildMessages,
-				GatewayIntentBits.DirectMessages,
 				GatewayIntentBits.MessageContent,
-				
+				GatewayIntentBits.AutoModerationConfiguration,
+				GatewayIntentBits.AutoModerationExecution,
 			],
 		});
 		this.commands = new Collection();

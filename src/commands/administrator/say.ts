@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChatInputCommandInteraction, RESTJSONErrorCodes } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import { botPermissionDenied, errors } from '../../structures/constants/constants.js';
+import type { SlashCommand } from '#type/index.js';
+import { PermissionsBitField, SlashCommandBuilder , ChatInputCommandInteraction, RESTJSONErrorCodes } from 'discord.js';
+import { botPermissionDenied, errors } from '#constants/constants.js';
+
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('say')
 	.setDescription('say something.')

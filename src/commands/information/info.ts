@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChatInputCommandInteraction, TextChannel, time } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import * as Embed from '../../structures/messageEmbeds.js';
+import { ChatInputCommandInteraction, TextChannel, time ,PermissionsBitField, SlashCommandBuilder } from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+import * as Embed from '#structures/messageEmbeds.js';
 import os from 'os';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()

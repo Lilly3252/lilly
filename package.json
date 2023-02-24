@@ -1,6 +1,6 @@
 {
 	"name": "lilly-ts",
-	"description": "<br />\r <div align=\"center\">\r   <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo.png#gh-dark-mode-only\" alt=\"Logo\">\r   </a>\r <a href=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\">\r     <img src=\"https://github.com/Lilly3252/lilly/blob/main/src/Images/logo-light.png#gh-light-mode-only\" alt=\"Logo\">\r   </a>",
+	"description": "Whatever..",
 	"version": "1.0.0",
 	"main": "dist/src/index.js",
 	"type": "module",
@@ -10,8 +10,16 @@
 		"refresh": "node --experimental-json-modules dist/src/refresh.js",
 		"lint": "prettier --write ."
 	},
-	"author": "Lauriane j.veilleux",
+	"author": "My name apparently?",
 	"license": "MIT",
+	"imports": {
+		"#database/*": "./src/database/*",
+		"#events/*": "./src/events/*",
+		"#json/*": "./src/structures/JSONs/*",
+		"#constants/*": "./src/structures/constants/*",
+		"#structures/*": "./src/structures/*",
+		"#type/*":"./src/structures/types/*"
+	},
 	"devDependencies": {
 		"@tsconfig/esm": "^1.0.2",
 		"@types/common-tags": "^1.8.1",

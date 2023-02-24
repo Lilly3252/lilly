@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { CharacterResponse } from '@xivapi/angular-client';
-import { ChatInputCommandInteraction, EmbedBuilder, PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
+import { ChatInputCommandInteraction, PermissionsBitField, SlashCommandBuilder } from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+import { ffxivCharacterEmbed, ffxivFreeCompanyEmbed } from '#structures/messageEmbeds.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('ffxiv')
@@ -37,43 +38,14 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 					const resolvedCharacter = await fetch(`https://xivapi.com/character/search?name=${firstName}+${lastName}&server=${server}`).then((x) => x.json());
 					if (resolvedCharacter.Pagination.Results !== 1) {
 						return await interaction.editReply('Nothing found !');
-					} 
+					}
 
 					const id = resolvedCharacter.Results[0].ID;
 					const character = (await fetch(`https://xivapi.com/character/${id}?data=FC`).then(async (x) => {
 						return await x.json();
 					})) as CharacterResponse;
 
-					const embed = new EmbedBuilder();
-					embed.setTitle(`${character.Character.Name}, ${character.Character.Nameday}`);
-					embed.setImage(`${character.Character.Portrait}`);
-					embed.addFields([
-						{
-							name: 'Information:',
-							value: `
-                        **Server:** ${character.Character.Server}, ${character.Character.DC}
-                        **Language:** ${character.Character.Lang ?? 'English'}
-                        **Tribes:** ${character.Character.Tribe ? character.Character.Tribe : 'No Tribes'}
-                    `,
-						},
-					]);
-
-					if (character.FreeCompany) {
-						embed.addFields([
-							{
-								name: 'Free Company',
-								value: `
-                            **Free company name:** ${character.FreeCompany.Name ? character.FreeCompany.Name : 'N/A'}
-                            **Active:** ${character.FreeCompany.Active ? character.FreeCompany.Active : 'N/A'} 
-                            **Approx. Active Member:** ${character.FreeCompany.ActiveMemberCount ? character.FreeCompany.ActiveMemberCount : 'N/A'}
-                            **Estate:** ${character.FreeCompany.Estate.Plot ? character.FreeCompany.Estate.Plot : 'N/A'}
-                            **Recruitment:** ${character.FreeCompany.Recruitment ? character.FreeCompany.Recruitment : 'Closed'}
-                        `,
-							},
-						]);
-					}
-
-					interaction.editReply({ embeds: [embed] });
+					interaction.editReply({ embeds: [ffxivCharacterEmbed(character)] });
 				} catch (err) {
 					console.log(err);
 					interaction.editReply('hmm nope');
@@ -93,21 +65,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 						return await x.json();
 					});
 
-					const embedCompany = new EmbedBuilder()
-						.setTitle(`${freeCompany.FreeCompany.Name}, (${freeCompany.FreeCompany.Tag})`)
-						.addFields([
-							{
-								name: 'Information',
-								value: `
-							**Name**: ${freeCompany.FreeCompany.Name}(Rank: ${freeCompany.FreeCompany.Rank}),
-							**Formed**: ${freeCompany.FreeCompany.Formed},
-							**Server**:${freeCompany.FreeCompany.Server},
-							**Recruitment**:${freeCompany.FreeCompany.Recruitment},
-`,
-							},
-						])
-						.setFooter({ text: freeCompany.FreeCompany.Slogan });
-					interaction.editReply({ embeds: [embedCompany] });
+					interaction.editReply({ embeds: [ffxivFreeCompanyEmbed(freeCompany)] });
 				} catch (err) {
 					console.log(err);
 					interaction.editReply('hmm nope');

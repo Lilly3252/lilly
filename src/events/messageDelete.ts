@@ -1,4 +1,4 @@
-import type { event } from '../structures/@types/index.js';
+import type { event } from '../structures/types/index.js';
 import type { Message } from 'discord.js';
 import Guild from './../database/guildSettings.js';
 import { messageDeleteEmbed } from '../structures/messageEmbeds.js';

@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { AutocompleteInteraction, ChatInputCommandInteraction, Collection } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { SlashCommandBuilder } from 'discord.js';
-import type { Tag } from 'src/structures/@types/tags.js';
+import { AutocompleteInteraction, ChatInputCommandInteraction, Collection , SlashCommandBuilder } from 'discord.js';
+import type { SlashCommand ,Tag  } from '#type/index.js';
 import * as TOML from '@ltd/j-toml';
 import { readFileSync } from 'fs';
-import { errors } from '../../structures/constants/constants.js';
+import { errors } from '#constants/constants.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('tags')

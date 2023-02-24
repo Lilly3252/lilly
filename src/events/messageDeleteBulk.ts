@@ -1,4 +1,4 @@
-import type { event } from '../structures/@types/index.js';
+import type { event } from '../structures/types/index.js';
 import type { GuildTextBasedChannel, Message, Snowflake } from 'discord.js';
 import type { Collection } from 'discord.js';
 import Guild from './../database/guildSettings.js';

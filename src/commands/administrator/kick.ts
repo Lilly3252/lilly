@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { ChatInputCommandInteraction } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import settingSchema from './../../database/guildSettings.js';
-import * as Embed from '../../structures/messageEmbeds.js';
-import { botPermissionDenied, errors, successful } from '../../structures/constants/constants.js';
+import  { ChatInputCommandInteraction , PermissionsBitField, SlashCommandBuilder} from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+import settingSchema from '#database/guildSettings.js';
+import * as Embed from '#structures/messageEmbeds.js';
+import { botPermissionDenied, errors, successful } from '#constants/constants.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('kick')

@@ -1,4 +1,4 @@
-import type { event } from '../structures/@types/index.js';
+import type { event } from '../structures/types/index.js';
 import type { Guild } from 'discord.js';
 import settingSchema from './../database/guildSettings.js';
 export const name: event['name'] = 'guildCreate';

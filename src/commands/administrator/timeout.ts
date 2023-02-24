@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { ChatInputCommandInteraction } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import { botPermissionDenied, errors, successful } from '../../structures/constants/constants.js';
-//import * as Embed from "../../structures/messageEmbeds.js";
-//import { prisma } from "../../index.js";
+import { ChatInputCommandInteraction, PermissionsBitField, SlashCommandBuilder } from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+import { botPermissionDenied, errors, successful } from '#constants/constants.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('timeout')
@@ -38,8 +35,8 @@ export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 
 export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<any> => {
 	if (!interaction.guild.members.me?.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
-		return  interaction.reply({
-			content: botPermissionDenied("ModerateMembers"),
+		return interaction.reply({
+			content: botPermissionDenied('ModerateMembers'),
 			ephemeral: true,
 		});
 	}

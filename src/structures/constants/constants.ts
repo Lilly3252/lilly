@@ -21,8 +21,8 @@ export const errors = {
 
 export function botPermissionDenied<P extends keyof typeof PermissionFlagsBits>(
 	permission: P,
-): `❌ Error: i"m missing ${P} permission to use that command.` {
-	return `❌ Error: i"m missing ${permission} permission to use that command.`;
+): `❌ Error: i'm missing ${P} permission to use that command.` {
+	return `❌ Error: i'm missing ${permission} permission to use that command.`;
 }
 
 export const successful = {

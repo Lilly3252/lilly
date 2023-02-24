@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import type { SlashCommand, event } from './@types/index.js';
+import type { SlashCommand, event } from './types/index.js';
 import type lillyclient from './lillyClient.js';
 import fs from 'fs';
 const inviteRegex =

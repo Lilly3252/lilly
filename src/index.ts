@@ -6,9 +6,11 @@ const client = new LillyClient();
 import process from 'node:process';
 import mongoose from 'mongoose';
 
-mongoose.connect(process.env.MONGOOSE_URI!);
-client.start();
 
+mongoose.connect(process.env.MONGOOSE_URI!);
+mongoose.set('strictQuery',true);
+
+client.start();
 console.log('im connected with db!');
 
 process.on('unhandledRejection', (error) => {

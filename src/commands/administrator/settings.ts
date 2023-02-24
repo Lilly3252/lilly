@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { ChatInputCommandInteraction /*PermissionFlagsBits*/ } from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import settingSchema from './../../database/guildSettings.js';
-import * as Embed from '../../structures/messageEmbeds.js';
+import  { ChatInputCommandInteraction , PermissionsBitField, SlashCommandBuilder /*PermissionFlagsBits*/ } from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+import settingSchema from '#database/guildSettings.js';
+import * as Embed from '#structures/messageEmbeds.js';
 //import { botPermissionDenied, errors, successful } from './../../structures/constants/test.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
@@ -44,6 +43,12 @@ export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	)
 	.addSubcommand((subcommand) =>
 		subcommand
+			.setName('url-link-detection')
+			.setDescription('set urlLinkDetection event ON or OFF')
+			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean')),
+	)
+	.addSubcommand((subcommand) =>
+		subcommand
 			.setName('messageupdates')
 			.setDescription('set the MessageUpdates event ON or OFF')
 			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean')),
@@ -62,6 +67,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 					messageDeleteMode: false,
 					messageBulkDeleteMode: false,
 					messageUpdateMode: false,
+					urlLinkDetection: false,
 				},
 			});
 		}
@@ -75,18 +81,26 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		console.log("i've been run.");
 	}
 	//**SUB COMMANDS */
+	if (interaction.options.getSubcommand() === 'url-link-detection') {
+		const choice = interaction.options.getBoolean('choice');
+		if (choice === true) {
+			await guild_db?.updateOne({ urlLinkDetection: true }), interaction.reply({ content: '\u2705 Url Link detection Mode enabled.', ephemeral: true });
+		} else {
+			await guild_db?.updateOne({ urlLinkDetection: false }), interaction.reply({ content: '\u274C Url Link detection disabled.' });
+		}
+	}
 	if (interaction.options.getSubcommand() === 'anti-raid') {
 		const choices = interaction.options.getBoolean('choice');
 		if (choices === true) {
 			await guild_db?.updateOne({ antiRaidMode: true }),
 				interaction.reply({
-					content: '\u2705 AntiRaid Mode enable.',
+					content: '\u2705 AntiRaid Mode enabled.',
 					ephemeral: true,
 				});
 		} else {
 			await guild_db?.updateOne({ antiRaidMode: false }),
 				interaction.reply({
-					content: '\u274C AntiRaid Mode disable.',
+					content: '\u274C AntiRaid Mode disabled.',
 					ephemeral: true,
 				});
 		}
@@ -97,13 +111,13 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		if (choices === true) {
 			await guild_db?.updateOne({ messageUpdateMode: true }),
 				interaction.reply({
-					content: '\u2705 MessageUpdate has been enable.',
+					content: '\u2705 MessageUpdate has been enabled.',
 					ephemeral: true,
 				});
 		} else {
 			await guild_db?.updateOne({ messageUpdateMode: false }),
 				interaction.reply({
-					content: '\u274C MessageUpdate has been disable.',
+					content: '\u274C MessageUpdate has been disabled.',
 					ephemeral: true,
 				});
 		}
@@ -114,13 +128,13 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		if (choices === true) {
 			await guild_db?.updateOne({ messageDeleteMode: true }),
 				interaction.reply({
-					content: '\u2705 MessageDelete has been enable.',
+					content: '\u2705 MessageDelete has been enabled.',
 					ephemeral: true,
 				});
 		} else {
 			await guild_db?.updateOne({ messageDeleteMode: false }),
 				interaction.reply({
-					content: '\u274C MessageDelete has been disable.',
+					content: '\u274C MessageDelete has been disabled.',
 					ephemeral: true,
 				});
 		}
@@ -131,13 +145,13 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		if (choices === true) {
 			await guild_db?.updateOne({ messageBulkDeleteMode: true }),
 				interaction.reply({
-					content: '\u2705 messageDeleteBulk has been enable.',
+					content: '\u2705 messageDeleteBulk has been enabled.',
 					ephemeral: true,
 				});
 		} else {
 			await guild_db?.updateOne({ messageBulkDeleteMode: false }),
 				interaction.reply({
-					content: '\u274C MessageDeleteBulk has been disable.',
+					content: '\u274C MessageDeleteBulk has been disabled.',
 					ephemeral: true,
 				});
 		}
@@ -154,7 +168,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			);
 		} else {
 			await guild_db?.updateOne({ welcomeChannelID: null });
-			return  interaction.reply({
+			return interaction.reply({
 				content: `✅ Welcome Channel has been removed`,
 				ephemeral: true,
 			});
@@ -172,7 +186,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			);
 		} else {
 			await guild_db?.updateOne({ logChannelID: null });
-			return  interaction.reply({
+			return interaction.reply({
 				content: `✅ ModLog Channel has been removed`,
 				ephemeral: true,
 			});

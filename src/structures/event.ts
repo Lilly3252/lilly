@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { event } from "./@types/index.js"
+import type { event } from "./types/index.js"
 
 export default class Event {
     name!: event["name"];

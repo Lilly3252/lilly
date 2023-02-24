@@ -1,18 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import {
-	ActionRowBuilder,
-	ChatInputCommandInteraction,
-	type ModalActionRowComponentBuilder,
-	ModalBuilder,
-	TextInputBuilder,
-	TextInputStyle,
-} from 'discord.js';
-import type { SlashCommand } from '../../structures/@types/index.js';
-import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
-import blacklistUser from './../../database/blacklistUser.js';
-import settingSchema from './../../database/guildSettings.js';
-import * as Embed from '../../structures/messageEmbeds.js';
-import { botPermissionDenied, errors, successful } from '../../structures/constants/constants.js';
+import { PermissionsBitField, SlashCommandBuilder, ActionRowBuilder, ChatInputCommandInteraction, type ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
+import type { SlashCommand } from '#type/index.js';
+import settingSchema from '#database/guildSettings.js';
+import * as Embed from '#structures/messageEmbeds.js';
+import { botPermissionDenied, errors, successful } from '#constants/constants.js';
+import blacklistUser from '#database/blacklistUser.js';
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('blacklist')
@@ -28,17 +20,9 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 
 	const BlacklistModal = new ModalBuilder().setCustomId('Blacklist').setTitle('Add someone into the Blacklist.');
 
-	const Guildmember = new TextInputBuilder()
-		.setCustomId('guildMember_blacklist')
-		.setLabel('Who do you want to add?')
-		.setStyle(TextInputStyle.Short)
-		.setRequired(true);
+	const Guildmember = new TextInputBuilder().setCustomId('guildMember_blacklist').setLabel('Who do you want to add?').setStyle(TextInputStyle.Short).setRequired(true);
 
-	const Reason = new TextInputBuilder()
-		.setCustomId('reason_blacklist')
-		.setLabel('What is the reason?')
-		.setStyle(TextInputStyle.Paragraph)
-		.setRequired(true);
+	const Reason = new TextInputBuilder().setCustomId('reason_blacklist').setLabel('What is the reason?').setStyle(TextInputStyle.Paragraph).setRequired(true);
 
 	const firstActionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(Guildmember);
 	const secondActionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(Reason);
@@ -53,7 +37,6 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			content: botPermissionDenied('ManageRoles'),
 			ephemeral: true,
 		});
-		
 	}
 	if (!member?.manageable) {
 		return await interaction.reply({

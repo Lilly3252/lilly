@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import type { blacklistUsers } from 'src/structures/@types/database.js';
+import type { blacklistUsers } from '#type/database.js';
 
 const blacklist = new Schema<blacklistUsers>({
 	guildID: { type: String },

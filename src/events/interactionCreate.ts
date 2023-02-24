@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { event, ContextCommand, ModalCommand, SlashCommand } from '../structures/@types/index.js';
+import type { event, ContextCommand, ModalCommand, SlashCommand } from '../structures/types/index.js';
 import type { Interaction, AutocompleteInteraction, ModalSubmitInteraction, ChatInputCommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
 import blacklistUser from './../database/blacklistUser.js';
 

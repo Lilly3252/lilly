@@ -9,7 +9,6 @@
                 "Purge": "supprimer",
                 "Restrict": "restreindre",
                 "Say": "dire",
-                "SetTags": "configurations-tags",
                 "Settings": "configurations",
                 "Slowmode": "",
                 "Timeout": "",
@@ -24,7 +23,6 @@
                 "Purge": "Supprime les messages (entre 1 et 99)",
                 "Restrict": "Restreindre un membre",
                 "Say": "Dire quelque chose",
-                "SetTags": "Configuration des tags",
                 "Settings": "Configuration du serveur",
                 "Slowmode": "",
                 "Timeout": "Mute quelqu'un temporairement",
@@ -63,11 +61,13 @@
         "InformationCommands": {
             "Title": {
                 "FFXIV": "",
-                "Info": ""
+                "Info": "",
+                "Tags": ""
             },
             "Descriptions": {
                 "FFXIV": "",
-                "Info": ""
+                "Info": "",
+                "Tags": ""
             }
         },
         "UtilitiesCommands": {

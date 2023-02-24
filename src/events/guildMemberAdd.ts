@@ -1,4 +1,4 @@
-import type { event } from '../structures/@types/index.js';
+import type { event } from '../structures/types/index.js';
 import { EmbedBuilder, GuildMember } from 'discord.js';
 import moment from 'moment';
 import settingSchema from './../database/guildSettings.js';

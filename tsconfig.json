@@ -34,8 +34,16 @@
 		"moduleResolution": "nodenext",
 		"resolveJsonModule": true,
 		"sourceRoot": "./src",
-		"outDir": "./dist",
+		"outDir": "dist",
 		"baseUrl": "./",
+		"paths": {
+			"#database/*": ["src/database/*"],
+			"#events/*": ["src/events/*"],
+			"#json/*": ["src/structures/JSONs/*"],
+			"#constants/*": ["src/structures/constants/*"],
+			"#type/*": ["src/structures/types/*"],
+			"#structures/*": ["src/structures/*"]
+		},
 		// Completeness
 		"skipLibCheck": true
 	}
