@@ -1,0 +1,202 @@
+{
+	"product": [
+		{
+			"id": "1",
+			"name": "🍆 eggplant",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "2",
+			"name": "🥑 avocado",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "3",
+			"name": "🥦 broccoli",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "4",
+			"name": "🥕 carrots",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "5",
+			"name": "🌽 corn",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "6",
+			"name": "🥒 cucumber",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "7",
+			"name": "🧄 garlic",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "8",
+			"name": "🥬 lettuce",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "9",
+			"name": "🍄 mushrooms",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "10",
+			"name": "🧅 onions",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "11",
+			"name": "🫑 sweet peppers",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "12",
+			"name": "🥔 potatoes",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "13",
+			"name": "🎃 pumpkin",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "14",
+			"name": "🍠 sweet potato",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "15",
+			"name": "🍅 tomatoes",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "16",
+			"name": "🫒 olives",
+			"type": "vegetable",
+			"price": ""
+		},
+		{
+			"id": "17",
+			"name": "🍏 green apple",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "18",
+			"name": "🍎 apple",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "19",
+			"name": "🍐 pear",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "20",
+			"name": "🍊 tangerines",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "21",
+			"name": "🍋 lemon",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "22",
+			"name": "🍌 bananas",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "23",
+			"name": "🍉 watermelon",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "24",
+			"name": "🍇 grapes",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "25",
+			"name": "🫐 blueberries",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "26",
+			"name": "🍓 strawberries",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "27",
+			"name": "🍈 melon",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "28",
+			"name": "🍒 cherries",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "29",
+			"name": "🍑 peach",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "30",
+			"name": "🥭 mango",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "31",
+			"name": "🍍 pineapple",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "32",
+			"name": "🥥 coconut",
+			"type": "fruit",
+			"price": ""
+		},
+		{
+			"id": "33",
+			"name": "🥝 kiwi",
+			"type": "fruit",
+			"price": ""
+		}
+	]
+}

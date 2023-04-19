@@ -1,0 +1,82 @@
+{
+	"French": {
+		"AdministratorCommands": {
+			"Title": {
+				"Ban": "bannir",
+				"Kick": "kick",
+				"Lock": "verrouiller",
+				"Mute": "mute",
+				"Purge": "supprimer",
+				"Restrict": "restreindre",
+				"Say": "dire",
+				"Settings": "configurations",
+				"Slowmode": "",
+				"Timeout": "",
+				"Unban": "debannir",
+				"Unmute": "demute"
+			},
+			"Descriptions": {
+				"Ban": "Bannir un membre",
+				"Kick": "Kick un membre",
+				"Lock": "Verrouiller un channel",
+				"Mute": "Mute un membre",
+				"Purge": "Supprime les messages (entre 1 et 99)",
+				"Restrict": "Restreindre un membre",
+				"Say": "Dire quelque chose",
+				"Settings": "Configuration du serveur",
+				"Slowmode": "",
+				"Timeout": "Mute quelqu'un temporairement",
+				"Unban": "Debannir un membre",
+				"Unmute": "Demuter un membre"
+			}
+		},
+		"FunCommands": {
+			"Title": {
+				"8balls": "",
+				"Bunny": "",
+				"Cat": "",
+				"Compliment": "",
+				"Dog": "",
+				"Fact-core": "",
+				"Joke": "",
+				"Pun": "",
+				"YoMama": "",
+				"Roast": "",
+				"Timeout": ""
+			},
+			"Descriptions": {
+				"8balls": "",
+				"Bunny": "",
+				"Cat": "",
+				"Compliment": "",
+				"Dog": "",
+				"Fact-core": "",
+				"Joke": "",
+				"Pun": "",
+				"YoMama": "",
+				"Roast": "",
+				"Timeout": ""
+			}
+		},
+		"InformationCommands": {
+			"Title": {
+				"FFXIV": "",
+				"Info": "",
+				"Tags": ""
+			},
+			"Descriptions": {
+				"FFXIV": "",
+				"Info": "",
+				"Tags": ""
+			}
+		},
+		"UtilitiesCommands": {
+			"Title": {
+				"Ping": ""
+			},
+			"Descriptions": {
+				"Ping": ""
+			}
+		}
+	}
+}
