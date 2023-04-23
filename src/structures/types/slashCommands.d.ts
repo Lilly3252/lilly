@@ -1,4 +1,4 @@
-import type { AutocompleteInteraction, CommandInteraction, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from 'discord.js';
+import type { AutocompleteInteraction, CommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export interface SlashCommand {
 	/**

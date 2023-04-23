@@ -72,7 +72,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		const flags = {
 			BotHTTPInteractions: 'HTTP Interaction Only',
 			Staff: 'Discord Employee',
-			Partner: 'Discord Partner',
+			Partner: 'Partnered Server Owner',
 			BugHunterLevel1: 'Bug Hunter (Level 1)',
 			BugHunterLevel2: 'Bug Hunter (Level 2)',
 			HypeSquadOnlineHouse1: 'House of Bravery',
@@ -85,8 +85,15 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			TeamPseudoUser: 'Team User',
 			VerifiedBot: 'Verified Bot',
 			VerifiedDeveloper: 'Early Verified Bot Developer',
-			CertifiedModerator: 'Discord Certified Moderator',
+			CertifiedModerator: 'Moderator Programs Alumni',
 			ActiveDeveloper: 'Active Developer',
+			RestrictedCollaborator:'Restricted Collaborator',
+			MFASMS:'',
+			PremiumPromoDismissed:'Premium Dismissed',
+			DisablePremium:'Premium Disabled',
+			HasUnreadUrgentMessages:'Has urgent messages',
+			Collaborator:'Collaborator'
+
 		};
 		const created = time(member?.user.createdAt!, 'R');
 		const joinedServer = time(member?.joinedAt!, 'R');

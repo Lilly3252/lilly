@@ -1,8 +1,10 @@
+import { selectMenuEvents } from '#constants/constants.js';
 import blacklistUser from '#database/blacklistUser.js';
+import settingSchema from '#database/guildSettings.js';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { ContextCommand, event, ModalCommand, SelectMenu, SlashCommand } from '#type/index.js';
-import type { AutocompleteInteraction, ChatInputCommandInteraction, ContextMenuCommandInteraction, Interaction, MessageComponentInteraction, ModalSubmitInteraction } from 'discord.js';
+import type { ContextCommand, event, ModalCommand, SlashCommand } from '#type/index.js';
+import type { AnySelectMenuInteraction, AutocompleteInteraction, Interaction, ModalSubmitInteraction } from 'discord.js';
 
 export const name: event['name'] = 'interactionCreate';
 export const once: event['once'] = false;
@@ -15,7 +17,9 @@ export const run: event['run'] = async (interaction: Interaction<'cached'>): Pro
 	if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
 		return handleCommand(interaction);
 	}
-
+	if (interaction.isAnySelectMenu()) {
+		return handleSelect(interaction);
+	}
 	if (interaction.isAutocomplete()) {
 		return handleAutocomplete(interaction);
 	}
@@ -23,30 +27,27 @@ export const run: event['run'] = async (interaction: Interaction<'cached'>): Pro
 	if (interaction.isModalSubmit()) {
 		return handleModal(interaction);
 	}
-	
-	if(interaction.isStringSelectMenu()){
-		return handleStringMenu(interaction)
-	}
 };
-const handleStringMenu = async(interaction: MessageComponentInteraction<"cached">): Promise<any> =>{
-try{
-	if(interaction.isStringSelectMenu()){
-		const selectMenuCommand = interaction.client.selectMenu.get(interaction.customId) as SelectMenu
-		//if(selectMenuCommand){
-			//selectMenuCommand.run(interaction)
-			//}
-			console.log(selectMenuCommand)
-	}
-	if (interaction.isButton()) {
-		console.log(interaction);
-	}
-}catch(err:unknown){
-	return interaction.reply("Cannot find the select menu..")
-}
 
+async function handleSelect(interaction: AnySelectMenuInteraction): Promise<any> {
+	try {
+		if (interaction.isStringSelectMenu()) {
+			const values = interaction.values;
+			function getPropsFromEnums<T extends Record<string, unknown>>(en: T): Array<keyof T> {
+				const values = Object.values(en) as Array<keyof T>;
+				return values.slice(0, Math.floor(values.length / 2));
+			}
+			type enumType = { -readonly [key in keyof typeof selectMenuEvents]?: boolean }
+			const resultObj: enumType = {};
+		 getPropsFromEnums(selectMenuEvents).forEach((a) => (resultObj[a] = values.includes(a)));
+			const guild_db = await settingSchema.findOne({ guildID: interaction.guild?.id })
+			await guild_db?.updateOne({$set:resultObj})
+		}
+	} catch (err: any) {
+		return console.error(err);
+	}
 }
-
-const handleCommand = async (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction): Promise<any> => {
+async function handleCommand(interaction: Interaction): Promise<any> {
 	try {
 		if (interaction.isChatInputCommand()) {
 			const command = interaction.client.commands.get(interaction.commandName) as SlashCommand;
@@ -63,9 +64,8 @@ const handleCommand = async (interaction: ChatInputCommandInteraction | ContextM
 	} catch (err: any) {
 		return console.error(err);
 	}
-};
-
-const handleAutocomplete = async (interaction: AutocompleteInteraction): Promise<any> => {
+}
+async function handleAutocomplete(interaction: AutocompleteInteraction): Promise<any> {
 	try {
 		const command = interaction.client.commands.get(interaction.commandName) as SlashCommand | undefined;
 		if (command) {
@@ -74,8 +74,8 @@ const handleAutocomplete = async (interaction: AutocompleteInteraction): Promise
 	} catch (err: unknown) {
 		return interaction.respond([]);
 	}
-};
-const handleModal = async (interaction: ModalSubmitInteraction): Promise<any> => {
+}
+async function handleModal(interaction: ModalSubmitInteraction): Promise<any> {
 	try {
 		const modal = interaction.client.modals.get(interaction.customId) as ModalCommand;
 		if (modal) {
@@ -84,4 +84,4 @@ const handleModal = async (interaction: ModalSubmitInteraction): Promise<any> =>
 	} catch (err: unknown) {
 		return interaction.reply('Cannot find that modal...');
 	}
-};
+}

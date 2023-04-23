@@ -1,43 +1,26 @@
 import settingSchema from '#database/guildSettings.js';
 import * as Embed from '#embeds/index.js';
-import type { SelectMenu, SlashCommand } from '#type/index.js';
+import type { SlashCommand } from '#type/index.js';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ActionRowBuilder, ChatInputCommandInteraction, PermissionsBitField, SlashCommandBuilder, StringSelectMenuBuilder } from 'discord.js';
-
-export const customId: SelectMenu["customId"] = "selectevents"
 
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	.setName('settings')
 	.setDescription('Show or add settings')
 	.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
 	.addSubcommand((subcommand) => subcommand.setName('show').setDescription('Show settings you have'))
-	.addSubcommand((subcommand) => subcommand.setName('audit-log').setDescription('Show settings you have').addBooleanOption((option) => option.setName("choice").setDescription("Enable or Disabled")))
+	.addSubcommand((subcommand) =>
+		subcommand
+			.setName('audit-log')
+			.setDescription('Enable or Disabled the Audit log')
+			.addBooleanOption((option) => option.setName('choice').setDescription('Enable or Disabled')),
+	)
 	.addSubcommand((subcommand) =>
 		subcommand
 			.setName('events')
 			.setDescription('Set all your events for logging purposes')
-			/*.addStringOption((option) => option.setName('events').setDescription('Select your event')
-			.addChoices(
-			{ name: 'anti-raid', value: 'Anti Raid' }, 
-			{ name: 'Message Update/Create/Delete', value: 'messageUpdate' }, 
-			{ name: 'Bot Add/Update', value: 'botUpdate' }, 
-			{ name: 'Role Update/Create/Delete', value: 'roleUpdate' }, 
-			{ name: 'Guild Update/Create/Delete', value: 'guildUpdate' },
-			{ name: 'Emoji Update/Create/Delete', value: 'emojiUpdate' },
-			{ name: 'Invite Update/Create/Delete', value: 'inviteUpdate' },
-			{ name: 'Thread Update/Create/Delete', value: 'threadUpdate' },
-			{ name: 'Member Update/Create/Delete', value: 'memberUpdate' },
-			{ name: 'Channel Update/Create/Delete', value: 'channelUpdate' },
-			{ name: 'Sticker Update/Create/Delete', value: 'stickerUpdate' },
-			{ name: 'Webhook Update/Create/Delete', value: 'webhookUpdate' },
-			{ name: 'Auto-Moderation Update/Create/Delete', value: 'autoModeration' },
-			{ name: 'Integration Update', value: 'integrationUpdate' },
-			{ name: 'Command Permissions Update', value: 'commandPermission' },
-			{ name: 'Stage Instance Update', value: 'stageInstanceUpdate' },
-			{ name: 'Guild Schedule Update', value: 'guildScheduledUpdate' }
-			).setRequired(true))
-			.addBooleanOption((option) => option.setName('choice').setDescription('Select a boolean').setRequired(true))*/,
+			.addStringOption((option) => option.setName('events').setDescription('Select your event')),
 	)
 	.addSubcommand((subcommand) =>
 		subcommand
@@ -48,10 +31,9 @@ export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder()
 	);
 
 export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<any> => {
-	/*const events = interaction.options.getString('events');
 	const channels = interaction.options.getString('channels');
-	const choices = interaction.options.getBoolean('choice');
-	const chan = interaction.options.getChannel('channel');*/
+	const choice = interaction.options.getBoolean('choice');
+	const chan = interaction.options.getChannel('channel');
 
 	const guild_db = await settingSchema.findOne({ guildID: interaction.guild.id }).then(async (guild) => {
 		if (!guild) {
@@ -92,105 +74,120 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 		});
 	}
 	if (interaction.options.getSubcommand() === 'events') {
-		
-		const row = new ActionRowBuilder<StringSelectMenuBuilder>()
-		.addComponents(new StringSelectMenuBuilder()
+		const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
+			new StringSelectMenuBuilder()
 				.setCustomId('selectevents')
-				.setPlaceholder('Nothing selected')
+				.setPlaceholder('Select your events.')
 				.setMaxValues(17)
 				.addOptions([
 					{
 						label: 'Anti-raid',
 						description: 'This is a description',
-						value: 'first_option',
+						value: 'antiRaid',
 					},
 					{
 						label: 'Bot',
 						description: 'This is also a description',
-						value: 'second_option',
+						value: 'botUpdate',
 					},
 					{
 						label: 'Roles',
 						description: 'This is a description as well',
-						value: 'third_option',
+						value: 'roleUpdate',
 					},
 					{
 						label: 'Guild',
 						description: 'This is a description',
-						value: 'fourth_option',
+						value: 'guildUpdate',
 					},
 					{
 						label: 'Emojis',
 						description: 'This is a description',
-						value: 'fifth_option',
+						value: 'emojiUpdate',
 					},
 					{
 						label: 'Invites',
 						description: 'This is a description',
-						value: 'sixth_option',
+						value: 'inviteUpdate',
 					},
 					{
 						label: 'Threads',
 						description: 'This is a description',
-						value: 'seventh_option',
+						value: 'threadUpdate',
 					},
 					{
 						label: 'Members',
 						description: 'This is a description',
-						value: 'eight_option',
+						value: 'memberUpdate',
 					},
 					{
 						label: 'Messages',
 						description: 'This is a description',
-						value: 'ninth_option',
+						value: 'messageUpdate',
 					},
 					{
 						label: 'Channels',
 						description: 'This is a description',
-						value: 'tenth_option',
+						value: 'channelUpdate',
 					},
 					{
 						label: 'Stickers',
 						description: 'This is a description',
-						value: 'eleventh_option',
+						value: 'stickerUpdate',
 					},
 					{
 						label: 'Webhooks',
 						description: 'This is a description',
-						value: 'twelfth_option',
+						value: 'webhookUpdate',
 					},
 					{
 						label: 'Auto-Moderation',
 						description: 'This is a description',
-						value: 'thirteenth_option',
+						value: 'autoModeration',
 					},
 					{
 						label: 'Integrations',
 						description: 'This is a description',
-						value: 'fourteenth_option',
+						value: 'integrationUpdate',
 					},
 					{
 						label: 'Command permissions',
 						description: 'This is a description',
-						value: 'fifteenth_option',
+						value: 'commandPermission',
 					},
 					{
 						label: 'Stage Instances',
 						description: 'This is a description',
-						value: 'seventeenth_option',
+						value: 'stageInstanceUpdate',
 					},
 					{
 						label: 'Scheduled Events',
 						description: 'This is a description',
-						value: 'eighteenth_option',
+						value: 'guildScheduledUpdate',
 					},
-				]),)
-				await interaction.channel?.send({components:[row]})
+				]),
+		);
 
-
-
+		await interaction.reply({ content: 'WARNING: THIS WILL OVERRIDE YOUR ALREADY EXISTING SETTINGS! , BE AWARE!', ephemeral: true, components: [row] });
 	}
-	/*if (interaction.options.getSubcommand() === 'channels') {
+	if (interaction.options.getSubcommand() === 'audit-log') {
+		if (choice) {
+			await guild_db?.updateOne({ auditLogEvent: true }).then(() =>
+				interaction.reply({
+					content: `✅ Audit log is now enabled`,
+					ephemeral: true,
+				}),
+			);
+		} else {
+			await guild_db?.updateOne({ auditLogEvent: false }).then(() =>
+				interaction.reply({
+					content: `✅ Audit log is now disabled`,
+					ephemeral: true,
+				}),
+			);
+		}
+	}
+	if (interaction.options.getSubcommand() === 'channels') {
 		switch (channels) {
 			case 'welcomechannel':
 				{
@@ -229,5 +226,5 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 				}
 				break;
 		}
-	}*/
+	}
 };

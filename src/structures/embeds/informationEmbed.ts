@@ -50,7 +50,7 @@ export function userInfoEmbed(
 			},
 		]);
 	// eslint-disable-next-line no-unsafe-optional-chaining
-	for (const activity of member.presence?.activities.values()!) {
+	for (const activity of member.presence?.activities.values()?? []) {
 		switch (activity.type) {
 			case ActivityType.Playing: {
 				if (activity.name === 'Visual Studio Code') {

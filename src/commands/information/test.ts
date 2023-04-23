@@ -7,5 +7,8 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 export const slashy: SlashCommand['slashy'] = new SlashCommandBuilder().setName('testing').setDescription('testing.');
 
 export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInteraction<'cached'>): Promise<void> => {
-	
+    
+	const website = await fetch(`http://google.ca`).then((x) => x.json())
+   
+    console.log(website)
 };
