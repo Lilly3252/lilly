@@ -8,7 +8,7 @@ export const once: event['once'] = false;
 //eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const run: event['run'] = async (message: Message<true>): Promise<any> => {
 	const guild_db = await settingSchema.findOne({ guildID: message.guild.id });
-	if (guild_db?.urlLinkDetection === true) {
+	//if (guild_db?.urlLinkDetection === true) {
 		if (message.author.bot) {
 			return;
 		}
@@ -18,7 +18,7 @@ export const run: event['run'] = async (message: Message<true>): Promise<any> =>
 			if (message.content.includes(value)) {
 				message.channel.send('Scam link!');
 			}
-			if (!value) {
+			/*if (!value) {
 				const links = guild_db.urlLinks.find((value) => message.content === value.domains);
 				if (links) {
 					message.channel.send('URL in DB found.');
@@ -26,7 +26,7 @@ export const run: event['run'] = async (message: Message<true>): Promise<any> =>
 					return message.channel.send('url not found in db');
 				}
 			}
-		}
+		}*/
 
 	}
 	

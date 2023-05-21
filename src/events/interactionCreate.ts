@@ -37,7 +37,7 @@ async function handleSelect(interaction: AnySelectMenuInteraction): Promise<any>
 				const values = Object.values(en) as Array<keyof T>;
 				return values.slice(0, Math.floor(values.length / 2));
 			}
-			type enumType = { -readonly [key in keyof typeof selectMenuEvents]?: boolean }
+			type enumType = Omit<{ -readonly [key in keyof typeof selectMenuEvents]?: boolean }, number>
 			const resultObj: enumType = {};
 		 getPropsFromEnums(selectMenuEvents).forEach((a) => (resultObj[a] = values.includes(a)));
 			const guild_db = await settingSchema.findOne({ guildID: interaction.guild?.id })

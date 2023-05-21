@@ -1,4 +1,6 @@
 import { botPermissionDenied, errors, successful } from '#constants/constants.js';
+import settingSchema from '#database/guildSettings.js';
+import * as embed from '#embeds/index.js';
 import type { SlashCommand } from '#type/index.js';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ChatInputCommandInteraction, PermissionsBitField, SlashCommandBuilder } from 'discord.js';
@@ -17,7 +19,6 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			ephemeral: true,
 		});
 	}
-	//  const c = await prisma.guild.findFirst({ where: { guildID: interaction.guild.id } });
 	const member = interaction.options.getMember('target')!;
 	const reason = interaction.options.getString('reason');
 	if (!member?.moderatable || !member?.manageable) {
@@ -34,12 +35,13 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 			content: successful.ban(member.user.username),
 			ephemeral: true,
 		});
-	/*  const g = c?.logChannelID;
+		const c = await settingSchema.findOne({ guildID: interaction.guild.id });
+	  const g = c?.logChannelID;
     if (!g || g === null) { return }
     const LogChannel = interaction.client.channels.cache.get(g);
     if (!LogChannel || LogChannel === null) { return }
     if (LogChannel?.isTextBased()) {
-        LogChannel?.send({ embeds: [Embed.adminEmbed(interaction, member!, reason!)] });
+        LogChannel?.send({ embeds: [embed.adminEmbed(interaction, member!, reason!)] });
     }
-*/
+
 };

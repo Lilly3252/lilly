@@ -24,6 +24,16 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 
 		if (guildban.size == 0) return interaction.reply({ content: errors.noGuildBanned, ephemeral: true });
 
-		return findBanned ? void (await interaction.guild.members.unban(findBanned.user, d).catch((a) => console.log(a)), interaction.reply({ content: successful.unban(findBanned.user), ephemeral: true })) : interaction.reply({ content: errors.noUserBanned, ephemeral: true });
+		return findBanned
+			? void (await interaction.guild.members.unban(findBanned.user, d).catch((a) => console.log(a)), interaction.reply({ content: successful.unban(findBanned.user), ephemeral: true }))
+			: interaction.reply({ content: errors.noUserBanned, ephemeral: true });
 	});
+	/*const c = await settingSchema.findOne({ guildID: interaction.guild.id });
+	  const g = c?.logChannelID;
+    if (!g || g === null) { return }
+    const LogChannel = interaction.client.channels.cache.get(g);
+    if (!LogChannel || LogChannel === null) { return }
+    if (LogChannel?.isTextBased()) {
+        LogChannel?.send({ embeds: [embed.adminEmbed(interaction, member!, reason!)] });
+    }*/
 };

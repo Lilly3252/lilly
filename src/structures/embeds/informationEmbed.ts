@@ -2,8 +2,8 @@ import { lillyColors } from '#constants/colors.js';
 import emoji from '#json/emoji.json' assert { type: 'json' };
 import type { guildSetting } from '#type/database.js';
 import {
-	ActivityType, type Channel, ChannelType, ChatInputCommandInteraction, Colors, DataManager, EmbedBuilder, Emoji, type EmojiResolvable, type GuildChannelResolvable, GuildExplicitContentFilter, GuildMember, type GuildMemberResolvable,
-	GuildVerificationLevel, PermissionsBitField, Role, TextChannel,
+	ActivityType, type Channel, ChannelType, ChatInputCommandInteraction, ClientApplication, Colors, DataManager, EmbedBuilder, Emoji, type EmojiResolvable, type GuildChannelResolvable, GuildExplicitContentFilter, GuildMember,
+	type GuildMemberResolvable, GuildVerificationLevel, PermissionsBitField, Role, TextChannel, User,
 } from 'discord.js';
 import ms from 'ms';
 import os from 'os';
@@ -12,45 +12,52 @@ import * as Package from '../../../package.json' assert { type: 'json' };
 
 export function userInfoEmbed(
 	interaction: ChatInputCommandInteraction<'cached'>,
-	member: GuildMember,
+	user:User,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	role: any,
+	
 	flag: string[],
 	flags: { [x: string]: string },
 	created: string,
 	joinedServer: string,
+	role?: any,
+	member?: GuildMember,
 ) {
+
 	const embed = new EmbedBuilder()
-		.setThumbnail(member.user.displayAvatarURL({ forceStatic: true, size: 512 }))
-		.setColor(member.displayHexColor || lillyColors.RainbowDark['SadBlue'])
+		.setThumbnail(member?.user.displayAvatarURL({ forceStatic: true, size: 512 }) ?? user.displayAvatarURL({ forceStatic: true, size: 512 }))
+		.setColor(member?.displayHexColor ?? lillyColors.RainbowDark["SadBlue"])
 		.addFields([
 			{
 				name: 'User',
 				value: [
-					`**❯ Username:** ${member.user.username}`,
-					`**❯ Discriminator:** ${member.user.discriminator}`,
-					`**❯ ID:** ${member.id}`,
-					`**❯ Flags:** ${flag.length ? flag.map((a: string | number) => flags[a]).join(', ') : 'None'}`,
-					`**❯ Avatar:** [Link to avatar](${member.user.displayAvatarURL({
+					`**❯ Username:** ${member?.user.username ?? user.username}`,
+					`**❯ Discriminator:** ${member?.user.discriminator ?? user.discriminator}`,
+					`**❯ ID:** ${member?.id ?? user.id}`,
+					`**❯ Flags:** ${flag.length ? flag.map((a: string) => flags[a]).join(', ') : 'None'}`,
+					`**❯ Avatar:** [Link to avatar](${member?.user.displayAvatarURL({
+						forceStatic: true,
+					}) ?? user.displayAvatarURL({
 						forceStatic: true,
 					})})`,
 					`**❯ Time Created:** ${created}`,
-					`**❯ Status:** ${member.presence?.status}`,
+					`**❯ Status:** ${member?.presence?.status ?? "No information"}`,
 					`\u200b`,
 				].join('\n'),
 			},
-			{
+		])
+		if(member){
+			embed.addFields({
 				name: 'Member',
 				value: [
-					`**❯ Highest Role:** ${member.roles.highest.id === interaction.guild.id ? 'None' : member.roles.highest.name}`,
-					`**❯ Server Join Date:** ${joinedServer}`,
-					`**❯ Hoist Role:** ${member.roles.hoist ? member.roles.hoist.name : 'None'}`,
+					`**❯ Highest Role:** ${member?.roles.highest.id === interaction.guild.id ? 'None' : member?.roles.highest.name}`,
+					`**❯ Server Join Date:** ${joinedServer ? joinedServer: "Not in server"}`,
+					`**❯ Hoist Role:** ${member?.roles.hoist ? member.roles.hoist.name : 'None'}`,
 					`**❯ Roles [${role.length}]:** ${role.length < 10 ? role.join(', ') : role.length > 10 ? interaction.client.utils.trimArray(role) : 'None'}`,
 				].join('\n'),
-			},
-		]);
+			},)
+		}
 	// eslint-disable-next-line no-unsafe-optional-chaining
-	for (const activity of member.presence?.activities.values()?? []) {
+	for (const activity of member?.presence?.activities.values()?? []) {
 		switch (activity.type) {
 			case ActivityType.Playing: {
 				if (activity.name === 'Visual Studio Code') {
@@ -194,17 +201,18 @@ export function serverInfoEmbed(
 			.setTimestamp()
 	);
 }
-export function botInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>, b: os.CpuInfo, bot_create: string) {
+export function botInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>, b: os.CpuInfo, bot_create: string , application: ClientApplication ,flag: string[] , flags: { [x: string]: string }) {
 	if (!interaction.client.user) return undefined;
 	if (!interaction.guild.members.me) return undefined;
 	return new EmbedBuilder()
 		.setThumbnail(interaction.client.user.displayAvatarURL())
 		.setColor(interaction.guild.members.me.displayHexColor || Colors['Blue'])
+		.setTitle(`${interaction.client.user.tag} (${interaction.client.user.id})`)
 		.addFields([
 			{
-				name: 'General',
+				name: `Information`,
 				value: [
-					`**❯ Client:** ${interaction.client.user.tag} (${interaction.client.user.id})`,
+					`**❯ Owner:** ${application.owner} (${application.owner?.id})`,
 					`**❯ Commands:** ${interaction.client.commands.size}`,
 					`**❯ Servers:** ${interaction.client.guilds.cache.size.toLocaleString()} `,
 					`**❯ Users:** ${interaction.client.guilds.cache.reduce((c, a) => c + a.memberCount, 0).toLocaleString()}`,
@@ -231,9 +239,12 @@ export function botInfoEmbed(interaction: ChatInputCommandInteraction<'cached'>,
 				].join('\n'),
 			},
 			{
+				name: "Flags",
+				value: `${flag.length ? flag.map((a: string) => flags[a]).join(', ') : 'None'}`,
+			},
+			{
 				name: 'Code',
 				value: `[Click here](https://github.com/Lilly3252/LillyBot)`,
-				inline: true,
 			},
 		])
 		.setTimestamp();

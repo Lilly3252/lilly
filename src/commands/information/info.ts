@@ -1,4 +1,5 @@
 import * as Embed from '#embeds/index.js';
+import Emoji from '#json/emoji.json' assert { type: 'json' };
 import type { SlashCommand } from '#type/index.js';
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -60,50 +61,76 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	}
 
 	if (interaction.options.getSubcommand() === 'bot') {
+		const application = await interaction.client.application.fetch();
+		const flag = application.flags?.toArray();
+		const flags = {
+			GatewayPresenceLimited: 'Limited Presence',
+			GatewayGuildMembersLimited: 'Limited guild member',
+			GatewayMessageContentLimited: 'Limited message content',
+			ApplicationAutoModerationRuleCreateBadge: 'AutoMod',
+			ApplicationCommandBadge: 'Slash Command Supported',
+		};
 		const b = os.cpus()[0];
 		const botCreate = time(interaction.client.user.createdAt, 'R');
 		await interaction.reply({
-			embeds: [Embed.botInfoEmbed(interaction, b!, botCreate)!],
+			embeds: [Embed.botInfoEmbed(interaction, b!, botCreate, application, flag, flags)!],
 		});
 	}
 
 	if (interaction.options.getSubcommand() === 'user') {
-		const member = interaction.options.getMember('target');
-		const flags = {
-			BotHTTPInteractions: 'HTTP Interaction Only',
-			Staff: 'Discord Employee',
-			Partner: 'Partnered Server Owner',
-			BugHunterLevel1: 'Bug Hunter (Level 1)',
-			BugHunterLevel2: 'Bug Hunter (Level 2)',
-			HypeSquadOnlineHouse1: 'House of Bravery',
-			HypeSquadOnlineHouse2: 'House of Brilliance',
-			HypeSquadOnlineHouse3: 'House of Balance',
-			Hypesquad: 'Hypesquad',
-			Quarantined: 'Quarantined Account',
-			Spammer: 'Spammer User',
-			PremiumEarlySupporter: 'Early Nitro Supporter',
-			TeamPseudoUser: 'Team User',
-			VerifiedBot: 'Verified Bot',
-			VerifiedDeveloper: 'Early Verified Bot Developer',
-			CertifiedModerator: 'Moderator Programs Alumni',
-			ActiveDeveloper: 'Active Developer',
-			RestrictedCollaborator:'Restricted Collaborator',
-			MFASMS:'',
-			PremiumPromoDismissed:'Premium Dismissed',
-			DisablePremium:'Premium Disabled',
-			HasUnreadUrgentMessages:'Has urgent messages',
-			Collaborator:'Collaborator'
-
-		};
-		const created = time(member?.user.createdAt!, 'R');
-		const joinedServer = time(member?.joinedAt!, 'R');
-		const flag = member?.user.flags?.toArray();
-		const role = member?.roles.cache
-			.sort((c, a) => a.position - c.position)
-			.map((a) => a.toString())
-			.slice(0, -1);
-		return interaction.reply({
-			embeds: [Embed.userInfoEmbed(interaction, member!, role, flag!, flags, created, joinedServer)],
-		});
+		const user = interaction.options.getUser('target')!;
+		try {
+			const fetchedUser = await interaction.guild.members.fetch(user)
+			if (fetchedUser) {
+				const flags = {
+					Staff: `${Emoji.DiscordStaff}`,
+					Partner: `${Emoji.DiscordPartner}`,
+					BugHunterLevel1: `${Emoji.BugHunter}`,
+					BugHunterLevel2: `${Emoji.GoldBugHunter}`,
+					HypeSquadOnlineHouse1: `${Emoji.Bravery}`,
+					HypeSquadOnlineHouse2: `${Emoji.Brilliance}`,
+					HypeSquadOnlineHouse3: `${Emoji.Balance}`,
+					Hypesquad: `${Emoji.HSEvent}`,
+					Spammer: `${Emoji.AccountWarning}`,
+					PremiumEarlySupporter: `${Emoji.DiscordEarlySupport}`,
+					VerifiedDeveloper: `${Emoji.EarlyBotDeveloper}`,
+					CertifiedModerator: `${Emoji.DiscordMod}`,
+					ActiveDeveloper: `${Emoji.ActiveDeveloper}`,
+				};
+				const created = time(fetchedUser?.user.createdAt!, 'R');
+				const joinedServer = time(fetchedUser?.joinedAt!, 'R');
+				const flag = fetchedUser?.user.flags?.toArray();
+				const role = fetchedUser?.roles.cache
+					.sort((c, a) => a.position - c.position)
+					.map((a) => a.toString())
+					.slice(0, -1);
+				return interaction.reply({
+					embeds: [Embed.userInfoEmbed(interaction,user, flag!, flags, created, joinedServer, role,fetchedUser!)],
+				});
+			}
+		} catch {
+			const flags = {
+				Staff: `${Emoji.DiscordStaff}`,
+				Partner: `${Emoji.DiscordPartner}`,
+				BugHunterLevel1: `${Emoji.BugHunter}`,
+				BugHunterLevel2: `${Emoji.GoldBugHunter}`,
+				HypeSquadOnlineHouse1: `${Emoji.Bravery}`,
+				HypeSquadOnlineHouse2: `${Emoji.Brilliance}`,
+				HypeSquadOnlineHouse3: `${Emoji.Balance}`,
+				Hypesquad: `${Emoji.HSEvent}`,
+				Spammer: `${Emoji.AccountWarning}`,
+				PremiumEarlySupporter: `${Emoji.DiscordEarlySupport}`,
+				VerifiedDeveloper: `${Emoji.EarlyBotDeveloper}`,
+				CertifiedModerator: `${Emoji.DiscordMod}`,
+				ActiveDeveloper: `${Emoji.ActiveDeveloper}`,
+			};
+			const joinedServer = "not Joined";
+			const created = time(user.createdAt!, 'R');
+			const flag = user.flags?.toArray();
+			const role = "none"
+			return interaction.reply({
+				embeds: [Embed.userInfoEmbed(interaction,user, flag!, flags, created,role, joinedServer)],
+			});
+		}
 	}
 };

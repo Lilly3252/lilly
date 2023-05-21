@@ -42,6 +42,7 @@ export const run: event['run'] = async (auditLogEntry: GuildAuditLogsEntry, guil
 			.setAuthor({ name: `${auditLogEntry.executor} (${auditLogEntry.executorId})` })
 			.setTitle(actionExecuted)
 			.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${memberTarget.username}` });
+			console.log(memberTarget)
 		if (!moderatorChannel) {
 			return;
 		}

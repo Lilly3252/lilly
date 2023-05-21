@@ -168,7 +168,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 				]),
 		);
 
-		await interaction.reply({ content: 'WARNING: THIS WILL OVERRIDE YOUR ALREADY EXISTING SETTINGS! , BE AWARE!', ephemeral: true, components: [row] });
+		await interaction.reply({ content: 'WARNING: THIS WILL OVERRIDE YOUR ALREADY EXISTING EVENT SETTINGS! , BE AWARE!', ephemeral: true, components: [row] });
 	}
 	if (interaction.options.getSubcommand() === 'audit-log') {
 		if (choice) {

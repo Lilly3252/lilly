@@ -71,32 +71,32 @@ export function messageUpdateEmbed(oldMessage: Message<true>, newMessage: Messag
 
 	let e = '';
 	if (/```(.*?)```/s.test(oldMessage.content) && /```(.*?)```/s.test(newMessage.content)) {
-		const c = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(oldMessage.content);
-		if (!c || !c[2]) {
+		const oldContent = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(oldMessage.content);
+		if (!oldContent || !oldContent[2]) {
 			return messageUpEmbed;
 		}
 
-		const f = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(newMessage.content);
-		if (!f || !f[2]) {
+		const newContent = /```(?:(\S+)\n)?\s*([^]+?)\s*```/.exec(newMessage.content);
+		if (!newContent || !newContent[2]) {
 			return messageUpEmbed;
 		}
-		if (c[2] === f[2]) {
+		if (oldContent[2] === newContent[2]) {
 			return messageUpEmbed;
 		}
 
-		const g = diff.diffLines(c[2], f[2], { newlineIsToken: true });
-		for (const a of g) {
-			if (a.value === '\n') continue;
-			const b = a.added ? '+ ' : a.removed ? '- ' : '';
-			e += `${b}${a.value.replace(/\n/g, '')}\n`;
+		const comparison = diff.diffLines(oldContent[2], newContent[2], { newlineIsToken: true });
+		for (const changes of comparison) {
+			if (changes.value === '\n') continue;
+			const b = changes.added ? '+ ' : changes.removed ? '- ' : '';
+			e += `${b}${changes.value.replace(/\n/g, '')}\n`;
 		}
 
 		messageUpEmbed.addFields({ name: '\u276F Modified Message', value: [`${'```diff\n'}${e.substring(0, 1e3)}${'\n```'}`].join('\n') });
 	} else {
-		const c = diff.diffWords(escapeMarkdown(oldMessage.content), escapeMarkdown(newMessage.content));
-		for (const a of c) {
-			const b = a.added ? '**' : a.removed ? '~~' : '';
-			e += `${b}${a.value}${b}`;
+		const comparison = diff.diffWords(escapeMarkdown(oldMessage.content), escapeMarkdown(newMessage.content));
+		for (const changes of comparison) {
+			const b = changes.added ? '**' : changes.removed ? '~~' : '';
+			e += `${b}${changes.value}${b}`;
 		}
 		messageUpEmbed.addFields({ name: '\u276F Modified Message', value: `${e.substring(0, 1020)}` || '\u200B' });
 	}
@@ -107,33 +107,53 @@ export function messageUpdateEmbed(oldMessage: Message<true>, newMessage: Messag
 	return messageUpEmbed;
 }
 export function autoModerationEmbed(
-	auditLogEntry: GuildAuditLogsEntry,
-	fetchedAuditLog: GuildAuditLogsEntry<null, GuildAuditLogsActionType, GuildAuditLogsTargetType, AuditLogEvent> | undefined,
-	actionExecuted: string,
-	guild: Guild,
-) {
-	const autoModerationRuleTarget = fetchedAuditLog?.target as AutoModerationRule;
-	const auditLogEntryChangesKeyName = auditLogEntry.changes[0]?.key;
-	const auditLogEntryNewChanges = auditLogEntry.changes[0]?.new;
-	const customMessage = autoModerationRuleTarget.actions.map((action) => action.metadata.customMessage);
-	const durationSeconds = autoModerationRuleTarget.actions.map((action) => action.metadata.durationSeconds);
-	const exemptChannel = autoModerationRuleTarget.exemptChannels.map((channels) => `**${guild.client.utils.toTitleCase(channels.name)}** (${channels.id})`).join('\n');
-	const exemptRole = autoModerationRuleTarget.exemptRoles.map((role) => `**${guild.client.utils.toTitleCase(role.name)}** (${role.id})`);
-	const AutomoderationEmbed = new EmbedBuilder()
-		.setTitle(actionExecuted)
-		.setAuthor({ name: `${auditLogEntry.executor?.tag} (${auditLogEntry.executorId})` })
-		.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${autoModerationRuleTarget.name}` });
+	auditLogEntry: GuildAuditLogsEntry, 
+	fetchedAuditLog: GuildAuditLogsEntry<null, GuildAuditLogsActionType, GuildAuditLogsTargetType, AuditLogEvent>, 
+	actionExecuted: string, 
+	guild: Guild) {
+		const target = fetchedAuditLog?.target
+	if (target instanceof AutoModerationRule) {
+		const auditLogEntryChangesKeyName = auditLogEntry.changes[0]?.key;
+		const auditLogEntryNewChanges = auditLogEntry.changes[0]?.new;
+		const customMessage = target.actions.map((action) => action.metadata.customMessage);
+		const durationSeconds = target.actions.map((action) => action.metadata.durationSeconds);
+		const exemptChannel = target.exemptChannels.map((channels) => `**${guild.client.utils.toTitleCase(channels.name)}** (${channels.id})`).join('\n');
+		const exemptRole = target.exemptRoles.map((role) => `**${guild.client.utils.toTitleCase(role.name)}** (${role.id})`);
+		const AutomoderationEmbed = new EmbedBuilder()
+			.setTitle(actionExecuted)
+			.setAuthor({ name: `${auditLogEntry.executor?.tag!} (${auditLogEntry.executorId})` })
+			.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.name}` });
 
-	switch (auditLogEntryChangesKeyName) {
-		case 'enabled':
-			{
-				if (auditLogEntryNewChanges === true) {
+		switch (auditLogEntryChangesKeyName) {
+			case 'enabled':
+				{
+					if (auditLogEntryNewChanges === true) {
+						AutomoderationEmbed.addFields(
+							{ name: 'Changes done:', value: '**❯Enabling the rule**' },
+							{
+								name: 'Rules:',
+								value: [
+									`**❯** mentionTotalLimit: ${fetchedAuditLog?.target.triggerMetadata.mentionTotalLimit}`,
+									`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
+									`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
+								].join('\n'),
+							},
+							{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
+							{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
+						);
+					}
+					if (auditLogEntryNewChanges === false) {
+						AutomoderationEmbed.addFields({ name: 'Changes done:', value: '**❯** Disabling the rule' });
+					}
+				}
+				return AutomoderationEmbed;
+			case 'trigger_metadata':
+				{
 					AutomoderationEmbed.addFields(
-						{ name: 'Changes done:', value: '**❯Enabling the rule**' },
 						{
-							name: 'Rules:',
+							name: 'Changes done:',
 							value: [
-								`**❯** mentionTotalLimit: ${autoModerationRuleTarget.triggerMetadata.mentionTotalLimit}`,
+								`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`,
 								`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
 								`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
 							].join('\n'),
@@ -142,59 +162,40 @@ export function autoModerationEmbed(
 						{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
 					);
 				}
-				if (auditLogEntryNewChanges === false) {
-					AutomoderationEmbed.addFields({ name: 'Changes done:', value: '**❯** Disabling the rule' });
+				return AutomoderationEmbed;
+			case 'actions':
+				{
+					AutomoderationEmbed.addFields(
+						{
+							name: 'Changes done:',
+							value: [
+								`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`,
+								`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
+								`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
+							].join('\n'),
+						},
+						{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
+						{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
+					);
 				}
-			}
-			return AutomoderationEmbed;
-		case 'trigger_metadata':
-			{
-				AutomoderationEmbed.addFields(
-					{
-						name: 'Changes done:',
-						value: [
-							`**❯** mentionTotalLimit: ${autoModerationRuleTarget.triggerMetadata.mentionTotalLimit}`,
-							`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
-							`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
-						].join('\n'),
-					},
-					{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-					{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-				);
-			}
-			return AutomoderationEmbed;
-		case 'actions':
-			{
-				AutomoderationEmbed.addFields(
-					{
-						name: 'Changes done:',
-						value: [
-							`**❯** mentionTotalLimit: ${autoModerationRuleTarget.triggerMetadata.mentionTotalLimit}`,
-							`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
-							`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
-						].join('\n'),
-					},
-					{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-					{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-				);
-			}
-			return AutomoderationEmbed;
-		case 'exempt_channels':
-			{
-				AutomoderationEmbed.addFields(
-					{
-						name: 'Changes done:',
-						value: [
-							`**❯** mentionTotalLimit: ${autoModerationRuleTarget.triggerMetadata.mentionTotalLimit}`,
-							`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
-							`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
-						].join('\n'),
-					},
-					{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-					{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-				);
-			}
-			return AutomoderationEmbed;
+				return AutomoderationEmbed;
+			case 'exempt_channels':
+				{
+					AutomoderationEmbed.addFields(
+						{
+							name: 'Changes done:',
+							value: [
+								`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`,
+								`**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`,
+								`**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`,
+							].join('\n'),
+						},
+						{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
+						{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
+					);
+				}
+				return AutomoderationEmbed;
+		}
+		return AutomoderationEmbed;
 	}
-	return AutomoderationEmbed;
 }
