@@ -21,7 +21,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	}
 	const member = interaction.options.getMember('target')!;
 	const reason = interaction.options.getString('reason');
-	if (!member?.moderatable || !member?.manageable) {
+	if (!member.moderatable || !member.manageable) {
 		await interaction.reply({
 			content: errors.moderationDenied,
 			ephemeral: true,
@@ -29,7 +29,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	}
 	member
 		?.send(`Hello, you have been banned from ${interaction.guild.name} for: ${reason}`)
-		.then(() => interaction.guild.members.ban(member!))
+		.then(() => interaction.guild.members.ban(member))
 		.catch((a) => console.log(a)),
 		interaction.reply({
 			content: successful.ban(member.user.username),
@@ -41,7 +41,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
     const LogChannel = interaction.client.channels.cache.get(g);
     if (!LogChannel || LogChannel === null) { return }
     if (LogChannel?.isTextBased()) {
-        LogChannel?.send({ embeds: [embed.adminEmbed(interaction, member!, reason!)] });
+        LogChannel?.send({ embeds: [embed.adminEmbed(interaction, member, reason!)] });
     }
 
 };

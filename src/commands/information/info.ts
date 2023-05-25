@@ -78,7 +78,7 @@ export const run: SlashCommand['run'] = async (interaction: ChatInputCommandInte
 	}
 
 	if (interaction.options.getSubcommand() === 'user') {
-		const user = interaction.options.getUser('target')!;
+		const user = interaction.options.getUser('target',true);
 		try {
 			const fetchedUser = await interaction.guild.members.fetch(user)
 			if (fetchedUser) {
