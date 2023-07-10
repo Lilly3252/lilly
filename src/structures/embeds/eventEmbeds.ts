@@ -1,18 +1,18 @@
 import * as diff from 'diff';
 import {
-	AuditLogEvent, AutoModerationRule, BaseChannel, Collection, EmbedBuilder, escapeMarkdown, Guild, type GuildAuditLogsActionType, GuildAuditLogsEntry, type GuildAuditLogsTargetType, type GuildTextBasedChannel, Integration, Invite, Message, Role,
-	type Snowflake, User,
+	type AuditLogChange, AuditLogEvent, AutoModerationRule, BaseChannel, Collection, EmbedBuilder, escapeMarkdown, Guild, type GuildAuditLogsActionType, GuildAuditLogsEntry, type GuildAuditLogsTargetType, type GuildTextBasedChannel, Integration,
+	Invite, Message, Role, type Snowflake, TextChannel, User,
 } from 'discord.js';
 
 export function messageDeleteEmbed(message: Message) {
 	const deleteEmbed = new EmbedBuilder()
 		.setAuthor({
-			name: `${message.author.tag} (${message.author.id})`,
+			name: `${message.author.username} (${message.author.id})`,
 			iconURL: message.author.displayAvatarURL(),
 		})
 		.addFields({ name: '\u276F Channel', value: [message.channel].join('\n') })
 		.setTimestamp(new Date())
-		.setFooter({ text: `Deleted by: ${message.author.tag}` });
+		.setFooter({ text: `Deleted by: ${message.author.username}` });
 
 	message.content &&
 		deleteEmbed.addFields({
@@ -110,277 +110,124 @@ export function messageUpdateEmbed(oldMessage: Message<true>, newMessage: Messag
 	return messageUpEmbed;
 }
 export function auditLogEmbed(auditLogEntry: GuildAuditLogsEntry, fetchedAuditLog: GuildAuditLogsEntry<null, GuildAuditLogsActionType, GuildAuditLogsTargetType, AuditLogEvent> | undefined, actionExecuted: string, guild: Guild) {
-	const autoModerationEmbed = new EmbedBuilder().setTitle(actionExecuted).setAuthor({ name: `${auditLogEntry.executor?.tag!} (${auditLogEntry.executorId})` });
+	const autoModerationEmbed = new EmbedBuilder().setTitle(actionExecuted).setAuthor({ name: `${auditLogEntry.executor?.username} (${auditLogEntry.executorId})` });
+
 	const target = fetchedAuditLog?.target;
-	const auditLogEntryChangesKeyName = auditLogEntry.changes[0]?.key;
-	const auditLogEntryNewChanges = auditLogEntry.changes[0]?.new;
-	const auditLogTargetType = fetchedAuditLog?.targetType;
+	const auditLogtargetType = fetchedAuditLog?.targetType;
+	const change = fetchedAuditLog?.changes[0];
+	const extra = auditLogEntry.extra!;
+
+	const auditLogEntryChangesKeyName = auditLogEntry.changes[0]?.key.replaceAll('_', ' ');
 	const auditLogActionType = fetchedAuditLog?.actionType;
-	//**changes done */
+	const changesDone = auditLogEntry.changes
+		.map((changes: AuditLogChange) => {
+			return `**❯** ${guild.client.utils.toTitleCase(changes.key.replaceAll('_', ' '))}  \n \u3000 New: ${
+				// change every first key to put a uppercase
+				Array.isArray(changes.new) // If its array
+					? changes.new.map(
+							(
+								element, // map that
+							) =>
+								Object.entries(element) // do another array inside that array
+									.map(([key, value]) => `\n\u3000 ${key}: ${value}`) //map that array too .. with a key and a value
+									.join(' '), // join those with a ,
+					  )
+					: changes.new
+			}\n \u3000 Old: ${
+				Array.isArray(changes.old)
+					? changes.old.map((element) =>
+							Object.entries(element)
+								.map(([key, value]) => `\n\u3000 ${key}: ${value}`)
+								.join(' '),
+					  )
+					: `\n\u3000 ${changes.old}`
+			}`;
+		})
+		.join('\n');
+	//JSON.stringify(changes.new,  ["id", "allow"], "\t").replaceAll(/\{\n\s+|\n\s+\}|\[|\]$/g, '\t')
+	//.replaceAll(/[^a-z,1-9:0]/g," ") <-- To keep for in case i need that ..
+
 	if (target instanceof AutoModerationRule) {
-		const customMessage = target.actions.map((action) => action.metadata.customMessage);
-		const durationSeconds = target.actions.map((action) => action.metadata.durationSeconds);
-		const exemptChannel = target.exemptChannels.map((channels) => `**${guild.client.utils.toTitleCase(channels.name)}** (${channels.id})`).join('\n');
-		const exemptRole = target.exemptRoles.map((role) => `**${guild.client.utils.toTitleCase(role.name)}** (${role.id})`);
-
-		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.name}` });
-
-		switch (auditLogEntryChangesKeyName) {
-			case 'enabled':
-				{
-					if (auditLogEntryNewChanges === true) {
-						autoModerationEmbed.addFields(
-							{ name: 'Changes done:', value: '**❯Enabling the rule**' },
-							{
-								name: 'Rules:',
-								value: [`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`, `**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`, `**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`].join(
-									'\n',
-								),
-							},
-							{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-							{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-						);
-					}
-					if (auditLogEntryNewChanges === false) {
-						autoModerationEmbed.addFields({ name: 'Changes done:', value: '**❯** Disabling the rule' });
-					}
-				}
-				return autoModerationEmbed;
-			case 'trigger_metadata':
-				{
-					autoModerationEmbed.addFields(
-						{
-							name: 'Changes done:',
-							value: [`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`, `**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`, `**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`].join(
-								'\n',
-							),
-						},
-						{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-						{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-					);
-				}
-				return autoModerationEmbed;
-			case 'actions':
-				{
-					autoModerationEmbed.addFields(
-						{
-							name: 'Changes done:',
-							value: [`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`, `**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`, `**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`].join(
-								'\n',
-							),
-						},
-						{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-						{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-					);
-				}
-				return autoModerationEmbed;
-			case 'exempt_channels':
-				{
-					autoModerationEmbed.addFields(
-						{
-							name: 'Changes done:',
-							value: [`**❯** mentionTotalLimit: ${target.triggerMetadata.mentionTotalLimit}`, `**❯** customMessage: ${customMessage.toString().replaceAll(',', '')}`, `**❯** durationSeconds: ${durationSeconds.toString().replaceAll(',', '')}`].join(
-								'\n',
-							),
-						},
-						{ name: 'Channel exempted from that rule:', value: `\u000A ${exemptChannel}` },
-						{ name: 'Roles exempted from that rule:', value: `\u000A ${exemptRole}` },
-					);
-				}
-				return autoModerationEmbed;
+		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogActionType} on ${target.name}` });
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
 		}
 		return autoModerationEmbed;
 	}
-	//**changes done */
 	if (target instanceof User) {
 		if (!target) {
 			return autoModerationEmbed;
 		}
-		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${auditLogEntry.executor?.username}` });
-		switch (auditLogEntryChangesKeyName) {
-			case 'avatar_hash': {
-				return autoModerationEmbed;
-			}
-			case 'communication_disabled_until': {
-				return autoModerationEmbed;
-			}
-			case 'deaf': {
-				return autoModerationEmbed;
-			}
-			case 'mute': {
-				return autoModerationEmbed;
-			}
-			case 'nick': {
-				return autoModerationEmbed;
-			}
-			case 'rate_limit_per_user': {
-				return autoModerationEmbed;
-			}
-			case 'user_limit': {
-				return autoModerationEmbed;
-			}
-		}
+		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogActionType} ${auditLogtargetType?.replaceAll('_', ' ')} on ${target.username} (${target.id})` });
+		if (extra) {
+			const extraobject = Object.entries(Object.entries(extra)[0]!);
+			const Extra = extraobject[1]?.[1];
+			const ExtraMapped = Object.entries(Extra);
 
+			//console.log(Array.isArray(ExtraMapped)? ExtraMapped.map(([key, value]) => ` \u3000 \u3000 ${key}: ${value}`) : "Not a array dumbass")
+			if (Extra instanceof TextChannel) {
+				console.log(Array.isArray(Extra.messages) ? Extra.messages.cache.map((key, value) => ` \u3000 \u3000 ${key}: ${value}`) : `nope`);
+				if (Extra.isTextBased()) {
+					autoModerationEmbed.addFields({
+						name: 'Extras:',
+						value: [
+							`
+					**❯**Channel Name : ${Extra}
+					**❯**Last Message ID : ${Extra.lastMessageId}
+					**❯**Content: // 
+					`,
+						].join(''),
+					});
+				}
+			}
+			//TODO : Extra.messages doesnt show content , need fix.
+		}
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
+		}
 		return autoModerationEmbed;
 	}
-	//! auditlogentrychangeskeyname need to be found ..
+	if (auditLogtargetType === 'Channel' && auditLogActionType === 'Delete') {
+		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} a channel with Id: ${auditLogEntry.targetId}` });
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
+		}
+	}
 	if (target instanceof BaseChannel) {
-		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.id}` });
+		if (target.isTextBased()) {
+			autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.name} (${target.id})` });
+			if (change) {
+				autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
+			}
+			return autoModerationEmbed;
+		}
 		return autoModerationEmbed;
 	}
-	//**changes done */
 	if (target instanceof Guild) {
-		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.name}` });
-		switch (auditLogEntryChangesKeyName) {
-			case 'afk_channel_id': {
-				return autoModerationEmbed;
-			}
-			case 'afk_timeout': {
-				return autoModerationEmbed;
-			}
-			case 'banner_hash': {
-				return autoModerationEmbed;
-			}
-			case 'channel_id': {
-				return autoModerationEmbed;
-			}
-			case 'default_message_notifications': {
-				return autoModerationEmbed;
-			}
-			case 'description': {
-				return autoModerationEmbed;
-			}
-			case 'discovery_splash_hash': {
-				return autoModerationEmbed;
-			}
-			case 'entity_type': {
-				return autoModerationEmbed;
-			}
-			case 'explicit_content_filter': {
-				return autoModerationEmbed;
-			}
-			case 'guild_id': {
-				return autoModerationEmbed;
-			}
-			case 'image_hash': {
-				return autoModerationEmbed;
-			}
-			case 'mfa_level': {
-				return autoModerationEmbed;
-			}
-			case 'location': {
-				return autoModerationEmbed;
-			}
-			case 'owner_id': {
-				return autoModerationEmbed;
-			}
-			case 'preferred_locale': {
-				return autoModerationEmbed;
-			}
-			case 'privacy_level': {
-				return autoModerationEmbed;
-			}
-			case 'public_updates_channel_id': {
-				return autoModerationEmbed;
-			}
-			case 'region': {
-				return autoModerationEmbed;
-			}
-			case 'splash_hash': {
-				return autoModerationEmbed;
-			}
-			case 'status': {
-				return autoModerationEmbed;
-			}
-			case 'system_channel_id': {
-				return autoModerationEmbed;
-			}
-			case 'vanity_url_code': {
-				return autoModerationEmbed;
-			}
-			case 'verification_level': {
-				return autoModerationEmbed;
-			}
-			case 'widget_channel_id': {
-				return autoModerationEmbed;
-			}
-			case 'widget_enabled': {
-				return autoModerationEmbed;
-			}
+		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} ${auditLogEntryChangesKeyName?.replaceAll('_', ' ')} on ${target.name} (${target.id})` });
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
 		}
-
 		return autoModerationEmbed;
-	} //**changes done */
+	}
 	if (target instanceof Integration) {
-		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.id}` });
-		switch (auditLogEntryChangesKeyName) {
-			case 'expire_behavior':
-				{
-				}
-				return autoModerationEmbed;
-			case 'expire_grace_period':
-				{
-				}
-				return autoModerationEmbed;
-			case 'enable_emoticons':
-				{
-				}
-				return autoModerationEmbed;
+		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.name} (${target.id})` });
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
 		}
-
 		return autoModerationEmbed;
-	} //**changes done */
+	}
 	if (target instanceof Role) {
 		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.name} (${target.id})` });
-		switch (auditLogEntryChangesKeyName) {
-			case '$add': {
-				return autoModerationEmbed;
-			}
-
-			case '$remove': {
-				return autoModerationEmbed;
-			}
-
-			case 'color': {
-				return autoModerationEmbed;
-			}
-
-			case 'hoist': {
-				return autoModerationEmbed;
-			}
-
-			case 'mentionable': {
-				return autoModerationEmbed;
-			}
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
 		}
-
 		return autoModerationEmbed;
 	}
-	//**changes done */
 	if (target instanceof Invite) {
 		autoModerationEmbed.addFields({ name: 'Action done:', value: `${auditLogEntry.actionType} on ${target.code}` });
-		switch (auditLogEntryChangesKeyName) {
-			case 'channel_id': {
-				return autoModerationEmbed;
-			}
-			case 'code': {
-				return autoModerationEmbed;
-			}
-			case 'inviter_id': {
-				return autoModerationEmbed;
-			}
-			case 'max_age': {
-				return autoModerationEmbed;
-			}
-			case 'max_uses': {
-				return autoModerationEmbed;
-			}
-			case 'temporary': {
-				return autoModerationEmbed;
-			}
-			case 'uses': {
-				return autoModerationEmbed;
-			}
+		if (change) {
+			autoModerationEmbed.addFields({ name: 'Changes:', value: `${changesDone}` });
 		}
 		return autoModerationEmbed;
 	}
