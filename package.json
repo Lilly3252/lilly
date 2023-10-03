@@ -1,0 +1,31 @@
+{
+  "name": "lillysaph",
+  "version": "0.0.1",
+  "description": "Lilly bot sapphire remaking",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "imports": {
+    "#utils/*": "./src/utils/*",
+    "#slashyInformations": "./src/slashyInformations/*"
+  },
+  "author": "Lilly_Nosya",
+  "license": "MIT",
+  "dependencies": {
+    "@types/diff": "^5.0.5",
+    "@types/ms": "^0.7.31",
+    "@types/node": "^20.6.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "@yuudachi/framework": "^0.2.10",
+    "discord.js": "^14.13.0",
+    "eslint": "^8.50.0",
+    "i18next": "^23.5.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  }
+}

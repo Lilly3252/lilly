@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"emitDecoratorMetadata": true,
+		"module": "Node16",
+		"moduleResolution": "Node16",
+		"experimentalDecorators": true,
+		"resolveJsonModule": true,
+		"rootDir": "src",
+		"outDir": "dist",
+		"baseUrl": "./",
+		"paths": {
+			"#utils/*": ["src/utils/*"],
+			"#slashyInformations/*":["src/slashyInformations/*"]
+			
+		},
+		
+	},
+	"include": ["src"]
+}

@@ -1,0 +1,791 @@
+{
+	"common": {
+		"errors": {
+			"no_mod_log_channel": "Aucun channel de modérateur n'a été initialisé ",
+			"no_anti_raid_archive_channel": "Aucun channel d'archives pour Anti-Raid-Nuke n'a été initialisé.",
+			"no_report_channel": "Aucun channel de report n'a été créé",
+			"no_content": "<Message sans contenu>"
+		},
+		"moderator": "Modérateur",
+		"and_more": "et plus..."
+	},
+	"command": {
+		"common": {
+			"errors": {
+				"generic": "Une erreur est survenu.",
+				"no_enabled_module": "Le `{{module}}`n'est pas activé dans cette guild.",
+				"duration_format": "Erreur de format de durations",
+				"use_autocomplete": "Ne peut pas résoudre cette option. Veuillez vous assurer de sélectionner une option valide.",
+				"target_not_found": "Le membre desirer n'est pas dans cette guild",
+				"timed_out": "",
+				"no_message": "Ne peut pas trouver le message `{{message_id}}` dans le channel {{- channel}} ",
+				"not_message_link": "La valeur donnée `{{-val}}` pour l'argument `{{arg}}` n'est pas un lien de message valide.",
+				"no_message_resolvable": "La valeur donnée `{{-val}}` pour l'argument `{{arg}}` n'est pas un lien de message valide ou l'ID est incorrecte.",
+				"no_guild": "Ne peut pas trouver la guilde `{{guild_id}}`",
+				"no_channel": "",
+				"ignored_channel": ""
+			},
+			"buttons": {
+				"cancel": "Cancel",
+				"message_reference": "Message original"
+			}
+		},
+		"config": {
+			"common": {
+				"errors": {
+					"no_settings": "Aucun paramètre pour cette guilde n'a été initialisé."
+				}
+			}
+		},
+		"mod": {
+			"common": {
+				"errors": {
+					"max_length_reason": "",
+					"not_a_text_channel": "{{- channel}} n'est pas un text channel.",
+					"no_case": "Ne peut pas trouver le cas `#{{case}}`",
+					"no_report": "Ne peut pas trouver le rapport `#{{report}}`",
+					"no_case_range": "",
+					"case_lower_one": "les ids des cas doivent être au dessus de `0`",
+					"no_reference_case": "Ne peut pas trouver la reference au cas `#{{case}}`",
+					"already_processed": "{{- user}} avec le cas {{- case}} (has no running restrictions.)", // need to find a reference use case for what's inside the ()
+					"no_reference_report": "Ne peut pas trouver la reference du rapport `#{{report}}`"
+				},
+				"reasons": [
+					"Troll",
+					"Méchant dans le support",
+					"Sacres/Jurons",
+					"Compte suspecter d'être un scam ou spam.",
+					"Conversation inapproprié dans le support",
+					"NSFW",
+					"", // shitpost
+					"Insultes",
+					"Harcèlement MP",
+					"Violation des termes et services",
+					"Selfbot",
+					"COPPA"
+				]
+			},
+			"case": {
+				"autocomplete": {
+					"no_reason": "Aucune raison",
+					"show_history": "Montrer l'historique pour l'utilisateur {{- user}}"
+				},
+				"buttons": {
+					"goto": "Allez au cas {{- case}}"
+				}
+			},
+			"reports": {
+				"autocomplete": {
+					"no_reason": "Aucune raison",
+					"show_history_target": "Montrer l'historique pour l'utilisateur {{- user}}",
+					"show_history_author": "Montrer l'historique pour l’auteur {{- user}}"
+				}
+			},
+			"warn": {
+				"pending": "voulez-vous vraiment avertir {{- user}}?",
+				"buttons": {
+					"execute": "Avertir"
+				},
+				"cancel": "Avertissement canceller sur {{- user}}",
+				"success": "Avertissement exécuter avec succès sur {{- user}}"
+			},
+			"timeout": {
+				"errors": {
+					"missing_permissions": "Permissions manquante pour time out {{- user}}",
+					"already_timed_out": "{{- user}} est deja timeout"
+				},
+				"buttons": {
+					"execute": "Timeout"
+				},
+				"pending": "Voulez-vous vraiment timeout {{- user}}?",
+				"cancel": "Timeout canceller sur {{- user}}",
+				"success": "Timeout exécuter avec succès sur {{- user}}"
+			},
+			"kick": {
+				"errors": {
+					"missing_permissions": "Permissions manquante pour kick {{- user}}"
+				},
+				"pending": "Voulez-vous vraiment ",
+				"buttons": {
+					"execute": "Kick"
+				},
+				"cancel": "Kick canceller sur {{- user}}",
+				"success": "Kick exécuter avec succès sur {{- user}}"
+			},
+			"softban": {
+				"errors": {
+					"missing_permissions": "Permissions manquante pour softban"
+				},
+				"pending": "Voulez-vous vraiment softban {{- user}}?",
+				"not_member": "L'utilisateur {{- user}} n'est plus dans cette guild. Souhaitez-vous quand meme exécuter cette action pour supprimer les messages?",
+				"buttons": {
+					"execute": "Softban"
+				},
+				"reasons": {
+					"clear_messages": "Mod: {{- user}} | Softban pour supprimer les messages"
+				},
+				"cancel": "Softban canceller sur {{- user}}",
+				"success": {
+					"regular": "Softban exécuter sur {{- user}}",
+					"clear_messages": "Supprimer avec succès les messages de {{- user}}" 
+				}
+			},
+			"ban": {
+				"errors": {
+					"missing_permissions": "Permissions manquante pour bannir {{- user}}",
+					"already_banned": "{{- user}} est deja bannis de ce serveur."
+				},
+				"pending": "Voulez-vous vraiment bannir {{- user}}?",
+				"buttons": {
+					"execute": "Bannir"
+				},
+				"cancel": "Bannissement canceller sur {{- user}}",
+				"success": "Bannissement exécuter avec succès sur {{- user}}"
+			},
+			"unban": {
+				"errors": {
+					"missing_permissions": "Permissions manquante pour debannir",
+					"no_ban": "{{- user}} n'est pas bannis de ce serveur."
+				},
+				"pending": "Voulez-vous vraiment debannir {{- user}}?",
+				"buttons": {
+					"execute": "Debannir"
+				},
+				"cancel": "Debanissement canceller sur {{- user}} ",
+				"success": "Debanissement exécuter avec succès sur {{- user}}"
+			},
+			"anti_raid_nuke": {
+				"common": {
+					"errors": {
+						"result": {
+							"reject_perms": "Cet utilisateur a des permission élever.",
+							"reject_unbanable": "Cet utilisateur n'est pas bannissable par moi.",
+							"reject_bot": "Cet utilisateur est un bot",
+							"reject_self": "Cet utilisateur c'est toi.",
+							"reject_protected": "Cet utilisateur a un role qui est ignorer par l'anti raid nuke",
+							"reject_user": "Cet utilisateur n'est plus dans cette guilde"
+						},
+						"no_hits": "l'anti raid nuke va bannir personne. Veuillez réajuster les paramètres et réessayer.",
+						"no_ids": "Les paramètres que vous avez donner ne contiens aucun ids.",
+						"no_filter": "L'anti raid nuke n'as pas de filtre, ceci va bannir tout le monde. Protocol annuler.",
+						"no_concurrent_use": "Vous ne pouvez pas utiliser l'anti raid nuke plus d'une fois par serveur."
+					},
+					"parameters": {
+						"heading": "paramètres:",
+						"launch_time": "• Temps de lancement: {{- now}}",
+						"days_zero": "• Supprimer aucun message",
+						"days_one": "• Supprimer les messages envoyés dans le dernier jour.",
+						"days_other": "• Supprimer tout les messages envoyés dans les derniers `{{count}}` jours",
+						"parsed_ids": "• Membres valide pour cette guilde : `{{valid}}` sur `{{total}}`.",
+						"hide": "• Cette commande vas seulement générer un rapport préliminaire. Veuillez exécuter cette commande publiquement pour amorcer ce nuke."
+					},
+					"reason": "Anti-Raid-Nuke `({{current}}/{{count}})`",
+					"pending_one": "Anti-Raid-Nuke va toucher `{{count}}` membres.",
+					"pending_other": "Anti-Raid-Nuke est configurer pour toucher `{{count}}` membres.\n• Cree durant `{{creation_range}}`\n• Rejoint durant `{{join_range}}`",
+					"buttons": {
+						"execute": "Lancer",
+						"formatted": "Rapport formater"
+					},
+					"cancel": "Anti-Raid-Nuke canceller.",
+					"success_one": "Anti-Raid-Nuke a toucher `{{count}}` membres.",
+					"success_other": "Anti-Raid-Nuke a toucher `{{count}}` membres."
+				},
+				"filter": {
+					"errors": {
+						"invalid_avatar": "Format de l'avatar invalide, doit être un hash pure , ID, URL ou `rien`",//
+						"pattern_format": "Modèle invalide."
+					},
+					"parameters": {
+						"join": {
+							"before": "• Joined before: {{- date}}",
+							"after": "• Joined after: {{- date}}"
+						},
+						"created": {
+							"before": "• Account created before: {{- date}}",
+							"after": "• Account created after: {{- date}}"
+						},
+						"pattern": "• Username matching pattern:",
+						"avatar": "• Avatar hash (user or member) matching: `{{- avatar}}`",
+						"zalgo": "• Usernames including Zalgo characters",
+						"filter_confusables": "• Usernames including confusables",
+						"clean_confusables": "• Cleaning usernames including confusables before applying other filters"
+					}
+				},
+				"file": {
+					"parameters": {
+						"file": "• File: {{- file_link}}",
+						"link_label": "<CDN url>"
+					}
+				},
+				"modal": {
+					"title": "Anti-Raid-Nuke Entry",
+					"components": {
+						"label": "{{idx}}- Enter valid ids",
+						"placeholder": "Members will be parsed by id from the provided content."
+					}
+				}
+			},
+			"restrict": {
+				"embed": {
+					"errors": {
+						"no_role": "No role for embed restrictions has been configured.",
+						"missing_permissions": "Missing permissions to embed restrict {{- user}}",
+						"already_restricted": "{{- user}} is already embed restricted."
+					},
+					"pending": "Do you really want to embed restrict {{- user}}?",
+					"buttons": {
+						"execute": "Restrict"
+					},
+					"cancel": "Canceled embed restriction on {{- user}}",
+					"success": "Successfully embed restricted {{- user}}"
+				},
+				"react": {
+					"errors": {
+						"no_role": "No role for reaction restrictions has been configured.",
+						"missing_permissions": "Missing permissions to react restrict {{- user}}",
+						"already_restricted": "{{- user}} is already reaction restricted."
+					},
+					"pending": "Do you really want to react restrict {{- user}}?",
+					"buttons": {
+						"execute": "Restrict"
+					},
+					"cancel": "Canceled react restriction on {{- user}}",
+					"success": "Successfully react restricted {{- user}}"
+				},
+				"emoji": {
+					"errors": {
+						"no_role": "No role for emoji restrictions has been configured.",
+						"missing_permissions": "Missing permissions to emoji restrict {{- user}}",
+						"already_restricted": "{{- user}} is already emoji restricted."
+					},
+					"pending": "Do you really want to emoji restrict {{- user}}?",
+					"buttons": {
+						"execute": "Restrict"
+					},
+					"cancel": "Canceled emoji restriction on {{- user}}",
+					"success": "Successfully emoji restricted {{- user}}"
+				},
+				"unrole": {
+					"errors": {
+						"missing_permissions": "Missing permissions to unrole `#{{case}}`"
+					},
+					"pending": "Do you really want to unrole {{- user}} from `{{- role}}` with case {{- case}}?",
+					"buttons": {
+						"execute": "Unrole"
+					},
+					"cancel": "Canceled unrole on {{- user}} from `{{- role}}` on case {{- case}}",
+					"success": "Successfully unroled {{- user}} from `{{- role}}` with case {{- case}}"
+				}
+			},
+			"lockdown": {
+				"lock": {
+					"errors": {
+						"missing_permissions": "Missing permissions to lock {{- channel}}",
+						"already_locked": "{{- channel}} is already locked.",
+						"bot_requires_admin": "The bot requires the `ADMINISTRATOR` permission to lock down channels as Discord does not allow setting all overwrites without it, potentially causing issues when locking or unlocking."
+					},
+					"pending": "Do you really want to lock {{- channel}}?",
+					"buttons": {
+						"execute": "Lock"
+					},
+					"message": "🔒 This channel has been locked, it will be unlocked {{- duration}}",
+					"message_reason": "🔒 This channel has been locked with reason `{{- reason}}`, it will be unlocked {{- duration}}",
+					"cancel": "Canceled locking of {{- channel}}",
+					"success": "Successfully locked {{- channel}}"
+				},
+				"lift": {
+					"errors": {
+						"missing_permissions": "Missing permissions to lift the lock on {{- channel}}",
+						"not_locked": "{{- channel}} is not locked.",
+						"failure": "{{- channel}} could not be unlocked."
+					},
+					"pending": "Do you really want to lift the lock on {{- channel}}?",
+					"buttons": {
+						"execute": "Unlock"
+					},
+					"cancel": "Canceled lifting lock of {{- channel}}",
+					"success": "Successfully lifted lock on {{- channel}}"
+				}
+			},
+			"reason": {
+				"success": "Successfully set reason for case {{- case}}",
+				"success_multiple": "Successfully set reason for case range {{- lower_case}} to {{- upper_case}} (`{{current}}/{{count}}` cases)",
+				"pending_multiple": "Do you really want to set a reason for case range {{- lower_case}} to {{- upper_case}} (`{{count}}` cases)?",
+				"buttons": {
+					"execute": "Set Reason"
+				},
+				"cancel": "Canceled setting reason."
+			},
+			"reference": {
+				"case": "Successfully set the **case reference** for case {{- case}} to {{- ref}}",
+				"report": "Successfully set the **report reference** for case {{- case}} to {{- ref}}"
+			},
+			"duration": {
+				"errors": {
+					"timeout": "Could not change the duration of the timeout for case {{- case}}"
+				},
+				"success": "Successfully set duration for case {{- case}}"
+			},
+			"clear": {
+				"errors": {
+					"no_results": "Could not find messages in the provided range that are younger than 12 hours.",
+					"other_channel": "The provided messages have to be from the same channel."
+				},
+				"pending_one": "You are about to clear `{{count}}` message by $t(command.mod.clear.authors, {\"count\": {{author_count}}}) sent in `{{time}}`. Are you sure?",
+				"pending_other": "You are about to clear `{{count}}` messages by $t(command.mod.clear.authors, {\"count\": {{author_count}}}) sent in `{{time}}`. Are you sure?",
+				"message_too_old": "Note: You can only clear messages that are up to 12 hours old. The oldest message that will be cleared is shown below.",
+				"success_one": "Successfully cleared `{{count}}` message by $t(command.mod.clear.authors, {\"count\": {{author_count}}}) sent in `{{time}}`",
+				"success_other": "Successfully cleared `{{count}}` messages by $t(command.mod.clear.authors, {\"count\": {{author_count}}}) sent in `{{time}}`",
+				"authors_one": "`{{count}}` author",
+				"authors_other": "`{{count}}` authors",
+				"buttons": {
+					"execute_one": "Clear {{count}} message",
+					"execute_other": "Clear {{count}} messages"
+				},
+				"cancel": "Cancelled clearing messages."
+			},
+			"status": {
+				"success": "Successfully set status of report {{- report}} to `$t(log.report_log.report_status.{{status}})`"
+			},
+			"report": {
+				"common": {
+					"errors": {
+						"recently_reported": {
+							"message": "This message has already been recently reported, thanks for making our community a better place!",
+							"user": "This user has already been recently reported, thanks for making our community a better place!"
+						},
+						"no_self": "You cannot report yourself.",
+						"invalid_attachment": "Invalid attachment, only images are allowed.",
+						"timed_out": "The report has timed out, please try again.",
+						"bot": "You cannot report bots.",
+						"no_attachment_forward": "This user has already been recently reported, you must specify an attachment to forward if it helps the context of the report."
+					},
+					"warnings": "**Attention:** We are not Discord and we **cannot** moderate {{- trust_and_safety}} issues.\n**Creating false reports may lead to moderation actions.**",
+					"trust_and_safety_sub": "Trust & Safety",
+					"buttons": {
+						"forward": "Forward Message",
+						"forward_attachment": "Forward Attachment",
+						"execute": "Create Report",
+						"cancel": "Cancel",
+						"discord_report": "Report to Discord"
+					},
+					"modal": {
+						"label": "The reason for the report",
+						"placeholder": "Please enter a detailed reason for the report"
+					},
+					"post": {
+						"name": "Report {{report_id}} - {{- user}}",
+						"reason": "reported by {{- user}}"
+					}
+				},
+				"message": {
+					"modal": {
+						"title": "Message report"
+					},
+					"pending": "Are you sure you want to report {{- message_link}} to the server moderators?\n**Reason:** {{- reason}}",
+					"pending_sub": "this message",
+					"pending_forward": "This user has already been reported recently, do you want to forward {{- message_link}} to that report?",
+					"cancel": "Message report canceled.",
+					"success": "Successfully reported message, thanks for making our community a better place!",
+					"success_forward": "Successfully forwarded message to existing report, thanks for making our community a better place!"
+				},
+				"user": {
+					"modal": {
+						"title": "User report"
+					},
+					"attachment_upsell": {
+						"base": "ℹ️ ***Tip:** If it helps to provide context, you can attach an image to this report using the {{- report_command}}!*",
+						"mention": "{{- report_command}} command",
+						"option": "attachment option"
+					},
+					"pending": "Are you sure you want to report {{- user}} to the server moderators?\n**Reason:** {{- reason}}",
+					"pending_forward": "This user has already been reported recently, do you want to forward the attachment to that report?",
+					"cancel": "User report canceled.",
+					"success": "Successfully reported user, thanks for making our community a better place!",
+					"success_forward": "Successfully forwarded the attachment to existing report, thanks for making our community a better place!"
+				}
+			}
+		},
+		"utility": {
+			"ping": {
+				"success": "ok"
+			},
+			"check_scam": {
+				"found_one": "Detected scam domain ({{count}})",
+				"found_other": "Detected scam domains ({{count}})"
+			},
+			"refresh_scamlist": {
+				"missing_env": "Missing environment variables {{missing, list}} to fetch scam domains from.",
+				"refresh_never": "`never`",
+				"amount": "• Amount: `{{count}}`",
+				"before": "• Before: `{{count}}`",
+				"after": "• After: `{{count}}`",
+				"last_change": "• Last change: {{- timestamp}}",
+				"buttons": {
+					"execute": "Refresh"
+				},
+				"cancel": "Canceled scam domain list refreshing.",
+				"success": "Successfully refreshed scam domain lists.",
+				"pending": "Current scam domain lists:",
+				"error": "Something went wrong when refreshing scam domains."
+			},
+			"sponsor": {
+				"errors": {
+					"no_role": "No role for sponsors has been configured.",
+					"already_sponsor": "{{- user}} is already a sponsor."
+				},
+				"pending": "Do you really want to apply the sponsor role to {{- user}}?",
+				"buttons": {
+					"execute": "Apply"
+				},
+				"reason": "Applied sponsor role",
+				"cancel": "Canceled applying sponsor role to {{- user}}",
+				"success": "Successfully applied sponsor role to {{- user}}"
+			},
+			"claim_sponsor": {
+				"errors": {
+					"no_role": "No role for sponsors has been configured.",
+					"already_sponsor": "You are already a sponsor.",
+					"no_oc_user": "No Open Collective user with the slug `{{slug}}` has been found.",
+					"no_oc_sponsor": "No Open Collective contribution associated with the slug `{{slug}}` has been found.",
+					"no_oc_tag": "No Discord id has been found in your Open Collective profile.\nTo add your Discord id as a tag on your Open Collective account open Settings->Info->Tags and fill in your Discord id.",
+					"oc_id_mismatch": "The Discord id stored in your Open Collective profile tags does not match your Discord id."
+				},
+				"pending": "Do you want to claim your sponsor role on {{- guild}}?",
+				"buttons": {
+					"execute": "Claim"
+				},
+				"reason": "Claimed sponsor role",
+				"cancel": "Canceled claiming your sponsor role on {{- guild}}",
+				"success": "Successfully claimed your sponsor role on {{- guild}}"
+			}
+		}
+	},
+	"log": {
+		"history": {
+			"common": {
+				"errors": {
+					"no_history": "`No history found`"
+				},
+				"user_details": {
+					"title": "User details",
+					"description": "• Username: {{- user_mention}} - `{{- user_tag}}` ({{user_id}})\n• Created: {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`"
+				},
+				"member_details": {
+					"title": "Member details",
+					"description": {
+						"nickname": "• Nickname: `{{- nickname}}`",
+						"roles_one": "• Role ({{count}}): {{- roles}}",
+						"roles_other": "• Roles ({{count}}): {{- roles}}",
+						"joined": "• Joined: {{- joined_at}} ({{- joined_at_since}}) `{{joined_at_timestamp}}`"
+					}
+				}
+			},
+			"cases": {
+				"title": "Case History",
+				"summary": {
+					"warning_one": "{{count}} warning",
+					"warning_other": "{{count}} warnings",
+					"restriction_one": "{{count}} restriction",
+					"restriction_other": "{{count}} restrictions",
+					"timeout_one": "{{count}} timeout",
+					"timeout_other": "{{count}} timeouts",
+					"kick_one": "{{count}} kick",
+					"kick_other": "{{count}} kicks",
+					"softban_one": "{{count}} softban",
+					"softban_other": "{{count}} softbans",
+					"ban_one": "{{count}} ban",
+					"ban_other": "{{count}} bans",
+					"unban_one": "{{count}} unban",
+					"unban_other": "{{count}} unbans"
+				},
+				"action_label": {
+					"restriction": "Restrict",
+					"restriction_case": "Role",
+					"unrestriction": "Unrestrict",
+					"unrestriction_case": "Unrole",
+					"warn": "Warn",
+					"kick": "Kick",
+					"softban": "Softban",
+					"ban": "Ban",
+					"unban": "Unban",
+					"timeout": "Timeout",
+					"timeout_end": "Timeout End",
+					"unknown": "Unknown"
+				}
+			},
+			"reports": {
+				"title": "Report History",
+				"user_role": {
+					"author": "Author",
+					"target": "Target"
+				},
+				"summary": {
+					"target": "{{count}}x reported",
+					"author_one": "{{count}} report authored",
+					"author_other": "{{count}} reports authored",
+					"spam_one": "{{count}} spam report",
+					"spam_other": "{{count}} spam reports"
+				},
+				"status_label": {
+					"pending": "Pending",
+					"approved": "Approved",
+					"rejected": "Rejected",
+					"spam": "Spam",
+					"unknown": "Unknown"
+				}
+			}
+		},
+		"mod_log": {
+			"case_log": {
+				"description": "**Member**: `{{- target_tag}}` ({{target_id}})\n**Action**: {{- action}}",
+				"expiration": "\n**Expiration**: {{- time}}",
+				"context": "**Context:** {{- link}}",
+				"context_sub": "Beam me up, Yuu",
+				"reason": "\n**Reason:** {{- reason}}",
+				"reason_fallback": "\n**Reason:** Use `/reason {{case_id}} <...reason>` to set a reason for this case",
+				"case_reference": "\n**Case Reference:** {{- ref}} ({{action}})",
+				"report_reference": "\n**Report Reference:** {{- report_ref}}",
+				"footer": "Case {{case_id}}"
+			},
+			"anti_raid_nuke": {
+				"description": "**Action**: Anti-Raid-Nuke\n**Reason:** {{- reason}}\n**Hit count:** {{count}}",
+				"report": "**Report:** {{- link}}",
+				"report_sub": "Beam me up, Yuu",
+				"footer": "Cases {{from}}-{{to}}"
+			},
+			"scam": {
+				"reason": "Scam detection"
+			},
+			"spam": {
+				"reason": "Spam detection",
+				"reason_mentions": "Mention spam detection"
+			},
+			"auto_mod": {
+				"keyword": "Message contained a keyword defined in AutoMod rule",
+				"keyword_preset": "Message flagged by AutoMod",
+				"harmful_link": "Message contained a harmful link",
+				"spam": "Message was detected as spam",
+				"default": "Message flagged by AutoMod"
+			}
+		},
+		"member_log": {
+			"description": "• Username: {{- user_mention}} - `{{- user_tag}}` ({{user_id}})\n• Created: {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`",
+			"joined_at": "\n• Joined: {{- joined_at}} ({{- joined_at_since}}) `{{joined_at_timestamp}}`",
+			"left_at": "\n• Left: {{- left_at}} ({{- left_at_since}})",
+			"footer": {
+				"joined": "User joined",
+				"left": "User left"
+			}
+		},
+		"guild_log": {
+			"message_updated": {
+				"title": "Message updated",
+				"channel": "• Channel: {{- channel}}",
+				"jump_to": "• [Jump to]({{- link}})"
+			},
+			"message_deleted": {
+				"title": "Message deleted",
+				"channel": "• Channel: {{- channel}}",
+				"embeds": "• Embeds: {{- embeds}}",
+				"attachments": "• Attachments: {{- attachments}}",
+				"stickers": "• Stickers: {{- stickers}}",
+				"jump_to": "• [Jump to]({{- link}})",
+				"reply_to": "• Replying to [{{message_id}}]({{- message_url}}) by `{{- user_tag}}` ({{user_id}})",
+				"reply_to_mentions": "• @Replying to [{{message_id}}]({{- message_url}}) by `{{- user_tag}}` ({{user_id}})"
+			},
+			"message_bulk_deleted": {
+				"title": "Message deleted bulk",
+				"multiple_authors": "Multiple authors",
+				"description": "• Channel: {{- channel}}\n• Logs: See attachment file for full logs (possibly above this embed)",
+				"attachment": "↳ Attachment: {{- url}}",
+				"sticker": "↳ Sticker: {{- name}}",
+				"reply_to": "↳ Replying to {{message_id}} ({{- message_url}}) by {{- user_tag}} ({{user_id}})",
+				"reply_to_mentions": "↳ @Replying to {{message_id}} ({{- message_url}}) by {{- user_tag}} ({{user_id}})"
+			},
+			"voice_state_update": {
+				"title": "Voice state update",
+				"joined": "Joined {{- channel}}",
+				"moved": "Moved from {{- from_channel}} to {{- to_channel}}",
+				"left": "Left {{- channel}}"
+			},
+			"thread_created": {
+				"title": "Thread created",
+				"channel": "• Thread: {{- channel}} {{- name}} {{channel_id}}",
+				"starter": "• Starter message: {{message_id}}",
+				"jump_to": "• [Jump to starter message]({{- link}})"
+			},
+			"thread_deleted": {
+				"title": "Thread deleted",
+				"channel": "• Thread: {{- name}} {{channel_id}}",
+				"starter": "• Starter message: {{message_id}}",
+				"jump_to": "• [Jump to starter message]({{- link}})"
+			},
+			"messages_cleared": {
+				"title": "Messages cleared",
+				"messages_one": "• Message: {{count}}",
+				"messages_other": "• Messages: {{count}}",
+				"authors_one": "• Author: {{count}}",
+				"authors_other": "• Authors: {{count}}",
+				"time": "• Timespan: {{time}}"
+			}
+		},
+		"anti_raid_nuke": {
+			"pending": "The report for the Anti-Raid-Nuke is being processed...",
+			"title": "Anti-Raid-Nuke launched",
+			"description": "• Moderator: {{- moderator}}\n• Hit count: {{count}}"
+		},
+		"report_log": {
+			"reason": "**Reason:**\n{{- reason}}",
+			"target": "**Reported User:** {{- target}}",
+			"message": "**Message:** {{- message_link}} ({{- channel}})",
+			"message_sub": "Beam me up, Yuu",
+			"message_fallback": "`Message deleted`",
+			"case_reference": "**Case Reference:** {{- ref}} ({{action}})",
+			"status": "**Status:** $t(log.report_log.report_status.{{status}})",
+			"moderator": "**Moderator:** {{- mod}}",
+			"updated_at": "**Updated at:** {{- updated_at}}",
+			"footer": "Hint: To resolve a report: Change the status forum label, reference it in a case, set the reference for an existing case with /reference, or set the status via /reports status",
+			"forward": {
+				"message": "**Message report forwarded**\n • Author: {{- author}}\n • Reason: {{- reason}}",
+				"user": "**Attachment forwarded**\n • Author: {{- author}}\n • Reason: {{- reason}}",
+				"errors": {
+					"generic": "There was an error forwarding the report.",
+					"no_thread": "There was an error forwarding the report the associated thread could not be found."
+				}
+			},
+			"report_status": {
+				"0": "Pending",
+				"1": "Approved",
+				"2": "Rejected",
+				"3": "Spam"
+			}
+		}
+	},
+	"formatters": {
+		"formatting": {
+			"guild_member": "{{- id}}| Joined: {{- join}} | Created: {{- creation}} | {{- tag}}"
+		},
+		"anti_raid_nuke": {
+			"case_placeholder": "Preliminary",
+			"title": "Anti-Raid-Nuke report for {{- guild}}",
+			"title_preliminary": "Preliminary Anti-Raid-Nuke report for {{- guild}}",
+			"summary": {
+				"title": "**Summary**",
+				"mode": "**Mode:** `{{mode}}`",
+				"launch_time": "**Time of launch:** `{{- launch_time}}`",
+				"time_taken": "**Time taken:** `{{time_taken}}`",
+				"moderator": "**Moderator:** `{{- moderator}}`",
+				"reason": "**Reason:** `{{- reason}}`",
+				"preliminary": "This is a preliminary report. To launch the nuke, return to Discord.",
+				"preliminary_hidden": "You can only view a preliminary report when executing the command in hidden mode."
+			},
+			"results": {
+				"title": "**Results**",
+				"total": "**Total:** `{{count}}`",
+				"preliminary": {
+					"banned_one": "`{{count}}` member can be banned",
+					"banned_other": "`{{count}}` members can be banned",
+					"failed_one": "`{{count}}` member cannot be banned",
+					"failed_other": "`{{count}}` members cannot be banned"
+				},
+				"blast": {
+					"banned_one": "`{{count}}` member was successfully banned",
+					"banned_other": "`{{count}}` members were successfully banned",
+					"failed_one": "`{{count}}` member failed to be banned",
+					"failed_other": "`{{count}}` members failed to be banned"
+				},
+				"ratio": "Success rate: `{{ratio}}`"
+			},
+			"parameters": {
+				"title": "**Parameters**",
+				"avatar": "**Matching avatar:** `{{avatar}}`",
+				"pattern": {
+					"title": "**Pattern:** `{{- pattern}}`",
+					"confusables": "Pattern confusables mode: `$t(formatters.anti_raid_nuke.parameters.confusables.{{mode}})`",
+					"insensitive": "Pattern is case-insensitive",
+					"full_match": "Pattern is restricted to full matches"
+				},
+				"confusables": {
+					"title": "Confusables mode: `$t(formatters.anti_raid_nuke.parameters.confusables.{{mode}})`",
+					"0": "Disabled",
+					"1": "Pattern resistance only",
+					"2": "Filtering members only",
+					"3": "Filtering members and pattern resistance"
+				},
+				"created": {
+					"title": "**Creation range:**",
+					"after": "Created after: `{{- after}}`",
+					"before": "Created before: `{{- before}}`"
+				},
+				"joined": {
+					"title": "**Join range:**",
+					"after": "Joined after: `{{- after}}`",
+					"before": "Joined before: `{{- before}}`"
+				},
+				"file": {
+					"title": "**File:** `{{- file}}`",
+					"placeholder": "<CDN link>"
+				},
+				"days_zero": "Not deleting any messages",
+				"days_one": "Deleting messages sent in the last day",
+				"days_other": "Deleting messages sent in the last `{{count}}` days",
+				"zalgo": "Filtering members with zalgo in their username",
+				"none": "Not specified"
+			},
+			"cases": {
+				"title": "**Cases**",
+				"single": "Case `#{{case_id}}`",
+				"range": "From case `#{{from}}` to case `#{{to}}`",
+				"none": "No case created for this blast",
+				"log_message": "**Case log:** {{- link}}",
+				"log_message_sub": "Beam me up, Yuu",
+				"log_message_none": "**Case log:** No case log created"
+			},
+			"preliminary": {
+				"successes": {
+					"title": "**Projected Hits**",
+					"none": "No potential hits"
+				},
+				"fails": {
+					"title": "**Projected Failures**",
+					"none": "No early detectable failures"
+				}
+			},
+			"blast": {
+				"successes": {
+					"title": "**Confirmed hits**",
+					"none": "No confirmed hits, something went wrong"
+				},
+				"fails": {
+					"title": "**Failures**",
+					"none": "No failures, everything went fine"
+				}
+			},
+			"table": {
+				"success_titles": ["Case id", "Member id", "Username"],
+				"fail_titles": ["Member id", "Username", "Error"]
+			}
+		},
+		"report_log": {
+			"author": "Reported by {{- author}}",
+			"reason": "**Reason:**\n{{- reason}}",
+			"target": "**Target:** {{- target}}",
+			"message": "**Message:** {{- message_link}} ({{- channel}})",
+			"message_sub": "Beam me up, Yuu",
+			"case_reference": "**Case Reference:** {{- ref}}",
+			"status": "**Status:** $t(log.report_log.report_status.{{status}})",
+			"footer": "Report {{report_id}} | $t(log.report_log.report_type.{{type}})",
+			"report_type": {
+				"0": "Message",
+				"1": "User"
+			},
+			"report_status": {
+				"0": "Pending",
+				"1": "Approved",
+				"2": "Rejected",
+				"3": "False"
+			}
+		}
+	}
+}
