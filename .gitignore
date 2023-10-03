@@ -1,9 +1,0 @@
-config.json
-node_modules
-.env
-*.env
-package-lock.json
-package.json
-src/config.json
-src/config.json
-dist/
