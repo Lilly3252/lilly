@@ -13,7 +13,7 @@ Framework used: @Yuudachi/framework
 
 |Name | Subcommand| Option | Description |
 |:-----:|:--:|:--:|:-----:|
-|ping| ❌| ❌ |Lilly's ping|
+|ping| ❌| hide |Lilly's ping|
 
 
 ## Acknowledgements
