@@ -181,7 +181,7 @@
 					},
 					"reason": "Anti-Raid-Nuke `({{current}}/{{count}})`",
 					"pending_one": "Anti-Raid-Nuke va toucher `{{count}}` membres.",
-					"pending_other": "Anti-Raid-Nuke est configurer pour toucher `{{count}}` membres.\n• Cree durant `{{creation_range}}`\n• Rejoint durant `{{join_range}}`",
+					"pending_other": "Anti-Raid-Nuke est configurer pour toucher `{{count}}` membres.\n• Créé durant `{{creation_range}}`\n• Rejoint durant `{{join_range}}`",
 					"buttons": {
 						"execute": "Lancer",
 						"formatted": "Rapport formater"
@@ -192,17 +192,17 @@
 				},
 				"filter": {
 					"errors": {
-						"invalid_avatar": "Format de l'avatar invalide, doit être un hash pure , ID, URL ou `rien`",//
+						"invalid_avatar": "Format de l'avatar invalide, doit être un hash pure , ID, URL ou `rien`",
 						"pattern_format": "Modèle invalide."
 					},
 					"parameters": {
 						"join": {
-							"before": "• Joined before: {{- date}}",
-							"after": "• Joined after: {{- date}}"
+							"before": "• Join avant: {{- date}}",
+							"after": "• Join après: {{- date}}"
 						},
 						"created": {
-							"before": "• Account created before: {{- date}}",
-							"after": "• Account created after: {{- date}}"
+							"before": "• Compte créé avant: {{- date}}",
+							"after": "• Compte créé après: {{- date}}"//
 						},
 						"pattern": "• Username matching pattern:",
 						"avatar": "• Avatar hash (user or member) matching: `{{- avatar}}`",

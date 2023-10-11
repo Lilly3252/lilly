@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 
 export const SlowmodeCommand = {
-	name: "Slowmode",
+	name: "slowmode",
 	description: "Enabling a slowmode on the current channel.",
 	description_localizations: {
 		fr: "Instaurer un slowmode sur le channel courant.",
@@ -17,6 +17,17 @@ export const SlowmodeCommand = {
 				fr: "Masque(cacher) le résultat",
 			},
 			type: ApplicationCommandOptionType.Boolean,
+		},
+		{
+			name: "channel",
+			name_localizations: {
+				fr: "channel",
+			},
+			description: "Channel for the slowmode",
+			description_localizations: {
+				fr: "Channel pour le slowmode",
+			},
+			type: ApplicationCommandOptionType.Channel,
 		},
         {
 			name: "time",
