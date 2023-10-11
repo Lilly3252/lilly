@@ -1,4 +1,4 @@
-import { ApplicationCommandType, Client, Events } from 'discord.js';
+import { Client, Events } from 'discord.js';
 import { inject, injectable } from 'tsyringe';
 
 import {
@@ -13,38 +13,38 @@ export default class implements Event {
   public event = Events.InteractionCreate as const;
 
   public constructor(
-    public readonly client: Client<true>,@inject(kCommands) public readonly commands: Map<string, Command>,
+    public readonly client: Client<true>,
+    @inject(kCommands) public readonly commands: Map<string, Command>
   ) {}
- 
+
   public async execute(): Promise<void> {
     this.client.on(this.event, async (interaction) => {
       const locale = "en-US";
       const effectiveLocale = locale ?? interaction.locale;
+      if(!interaction.inCachedGuild()){return}
       if (
-				!interaction.isCommand() &&
-				!interaction.isUserContextMenuCommand() &&
-				!interaction.isMessageContextMenuCommand() &&
-				!interaction.isAutocomplete()
-			) {
-				return;
-			}
-      if (!interaction.inCachedGuild()) {
+        !interaction.isCommand() &&
+        !interaction.isUserContextMenuCommand() &&
+        !interaction.isMessageContextMenuCommand() &&
+        !interaction.isAutocomplete()
+      ) {
         return;
       }
-      switch (interaction.commandType) {
-        case ApplicationCommandType.ChatInput: {
-          
-          if (interaction.isChatInputCommand()) {
-        const command = this.commands.get(interaction.commandName.toLowerCase())
-        console.log(command) // Undefined-ish ?
-          await command.chatInput( // TypeError: Cannot read properties of undefined (reading 'chatInput')
+
+      if (interaction.isChatInputCommand()) {
+        const command = this.commands.get(
+          interaction.commandName.toLowerCase()
+        );
+        console.log(command); // Undefined-ish ?
+        await command.chatInput(
+          // TypeError: Cannot read properties of undefined (reading 'chatInput')
           interaction,
           transformApplicationInteraction(interaction.options.data),
           effectiveLocale
         );
       }
 
-    if (interaction.isAutocomplete()) {
+      if (interaction.isAutocomplete()) {
         try {
           const command = interaction.client.commands.get(
             interaction.commandName.toLowerCase()
@@ -59,11 +59,7 @@ export default class implements Event {
         } catch (err: unknown) {
           return interaction.respond([]);
         }
-      }}break;
-  
-  }
-      
-      
+      }
     });
   }
 }
