@@ -20,7 +20,7 @@ const client = createClient({
     partials:[]
 })
 createCommands()
-client.commands = new Collection()
+client.commands = new Collection() // dont actually know if i need that or not..
 
 
 
@@ -43,7 +43,7 @@ client.commands = new Collection()
        logger.info(
         { command: { name: slashy.name?.join(", ") ?? cmdInfo.name } },
         `Registering command: ${slashy.name?.join(", ") ?? cmdInfo.name}`,
-    );
+    ); // logger meant to be removed as soon as it starts working .. lol
       if (slashy.name) {
         for (const name of slashy.name) {
           commands.set(name.toLowerCase(), slashy);
@@ -53,11 +53,11 @@ client.commands = new Collection()
 }
   for await (const eventFile of eventFiles) {
     const dynamic = dynamicImport<new () => Event>(async () => import(pathToFileURL(eventFile.fullPath).href));
-    const event_ = container.resolve<Event>((await dynamic()).default);
-    if (event_.disabled) {
+    const lillyevent = container.resolve<Event>((await dynamic()).default);
+    if (lillyevent.disabled) {
         continue;
     }
-    void event_.execute();
+    void lillyevent.execute();
   }
 
 
