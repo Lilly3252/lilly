@@ -1,7 +1,8 @@
 # Lilly bot 
 
 Discord wrapper: Discord.js v14 \
-Framework used: @Yuudachi/framework 
+Framework used: @Yuudachi/framework \
+Language: English & French
 
 ### Commands and Subcommands
 #### Moderation
@@ -19,7 +20,7 @@ Framework used: @Yuudachi/framework
 ## Acknowledgements
 
  - [Discord.js](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
-
+- iCrawl - [Yuudachi](https://github.com/Naval-Base/yuudachi/tree/main) 
 
 
 ## Authors
