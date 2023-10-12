@@ -22,11 +22,22 @@ export default class implements Event {
       const locale = "en-US";
       const effectiveLocale = locale ?? interaction.locale;
       if(!interaction.inCachedGuild()){return}
-
+      if (
+        !interaction.isCommand() &&
+        !interaction.isUserContextMenuCommand() &&
+        !interaction.isMessageContextMenuCommand() &&
+        !interaction.isAutocomplete()
+      ) {
+        return;
+      }
+      
       if (interaction.isChatInputCommand()) {
+        console.log(interaction)
         const command = this.commands.get(
-          interaction.commandName.toLowerCase()
+          interaction.commandName
         );
+       
+        
         console.log(command); // Undefined-ish ?
         await command.chatInput(
           // TypeError: Cannot read properties of undefined (reading 'chatInput')
@@ -35,6 +46,7 @@ export default class implements Event {
           effectiveLocale
         );
       }
+    
 
       if (interaction.isAutocomplete()) {
         try {
