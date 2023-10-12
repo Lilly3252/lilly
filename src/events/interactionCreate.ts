@@ -22,14 +22,6 @@ export default class implements Event {
       const locale = "en-US";
       const effectiveLocale = locale ?? interaction.locale;
       if(!interaction.inCachedGuild()){return}
-      if (
-        !interaction.isCommand() &&
-        !interaction.isUserContextMenuCommand() &&
-        !interaction.isMessageContextMenuCommand() &&
-        !interaction.isAutocomplete()
-      ) {
-        return;
-      }
 
       if (interaction.isChatInputCommand()) {
         const command = this.commands.get(
