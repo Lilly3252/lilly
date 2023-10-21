@@ -19,7 +19,7 @@ Language: English & French
 
 ## Acknowledgements
 
- - [Discord.js](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+ - [Discord.js](https://github.com/discordjs/discord.js)
 - iCrawl - [Yuudachi](https://github.com/Naval-Base/yuudachi/tree/main) 
 
 
