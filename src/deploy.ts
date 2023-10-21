@@ -1,6 +1,6 @@
 import process from 'node:process';
 
-import { PingCommand, SlowmodeCommand } from '#slashyInformations/index.js';
+import * as command from '#slashyInformations/index.js';
 import { Routes } from 'discord-api-types/v10';
 import { config } from 'dotenv';
 
@@ -18,7 +18,18 @@ try {
       process.env.GUILD_ID!
     ),
     {
-      body: [PingCommand , SlowmodeCommand],
+      body: [
+        command.PingCommand , 
+        command.SlowmodeCommand,
+        command.BanCommand,
+        command.InfoCommand,
+        command.KickCommand,
+        command.LockCommand,
+        command.RestrictCommand,
+        command.SettingCommand,
+        command.TimeoutCommand,
+        command.UnbanCommand
+      ],
     }
   );
   console.log("Successfully reloaded interaction (/) commands.");

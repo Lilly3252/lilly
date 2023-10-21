@@ -1,8 +1,9 @@
 import { Client, Events } from 'discord.js';
 import { inject, injectable } from 'tsyringe';
 
+import type { Command } from '@yuudachi/framework';
 import {
-  Command, kCommands, transformApplicationInteraction,
+  kCommands, logger, transformApplicationInteraction,
 } from '@yuudachi/framework';
 import type { Event } from '@yuudachi/framework/types';
 
@@ -18,22 +19,24 @@ export default class implements Event {
   ) {}
 
   public async execute(): Promise<void> {
+
     this.client.on(this.event, async (interaction) => {
       const locale = "en-US";
       const effectiveLocale = locale ?? interaction.locale;
       if(!interaction.inCachedGuild()){return}
       
-      
       if (interaction.isChatInputCommand()) {
-        console.log(interaction)
+
         const command = this.commands.get(
           interaction.commandName
-        );
+        )
        
-        
-        console.log(command); // Undefined-ish ?
+        logger.info(
+          { command: { name: interaction.commandName, type: interaction.type }, userId: interaction.user.id },
+          `Executing ${interaction.isAutocomplete() ? "autocomplete" : "chatInput command"} ${interaction.commandName}`,
+        );
+
         await command.chatInput(
-          // TypeError: Cannot read properties of undefined (reading 'chatInput')
           interaction,
           transformApplicationInteraction(interaction.options.data),
           effectiveLocale
@@ -43,8 +46,8 @@ export default class implements Event {
 
       if (interaction.isAutocomplete()) {
         try {
-          const command = interaction.client.commands.get(
-            interaction.commandName.toLowerCase()
+          const command = this.commands.get(
+            interaction.commandName
           );
           if (command) {
             await command.autocomplete(

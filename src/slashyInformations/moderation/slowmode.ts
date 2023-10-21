@@ -1,4 +1,5 @@
 import { ApplicationCommandOptionType } from 'discord-api-types/v10';
+import { ChannelType } from 'discord.js';
 
 export const SlowmodeCommand = {
 	name: "slowmode",
@@ -28,6 +29,8 @@ export const SlowmodeCommand = {
 				fr: "Channel pour le slowmode",
 			},
 			type: ApplicationCommandOptionType.Channel,
+			channel_types: [ChannelType.GuildText,ChannelType.GuildVoice]
+			
 		},
         {
 			name: "time",
@@ -41,5 +44,6 @@ export const SlowmodeCommand = {
 			type: ApplicationCommandOptionType.Number,
 		}
 	],
+	
 	default_member_permissions: "0",
 } as const;
