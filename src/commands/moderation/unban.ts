@@ -14,6 +14,7 @@ export default class extends Command<typeof UnbanCommand> {
 	): Promise<void> {
 		if(!checkBotPermission(interaction.guild , "BanMembers")){
 			await interaction.reply({content:"no permission"})
+			return
 		}
 		interaction.reply("nope")
 	}}

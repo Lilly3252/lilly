@@ -13,7 +13,8 @@ export default class extends Command<typeof KickCommand> {
 		locale: LocaleParam,
 	): Promise<void> {
 		if(!checkBotPermission(interaction.guild , "KickMembers")){
-			await interaction.reply({content:"no permission"})
+			 await interaction.reply({content:"no permission"})
+			 return
 		}
 		interaction.reply("nope")
 	}}

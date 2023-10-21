@@ -14,6 +14,7 @@ export default class extends Command<typeof TimeoutCommand> {
 	): Promise<void> {
 		if(!checkBotPermission(interaction.guild , "ModerateMembers")){
 			await interaction.reply({content:"no permission"})
+			return
 		}
 		interaction.reply("nope")
 	}}
