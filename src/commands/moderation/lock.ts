@@ -18,6 +18,7 @@ export default class extends Command<typeof LockCommand> {
 
 if(!checkBotPermission(interaction.guild , "ManageChannels")){
 	await interaction.reply({content:"no permission"})
+	return
 }
 if(lock === true){
 	role.permissions.remove("SendMessages")

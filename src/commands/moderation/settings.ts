@@ -15,6 +15,7 @@ export default class extends Command<typeof SettingCommand> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 		if (!checkMemberPermission(interaction.member , "Administrator")) {
 			await interaction.editReply({content:"no permissions"});
+			return
 		  }
 		  console.log(`${checkMemberPermission(interaction.member , "Administrator")}`)
 		interaction.editReply("nope")

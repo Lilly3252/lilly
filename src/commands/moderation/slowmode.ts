@@ -19,6 +19,7 @@ const channel = (args.channel ?? interaction.channel)
     await interaction.deferReply({ ephemeral: args.hide ?? true });
     if(!checkBotPermission(interaction.guild , "ManageChannels")){
       await interaction.reply({content:"no permission"})
+      return
     }
     if(channel.isTextBased()){
       await channel.setRateLimitPerUser(args.time).then(async () => {

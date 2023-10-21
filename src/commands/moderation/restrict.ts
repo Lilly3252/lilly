@@ -20,6 +20,7 @@ export default class extends Command<typeof RestrictCommand> {
 	
     if (!checkBotPermission(interaction.guild , "ManageRoles")) {
       await interaction.reply({content:"no permissions"});
+	  return
     }
     if (!member.moderatable || !member.manageable) {
       await interaction.reply({content:"No can do"});
