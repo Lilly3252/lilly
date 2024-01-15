@@ -1,29 +1,15 @@
-import { Client, Guild, GuildMember, PermissionFlagsBits } from 'discord.js';
-import { container } from 'tsyringe';
+import { LocaleParam } from "@yuudachi/framework/types";
+import { ChatInputCommandInteraction, PermissionResolvable } from "discord.js";
+import i18next from "i18next";
 
-export function botPermissionDenied<P extends keyof typeof PermissionFlagsBits>(
-  permission: P
-): `❌ Error: i'm missing ${P} permission to use that command.` {
-  return `❌ Error: i'm missing ${permission} permission to use that command.`;
+export function permission(interaction: ChatInputCommandInteraction<"cached">, permission: PermissionResolvable) {
+	let locale: LocaleParam;
+	const perms = interaction.guild.members.me.permissions.has(permission);
+	if (!perms) {
+		interaction.editReply({
+			content: i18next.t("command.common.errors.permission_not_found", { permission: `${permission}`, lng: locale })
+		});
+		return perms;
+	}
+	return perms;
 }
-
-export function checkBotPermission<P extends keyof typeof PermissionFlagsBits>(
-  guildID: Guild,
-  permission: P
-) {
-  const client = container.resolve<Client<true>>(Client);
-  const guild = guildID;
-
-  return guild.members.me.permissions.has(permission);
-}
-
-export function checkMemberPermission<P extends keyof typeof PermissionFlagsBits>(
-  memberID: GuildMember,
-  permission: P
-) {
-  const client = container.resolve<Client<true>>(Client);
-  const member = memberID
-
-  return member.permissions.has(permission)
-}
-

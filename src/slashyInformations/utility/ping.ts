@@ -1,23 +1,23 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
+import { ApplicationCommandOptionType } from "discord-api-types/v10";
 
 export const PingCommand = {
 	name: "ping",
 	description: "check ping.",
 	description_localizations: {
-		fr: "Verification du ping.",
+		fr: "Verification du ping."
 	},
 	options: [
 		{
+			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
-				fr: "masquer",
+				fr: "masquer"
 			},
 			description: "Hides the output",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat",
-			},
-			type: ApplicationCommandOptionType.Boolean,
-		},
+				fr: "Masque(cacher) le résultat"
+			}
+		}
 	],
-	default_member_permissions: "0",
+	default_member_permissions: "0"
 } as const;

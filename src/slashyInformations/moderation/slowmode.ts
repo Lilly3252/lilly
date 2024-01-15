@@ -1,49 +1,50 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
-import { ChannelType } from 'discord.js';
+import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ChannelType } from "discord.js";
 
 export const SlowmodeCommand = {
 	name: "slowmode",
 	description: "Enabling a slowmode on the current channel.",
 	description_localizations: {
-		fr: "Instaurer un slowmode sur le channel courant.",
+		fr: "Instaurer un slowmode sur le channel courant."
 	},
 	options: [
 		{
-			name: "hide",
-			name_localizations: {
-				fr: "masquer",
-			},
-			description: "Hides the output",
-			description_localizations: {
-				fr: "Masque(cacher) le résultat",
-			},
-			type: ApplicationCommandOptionType.Boolean,
-		},
-		{
+			type: ApplicationCommandOptionType.Channel,
 			name: "channel",
 			name_localizations: {
-				fr: "channel",
+				fr: "channel"
 			},
 			description: "Channel for the slowmode",
 			description_localizations: {
-				fr: "Channel pour le slowmode",
+				fr: "Channel pour le slowmode"
 			},
-			type: ApplicationCommandOptionType.Channel,
-			channel_types: [ChannelType.GuildText,ChannelType.GuildVoice]
-			
+			channel_types: [ChannelType.GuildText, ChannelType.GuildVoice],
+			required: true
 		},
-        {
+		{
+			type: ApplicationCommandOptionType.Number,
 			name: "time",
 			name_localizations: {
-				fr: "temps",
+				fr: "temps"
 			},
 			description: "Time of the slowmode ( in seconds )",
 			description_localizations: {
-				fr: "Temps du slowmode ( en secondes )",
+				fr: "Temps du slowmode ( en secondes )"
 			},
-			type: ApplicationCommandOptionType.Number,
+			required: true
+		},
+		{
+			type: ApplicationCommandOptionType.Boolean,
+			name: "hide",
+			name_localizations: {
+				fr: "masquer"
+			},
+			description: "Hides the output",
+			description_localizations: {
+				fr: "Masque(cacher) le résultat"
+			}
 		}
 	],
-	
-	default_member_permissions: "0",
+
+	default_member_permissions: "0"
 } as const;

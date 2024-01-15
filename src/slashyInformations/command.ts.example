@@ -1,0 +1,36 @@
+import { ApplicationCommandOptionType } from 'discord-api-types/v10';
+
+//** DELETE WHAT YOU DONT NEED */ 
+//
+export const nameOf_Command = { // pingCommand / banCommand / settingCommand ... 
+  name: "",
+  name_localizations: {
+    fr: "",
+  },
+  description: "",
+  description_localizations: {
+    fr: "",
+  },
+  options: [
+    {
+      type: ApplicationCommandOptionType,// .boolean / .number.. 
+      name: "",
+      name_localizations: {
+        fr: "",
+      },
+      description: "",
+      description_localizations: {
+        fr: "",
+      },
+      choices: [ // Works only with type string OR number
+        {
+          name: "name",
+          value: "value", // can be a number
+        },
+    ]
+    },
+  ],
+  nsfw: "", // true / false (NOT IN STRING , i just wanted to get rid of the error)
+  dm_permission:"", // true / false (NOT IN STRING , i just wanted to get rid of the error)
+  default_member_permissions: "0",
+} as const;

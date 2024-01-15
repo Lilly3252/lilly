@@ -1,31 +1,33 @@
-import { LockCommand } from '#slashyInformations/index.js';
-import { checkBotPermission } from '#utils/index.js';
+import { LockCommand } from "#slashyInformations/index.js";
+import { permission } from "#utils/index.js";
 
-import { Command } from '@yuudachi/framework';
-import type {
-  ArgsParam, InteractionParam, LocaleParam,
-} from '@yuudachi/framework/types';
+import { Command } from "@yuudachi/framework";
+import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import i18next from "i18next";
 
 export default class extends Command<typeof LockCommand> {
 	public override async chatInput(
 		interaction: InteractionParam,
 		args: ArgsParam<typeof LockCommand>,
-		locale: LocaleParam,
+		locale: LocaleParam
 	): Promise<void> {
-		const role = interaction.guild.roles.everyone
-		const lock = args.activate
-		
+		await interaction.deferReply({ ephemeral: args.hide ?? true });
+		const role = interaction.guild.roles.everyone;
+		const lock = args.activate;
+		if (!permission(interaction, "ManageChannels")) {
+			return;
+		}
 
-if(!checkBotPermission(interaction.guild , "ManageChannels")){
-	await interaction.reply({content:"no permission"})
-	return
-}
-if(lock === true){
-	role.permissions.remove("SendMessages")
-	await interaction.reply({})
-}else{
-	role.permissions.add("SendMessages")
-	await interaction.reply({})
-}
+		if (lock === true) {
+			role.permissions.remove("SendMessages");
+			await interaction.editReply({
+				content: i18next.t("", { lng: locale })
+			});
+		} else {
+			role.permissions.add("SendMessages");
+			await interaction.editReply({
+				content: i18next.t("", { lng: locale })
+			});
+		}
 	}
 }

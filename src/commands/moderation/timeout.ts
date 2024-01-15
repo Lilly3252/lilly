@@ -1,20 +1,21 @@
-import { TimeoutCommand } from '#slashyInformations/index.js';
-import { checkBotPermission } from '#utils/index.js';
+import { TimeoutCommand } from "#slashyInformations/index.js";
+import { permission } from "#utils/index.js";
 
-import { Command } from '@yuudachi/framework';
-import type {
-  ArgsParam, InteractionParam, LocaleParam,
-} from '@yuudachi/framework/types';
+import { Command } from "@yuudachi/framework";
+import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import i18next from "i18next";
 
 export default class extends Command<typeof TimeoutCommand> {
 	public override async chatInput(
 		interaction: InteractionParam,
 		args: ArgsParam<typeof TimeoutCommand>,
-		locale: LocaleParam,
+		locale: LocaleParam
 	): Promise<void> {
-		if(!checkBotPermission(interaction.guild , "ModerateMembers")){
-			await interaction.reply({content:"no permission"})
-			return
+		await interaction.deferReply({ ephemeral: args.hide ?? true });
+		if (!permission(interaction, "ModerateMembers")) {
+			return;
 		}
-		interaction.reply("nope")
-	}}
+
+		interaction.editReply("nope");
+	}
+}

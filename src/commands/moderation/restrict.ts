@@ -1,44 +1,44 @@
-import { RestrictCommand } from '#slashyInformations/index.js';
-import { checkBotPermission } from '#utils/index.js';
-import { GuildMember } from 'discord.js';
+import { RestrictCommand } from "#slashyInformations/index.js";
+import { permission } from "#utils/index.js";
 
-import { Command } from '@yuudachi/framework';
-import type {
-  ArgsParam, InteractionParam, LocaleParam,
-} from '@yuudachi/framework/types';
+import { Command } from "@yuudachi/framework";
+import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import i18next from "i18next";
 
 export default class extends Command<typeof RestrictCommand> {
-  public override async chatInput(
-    interaction: InteractionParam,
-    args: ArgsParam<typeof RestrictCommand>,
-    locale: LocaleParam
-  ): Promise<void> {
-    const member = args.target as GuildMember;
-    const reason = args.reason;
-    const restriction = args.restriction;
-	
-	
-    if (!checkBotPermission(interaction.guild , "ManageRoles")) {
-      await interaction.reply({content:"no permissions"});
-	  return
-    }
-    if (!member.moderatable || !member.manageable) {
-      await interaction.reply({content:"No can do"});
-    }
+	public override async chatInput(
+		interaction: InteractionParam,
+		args: ArgsParam<typeof RestrictCommand>,
+		locale: LocaleParam
+	): Promise<void> {
+		await interaction.deferReply({ ephemeral: args.hide ?? true });
+		const member = args.target.member;
+		const reason = args.reason;
+		const restriction = args.restriction;
+		if (!permission(interaction, "ManageGuild")) {
+			return;
+		}
 
-    switch (restriction) {
-      case "embed": {
-        break;
-      }
-      case "reaction": {
-        break;
-      }
-      case "slash": {
-        break;
-      }
-      case "voice": {
-        break;
-      }
-    }
-  }
+		if (!member.moderatable) {
+			await interaction.editReply({
+				content: i18next.t("", { lng: locale })
+			});
+			return;
+		}
+
+		switch (restriction) {
+			case "embed": {
+				break;
+			}
+			case "reaction": {
+				break;
+			}
+			case "slash": {
+				break;
+			}
+			case "voice": {
+				break;
+			}
+		}
+	}
 }

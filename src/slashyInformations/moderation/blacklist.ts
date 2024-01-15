@@ -1,10 +1,14 @@
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 
-export const KickCommand = {
-	name: "kick",
-	description: "Kick a user.",
+export const BlacklistCommand = {
+	// pingCommand / banCommand / settingCommand ...
+	name: "blacklist",
+	name_localizations: {
+		fr: "liste-noire"
+	},
+	description: "Add a user to the blacklist.",
 	description_localizations: {
-		fr: "Kick un utilisateur"
+		fr: "Ajouter un membre a la liste noire"
 	},
 	options: [
 		{
@@ -13,23 +17,11 @@ export const KickCommand = {
 			name_localizations: {
 				fr: "target"
 			},
-			description: "Select a user to kick",
+			description: "User to be added",
 			description_localizations: {
-				fr: "Sélectionner l'utilisateur a kick"
+				fr: "Membre a ajouter"
 			},
 			required: true
-		},
-
-		{
-			type: ApplicationCommandOptionType.String,
-			name: "reason",
-			name_localizations: {
-				fr: "raison"
-			},
-			description: "Reason of the kick",
-			description_localizations: {
-				fr: "Raison du kick"
-			}
 		},
 		{
 			type: ApplicationCommandOptionType.Boolean,
@@ -37,9 +29,9 @@ export const KickCommand = {
 			name_localizations: {
 				fr: "masquer"
 			},
-			description: "Hides the output",
+			description: "Hides the output.",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat"
+				fr: "Masque(cacher) le résultat."
 			}
 		}
 	],

@@ -1,38 +1,35 @@
-import process from 'node:process';
+import process from "node:process";
 
-import * as command from '#slashyInformations/index.js';
-import { Routes } from 'discord-api-types/v10';
-import { config } from 'dotenv';
+import * as command from "#slashyInformations/index.js";
+import { Routes } from "discord-api-types/v10";
+import { config } from "dotenv";
 
-import { REST } from '@discordjs/rest';
+import { REST } from "@discordjs/rest";
 
 config();
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
 try {
-  console.log("Start refreshing interaction (/) commands.");
-  
-  await rest.put(
-    Routes.applicationGuildCommands(
-      process.env.CLIENT_ID!,
-      process.env.GUILD_ID!
-    ),
-    {
-      body: [
-        command.PingCommand , 
-        command.SlowmodeCommand,
-        command.BanCommand,
-        command.InfoCommand,
-        command.KickCommand,
-        command.LockCommand,
-        command.RestrictCommand,
-        command.SettingCommand,
-        command.TimeoutCommand,
-        command.UnbanCommand
-      ],
-    }
-  );
-  console.log("Successfully reloaded interaction (/) commands.");
+	console.log("Start refreshing interaction (/) commands.");
+
+	await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!), {
+		body: [
+			//moderation commands
+			command.SlowmodeCommand,
+			command.BanCommand,
+			command.BlacklistCommand,
+			command.KickCommand,
+			command.LockCommand,
+			command.RestrictCommand,
+			command.SettingCommand,
+			command.TimeoutCommand,
+			command.UnbanCommand,
+			//utility commands
+			command.PingCommand,
+			command.InfoCommand
+		]
+	});
+	console.log("Successfully reloaded interaction (/) commands.");
 } catch (error) {
-  console.error(error);
+	console.error(error);
 }
