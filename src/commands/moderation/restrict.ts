@@ -15,7 +15,7 @@ export default class extends Command<typeof RestrictCommand> {
 		const member = args.target.member;
 		const reason = args.reason;
 		const restriction = args.restriction;
-		if (!permission(interaction, "ManageGuild")) {
+		if (!(await permission(interaction, "ManageGuild"))) {
 			return;
 		}
 

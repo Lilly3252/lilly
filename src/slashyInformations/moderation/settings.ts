@@ -8,6 +8,14 @@ export const SettingCommand = {
 	},
 	options: [
 		{
+			name: "show",
+			description: "Show settings from the guild.",
+			description_localizations: {
+				fr: "Montrer les paramètres de guilde."
+			},
+			type: ApplicationCommandOptionType.Subcommand
+		},
+		{
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
