@@ -1,9 +1,9 @@
 {
-	
 	"command": {
 		"common": {
 			"errors": {
-				"generic": "Something went wrong.",
+				"generic": "Something went wrong. Skill issue I guess...",
+				"permission_not_found":"I'm missing `{{- perm}}` permissions to use that command.",
 				"no_enabled_module": "The `{{module}}` is not enabled on this guild.",
 				"duration_format": "Wrong duration format.",
 				"use_autocomplete": "Could not resolve the provided option. Make sure to select an autocomplete option.",
@@ -66,5 +66,25 @@
 				
 				}
 			}
-		}
+		},
+		"log":{
+			"member_log": {
+				"description": "• Username: {{- user_mention}} - `{{- user_tag}}` ({{user_id}})\n• Created: {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`",
+				"joined_at": "\n• Joined: {{- joined_at}} ({{- joined_at_since}}) `{{joined_at_timestamp}}`",
+				"left_at": "\n• Left: {{- left_at}} ({{- left_at_since}})",
+				"footer": {
+					"joined": "User joined",
+					"left": "User left"
+				}
+		},
+			"setting_log":{
+				"no_info":"No information yet.",
+				"channel_title":"Channels",
+				"channel_description":"**\u3000❯ Welcome Channel:** <#{{welcome_channel}}>\n **\u3000❯ Mod-Log Channel:** <#{{log_channel}}>\n **Anti-raid:** {{anti_raid_enabled}}\n **Audit Logs:** {{audit_log_enabled}}",
+				"event_title":"Event Updates",
+				"event_description":"**\u3000❯ Bot:** {{bot}}\n **\u3000❯ Roles:** {{role}}\n **\u3000❯ Guild:** {{guild}}\n **\u3000❯ Emojis:** {{emoji}}\n **\u3000❯ Threads:** {{thread}}\n **\u3000❯ Messages:** {{message}}\n **\u3000❯ Webhooks:** {{webhooks}}\n **\u3000❯ Stage Events:** {{stage}}\n ",
+				"event_description2":"**\u3000❯ Stickers:** {{sticker}}\n **\u3000❯ Channels:** {{channel}}\n **\u3000❯ Invitations:** {{invitations}}\n **\u3000❯ Integrations:** {{integration}}\n **\u3000❯ Guild Members:** {{guild_member}}\n **\u3000❯ Auto-Moderation:** {{auto_moderation}}\n **\u3000❯ Scheduled Events:** {{scheduled}}\n **\u3000❯ Commands Permissions:** {{cmd_perm}}"
+		},
+		"":{}
 	}
+}
