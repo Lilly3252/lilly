@@ -22,9 +22,7 @@ export const successful = {
 	blacklisted: "Successfully blacklisted.",
 	unlockChannel: "This channel has been unlocked!",
 	lockChannel: "This channel has been successfully locked for moderation purposes.",
-	ping: (latency: number, interaction: ChatInputCommandInteraction) =>
-		`- Bot Latency: \`${latency}ms\` , API Latency: \`${Math.round(interaction.client.ws.ping)}ms.\``,
-	slowmode: (time: number) => `Slowmode has been set to ${time} seconds.`,
+
 	restricted: (member: GuildMember | string) => `${member} was successfully restricted.`,
 	timeout: (member: GuildMember | string) => `${member} was successfully timed out.`,
 	deleted: (count: number | null) => `${count} messages has been deleted.`,

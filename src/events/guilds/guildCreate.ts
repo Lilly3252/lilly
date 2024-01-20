@@ -1,9 +1,8 @@
-import { on } from "node:events";
-
 import { Client, Events } from "discord.js";
 import { injectable } from "tsyringe";
 
 import type { Event } from "@yuudachi/framework/types";
+import { createSettings } from "#utils/index.js";
 
 @injectable()
 export default class implements Event {
@@ -14,6 +13,8 @@ export default class implements Event {
 	public constructor(public readonly client: Client<true>) {}
 
 	public async execute(): Promise<void> {
-		await on(this.client, this.event);
+		this.client.on(this.event, async (guild) => {
+			await createSettings(guild);
+		});
 	}
 }

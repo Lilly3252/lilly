@@ -1,6 +1,7 @@
 import guilds from "#database/models/guilds.js";
+import users from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
-import { Guild, PermissionResolvable } from "discord.js";
+import { ChatInputCommandInteraction, Guild, GuildMember, PermissionResolvable } from "discord.js";
 import i18next from "i18next";
 let locale: string;
 
@@ -14,11 +15,12 @@ export async function permission(interaction: InteractionParam, permission: Perm
 	}
 	return perms;
 }
-export async function createSettings(interaction: InteractionParam, guild?: Guild | undefined) {
-	await guilds
-		.create({
-			guildID: interaction.guild.id ?? guild.id,
-			name: interaction.guild.name ?? guild.name,
+
+export async function createSettings(param: Guild | ChatInputCommandInteraction<"cached">) {
+	if (param instanceof ChatInputCommandInteraction) {
+		await guilds.create({
+			guildID: param.guild.id,
+			name: param.guild.name,
 			auditLogEvent: false,
 			logChannelID: null,
 			welcomeChannelID: null,
@@ -43,14 +45,54 @@ export async function createSettings(interaction: InteractionParam, guild?: Guil
 					guildScheduledUpdate: false
 				}
 			]
-		})
-		.then((guild) => guild.save);
-	// need to turn interaction.editReply() multi language with i18n.
-	return createSettings;
+		});
+		return createSettings;
+	} else {
+		await guilds.create({
+			guildID: param.id,
+			name: param.name,
+			auditLogEvent: false,
+			logChannelID: null,
+			welcomeChannelID: null,
+			guildSettings: [
+				{
+					antiRaid: false,
+					botUpdate: false,
+					roleUpdate: false,
+					guildUpdate: false,
+					emojiUpdate: false,
+					inviteUpdate: false,
+					threadUpdate: false,
+					memberUpdate: false,
+					messageUpdate: false,
+					channelUpdate: false,
+					stickerUpdate: false,
+					webhookUpdate: false,
+					autoModeration: false,
+					integrationUpdate: false,
+					commandPermission: false,
+					stageInstanceUpdate: false,
+					guildScheduledUpdate: false
+				}
+			]
+		});
+		return createSettings;
+	}
 }
+
+export async function addUserBlacklist(member: GuildMember) {
+	await users.create({
+		guildID: member.guild.id,
+		userID: member.id,
+		blacklisted: true
+	});
+	return addUserBlacklist;
+}
+
 export function isEnabled(name: boolean) {
 	return name ? "Enabled" : "Disabled";
 }
+
 export function emojify(mode: boolean) {
 	return mode ? "✅" : "❌";
 }

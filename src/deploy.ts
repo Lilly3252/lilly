@@ -15,13 +15,13 @@ try {
 	await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!), {
 		body: [
 			//moderation commands
-			command.SlowmodeCommand,
 			command.BanCommand,
 			command.BlacklistCommand,
 			command.KickCommand,
 			command.LockCommand,
 			command.RestrictCommand,
 			command.SettingCommand,
+			command.SlowmodeCommand,
 			command.TimeoutCommand,
 			command.UnbanCommand,
 			//utility commands
@@ -29,6 +29,7 @@ try {
 			command.InfoCommand
 		]
 	});
+
 	console.log("Successfully reloaded interaction (/) commands.");
 } catch (error) {
 	console.error(error);
