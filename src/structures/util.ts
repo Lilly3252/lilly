@@ -122,22 +122,7 @@ export default class Utils {
 			for (const slashyFile of slashyFiles) {
 				const slashy: SlashCommand = await import(`../commands/${folder}/${slashyFile}`);
 				this.client.commands.set(slashy.slashy.name, slashy);
-			}/*
-			const contextFiles = fs.readdirSync(`./dist/src/commands/${folder}/`).filter((file: string) => file.endsWith('.js'));
-			for (const contextFile of contextFiles) {
-				const context: ContextCommand = await import(`../commands/${folder}/${contextFile}`);
-				this.client.commands.set(context.rightClickyBoi.name, context);
 			}
-			const modalFiles = fs.readdirSync(`./dist/src/commands/${folder}/`).filter((file: string) => file.endsWith('.js'));
-			for (const modalFile of modalFiles) {
-				const modal: ModalCommand = await import(`../commands/${folder}/${modalFile}`);
-				this.client.modals.set(modal.customId, modal);
-			}
-			const stringSelectFiles = fs.readdirSync(`./dist/src/commands/${folder}/`).filter((file: string) => file.endsWith('.js'));
-			for (const stringSelectFile of stringSelectFiles) {
-				const stringSelect: SelectMenu = await import(`../commands/${folder}/${stringSelectFile}`);
-				this.client.selectMenu.set(stringSelect.customId, stringSelect);
-			}*/
 		}
 	}
 	async loadEvents() {
