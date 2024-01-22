@@ -130,7 +130,7 @@ export default class Utils {
 		for (const eventFile of eventFiles) {
 			const event: event = await import(`../events/${eventFile}`);
 			if (event.once) {
-				this.client.on(event.name, (...args) => event.run(...args));
+				this.client.once(event.name, (...args) => event.run(...args));
 			} else {
 				this.client.on(event.name, (...args) => event.run(...args));
 			}
