@@ -14,7 +14,14 @@
 				"no_message_resolvable": "Provided value `{{-val}}` for argument `{{arg}}` is not a valid message link or id.",
 				"no_guild": "Could not find guild `{{guild_id}}`",
 				"no_channel": "Could not find channel `{{channel_id}}` in guild `{{- guild}}`",
-				"ignored_channel": "Resolving a message from an ignored channel is not allowed."
+				"text_too_long": "I can't send messages that are that long ! please limit your message under {{number}}.",
+				"already_muted": "This member is already muted, you cannot mute this member twice!",
+				"no_muted": "This member is not muted.",
+				"message_deleted": "An error occurred when deleting the messages, make sure they are not older than 14 days.",
+				"valid_amount": "Amount must be a valid number and below {{number}}.",
+				"no_user_banned": "This user is not banned.",
+				"no_guild_banned": "Nobody was banned from this server.",
+				"moderation_denied": "Moderation action cannot be done on this member."
 			},
 			"buttons": {
 				"cancel": "Cancel",
@@ -24,13 +31,23 @@
 		"config": {
 			"common": {
 				"errors": {
-					"no_settings": "No guild settings have been initialized yet."
+					"no_settings": "No guild settings have been initialized yet. Lemme create one for you ! , should work this time..."
 				}
+			},
+			"events":{
+				"enabled":"✅ {{event}} is now enabled.",
+				"disabled":"✅ {{event}} is now disabled.",
+				"channel_set":"✅ {{channel}} has been set to {{channel_id}}.",
+				"channel_removed":"✅ The channel has been removed , now set to `null`."
 			}
 		},
 		"mod": {
 			"common": {
 				"errors": {
+					"no_user_id": "That's not a user ID!",
+					"no_channel_id": "You need to tell me a channel ID to work..",
+					"not_number": "{{number}} is not a number...?",
+					"no_mention": "Please mention a user!",
 					"max_length_reason": "Maximum length of `{{reason_max_length}}` for reason exceeded.",
 					"not_a_text_channel": "{{- channel}} is not a text channel.",
 					"no_case": "Cannot find case `#{{case}}`",
@@ -39,7 +56,8 @@
 					"case_lower_one": "Case ids have to be above `0`",
 					"no_reference_case": "Cannot find reference case `#{{case}}`",
 					"already_processed": "{{- user}} with case {{- case}} has no running restrictions.",
-					"no_reference_report": "Cannot find reference report `#{{report}}`"
+					"no_reference_report": "Cannot find reference report `#{{report}}`",
+					"no_tag_found": "Unfortunately , no tag has been found for {{name}}"
 				},
 				"reasons": [
 					"Troll",
@@ -58,12 +76,14 @@
 			},
 			"slowmode": {
 				"success":"Successfully put slowmode on {{- channel }} with duration of {{- time}} seconds"
+			},
+			"ban":{
+				"success":"Successfully banned {{user}}"
 			}
 		},
 		"utility":{
 			"ping":{
 				"success":"{{- response}} - Bot latency : {{- bot_latency}}ms , API latency: {{- API_latency}} ms"
-				
 				}
 			}
 		},
