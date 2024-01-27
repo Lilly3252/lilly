@@ -1,22 +1,4 @@
-import { ChatInputCommandInteraction, GuildMember, User } from "discord.js";
-
-export const errors = {
-	questionTextTooLong: "I can't answer questions that long ! please limit your message under 2000char.",
-	textTooLong: "I can't send messages that are that long ! please limit your message under 2000char.",
-	notTextChan: "I cant send messages in a channel that is not a text channel.",
-	noMention: "Please mention a user!",
-	alreadyMuted: "This member is already muted, you cannot mute this member twice!",
-	noMuted: "This member is not muted.",
-	notNumber: "This is not a number...?",
-	messageDeleted: "An error occurred when deleting the messages, make sure they are not older than 14 days.",
-	validAmount: "Amount must be a valid number and below 100.",
-	noChannelID: "You need to tell me a channel ID to work..",
-	noUserID: "That's not a user ID!",
-	noUserBanned: "This user is not banned.",
-	noGuildBanned: "Nobody was banned from this server.",
-	moderationDenied: "Moderation action cannot be done on this member.",
-	noTagFound: (name: string) => `Unfortunately , no tag has been found for ${name}`
-};
+import { GuildMember, User } from "discord.js";
 
 export const successful = {
 	blacklisted: "Successfully blacklisted.",

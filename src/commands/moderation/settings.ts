@@ -3,6 +3,8 @@ import { createSettings, permission, settingEmbed } from "#utils/index.js";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
 import guilds from "#database/models/guilds.js";
+import i18next from "i18next";
+import { guild } from "#utils/types/database.js";
 
 export default class extends Command<typeof SettingCommand> {
 	public override async chatInput(
@@ -10,17 +12,34 @@ export default class extends Command<typeof SettingCommand> {
 		args: ArgsParam<typeof SettingCommand>,
 		locale: LocaleParam
 	): Promise<void> {
-		const channels = args.channels.channels;
-		const choice = args.audit_log.choice;
-		const chan = args.channels.channel;
+		//console.log(Object.keys(args));
+		const channels = interaction.options.getString("channels");
+		const choice = interaction.options.getString("choice");
+		const chan = interaction.options.getChannel("channel");
 		const guildSettings = await guilds.findOne({
 			guildID: interaction.guild.id
 		});
+		const doc = await guilds.findOne();
+
+		await someFunction(doc);
+
+		async function someFunction(doc: guild) {
+			if (doc.auditLogEvent === true) {
+				return console.log("im true here");
+			} else {
+				return console.log("in not true");
+			}
+		}
+
+		console.log(someFunction);
+
+		if (!(await permission(interaction, "ManageGuild"))) {
+			return;
+		}
 		if (!guildSettings) {
 			await createSettings(interaction);
 			await interaction.reply({
-				content:
-					"Hey turns out you had no settings , it has now been saved in our database, you can re-run that command now!",
+				content: i18next.t("command.config.common.errors.no_settings", { lng: locale }),
 				ephemeral: true
 			});
 			return;
@@ -28,80 +47,75 @@ export default class extends Command<typeof SettingCommand> {
 		switch (Object.keys(args)[0]) {
 			case "show": {
 				await interaction.deferReply({ ephemeral: args.show.hide ?? true });
-				if (!(await permission(interaction, "ManageGuild"))) {
-					return;
-				}
 				await interaction.editReply({ embeds: [settingEmbed(interaction, guildSettings, locale)] });
 				break;
 			}
 			case "audit_log": {
 				await interaction.deferReply({ ephemeral: args.audit_log.hide ?? true });
-				if (!(await permission(interaction, "ManageGuild"))) {
-					return;
-				}
-				if (choice) {
-					guildSettings.updateOne({ auditLogEvent: true }).then(() =>
-						interaction.editReply({
-							content: `✅ Audit log is now enabled`
-						})
-					);
-				} else {
-					await guildSettings.updateOne({ auditLogEvent: false }).then(() =>
-						interaction.editReply({
-							content: `✅ Audit log is now disabled`
-						})
-					);
-				}
-
+				choice
+					? guildSettings.updateOne({ auditLogEvent: true }).then(() =>
+							interaction.editReply({
+								content: i18next.t("command.config.events.enabled", {
+									event: args[0].name,
+									lng: locale
+								})
+							})
+						)
+					: await guildSettings.updateOne({ auditLogEvent: false }).then(() =>
+							interaction.editReply({
+								content: i18next.t("command.config.events.disabled", { event: args[0].name, lng: locale })
+							})
+						);
 				break;
 			}
 			case "channels": {
 				await interaction.deferReply({ ephemeral: args.channels.hide ?? true });
-				if (!(await permission(interaction, "ManageGuild"))) {
-					return;
-				}
+				const isTextBased = chan?.isTextBased();
 				switch (channels) {
 					case "welcomechannel":
 						{
-							if (chan?.isTextBased()) {
-								await guildSettings.updateOne({ welcomeChannelID: chan.id }).then(() =>
+							isTextBased
+								? await guildSettings.updateOne({ welcomeChannelID: chan.id }).then(() =>
+										interaction.editReply({
+											content: i18next.t("command.config.events.channel_set", {
+												channel: "Welcome Channel",
+												channel_id: chan,
+												lng: locale
+											})
+										})
+									)
+								: await guildSettings.updateOne({ welcomeChannelID: null }).then(() =>
+										interaction.editReply({
+											content: i18next.t("command.config.events.channel_removed", { lng: locale })
+										})
+									);
+						}
+
+						break;
+					case "modlog": {
+						isTextBased
+							? await guildSettings.updateOne({ logChannelID: chan.id }).then(() =>
 									interaction.editReply({
-										content: `✅ Welcome Channel has been set to ${chan}`
+										content: i18next.t("command.config.events.channel_set", {
+											channel: "Mod Logs",
+											channel_id: chan,
+											lng: locale
+										})
+									})
+								)
+							: await guildSettings.updateOne({ logChannelID: null }).then(() =>
+									interaction.editReply({
+										content: i18next.t("command.config.events.channel_removed", { lng: locale })
 									})
 								);
-							} else {
-								await guildSettings.updateOne({ welcomeChannelID: null });
-								interaction.editReply({
-									content: `✅ Welcome Channel has been removed`
-								});
-							}
-						}
-						break;
-					case "modlog":
-						{
-							if (chan?.isTextBased()) {
-								await guildSettings.updateOne({ logChannelID: chan.id }).then(() =>
-									interaction.editReply({
-										content: `✅ ModLog Channel has been set to ${chan}`
-									})
-								);
-								return;
-							} else {
-								await guildSettings.updateOne({ logChannelID: null });
-								interaction.editReply({
-									content: `✅ ModLog Channel has been removed`
-								});
-							}
-						}
-						break;
+					}
 				}
 				break;
 			}
+			//TODO !! events case
 			case "events": {
 				await interaction.deferReply({ ephemeral: args.events.hide ?? true });
-				if (!(await permission(interaction, "ManageGuild"))) {
-					return;
-				}
+
 				guildSettings.updateOne({ auditLogEvent: true });
 				break;
 			}

@@ -66,6 +66,7 @@ const eventFiles = readdirp(fileURLToPath(new URL("events", import.meta.url)), {
 for await (const eventFile of eventFiles) {
 	const dynamic = dynamicImport<new () => Event>(async () => import(pathToFileURL(eventFile.fullPath).href));
 	const lillyevent = container.resolve<Event>((await dynamic()).default);
+
 	if (lillyevent.disabled) {
 		continue;
 	}

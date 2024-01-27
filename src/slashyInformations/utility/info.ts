@@ -8,6 +8,17 @@ export const InfoCommand = {
 	},
 	options: [
 		{
+			type: ApplicationCommandOptionType.User,
+			name: "target",
+			name_localizations: {
+				fr: "target"
+			},
+			description: "get the member you want information from.",
+			description_localizations: {
+				fr: "Afficher le membre don vous voulez l'information."
+			}
+		},
+		{
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {

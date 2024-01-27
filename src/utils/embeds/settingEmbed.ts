@@ -27,7 +27,7 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 		const eventDescription: APIEmbedField = {
 			name: i18next.t("log.setting_log.event_title", { lng: locale }),
 			value: i18next.t("log.setting_log.event_description", {
-				bot: emojify(settings.botUpdate),
+				bot: emojify(settings.botUpdate).padStart(15, "\u3000"),
 				role: emojify(settings.roleUpdate),
 				guild: emojify(settings.guildUpdate),
 				emoji: emojify(settings.emojiUpdate),
@@ -58,29 +58,4 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 	}
 
 	return truncateEmbed(embed);
-} /*
-export function userInfo(target: { member?: GuildMember | undefined; user: User }, locale: string) {
-	let embed = addFields(
-		{
-			author: {
-				name: `${target.user.tag} (${target.user.id})`,
-				icon_url: target.user.displayAvatarURL()
-			}
-		},
-		{
-			name: i18next.t("log.history.common.user_details.title", { lng: locale }),
-			value: i18next.t("log.history.common.user_details.description", {
-				user_mention: target.user.toString(),
-				user_tag: target.user.tag,
-				user_id: target.user.id,
-				created_at: creationFormatted,
-				created_at_since: sinceCreationFormatted,
-				created_at_timestamp: target.user.createdTimestamp,
-				lng: locale
-			})
-		}
-	);
-	return truncateEmbed(embed);
 }
-export function roleInfo(role: Role) {}
-*/

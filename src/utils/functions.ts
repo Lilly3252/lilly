@@ -7,77 +7,52 @@ let locale: string;
 
 export async function permission(interaction: InteractionParam, permission: PermissionResolvable) {
 	const perms = interaction.guild.members.me.permissions.has(permission);
-	if (!perms) {
+	if (!perms && interaction.deferred) {
 		await interaction.editReply({
 			content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: locale })
 		});
 		return perms;
+	} else {
+		if (!perms && !interaction.deferred)
+			await interaction.reply({
+				content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: locale })
+			});
 	}
 	return perms;
 }
 
 export async function createSettings(param: Guild | ChatInputCommandInteraction<"cached">) {
-	if (param instanceof ChatInputCommandInteraction) {
-		await guilds.create({
-			guildID: param.guild.id,
-			name: param.guild.name,
-			auditLogEvent: false,
-			logChannelID: null,
-			welcomeChannelID: null,
-			guildSettings: [
-				{
-					antiRaid: false,
-					botUpdate: false,
-					roleUpdate: false,
-					guildUpdate: false,
-					emojiUpdate: false,
-					inviteUpdate: false,
-					threadUpdate: false,
-					memberUpdate: false,
-					messageUpdate: false,
-					channelUpdate: false,
-					stickerUpdate: false,
-					webhookUpdate: false,
-					autoModeration: false,
-					integrationUpdate: false,
-					commandPermission: false,
-					stageInstanceUpdate: false,
-					guildScheduledUpdate: false
-				}
-			]
-		});
-		return createSettings;
-	} else {
-		await guilds.create({
-			guildID: param.id,
-			name: param.name,
-			auditLogEvent: false,
-			logChannelID: null,
-			welcomeChannelID: null,
-			guildSettings: [
-				{
-					antiRaid: false,
-					botUpdate: false,
-					roleUpdate: false,
-					guildUpdate: false,
-					emojiUpdate: false,
-					inviteUpdate: false,
-					threadUpdate: false,
-					memberUpdate: false,
-					messageUpdate: false,
-					channelUpdate: false,
-					stickerUpdate: false,
-					webhookUpdate: false,
-					autoModeration: false,
-					integrationUpdate: false,
-					commandPermission: false,
-					stageInstanceUpdate: false,
-					guildScheduledUpdate: false
-				}
-			]
-		});
-		return createSettings;
-	}
+	const paramCondition = param instanceof ChatInputCommandInteraction;
+
+	await guilds.create({
+		guildID: paramCondition ? param.guild.id : param.id,
+		name: paramCondition ? param.guild.name : param.name,
+		auditLogEvent: false,
+		logChannelID: null,
+		welcomeChannelID: null,
+		guildSettings: [
+			{
+				antiRaid: false,
+				botUpdate: false,
+				roleUpdate: false,
+				guildUpdate: false,
+				emojiUpdate: false,
+				inviteUpdate: false,
+				threadUpdate: false,
+				memberUpdate: false,
+				messageUpdate: false,
+				channelUpdate: false,
+				stickerUpdate: false,
+				webhookUpdate: false,
+				autoModeration: false,
+				integrationUpdate: false,
+				commandPermission: false,
+				stageInstanceUpdate: false,
+				guildScheduledUpdate: false
+			}
+		]
+	});
+	return createSettings;
 }
 
 export async function addUserBlacklist(member: GuildMember) {
