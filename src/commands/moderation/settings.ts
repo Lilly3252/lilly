@@ -4,7 +4,6 @@ import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
 import guilds from "#database/models/guilds.js";
 import i18next from "i18next";
-import { guild } from "#utils/types/database.js";
 
 export default class extends Command<typeof SettingCommand> {
 	public override async chatInput(
@@ -12,26 +11,13 @@ export default class extends Command<typeof SettingCommand> {
 		args: ArgsParam<typeof SettingCommand>,
 		locale: LocaleParam
 	): Promise<void> {
-		//console.log(Object.keys(args));
+		const subCommands = interaction.options.getSubcommand();
 		const channels = interaction.options.getString("channels");
-		const choice = interaction.options.getString("choice");
+		const choice = interaction.options.getBoolean("choice");
 		const chan = interaction.options.getChannel("channel");
 		const guildSettings = await guilds.findOne({
 			guildID: interaction.guild.id
 		});
-		const doc = await guilds.findOne();
-
-		await someFunction(doc);
-
-		async function someFunction(doc: guild) {
-			if (doc.auditLogEvent === true) {
-				return console.log("im true here");
-			} else {
-				return console.log("in not true");
-			}
-		}
-
-		console.log(someFunction);
 
 		if (!(await permission(interaction, "ManageGuild"))) {
 			return;
@@ -44,7 +30,7 @@ export default class extends Command<typeof SettingCommand> {
 			});
 			return;
 		}
-		switch (Object.keys(args)[0]) {
+		switch (subCommands) {
 			case "show": {
 				await interaction.deferReply({ ephemeral: args.show.hide ?? true });
 				await interaction.editReply({ embeds: [settingEmbed(interaction, guildSettings, locale)] });
@@ -56,14 +42,14 @@ export default class extends Command<typeof SettingCommand> {
 					? guildSettings.updateOne({ auditLogEvent: true }).then(() =>
 							interaction.editReply({
 								content: i18next.t("command.config.events.enabled", {
-									event: args[0].name,
+									event: "Audit logs",
 									lng: locale
 								})
 							})
 						)
 					: await guildSettings.updateOne({ auditLogEvent: false }).then(() =>
 							interaction.editReply({
-								content: i18next.t("command.config.events.disabled", { event: args[0].name, lng: locale })
+								content: i18next.t("command.config.events.disabled", { event: "Audit logs", lng: locale })
 							})
 						);
 				break;

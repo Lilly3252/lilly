@@ -26,7 +26,8 @@ try {
 			command.UnbanCommand,
 			//utility commands
 			command.PingCommand,
-			command.InfoCommand
+			command.InfoCommand,
+			command.TagCommand
 		]
 	});
 

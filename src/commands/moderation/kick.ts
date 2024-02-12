@@ -12,7 +12,7 @@ export default class extends Command<typeof KickCommand> {
 		locale: LocaleParam
 	): Promise<void> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
-		if (!permission(interaction, "KickMembers")) {
+		if (!(await permission(interaction, "KickMembers"))) {
 			return;
 		}
 

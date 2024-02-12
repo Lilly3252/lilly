@@ -14,7 +14,7 @@ export default class extends Command<typeof SlowmodeCommand> {
 		const channel = args.channel ?? interaction.channel;
 
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
-		if (!permission(interaction, "ManageChannels")) {
+		if (!(await permission(interaction, "ManageChannels"))) {
 			return;
 		}
 

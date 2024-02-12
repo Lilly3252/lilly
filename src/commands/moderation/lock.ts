@@ -14,7 +14,7 @@ export default class extends Command<typeof LockCommand> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 		const role = interaction.guild.roles.everyone;
 		const lock = args.activate;
-		if (!permission(interaction, "ManageChannels")) {
+		if (!await permission(interaction, "ManageChannels")) {
 			return;
 		}
 

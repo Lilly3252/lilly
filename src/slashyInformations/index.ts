@@ -1,5 +1,6 @@
 export * from "./utility/ping.js";
 export * from "./utility/info.js";
+export * from "./utility/tag.js";
 export * from "./moderation/blacklist.js";
 export * from "./moderation/ban.js";
 export * from "./moderation/kick.js";

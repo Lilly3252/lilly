@@ -12,7 +12,7 @@ export default class extends Command<typeof TimeoutCommand> {
 		locale: LocaleParam
 	): Promise<void> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
-		if (!permission(interaction, "ModerateMembers")) {
+		if (!(await permission(interaction, "ModerateMembers"))) {
 			return;
 		}
 

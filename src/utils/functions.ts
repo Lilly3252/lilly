@@ -1,8 +1,10 @@
 import guilds from "#database/models/guilds.js";
 import users from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
-import { ChatInputCommandInteraction, Guild, GuildMember, PermissionResolvable } from "discord.js";
+import { ChatInputCommandInteraction, Guild, GuildMember, PermissionResolvable, User } from "discord.js";
 import i18next from "i18next";
+import { EmojifyOptions } from "./types/index.js";
+import { flags } from "./index.js";
 let locale: string;
 
 export async function permission(interaction: InteractionParam, permission: PermissionResolvable) {
@@ -68,6 +70,22 @@ export function isEnabled(name: boolean) {
 	return name ? "Enabled" : "Disabled";
 }
 
-export function emojify(mode: boolean) {
-	return mode ? "✅" : "❌";
+export function emojify({ mode, padStart = true, separator, space = 0 }: EmojifyOptions) {
+	const emoji = mode ? "✅" : "❌";
+
+	return padStart ? emoji.padStart(space, separator) : emoji.padEnd(space, separator);
+}
+
+export function getFlags(target: GuildMember | User) {
+	const targetparam = target instanceof GuildMember;
+
+	const flag = targetparam ? target.user.flags?.toArray() : target.flags.toArray();
+
+	return flag.length ? flag.map((a: string) => flags[a]).join(", ") : "None";
+}
+export function getRoles(target: GuildMember) {
+	return target.roles.cache
+		.sort((c, a) => a.position - c.position)
+		.map((a) => a.toString())
+		.slice(0, -1);
 }

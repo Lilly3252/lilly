@@ -12,20 +12,20 @@ export default class extends Command<typeof BlacklistCommand> {
 		args: ArgsParam<typeof BlacklistCommand>,
 		locale: LocaleParam
 	): Promise<void> {
-		if (!permission(interaction, "ManageGuild")) {
+		if (!(await permission(interaction, "ManageGuild"))) {
 			return;
 		}
 
-		const users = args.target.member ?? interaction.options.getMember("target");
-		const blacklist = await user.findOne({ userID: users.id });
+		const member = args.target.member ?? interaction.options.getMember("target");
+		const users = await user.findOne({ userID: member.id });
 
-		if (blacklist.blacklisted === true) {
+		if (users.blacklisted === true) {
 			interaction.editReply({
 				content: i18next.t("This user is already blacklisted.", { lng: locale })
 			});
 			return;
 		} else {
-			await addUserBlacklist(users).then(async () => {
+			await addUserBlacklist(member).then(async () => {
 				interaction.editReply({
 					content: i18next.t("This user has been added to the blacklist.", { lng: locale })
 				});

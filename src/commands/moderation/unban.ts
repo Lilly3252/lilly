@@ -12,7 +12,7 @@ export default class extends Command<typeof UnbanCommand> {
 		locale: LocaleParam
 	): Promise<void> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
-		if (!permission(interaction, "BanMembers")) {
+		if (!(await permission(interaction, "BanMembers"))) {
 			return;
 		}
 
