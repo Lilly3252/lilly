@@ -87,6 +87,17 @@
 				}
 			}
 		},
+		"info":{
+			"member":{
+				"name":"Member" , 
+				"value": "**❯ Nickname:** {{nickname}}\n**❯ ID:** {{id}}\n**❯ Flags:** {{- flags}}\n**❯ Roles:** {{- roles}}\n**❯ Avatar:** {{avatar}}\n**❯ Time Created:** {{- time_create}}\n**❯ Status:** {{status}}"
+			},
+			"user":{
+				"name":"Member" , 
+				"value": "**❯ ID:** {{id}}\n**❯ Flags:** {{flags}} \n**❯ Avatar:** {{avatar}}\n**❯ Time Created:** {{time_create}}"
+			
+			}
+		},
 		"log":{
 			"member_log": {
 				"description": "• Username: {{- user_mention}} - `{{- user_tag}}` ({{user_id}})\n• Created: {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`",
