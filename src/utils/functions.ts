@@ -56,7 +56,6 @@ export async function createSettings(param: Guild | ChatInputCommandInteraction<
 	});
 	return createSettings;
 }
-
 export async function addUserBlacklist(member: GuildMember) {
 	await users.create({
 		guildID: member.guild.id,
@@ -88,4 +87,11 @@ export function getRoles(target: GuildMember) {
 		.sort((c, a) => a.position - c.position)
 		.map((a) => a.toString())
 		.slice(0, -1);
+}
+export function formatBytes(a: number) {
+	if (a === 0) return "0 Bytes";
+	const b = Math.floor(Math.log(a) / Math.log(1024));
+	return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${
+		["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]
+	}`;
 }

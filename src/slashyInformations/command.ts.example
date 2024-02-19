@@ -11,6 +11,7 @@ export const nameOf_Command = { // pingCommand / banCommand / settingCommand ...
   description_localizations: {
     fr: "",
   },
+  //--------------------------FOR NORMAL COMMANDS --------------//
   options: [
     {
       type: ApplicationCommandOptionType,// .boolean / .number.. 
@@ -30,6 +31,40 @@ export const nameOf_Command = { // pingCommand / banCommand / settingCommand ...
     ]
     },
   ],
+  //-------------FOR SUB COMMANDS ONLY --------------------//
+  {
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "...",
+			description: "...",
+			description_localizations: {
+				fr: "..."
+			},
+			options: [
+				{
+					type: ApplicationCommandOptionType.Boolean, // .boolean / .number.. 
+					name: "..",
+					name_localizations: {
+						fr: ".."
+					},
+					description: "..",
+					description_localizations: {
+						fr: ".."
+					}
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean, // .boolean / .number.. 
+					name: "..",
+					name_localizations: {
+						fr: ".."
+					},
+					description: "...",
+					description_localizations: {
+						fr: "...."
+					}
+				}
+			]
+		}
+    //-------------------------------------//
   nsfw: "", // true / false (NOT IN STRING , i just wanted to get rid of the error)
   dm_permission:"", // true / false (NOT IN STRING , i just wanted to get rid of the error)
   default_member_permissions: "0",

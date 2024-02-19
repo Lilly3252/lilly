@@ -51,4 +51,12 @@ export const flags = {
 	VerifiedDeveloper: `${emoji.EarlyBotDeveloper}`,
 	CertifiedModerator: `${emoji.DiscordMod}`,
 	ActiveDeveloper: `${emoji.ActiveDeveloper}`
-};
+} as const;
+
+const botFlags = {
+	GatewayPresenceLimited: "Limited Presence",
+	GatewayGuildMembersLimited: "Limited guild member",
+	GatewayMessageContentLimited: "Limited message content",
+	ApplicationAutoModerationRuleCreateBadge: "AutoMod",
+	ApplicationCommandBadge: "Slash Command Supported"
+} as const;
