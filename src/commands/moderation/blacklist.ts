@@ -7,11 +7,7 @@ import i18next from "i18next";
 import user from "#database/models/users.js";
 
 export default class extends Command<typeof BlacklistCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof BlacklistCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof BlacklistCommand>, locale: LocaleParam): Promise<void> {
 		if (!(await permission(interaction, "ManageGuild"))) {
 			return;
 		}

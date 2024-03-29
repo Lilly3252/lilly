@@ -1,10 +1,9 @@
 import guilds from "#database/models/guilds.js";
 import users from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
-import { ChatInputCommandInteraction, Guild, GuildMember, PermissionResolvable, User } from "discord.js";
+import { ChatInputCommandInteraction, Guild, GuildMember, PermissionResolvable, Role, RoleMention } from "discord.js";
 import i18next from "i18next";
-import { EmojifyOptions } from "./types/index.js";
-import { flags } from "./index.js";
+import { EmojifyOptions, guild } from "./types/index.js";
 let locale: string;
 
 export async function permission(interaction: InteractionParam, permission: PermissionResolvable) {
@@ -75,13 +74,6 @@ export function emojify({ mode, padStart = true, separator, space = 0 }: Emojify
 	return padStart ? emoji.padStart(space, separator) : emoji.padEnd(space, separator);
 }
 
-export function getFlags(target: GuildMember | User) {
-	const targetparam = target instanceof GuildMember;
-
-	const flag = targetparam ? target.user.flags?.toArray() : target.flags.toArray();
-
-	return flag.length ? flag.map((a: string) => flags[a]).join(", ") : "None";
-}
 export function getRoles(target: GuildMember) {
 	return target.roles.cache
 		.sort((c, a) => a.position - c.position)
@@ -91,7 +83,21 @@ export function getRoles(target: GuildMember) {
 export function formatBytes(a: number) {
 	if (a === 0) return "0 Bytes";
 	const b = Math.floor(Math.log(a) / Math.log(1024));
-	return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${
-		["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]
-	}`;
+	return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]}`;
+}
+export function blacklistable(member: GuildMember, guild_db: guild) {
+	const settings = guild_db.safeRoles;
+	if (member.roles.highest.position > member.guild.members.me.roles.highest.position) {
+		return false;
+	}
+	if (member.roles.cache.find((role: Role) => role.id === settings.toString())) {
+		return false;
+	}
+}
+export function trimRole(array: RoleMention[], limit = 10) {
+	const sliced: Array<string> = array.slice(0, limit);
+	if (array.length > limit) sliced.push(`${array.length - limit} more...`);
+	if (!sliced.length) sliced.push("None.");
+
+	return sliced;
 }

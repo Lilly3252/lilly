@@ -7,11 +7,7 @@ import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framewo
 
 @injectable()
 export default class extends Command<typeof PingCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof PingCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof PingCommand>, locale: LocaleParam): Promise<void> {
 		const msg = await interaction.reply({
 			content: "Pinging...",
 			fetchReply: true,

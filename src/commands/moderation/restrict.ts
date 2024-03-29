@@ -6,11 +6,7 @@ import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framewo
 import i18next from "i18next";
 
 export default class extends Command<typeof RestrictCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof RestrictCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof RestrictCommand>, locale: LocaleParam): Promise<void> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 		const member = args.target.member;
 		const reason = args.reason;

@@ -9,15 +9,7 @@ import i18next from "i18next";
 import readdirp from "readdirp";
 
 import { Backend } from "@skyra/i18next-backend";
-import {
-	type Command,
-	commandInfo,
-	container,
-	createClient,
-	createCommands,
-	dynamicImport,
-	kCommands
-} from "@yuudachi/framework";
+import { type Command, commandInfo, container, createClient, createCommands, dynamicImport, kCommands } from "@yuudachi/framework";
 import type { Event } from "@yuudachi/framework/types";
 import mongoose from "mongoose";
 
@@ -26,21 +18,15 @@ config();
 const client = createClient({
 	intents: [
 		GatewayIntentBits.Guilds,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildModeration,
 		GatewayIntentBits.GuildPresences,
 		GatewayIntentBits.AutoModerationConfiguration,
 		GatewayIntentBits.AutoModerationExecution
 	],
-	partials: [
-		Partials.Message,
-		Partials.Channel,
-		Partials.Reaction,
-		Partials.User,
-		Partials.GuildMember,
-		Partials.GuildScheduledEvent,
-		Partials.ThreadMember
-	]
+	partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User, Partials.GuildMember, Partials.GuildScheduledEvent, Partials.ThreadMember]
 });
 createCommands();
 
@@ -49,6 +35,7 @@ console.log("db connected");
 const slashyFiles = readdirp(fileURLToPath(new URL("commands", import.meta.url)), {
 	fileFilter: ["*.js"]
 });
+
 const commands = container.resolve<Map<string, Command>>(kCommands);
 
 for await (const slashyFile of slashyFiles) {

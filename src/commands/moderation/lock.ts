@@ -6,15 +6,11 @@ import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framewo
 import i18next from "i18next";
 
 export default class extends Command<typeof LockCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof LockCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof LockCommand>, locale: LocaleParam): Promise<void> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 		const role = interaction.guild.roles.everyone;
 		const lock = args.activate;
-		if (!await permission(interaction, "ManageChannels")) {
+		if (!(await permission(interaction, "ManageChannels"))) {
 			return;
 		}
 

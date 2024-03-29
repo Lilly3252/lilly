@@ -22,12 +22,12 @@ try {
 			command.RestrictCommand,
 			command.SettingCommand,
 			command.SlowmodeCommand,
-			command.TestCommand,
 			command.TimeoutCommand,
 			command.UnbanCommand,
 			//utility commands
 			command.PingCommand,
 			command.InfoCommand,
+			command.TestCommand,
 			command.TagCommand
 		]
 	});

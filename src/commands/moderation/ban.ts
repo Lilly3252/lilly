@@ -5,11 +5,7 @@ import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framewo
 import i18next from "i18next";
 
 export default class extends Command<typeof BanCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof BanCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof BanCommand>, locale: LocaleParam): Promise<void> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 		if (!(await permission(interaction, "BanMembers"))) {
 			return;

@@ -27,6 +27,7 @@ const guildSchema = new Schema<guild>({
 			stageInstanceUpdate: { type: Boolean, default: false },
 			guildScheduledUpdate: { type: Boolean, default: false }
 		}
-	]
+	],
+	safeRoles: []
 });
 export default model<guild>("guild", guildSchema);

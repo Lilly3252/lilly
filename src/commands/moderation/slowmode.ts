@@ -6,11 +6,7 @@ import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
 
 export default class extends Command<typeof SlowmodeCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof SlowmodeCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof SlowmodeCommand>, locale: LocaleParam): Promise<void> {
 		const channel = args.channel ?? interaction.channel;
 
 		await interaction.deferReply({ ephemeral: args.hide ?? true });

@@ -170,6 +170,38 @@ export const InfoCommand = {
 					}
 				}
 			]
+		},
+		{
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "server",
+			description: "see server info",
+			description_localizations: {
+				fr: "voyez les information du bot."
+			},
+			options: [
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "verbose",
+					name_localizations: {
+						fr: "complet"
+					},
+					description: "show complete information",
+					description_localizations: {
+						fr: "montre toutes les informations"
+					}
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output.",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat."
+					}
+				}
+			]
 		}
 	],
 	default_member_permissions: "0"

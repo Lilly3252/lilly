@@ -32,22 +32,25 @@ export default class implements Event {
 					`Executing ${interaction.isAutocomplete() ? "autocomplete" : "chatInput command"} ${interaction.commandName}`
 				);
 
-				await command.chatInput(
-					interaction,
-					transformApplicationInteraction(interaction.options.data),
-					effectiveLocale
-				);
+				await command.chatInput(interaction, transformApplicationInteraction(interaction.options.data), effectiveLocale);
+			}
+			if (interaction.isModalSubmit()) {
+				switch (interaction.customId) {
+					case "characterCreate": {
+						await interaction.reply({ content: "ok", ephemeral: true });
+						const nameInputs = interaction.fields.getTextInputValue("nameInput");
+						const hobbiesInputs = interaction.fields.getTextInputValue("hobbiesInput");
+						console.log({ nameInputs, hobbiesInputs });
+						break;
+					}
+				}
 			}
 
 			if (interaction.isAutocomplete()) {
 				try {
 					const command = this.commands.get(interaction.commandName);
 					if (command) {
-						await command.autocomplete(
-							interaction,
-							transformApplicationInteraction(interaction.options.data),
-							effectiveLocale
-						);
+						await command.autocomplete(interaction, transformApplicationInteraction(interaction.options.data), effectiveLocale);
 					}
 				} catch (err: unknown) {
 					return interaction.respond([]);

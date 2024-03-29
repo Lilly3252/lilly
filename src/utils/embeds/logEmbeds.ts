@@ -2,7 +2,7 @@ import { addFields, truncateEmbed } from "@yuudachi/framework";
 import { APIEmbed, GuildMember, User } from "discord.js";
 import i18next from "i18next";
 /*
-export function logEmbeds(target: { member?: GuildMember | undefined; user: User }, locale: string): APIEmbed {
+export function logEmbeds({ name: string, value: string }, locale: string): APIEmbed {
 	let embed = addFields(
 		{
 			author: {
@@ -26,4 +26,5 @@ export function logEmbeds(target: { member?: GuildMember | undefined; user: User
 	);
 	return truncateEmbed(embed);
 }
+logEmbeds({});
 */

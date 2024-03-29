@@ -24,9 +24,7 @@ export function channelInfo(channel: BaseGuildTextChannel, locale: string) {
 		thumbnail: { url: channel.guild.iconURL() },
 		fields: [info],
 		footer: {
-			text: `Type: ${
-				ChannelType ? ChannelType[channel.type].replace(/([a-z])([A-Z])/g, "$1 $2") : "Cannot provide this information."
-			}`
+			text: `Type: ${ChannelType ? ChannelType[channel.type].replace(/([a-z])([A-Z])/g, "$1 $2") : "Cannot provide this information."}`
 		}
 	};
 

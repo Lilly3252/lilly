@@ -8,6 +8,7 @@ export interface guild {
 	logChannelID: string | null;
 	welcomeChannelID: string | null;
 	guildSettings: Types.Array<guildSettings>;
+	safeRoles: string[];
 }
 
 interface guildSettings {

@@ -8,6 +8,6 @@ export * from "./moderation/lock.js";
 export * from "./moderation/restrict.js";
 export * from "./moderation/settings.js";
 export * from "./moderation/slowmode.js";
-export * from "./moderation/test.js";
+export * from "./utility/test.js";
 export * from "./moderation/timeout.js";
 export * from "./moderation/unban.js";

@@ -6,11 +6,7 @@ import guilds from "#database/models/guilds.js";
 import i18next from "i18next";
 
 export default class extends Command<typeof SettingCommand> {
-	public override async chatInput(
-		interaction: InteractionParam,
-		args: ArgsParam<typeof SettingCommand>,
-		locale: LocaleParam
-	): Promise<void> {
+	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof SettingCommand>, locale: LocaleParam): Promise<void> {
 		const subCommands = interaction.options.getSubcommand();
 		const channels = interaction.options.getString("channels");
 		const choice = interaction.options.getBoolean("choice");
