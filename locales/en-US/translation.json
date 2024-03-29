@@ -90,24 +90,35 @@
 		"info":{
 			"member":{
 				"name":"Member" , 
-				"value": "**❯ Nickname:** {{nickname}}\n**❯ ID:** {{id}}\n**❯ Flags:** {{- flags}}\n**❯ Roles:** {{- roles}}\n**❯ Avatar:** {{avatar}}\n**❯ Time Created:** {{- time_create}}\n**❯ Status:** {{status}}"
-			},
+				"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Status:** {{status}}",
+				"other":"**❯ Created at:** {{- created_at}}\n**❯ Joined at:** {{- joined_at}}\n**❯ Pending:** {{- pending}}\n**❯ Timed out:** {{- is_timed_out}}\n**❯ Bot:** {{- is_bot}}\n"
+			},	
 			"user":{
-				"name":"Member" , 
-				"value": "**❯ ID:** {{id}}\n**❯ Flags:** {{flags}} \n**❯ Avatar:** {{avatar}}\n**❯ Time Created:** {{time_create}}"
+				"name":"User" , 
+				"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Time Created:** {{- time_create}}"
 			
+			},
+			"bot":{
+				"name":"Member" , 
+				"system": "**❯ Platform:** {{platform}}\n**❯ Uptime:** {{uptime}}\n**❯ CPU:**\n\u3000 Cores: {{cores}}\n\u3000 Model: {{model}}\n\u3000 Speed: {{speed}}\n**❯ Memory:**\n\u3000 Total: {{total_memory}}\n\u3000 Used: {{used_memory}}\n",
+				"info": "**❯ Owner:** {{- owner}}\n**❯ Servers:** {{servers}}\n**❯ Users:** {{users}}\n**❯ Channels:** {{channels}}\n**❯ Creation Date:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ TypeScript Version:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
+			},
+			"channel":{ 
+				"value": "**❯ ID:** {{id}}\n**❯ Name:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ Slowmode:** {{slowmode}}\n**❯ Private Channel:** {{private}}\n**❯ Topic Channel:** {{topic}}"
+			},
+			"role":{
+				"other": "**❯ Position:** {{- position}}\n**❯ Permissions:** {{- permissions}}", 
+				"other2": "\n\u200b\n\u200b {{- permissions}}", 
+				"value":"**❯ Name:** {{- name}}\n**❯ Role ID:** {{role_id}}\n**❯ Color:** {{color}}\n**❯ Hoisted:** {{hoisted}}\n**❯ Mentionable:** {{mentionable}}"
+			},
+			"server":{
+				"info": "**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n**❯ Owner:** {{owner}}\n**❯ Boost Tier:** {{booster_tier}}\n**❯ Explicit Filter:** {{explicit_filter}}\n**❯ Verification Level:** {{verification_level}}\n**❯ Time Created:** {{- created_at}}\n\u200B",
+				"stats":"**❯ Role Count:** {{role_count}}\n**❯ Emoji Count:** {{emoji_count}}\n**❯ Regular Emoji Count:** {{regular_emoji}}\n**❯ Animated Emoji Count:** {{animated_emoji}}\n**❯ Member Count:** {{member_count}}\n**❯ Humans:** {{humans}}\n**❯ Bots:** {{bots}}\n**❯ Text Channels:** {{txt_chan}}\n**❯ Voice Channels:** {{voice_chan}}\n**❯ Stage Channels:** {{stage_chan}}\n**❯ Boost Count:** {{boost_count}}\n\u200B",
+				"presence":"**❯ Online:** {{online}}\n**❯ Idle:** {{idle}}\n**❯ Do Not Disturb:** {{dnd}}\n**❯ Offline:** {{offline}}\n**❯ No presence detected:** {{no_presence}}\n\u200B"
 			}
 		},
+		
 		"log":{
-			"member_log": {
-				"description": "• Username: {{- user_mention}} - `{{- user_tag}}` ({{user_id}})\n• Created: {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`",
-				"joined_at": "\n• Joined: {{- joined_at}} ({{- joined_at_since}}) `{{joined_at_timestamp}}`",
-				"left_at": "\n• Left: {{- left_at}} ({{- left_at_since}})",
-				"footer": {
-					"joined": "User joined",
-					"left": "User left"
-				}
-		},
 			"setting_log":{
 				"no_info":"No information yet.",
 				"channel_title":"Channels",
@@ -117,5 +128,13 @@
 				"event_description2":"**\u3000❯ Stickers:** {{sticker}}\n **\u3000❯ Channels:** {{channel}}\n **\u3000❯ Invitations:** {{invitations}}\n **\u3000❯ Integrations:** {{integration}}\n **\u3000❯ Guild Members:** {{guild_member}}\n **\u3000❯ Auto-Moderation:** {{auto_moderation}}\n **\u3000❯ Scheduled Events:** {{scheduled}}\n **\u3000❯ Commands Permissions:** {{cmd_perm}}"
 		},
 		"":{}
+	},
+	"modal":{
+		"character_create":{
+			"title":"Character Creation",
+			"nameInput":{"label":"What's the name of your character?"},
+			"hobbiesInput":{"label":"What's the hobbies your character has?"}
+			
+		}
 	}
 }
