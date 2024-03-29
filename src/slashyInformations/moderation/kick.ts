@@ -41,7 +41,7 @@ export const KickCommand = {
 			name: "hide",
 			name_localizations: {
 				fr: "masquer",
-				"es-ES": "esconder"
+				"es-ES": "ocultar"
 			},
 			description: "Hides the output",
 			description_localizations: {
