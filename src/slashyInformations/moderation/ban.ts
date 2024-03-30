@@ -4,18 +4,21 @@ export const BanCommand = {
 	name: "ban",
 	description: "Ban a member",
 	description_localizations: {
-		fr: "Bannissement d'un membre"
+		fr: "Bannissement d'un membre",
+		"es-ES": "Banea a un miembro"
 	},
 	options: [
 		{
 			type: ApplicationCommandOptionType.User,
 			name: "target",
 			name_localizations: {
-				fr: "target"
+				fr: "target",
+				"es-ES": "target"
 			},
 			description: "Select a user to ban.",
 			description_localizations: {
-				fr: "Sélectionner l'utilisateur a bannir."
+				fr: "Sélectionner l'utilisateur a bannir.",
+				"es-ES": "Selecciona al usuario para banear."
 			},
 			required: true
 		},
@@ -24,11 +27,13 @@ export const BanCommand = {
 			type: ApplicationCommandOptionType.Number,
 			name: "days",
 			name_localizations: {
-				fr: "jours"
+				fr: "jours",
+				"es-ES": "dias"
 			},
 			description: "number of days that you want to delete.",
 			description_localizations: {
-				fr: "nombre de jour que vous voulez supprimer."
+				fr: "nombre de jour que vous voulez supprimer.",
+				"es-ES": "Cantidad de dias de mensajes que quieres eliminar."
 			},
 			choices: [
 				{
@@ -70,11 +75,13 @@ export const BanCommand = {
 			type: ApplicationCommandOptionType.String,
 			name: "reason",
 			name_localizations: {
-				fr: "raison"
+				fr: "raison",
+				"es-ES": "razón"
 			},
 			description: "Reason of the ban.",
 			description_localizations: {
-				fr: "Raison du ban."
+				fr: "Raison du ban.",
+				"es-ES": "Razón del ban."
 			},
 			required: true
 		},
@@ -82,11 +89,13 @@ export const BanCommand = {
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
-				fr: "masquer"
+				fr: "masquer",
+				"es-ES": "ocultar"
 			},
 			description: "Hides the output.",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat."
+				fr: "Masque(cacher) le résultat.",
+				"es-ES": "No mostrar públicamente el resultado de esta acción."
 			}
 		}
 	],
