@@ -11,7 +11,7 @@ export interface guild {
 	safeRoles: string[];
 }
 
-interface guildSettings {
+export interface guildSettings {
 	antiRaid: boolean;
 	botUpdate: boolean;
 	roleUpdate: boolean;
