@@ -27,4 +27,3 @@ export type AlgoliaSearchResult = {
 	hits?: AlgoliaMovieHit[];
 	query: string;
 };
-

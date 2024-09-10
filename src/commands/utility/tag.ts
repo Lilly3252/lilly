@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TagCommand } from "#slashyInformations/index.js";
-import { Tag } from "#utils/types/index.js";
+
 import type { ArgsParam, CommandMethod, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
 import i18next from "i18next";
 import { injectable } from "tsyringe";
@@ -8,6 +8,7 @@ import * as TOML from "@ltd/j-toml";
 import { Command } from "@yuudachi/framework";
 import { Collection } from "discord.js";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { Tag } from "#utils/types/functiontypes.js";
 
 const tags = new Collection<string, Tag>();
 
@@ -33,6 +34,7 @@ export default class extends Command<typeof TagCommand> {
 	// slash command section
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof TagCommand>, locale: LocaleParam): Promise<void> {
 		const tagName = interaction.options.getString("query", true);
+
 		const tag = tags.find((t) => t.keywords.toString() === tagName.toLowerCase());
 
 		if (tag) {

@@ -4,7 +4,7 @@ const b = os.cpus()[0];
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, ClientApplication, TimestampStyles, time } from "discord.js";
-import * as Package from "../../../package.json" assert { type: "json" };
+import * as Package from "../../../package.json" with { type: "json" };
 import i18next from "i18next";
 import { formatBytes } from "#utils/index.js";
 import { InfoCommand } from "#slashyInformations/index.js";

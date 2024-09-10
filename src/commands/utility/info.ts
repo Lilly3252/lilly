@@ -23,7 +23,7 @@ export default class extends Command<typeof InfoCommand> {
 						await interaction.editReply({ embeds: [userInfo(args, member, blacklist, locale)] });
 					} else {
 						const user = interaction.options.getUser("target");
-
+						console.log(user.flags.toArray());
 						await interaction.editReply({ embeds: [userInfo(args, user, blacklist, locale)] });
 					}
 				} catch (error) {
@@ -41,7 +41,7 @@ export default class extends Command<typeof InfoCommand> {
 				break;
 			}
 			case "role": {
-				await interaction.deferReply({ ephemeral: args.user.hide ?? true });
+				await interaction.deferReply({ ephemeral: args.role.hide ?? true });
 				const role = interaction.options.getRole("role");
 
 				interaction.editReply({ embeds: [roleInfo(args, role, locale)] });

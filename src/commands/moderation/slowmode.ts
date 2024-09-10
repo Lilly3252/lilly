@@ -10,12 +10,14 @@ export default class extends Command<typeof SlowmodeCommand> {
 		const channel = args.channel ?? interaction.channel;
 
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
+
 		if (!(await permission(interaction, "ManageChannels"))) {
 			return;
 		}
 
 		if (channel.isTextBased()) {
-			await channel.setRateLimitPerUser(args.time).then(async () => {
+			try {
+				await channel.setRateLimitPerUser(args.time);
 				await interaction.editReply({
 					content: i18next.t("command.mod.slowmode.success", {
 						channel: `${channel}`,
@@ -23,7 +25,12 @@ export default class extends Command<typeof SlowmodeCommand> {
 						lng: locale
 					})
 				});
-			});
+			} catch (error) {
+				console.error("Failed to set slowmode:", error);
+				await interaction.editReply({
+					content: i18next.t("command.common.errors.generic", { lng: locale })
+				});
+			}
 		}
 	}
 }

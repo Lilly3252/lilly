@@ -1,5 +1,4 @@
 import { LockCommand } from "#slashyInformations/index.js";
-import { permission } from "#utils/index.js";
 
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
@@ -10,19 +9,23 @@ export default class extends Command<typeof LockCommand> {
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 		const role = interaction.guild.roles.everyone;
 		const lock = args.activate;
-		if (!(await permission(interaction, "ManageChannels"))) {
-			return;
-		}
 
-		if (lock === true) {
-			role.permissions.remove("SendMessages");
+		try {
+			if (lock) {
+				await role.permissions.remove("SendMessages");
+				await interaction.editReply({
+					content: i18next.t("command.mod.lock.locked", { lng: locale })
+				});
+			} else {
+				await role.permissions.add("SendMessages");
+				await interaction.editReply({
+					content: i18next.t("command.mod.lock.unlocked", { lng: locale })
+				});
+			}
+		} catch (error) {
+			console.error("Failed to update role permissions:", error);
 			await interaction.editReply({
-				content: i18next.t("", { lng: locale })
-			});
-		} else {
-			role.permissions.add("SendMessages");
-			await interaction.editReply({
-				content: i18next.t("", { lng: locale })
+				content: i18next.t("command.common.errors.generic", { lng: locale })
 			});
 		}
 	}

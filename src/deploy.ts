@@ -25,10 +25,13 @@ try {
 			command.TimeoutCommand,
 			command.UnbanCommand,
 			//utility commands
+			command.UserNoteCommand,
 			command.PingCommand,
+			command.PollCommand,
 			command.InfoCommand,
 			command.TestCommand,
-			command.TagCommand
+			command.TagCommand,
+			command.PetCommand
 		]
 	});
 

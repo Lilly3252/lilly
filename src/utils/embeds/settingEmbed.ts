@@ -1,4 +1,4 @@
-import { emojify, isEnabled } from "#utils/index.js";
+import { isEnabled, emojify } from "#utils/functions.js";
 import { guild } from "#utils/types/database.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { InteractionParam, LocaleParam } from "@yuudachi/framework/types";

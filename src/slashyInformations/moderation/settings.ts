@@ -4,8 +4,7 @@ export const SettingCommand = {
 	name: "settings",
 	description: "Show or add settings.",
 	description_localizations: {
-		fr: "Montrer ou ajouter des paramètres de guilde.",
-		"es-ES": "Revisa o ajusta las configuraciones del servidor."
+		fr: "Montrer ou ajouter des paramètres de guilde."
 	},
 	options: [
 		{
@@ -13,21 +12,18 @@ export const SettingCommand = {
 			name: "show",
 			description: "Show settings from the guild.",
 			description_localizations: {
-				fr: "Montrer les paramètres de guilde.",
-				"es-ES": "Revisa las configuraciones del servidor."
+				fr: "Montrer les paramètres de guilde."
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer",
-						"es-ES": "ocultar"
+						fr: "masquer"
 					},
 					description: "Hides the output",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat",
-						"es-ES": "No mostrar públicamente el resultado de esta acción."
+						fr: "Masque(cacher) le résultat"
 					}
 				}
 			]
@@ -37,21 +33,18 @@ export const SettingCommand = {
 			name: "audit_log",
 			description: "Enable/disable audit logs",
 			description_localizations: {
-				fr: "activer/déactiver les logs serveur.",
-				"es-ES": "activa/desactiva el registro de auditoría."
+				fr: "activer/déactiver les logs serveur."
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "choice",
 					name_localizations: {
-						fr: "choix",
-						"es-ES": "elección"
+						fr: "choix"
 					},
 					description: "enable or disable the logs.",
 					description_localizations: {
-						fr: "activer ou déactiver les logs.",
-						"es-ES": "activa o desactiva los registros"
+						fr: "activer ou déactiver les logs."
 					},
 					required: true
 				},
@@ -59,13 +52,11 @@ export const SettingCommand = {
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer",
-						"es-ES": "ocultar"
+						fr: "masquer"
 					},
 					description: "Hides the output.",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat.",
-						"es-ES": "No mostrar públicamente el resultado de esta acción."
+						fr: "Masque(cacher) le résultat."
 					}
 				}
 			]
@@ -75,8 +66,7 @@ export const SettingCommand = {
 			name: "channels",
 			description: "Setup log and welcome channel",
 			description_localizations: {
-				fr: "activer/déactiver les logs serveur.",
-				"es-ES": "Configura el canal de registros y el de bienvenidas."
+				fr: "activer/déactiver les logs serveur."
 			},
 			options: [
 				{
@@ -87,8 +77,7 @@ export const SettingCommand = {
 					},
 					description: "Select your channels.",
 					description_localizations: {
-						fr: "Selectionnez vos channels.",
-						"es-ES": "Selecciona los canales."
+						fr: "Sélectionnez vos channels."
 					},
 					choices: [
 						{
@@ -106,13 +95,11 @@ export const SettingCommand = {
 					type: ApplicationCommandOptionType.Channel,
 					name: "channel",
 					name_localizations: {
-						fr: "channel",
-						"es-ES": "canal"
+						fr: "channel"
 					},
 					description: "select a channel.",
 					description_localizations: {
-						fr: "selectionne un channel.",
-						"es-ES": "selecciona un canal."
+						fr: "sélectionnez un channel."
 					},
 					required: true
 				},
@@ -120,13 +107,11 @@ export const SettingCommand = {
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer",
-						"es-ES": "ocultar"
+						fr: "masquer"
 					},
 					description: "Hides the output.",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat.",
-						"es-ES": "No mostrar públicamente el resultado de esta acción."
+						fr: "Masque(cacher) le résultat."
 					}
 				}
 			]
@@ -136,34 +121,99 @@ export const SettingCommand = {
 			name: "events",
 			description: "Set all your events for logging purposes",
 			description_localizations: {
-				fr: "Configurer toute vos évènements pour les logs.",
-				"es-ES": "Configura los eventos que serán registrados y enviados al canal de registros."
+				fr: "Configurer toute vos évènements pour les logs."
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.String,
 					name: "events",
 					name_localizations: {
-						fr: "events",
-						"es-ES": "eventos"
+						fr: "events"
 					},
 					description: "select your events.",
 					description_localizations: {
-						fr: "selectionnez vos events.",
-						"es-ES": "Selecciona los eventos para loguear"
+						fr: "sélectionnez vos events."
 					}
 				},
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer",
-						"es-ES": "ocultar"
+						fr: "masquer"
 					},
 					description: "Hides the output.",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat.",
-						"es-ES": "No mostrar públicamente el resultado de esta acción."
+						fr: "Masque(cacher) le résultat."
+					}
+				}
+			]
+		},
+		{
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "restriction-roles",
+			description: "Set all your restriction roles for the guild",
+			description_localizations: {
+				fr: "Configurer toute vos role de restriction pour cette guilde."
+			},
+			options: [
+				{
+					type: ApplicationCommandOptionType.Role,
+					name: "role_id",
+					name_localizations: {
+						fr: "role_id"
+					},
+					description: "Select the role to assign.",
+					description_localizations: {
+						fr: "Sélectionnez le rôle à attribuer."
+					},
+					required: true
+				},
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "role",
+					name_localizations: {
+						fr: "role"
+					},
+					description: "Select your restriction role type.",
+					description_localizations: {
+						fr: "Sélectionnez le type de rôle de restriction."
+					},
+					choices: [
+						{
+							name: "Embed",
+							value: "embed"
+						},
+						{
+							name: "Reaction",
+							value: "reaction"
+						},
+						{
+							name: "Voice",
+							value: "voice"
+						},
+						{
+							name: "Slash",
+							value: "slash"
+						},
+						{
+							name: "Poll",
+							value: "poll"
+						},
+						{
+							name: "Safe",
+							value: "safe"
+						}
+					]
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output.",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat."
 					}
 				}
 			]

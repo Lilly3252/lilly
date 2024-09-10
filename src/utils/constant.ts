@@ -4,6 +4,8 @@ export const MAX_MESSAGE_DELETE = 100;
 export const MAX_SEARCH_MEMBERS = 1000;
 export const MAX_GUILD_BAN_SEARCH = 1000;
 export const MAX_GUILD_PRUNE_COUNT = 30;
+export const POLL_MIN_DURATION = 1;
+export const POLL_MAX_DURATION = 168;
 
 export const lillyColors = {
 	Warnings: {

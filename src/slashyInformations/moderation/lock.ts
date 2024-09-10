@@ -4,20 +4,17 @@ export const LockCommand = {
 	name: "lock",
 	description: "lock a channel",
 	description_localizations: {
-		fr: "verrouille un canaux de discussion",
-		"es-ES": "Cierra un canal de discusión"
+		fr: "verrouille un canaux de discussion"
 	},
 	options: [
 		{
 			name: "activate",
 			name_localizations: {
-				fr: "activation",
-				"es-ES": "activar"
+				fr: "activation"
 			},
 			description: "lock this channel?",
 			description_localizations: {
-				fr: "verrouiller ce canaux ?",
-				"es-ES": "¿Cerrar este canal?"
+				fr: "verrouiller ce canaux ?"
 			},
 			type: ApplicationCommandOptionType.Boolean,
 			required: true
@@ -26,13 +23,11 @@ export const LockCommand = {
 		{
 			name: "hide",
 			name_localizations: {
-				fr: "masquer",
-				"es-ES": "ocultar"
+				fr: "masquer"
 			},
 			description: "Hides the output",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat",
-				"es-ES": "No mostrar públicamente el resultado de esta acción."
+				fr: "Masque(cacher) le résultat"
 			},
 			type: ApplicationCommandOptionType.Boolean
 		}

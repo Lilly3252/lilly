@@ -1,5 +1,5 @@
-import { user } from "#utils/types/database.js";
 import { InfoCommand } from "#slashyInformations/index.js";
+import { user } from "#utils/types/database.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Colors, GuildMember, TimestampStyles, User, time } from "discord.js";
@@ -20,6 +20,9 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | Gui
 			icon_url: targetParam ? target.displayAvatarURL() : target.displayAvatarURL()
 		}
 	};
+
+	const fields: APIEmbedField[] = [];
+
 	if (targetParam) {
 		const guildMemberInformation: APIEmbedField = {
 			name: i18next.t("info.member.name", { lng: locale }),
@@ -31,7 +34,8 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | Gui
 				lng: locale
 			})
 		};
-		embed.fields = [guildMemberInformation];
+		fields.push(guildMemberInformation);
+
 		if (args.user.verbose) {
 			const role = target.roles.highest;
 			const memberRole: APIEmbedField = {
@@ -57,7 +61,7 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | Gui
 				inline: true
 			};
 
-			embed.fields = [guildMemberInformation, memberRole, otherinfo];
+			fields.push(memberRole, otherinfo);
 		}
 	} else {
 		const userInformation: APIEmbedField = {
@@ -70,8 +74,26 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | Gui
 				lng: locale
 			})
 		};
-		embed.fields = [userInformation];
+		fields.push(userInformation);
 	}
+
+	// Add notes to the embed if they exist
+	if (user.notes && user.notes.length > 0) {
+		const notesField: APIEmbedField = {
+			name: "Notes",
+			value: user.notes.map((n, index) => `${index + 1}. ${n.note} (by <@${n.moderator}> on ${n.date.toLocaleDateString()})`).join("\n")
+		};
+		fields.push(notesField);
+	}
+	if (user.pet) {
+		const petField: APIEmbedField = {
+			name: "Pet",
+			value: `Name: ${user.pet.petName}\nType: ${user.pet.petType}`,
+			inline: true
+		};
+		fields.push(petField);
+	}
+	embed.fields = fields;
 
 	return truncateEmbed(embed);
 }

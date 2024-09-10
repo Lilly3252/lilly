@@ -1,4 +1,4 @@
-import type { guild } from "#type/database.js";
+import type { guild } from "#utils/types/database.js";
 import { model, Schema } from "mongoose";
 
 const guildSchema = new Schema<guild>({
@@ -28,6 +28,11 @@ const guildSchema = new Schema<guild>({
 			guildScheduledUpdate: { type: Boolean, default: false }
 		}
 	],
+	restrictEmbedRole: { type: String, default: null },
+	restrictReactionRole: { type: String, default: null },
+	restrictSlashRole: { type: String, default: null },
+	restrictPollRole: { type: String, default: null },
+	restrictVoiceRole: { type: String, default: null },
 	safeRoles: []
 });
 export default model<guild>("guild", guildSchema);

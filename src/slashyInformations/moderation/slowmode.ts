@@ -5,21 +5,18 @@ export const SlowmodeCommand = {
 	name: "slowmode",
 	description: "Enabling a slowmode on the current channel.",
 	description_localizations: {
-		fr: "Instaurer un slowmode sur le channel courant.",
-		"es-ES": "Habilita el modo lento en el canal actual."
+		fr: "Instaurer un slowmode sur le channel courant."
 	},
 	options: [
 		{
 			type: ApplicationCommandOptionType.Channel,
 			name: "channel",
 			name_localizations: {
-				fr: "channel",
-				"es-ES": "canal"
+				fr: "channel"
 			},
 			description: "Channel for the slowmode",
 			description_localizations: {
-				fr: "Channel pour le slowmode",
-				"es-ES": "El canal donde quieres activar el modo lento"
+				fr: "Channel pour le slowmode"
 			},
 			channel_types: [ChannelType.GuildText, ChannelType.GuildVoice],
 			required: true
@@ -28,13 +25,11 @@ export const SlowmodeCommand = {
 			type: ApplicationCommandOptionType.Number,
 			name: "time",
 			name_localizations: {
-				fr: "temps",
-				"es-ES": "tiempo"
+				fr: "temps"
 			},
 			description: "Time of the slowmode ( in seconds )",
 			description_localizations: {
-				fr: "Temps du slowmode ( en secondes )",
-				"es-ES": "Tiempo del modo lento ( en segundos )"
+				fr: "Temps du slowmode ( en secondes )"
 			},
 			required: true
 		},
@@ -42,13 +37,11 @@ export const SlowmodeCommand = {
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
-				fr: "masquer",
-				"es-ES": "ocultar"
+				fr: "masquer"
 			},
 			description: "Hides the output",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat",
-				"es-ES": "No mostrar públicamente el resultado de esta acción."
+				fr: "Masque(cacher) le résultat"
 			}
 		}
 	],

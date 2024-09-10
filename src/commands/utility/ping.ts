@@ -13,16 +13,20 @@ export default class extends Command<typeof PingCommand> {
 			fetchReply: true,
 			ephemeral: args.hide ?? true
 		});
-		const choices = ["nah..", "i'm okay.. move on", "i'm alive!"];
-		const response = choices[Math.floor(Math.random() * choices.length)];
 
+		const choices = [
+			i18next.t("command.utility.ping.responses.nah", { lng: locale }),
+			i18next.t("command.utility.ping.responses.okay", { lng: locale }),
+			i18next.t("command.utility.ping.responses.alive", { lng: locale })
+		];
+		const response = choices[Math.floor(Math.random() * choices.length)];
 		const latency = msg.createdTimestamp - interaction.createdTimestamp;
 
 		await interaction.editReply({
 			content: i18next.t("command.utility.ping.success", {
-				response: `${response}`,
-				bot_latency: `${latency}`,
-				API_latency: `${Math.round(interaction.client.ws.ping)}`,
+				response,
+				bot_latency: latency,
+				API_latency: Math.round(interaction.client.ws.ping),
 				lng: locale
 			})
 		});

@@ -1,5 +1,6 @@
 import { InfoCommand } from "#slashyInformations/index.js";
-import { trimRole } from "#utils/functions.js";
+import { trimRole } from "#utils/index.js";
+
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Channel, ChannelType, Collection, GuildEmoji, GuildExplicitContentFilter, GuildMember, GuildVerificationLevel, RoleMention, TimestampStyles, time } from "discord.js";

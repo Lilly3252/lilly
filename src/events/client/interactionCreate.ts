@@ -18,6 +18,8 @@ export default class implements Event {
 
 	public async execute(): Promise<void> {
 		this.client.on(this.event, async (interaction) => {
+			console.log(interaction);
+
 			const locale = "en-US";
 			const effectiveLocale = locale ?? interaction.locale;
 			if (!interaction.inCachedGuild()) {
@@ -26,7 +28,7 @@ export default class implements Event {
 
 			if (interaction.isChatInputCommand()) {
 				const command = this.commands.get(interaction.commandName);
-
+				console.log(this.commands.keys());
 				logger.info(
 					{ command: { name: interaction.commandName, type: interaction.type }, userId: interaction.user.id },
 					`Executing ${interaction.isAutocomplete() ? "autocomplete" : "chatInput command"} ${interaction.commandName}`

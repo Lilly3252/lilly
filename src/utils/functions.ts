@@ -1,9 +1,11 @@
 import guilds from "#database/models/guilds.js";
 import users from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
-import { ChatInputCommandInteraction, Guild, GuildMember, PermissionResolvable, Role, RoleMention } from "discord.js";
+import { ChatInputCommandInteraction, Guild, GuildMember, GuildTextBasedChannel, PermissionResolvable, Role, RoleMention } from "discord.js";
 import i18next from "i18next";
-import { EmojifyOptions, guild } from "./types/index.js";
+import { guild } from "./types/database.js";
+import { EmojifyOptions } from "./types/functiontypes.js";
+
 let locale: string;
 
 export async function permission(interaction: InteractionParam, permission: PermissionResolvable) {
@@ -100,4 +102,75 @@ export function trimRole(array: RoleMention[], limit = 10) {
 	if (!sliced.length) sliced.push("None.");
 
 	return sliced;
+}
+
+export async function updateChannelSetting(
+	interaction: ChatInputCommandInteraction<"cached">,
+	guildSettings: any,
+	chan: GuildTextBasedChannel | null,
+	settingKey: string,
+	channelId: string | null,
+	successMessage: string,
+	removeMessage: string,
+	locale: string
+) {
+	if (channelId) {
+		await guildSettings.updateOne({ [settingKey]: channelId });
+		interaction.editReply({
+			content: i18next.t(successMessage, {
+				channel: settingKey,
+				channel_id: chan,
+				lng: locale
+			})
+		});
+	} else {
+		await guildSettings.updateOne({ [settingKey]: null });
+		interaction.editReply({
+			content: i18next.t(removeMessage, { lng: locale })
+		});
+	}
+}
+
+export async function updateEventSetting(interaction: ChatInputCommandInteraction<"cached">, guildSettings: any, eventKey: string, enabled: boolean, locale: string) {
+	await guildSettings.updateOne({ [eventKey]: enabled });
+	interaction.editReply({
+		content: i18next.t(enabled ? "command.config.events.enabled" : "command.config.events.disabled", {
+			event: eventKey,
+			lng: locale
+		})
+	});
+}
+
+export async function updateRoleSetting(
+	interaction: ChatInputCommandInteraction<"cached">,
+	guildSettings: any,
+	role: Role | null,
+	settingKey: string,
+	roleId: string | null,
+	successMessage: string,
+	removeMessage: string,
+	locale: string
+) {
+	await guildSettings.updateOne({ [settingKey]: roleId });
+	interaction.editReply({
+		content: i18next.t(roleId ? successMessage : removeMessage, {
+			role: settingKey,
+			role_id: role,
+			lng: locale
+		})
+	});
+}
+
+export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"cached">, guildSettings: any, roleId: string, add: boolean, locale: string) {
+	if (add) {
+		await guildSettings.updateOne({ $addToSet: { safeRoles: roleId } });
+	} else {
+		await guildSettings.updateOne({ $pull: { safeRoles: roleId } });
+	}
+	interaction.editReply({
+		content: i18next.t(add ? "command.config.events.enabled" : "command.config.events.disabled", {
+			event: "Safe Role",
+			lng: locale
+		})
+	});
 }

@@ -1,17 +1,14 @@
 import "reflect-metadata";
-
-import process from "node:process";
-import { fileURLToPath, pathToFileURL } from "node:url";
-
-import { GatewayIntentBits, Partials } from "discord.js";
-import { config } from "dotenv";
-import i18next from "i18next";
-import readdirp from "readdirp";
-
 import { Backend } from "@skyra/i18next-backend";
 import { type Command, commandInfo, container, createClient, createCommands, dynamicImport, kCommands } from "@yuudachi/framework";
 import type { Event } from "@yuudachi/framework/types";
+import { GatewayIntentBits, Partials } from "discord.js";
+import { config } from "dotenv";
+import i18next from "i18next";
 import mongoose from "mongoose";
+import process from "node:process";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import readdirp, { EntryInfo } from "readdirp";
 
 config();
 
@@ -32,8 +29,9 @@ createCommands();
 
 mongoose.connect(process.env.MONGOOSE_URL);
 console.log("db connected");
+const jsFileFilter = (entry: EntryInfo) => entry.basename.endsWith(".js");
 const slashyFiles = readdirp(fileURLToPath(new URL("commands", import.meta.url)), {
-	fileFilter: ["*.js"]
+	fileFilter: jsFileFilter
 });
 
 const commands = container.resolve<Map<string, Command>>(kCommands);
@@ -47,7 +45,7 @@ for await (const slashyFile of slashyFiles) {
 }
 
 const eventFiles = readdirp(fileURLToPath(new URL("events", import.meta.url)), {
-	fileFilter: "*.js"
+	fileFilter: jsFileFilter
 });
 
 for await (const eventFile of eventFiles) {
@@ -65,8 +63,8 @@ await i18next.use(Backend).init({
 		paths: [new URL("../locales/{{lng}}/{{ns}}.json", import.meta.url)]
 	},
 	cleanCode: true,
-	preload: ["en-US", "fr-FR"],
-	supportedLngs: ["en-US", "fr-FR"],
+	preload: ["en-US", "fr-FR", "ja-JP"],
+	supportedLngs: ["en-US", "fr-FR", "ja-JP"],
 	fallbackLng: ["en-US"],
 	returnNull: false,
 	returnEmptyString: false,
