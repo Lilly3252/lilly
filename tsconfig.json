@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"emitDecoratorMetadata": true,
-		"module": "Node16",
+		"module": "NodeNext",
 		"moduleResolution": "Node16",
 		"experimentalDecorators": true,
 		"resolveJsonModule": true,
@@ -9,11 +9,12 @@
 		"outDir": "dist",
 		"baseUrl": "./",
 		"paths": {
-			"#utils/*": ["src/utils/*"],
-			"#slashyInformations/*":["src/slashyInformations/*"]
-			
+			"#utils/*": ["./src/utils/*"],
+			"#slashyInformations/*": ["./src/slashyInformations/*"],
+			"#types/*": ["src/utils/types/*"],
+			"#database/*": ["./src/database/*"]
 		},
-		
+		"skipLibCheck": true
 	},
 	"include": ["src"]
 }
