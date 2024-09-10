@@ -1,828 +1,132 @@
 {
-	"common": {
-	  "errors": {
-		"no_mod_log_channel": "Aucun canal de journal de mod n'a encore été initialisé.",
-		"no_anti_raid_archive_channel": "Aucun canal d'archive Anti-Raid-Nuke n'a encore été initialisé.",
-		"no_report_channel": "Aucun canal de rapport n'a encore été initialisé.",
-		"no_content": "<Aucun message>"
-	  },
-	  "moderator": "Modérateur",
-	  "and_more": "et plus..."
-	},
-	"command": {
-	  "common": {
-		"errors": {
-		  "generic": "Quelque chose s'est mal passé.",
-		  "no_enabled_module": "Le '{{module}}` n'est pas activé sur ce serveur.",
-		  "duration_format": "Mauvais format de durée.",
-		  "use_autocomplete": "Impossible de résoudre l'option proposée. ",
-		  "target_not_found": "Le membre indiqué ne fait pas partie de ce serveur.",
-		  "timed_out": "Le timeout est épuisé.",
-		  "no_message": "Impossible de trouver le message `{{message_id}}` dans le canal {{- channel}}",
-		  "not_message_link": "Valeur fournie `{{-val}}`pour argument`{{arg}}` n'est pas un lien de message valide.",
-		  "no_message_resolvable": "Valeur fournie `{{-val}}`pour argument`{{arg}}` n'est pas un lien ou un identifiant de message valide.",
-		  "no_guild": "Impossible de trouver le serveur `{{guild_id}}`",
-		  "no_channel": "Impossible de trouver le canal de discussion `{{channel_id}}`dans le serveur`{{- guild}}`",
-		  "ignored_channel": "La résolution d'un message provenant d'un canal de discussion n'est pas autorisée."
+    "command": {
+      "config": {
+        "common": {
+          "errors": {
+            "generic": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+            "no_permission": "Vous n'avez pas la permission d'utiliser cette commande.",
+            "permission_not_found": "Permission {{perm}} introuvable.",
+            "no_settings": "Aucun paramètre de guilde n'a encore été initialisé. Laissez-moi en créer un pour vous ! Cela devrait fonctionner cette fois..."
+          }
+        },
+        "events": {
+          "enabled": "✅ {{event}} est maintenant activé.",
+          "disabled": "✅ {{event}} est maintenant désactivé.",
+          "channel_set": "✅ {{channel}} a été défini sur {{channel_id}}.",
+          "channel_removed": "✅ Le canal a été supprimé, maintenant défini sur `null`."
+        }
+      },
+      "mod": {
+        "embed": {
+          "info": {
+            "name": "**❯ Nom :** {{- name}}\n**❯ ID :** {{id}}\n",
+            "value": "**❯ Action :** {{action}}\n**❯ Raison :** {{reason}}"
+          },
+          "footer": "Action de modération"
+        },
+        "restrict": {
+          "not_moderatable": "L'utilisateur spécifié ne peut pas être modéré."
+        },
+        "timeout": {
+          "success": "{{user}} a été mis en pause pour {{duration}}.",
+          "no_reason": "Aucune raison fournie.",
+          "not_moderatable": "L'utilisateur spécifié ne peut pas être modéré."
+        },
+        "kick": {
+          "success": "{{user}} a été expulsé avec succès.",
+          "no_reason": "Aucune raison fournie.",
+          "not_kickable": "L'utilisateur spécifié ne peut pas être expulsé."
+        },
+        "lock": {
+          "locked": "Le canal a été verrouillé.",
+          "unlocked": "Le canal a été déverrouillé."
+        },
+        "slowmode": {
+          "success": "Le mode lent a été défini sur {{time}} secondes dans {{channel}}."
+        },
+        "ban": {
+          "success": "{{user}} a été banni avec succès.",
+          "not_bannable": "{{- user}} ne peut pas être banni."
+        },
+        "unban": {
+          "success": "{{user}} a été débanni.",
+          "no_reason": "Aucune raison fournie.",
+          "errors": {
+            "no_ids": "Veuillez fournir un ID utilisateur valide.",
+            "no_banned": "Il n'y a aucun utilisateur banni dans ce serveur.",
+            "no_ban": "L'utilisateur {{user}} n'est pas banni."
+          }
+        },
+        "blacklist": {
+          "already_blacklisted": "Cet utilisateur est déjà sur liste noire.",
+          "added": "Cet utilisateur a été ajouté à la liste noire."
+        }
+      },
+      "utility": {
+        "poll": {
+			"durationError": "La durée doit être comprise entre {{min}} et {{max}}",
+			"pollCreated": "Le sondage a été créé avec succès !",
+			"voteNow": "Votez maintenant"
 		},
-		"buttons": {
-		  "cancel": "Annuler",
-		  "message_reference": "Message original"
-		}
-	  },
-	  "config": {
-		"common": {
-		  "errors": {
-			"no_settings": "Aucun paramètre de serveur n'a encore été initialisé."
-		  }
-		}
-	  },
-	  "mod": {
-		"common": {
-		  "errors": {
-			"max_length_reason": "Longueur maximale de `{{reason_max_length}}` pour raison est dépassée.",
-			"not_a_text_channel": "{{- channel}} n'est pas un canal de texte.",
-			"no_case": "Impossible de trouver l'infraction' `{{case}}`",
-			"no_report": "Impossible de trouver le rapport `{{report}}`",
-			"no_case_range": "Plage de l'infraction non valide `{{lower_case}}'à'{{upper_case}}`",
-			"no_reference_case": "Impossible de trouver le cas de référence `{{case}}`",
-			"already_processed": "{{- user}} avec étui {{- case}} n'a aucune restriction de fonctionnement.",
-			"no_reference_report": "Impossible de trouver le rapport de référence `{{report}}`",
-			"case_lower_one": "Les identifiants de cas doivent être supérieurs à « 0 »",
-			"case_lower_many": "Les identifiants de l'infraction doivent être supérieurs à « 0 »",
-			"case_lower_other": "Les identifiants de l'infraction doivent être supérieurs à « 0 »"
-		  },
-		  "reasons": [
-			"Troll",
-			"Impoli en soutien",
-			"Insultes",
-			"Compte suspect d'arnaque ou de spam",
-			"Hors sujet en support",
-			"NSFW",
-			"Commentaire de peu de valeur",
-			"Les insultes",
-			"Harcèlement DM",
-			"Violation des conditions d'utilisation",
-			"Autobot",
-			"COPPA"
-		  ]
-		},
-		"case": {
-		  "autocomplete": {
-			"no_reason": "Sans raison",
-			"show_history": "Afficher l'historique de l'utilisateur {{- user}}"
-		  },
-		  "buttons": {
-			"goto": "Aller à l'infraction {{- case}}"
-		  }
-		},
-		"reports": {
-		  "autocomplete": {
-			"no_reason": "Sans raison",
-			"show_history_target": "Afficher l'historique de la cible {{- user}}",
-			"show_history_author": "Afficher l'historique de l'auteur {{- user}}"
-		  }
-		},
-		"warn": {
-		  "pending": "Voulez-vous vraiment avertir {{- user}}?",
-		  "buttons": {
-			"execute": "Avertir"
-		  },
-		  "cancel": "Avertissement annulé activé {{- user}}",
-		  "success": "Averti avec succès {{- user}}"
-		},
-		"timeout": {
-		  "errors": {
-			"missing_permissions": "Autorisations manquantes pour timeout {{- user}}",
-			"already_timed_out": "{{- user}} est déjà en timeout"
-		  },
-		  "buttons": {
-			"execute": "timeout"
-		  },
-		  "pending": "Voulez-vous vraiment faire une pause {{- user}}?",
-		  "cancel": "Délai d'attente annulé pour {{- user}}",
-		  "success": "Délai dépassé avec succès {{- user}}"
-		},
-		"kick": {
-		  "errors": {
-			"missing_permissions": "Autorisations manquantes pour kicker {{- user}}"
-		  },
-		  "pending": "Voulez-vous vraiment kicker {{- user}}?",
-		  "buttons": {
-			"execute": "kick"
-		  },
-		  "cancel": "kick annulé {{- user}}",
-		  "success": "kick réussi {{- user}}"
-		},
-		"softban": {
-		  "errors": {
-			"missing_permissions": "Autorisations manquantes pour softban {{- user}}"
-		  },
-		  "pending": "Voulez-vous vraiment softban {{- user}}?",
-		  "not_member": "Utilisateur {{- user}} n'est pas dans ce serveur. ",
-		  "buttons": {
-			"execute": "softban"
-		  },
-		  "reasons": {
-			"clear_messages": "Mod : {{- user}} | "
-		  },
-		  "cancel": "Softban annulé le {{- user}}",
-		  "success": {
-			"regular": "softban exécuté avec succès {{- user}}",
-			"clear_messages": "Les messages de {{- user}}"
-		  }
-		},
-		"ban": {
-		  "errors": {
-			"missing_permissions": "Autorisations manquantes pour bannir {{- user}}",
-			"already_banned": "{{- user}} est déjà bannis."
-		  },
-		  "pending": "Voulez-vous vraiment bannir {{- user}}?",
-		  "buttons": {
-			"execute": "bannir"
-		  },
-		  "cancel": "Bannissement annulée {{- user}}",
-		  "success": "Bannissement exécuté avec succès {{- user}}"
-		},
-		"unban": {
-		  "errors": {
-			"missing_permissions": "Autorisations manquantes pour débannir {{- user}}",
-			"no_ban": "{{- user}} n'est pas bannis.",
-			"no_banned": "Personne dans cette guilde n'est bannis",
-			"no_ids": "Le contenu fourni ne contient aucun identifiant de membre valide."
-		  },
-		  "pending": "Voulez-vous vraiment annuler le bannissement {{- user}}?",
-		  "buttons": {
-			"execute": "Annuler le debannissement"
-		  },
-		  "cancel": "Annulation du bannissement sur {{- user}}",
-		  "success": "Annulation du bannissement réussie {{- user}}"
-		},
-		"anti_raid_nuke": {
-		  "common": {
-			"errors": {
-			  "result": {
-				"reject_perms": "Cet utilisateur dispose d'autorisations élevées.",
-				"reject_unbanable": "Cet utilisateur ne peut pas être banni par moi.",
-				"reject_bot": "Cet utilisateur est un robot.",
-				"reject_self": "Cet utilisateur, c'est vous.",
-				"reject_protected": "Cet utilisateur a un rôle ignoré par l'Anti-Raid-Nuke.",
-				"reject_user": "Cet utilisateur n'est pas dans le serveur."
-			  },
-			  "no_hits": "L'Anti-Raid-Nuke ne touchera personne, vous souhaiterez peut-être réajuster les paramètres et réessayer.",
-			  
-			  "no_filter": "Anti-Raid-Nuke devrait toucher tous les membres. ",
-			  "no_concurrent_use": "Impossible d'exécuter plus d'un Anti-Raid-Nuke pour le même serveur à la fois."
-			},
-			"parameters": {
-			  "heading": "Paramètres:",
-			  "launch_time": "• Heure de lancement : {{- now}}",
-			  "days_zero": "• Ne supprimer aucun message",
-			  "parsed_ids": "• Membres valides de ce serveur : `{{valid}}'de'{{total}}` nombre total d'identifiants analysés.",
-			  "hide": "• L'exécution de commandes cachées génère uniquement un rapport préliminaire. ",
-			  "days_one": "• Suppression des messages envoyés le dernier jour",
-			  "days_many": "• Suppression des messages envoyés dans les dernier `{{count}}`jours",
-			  "days_other": "• Suppression des messages envoyés dans les dernier `{{count}}`jours"
-			},
-			"reason": "Anti-Raid-Nuke `({{current}}/{{count}})`",
-			"buttons": {
-			  "execute": "Lancement",
-			  "formatted": "Rapport formaté"
-			},
-			"cancel": "Anti-Raid-Nuke annulé.",
-			"pending_one": "Anti-Raid-Nuke devrait frapper `{{count}}`membre.",
-			"pending_many": "Anti-Raid-Nuke devrait frapper `{{count}}`membres.\n{{creation_range}}`\n{{join_range}}`",
-			"pending_other": "Anti-Raid-Nuke devrait frapper `{{count}}`membres.\n{{creation_range}}`\n{{join_range}}`",
-			"success_one": "L'Anti-Raid-Nuke a frappé {{count}}`membre.",
-			"success_many": "L'Anti-Raid-Nuke a frappé {{count}}`membres.",
-			"success_other": "L'Anti-Raid-Nuke a frappé {{count}}`membres."
-		  },
-		  "filter": {
-			"errors": {
-			  "invalid_avatar": "Format d'avatar non valide. Il doit s'agir d'un hachage brut, d'un identifiant utilisateur, d'une URL ou de « aucun »",
-			  "pattern_format": "Modèle fourni non valide."
-			},
-			"parameters": {
-			  "join": {
-				"before": "• Rejoint avant : {{- date}}",
-				"after": "• Rejoint après : {{- date}}"
-			  },
-			  "created": {
-				"before": "• Compte créé avant : {{- date}}",
-				"after": "• Compte créé après : {{- date}}"
-			  },
-			  "pattern": "• Modèle de correspondance de nom d'utilisateur :",
-			  "avatar": "• Correspondance du hachage d'avatar (utilisateur ou membre): `{{- avatar}}`",
-			  "zalgo": "• Noms d'utilisateur comprenant des personnages Zalgo",
-			  "filter_confusables": "• Noms d'utilisateur incluant des éléments pouvant être confondus",
-			  "clean_confusables": "• Nettoyage des noms d'utilisateur, y compris ceux pouvant être confondus, avant d'appliquer d'autres filtres."
-			}
-		  },
-		  "file": {
-			"parameters": {
-			  "file": "• Déposer: {{- file_link}}",
-			  "link_label": "<CDN url>"
-			}
-		  },
-		  "modal": {
-			"title": "Entrée anti-raid-nuke",
-			"components": {
-			  "label": "{{idx}}- Entrez des identifiants valides",
-			  "placeholder": "Les membres seront analysés par identifiant à partir du contenu fourni."
-			}
-		  }
-		},
-		"restrict": {
-		  "embed": {
-			"errors": {
-			  "no_role": "Aucun rôle pour les restrictions d'intégration n'a été configuré.",
-			  "missing_permissions": "Autorisations manquantes pour restreindre {{- user}}",
-			  "already_restricted": "{{- user}} est déjà restreint à l'intégration."
-			},
-			"pending": "Voulez-vous vraiment intégrer la restriction {{- user}}?",
-			"buttons": {
-			  "execute": "restreindre"
-			},
-			"cancel": "Restriction d'intégration annulée sur {{- user}}",
-			"success": "Intégration restreinte réussie {{- user}}"
-		  },
-		  "react": {
-			"errors": {
-			  "no_role": "Aucun rôle pour les restrictions de réaction n'a été configuré.",
-			  "missing_permissions": "Autorisations manquantes pour restreindre les réactions de {{- user}}",
-			  "already_restricted": "{{- user}} est déjà limité pour les réactions."
-			},
-			"pending": "Voulez-vous vraiment restreindre {{- user}}?",
-			"buttons": {
-			  "execute": "restreindre"
-			},
-			"cancel": "Restriction de réaction annulée sur {{- user}}",
-			"success": "Restriction de réaction emit avec succès pour l'utilisateur {{- user}}"
-		  },
-		  "emoji": {
-			"errors": {
-			  "no_role": "Aucun rôle pour les restrictions emoji n'a été configuré.",
-			  "missing_permissions": "Autorisations manquantes pour restreindre les emojis {{- user}}",
-			  "already_restricted": "{{- user}} est déjà restreint aux emojis."
-			},
-			"pending": "Voulez-vous vraiment restreindre les emoji de {{- user}}?",
-			"buttons": {
-			  "execute": "restreindre"
-			},
-			"cancel": "Restriction d'emoji annulée sur {{- user}}",
-			"success": "Restriction d'emoji emit avec succès {{- user}}"
-		  },
-		  "unrole": {
-			"errors": {
-			  "missing_permissions": "Autorisations manquantes pour enlever le rôle `{{case}}`"
-			},
-			"pending": "Voulez-vous vraiment vous enlever {{- user}} du role `{{- role}}` avec l'infraction' {{- case}}?",
-			"buttons": {
-			  "execute": "Dérouler"
-			},
-			"cancel": "Annulation du rôle le {{- user}} de `{{- role}}` sur le cas {{- case}}",
-			"success": "Role `{{- role}}` supprimer avec succès pour l'utilisateur {{- user}} avec l'infraction' {{- case}}"
-		  }
-		},
-		"lockdown": {
-		  "lock": {
-			"errors": {
-			  "missing_permissions": "Autorisations manquantes pour verrouiller {{- channel}}",
-			  "already_locked": "{{- channel}} est déjà verrouillé.",
-			  "bot_requires_admin": "Le robot nécessite l'autorisation « ADMINISTRATEUR » pour verrouiller les chaînes, car Discord ne permet pas de définir tous les changements sans cette autorisation, ce qui peut entraîner des problèmes lors du verrouillage ou du déverrouillage."
-			},
-			"pending": "Voulez-vous vraiment verrouiller {{- channel}}?",
-			"buttons": {
-			  "execute": "Verrouillage"
-			},
-			"message": "🔒 Ce canal de discussion a été verrouillée, elle sera déverrouillée {{- duration}}",
-			"message_reason": "🔒 Ce canal de discussion a été verrouillée pour une raison `{{- reason}}`, il sera déverrouillé {{- duration}}",
-			"cancel": "Verrouillage annulé de {{- channel}}",
-			"success": "Verrouillé avec succès {{- channel}}"
-		  },
-		  "lift": {
-			"errors": {
-			  "missing_permissions": "Autorisations manquantes pour lever le verrouillage {{- channel}}",
-			  "not_locked": "{{- channel}} n'est pas verrouillé.",
-			  "failure": "{{- channel}} n'a pas pu être déverrouillé."
-			},
-			"pending": "Voulez-vous vraiment déverrouillé le canaux de discussion {{- channel}}?",
-			"buttons": {
-			  "execute": "Déverrouillé"
-			},
-			"cancel": "Déverrouillage annulé pour le canaux {{- channel}}",
-			"success": "Le verrouillage a été levé avec succès {{- channel}}"
-		  }
-		},
-		"reason": {
-		  "success": "Définition réussie du motif du litige {{- case}}",
-		  "success_multiple": "Définition réussie du motif pour les infractions {{- lower_case}} à {{- upper_case}} (`{{current}}/{{count}}`cas)",
-		  "pending_multiple": "Voulez-vous vraiment définir une raison pour les infractions {{- lower_case}} à {{- upper_case}} (`{{count}}` cas) ?",
-		  "buttons": {
-			"execute": "Définir la raison"
-		  },
-		  "cancel": "Raison du paramètre annulé."
-		},
-		"reference": {
-		  "case": "Définition réussie de la **référence de l'infraction** pour l'infraction {{- case}} à {{- ref}}",
-		  "report": "Définition réussie de la **référence du rapport** pour l'infraction {{- case}} à {{- ref}}"
-		},
-		"duration": {
-		  "errors": {
-			"timeout": "Impossible de modifier la durée du délai d'attente pour l'infraction {{- case}}"
-		  },
-		  "success": "Définition réussie de la durée de l'infraction {{- case}}"
-		},
-		"clear": {
-		  "errors": {
-			"no_results": "Impossible de trouver des messages dans la plage fournie datant de moins de 12 heures.",
-			"other_channel": "Les messages fournis doivent provenir du même canal."
-		  },
-		  "message_too_old": "Remarque : Vous ne pouvez effacer que les messages datant de 12 heures maximum. ",
-		  "buttons": {
-			"execute_one": "Supprimer {{count}} message",
-			"execute_many": "Supprimer {{count}} messages",
-			"execute_other": "Supprimer {{count}} messages"
-		  },
-		  "cancel": "Effacement des messages annulé.",
-		  "pending_one": "Vous êtes sur le point d'effacer `{{count}}`message de $t(command.mod.clear.authors, {\"count\": {{author_count}}}) envoyé `{{time}}`. ",
-		  "pending_many": "Vous êtes sur le point d'effacer `{{count}}`messages par $t(command.mod.clear.authors, {\"count\": {{author_count}}}) envoyé `{{time}}`. ",
-		  "pending_other": "Vous êtes sur le point d'effacer `{{count}}`messages par $t(command.mod.clear.authors, {\"count\": {{author_count}}}) envoyé `{{time}}`. ",
-		  "success_one": "Effacé avec succès `{{count}}`message de $t(command.mod.clear.authors, {\"count\": {{author_count}}}) envoyé `{{time}}`",
-		  "success_many": "Effacé avec succès `{{count}}`messages par $t(command.mod.clear.authors, {\"count\": {{author_count}}}) envoyé `{{time}}`",
-		  "success_other": "Effacé avec succès `{{count}}`messages par $t(command.mod.clear.authors, {\"count\": {{author_count}}}) envoyé `{{time}}`",
-		  "authors_one": "`{{count}}` auteur",
-		  "authors_many": "`{{count}}`auteurs",
-		  "authors_other": "`{{count}}`auteurs"
-		},
-		"status": {
-		  "success": "Définition réussie du statut du rapport {{- report}} à '$t(log.report_log.report_status.{{status}})`"
-		},
-		"report": {
-		  "common": {
-			"errors": {
-			  "recently_reported": {
-				"message": "Ce message a déjà été rapporté récemment, merci de faire de notre communauté un meilleur endroit!",
-				"user": "Cet utilisateur a déjà été signalé récemment, merci de faire de notre communauté un meilleur endroit!"
-			  },
-			  "no_self": "Vous ne pouvez pas vous signaler.",
-			  "invalid_attachment": "Pièce jointe invalide, seules les images sont autorisées.",
-			  "timed_out": "Le délai du rapport a expiré. Veuillez réessayer.",
-			  "bot": "Vous ne pouvez pas signaler les robots.",
-			  "no_attachment_forward": "Cet utilisateur a déjà été signalé récemment, vous devez préciser une pièce jointe à transmettre si cela aide le contexte du signalement."
-			},
-			"warnings": "**Attention :** Nous ne sommes pas Discord et nous **ne pouvons** pas modérer les problèmes de {{- trust_and_safety}}.\n",
-			"trust_and_safety_sub": "Confiance",
-			"buttons": {
-			  "forward": "Transférer le message",
-			  "forward_attachment": "Transférer la pièce jointe",
-			  "execute": "Créer un rapport",
-			  "cancel": "Annuler",
-			  "discord_report": "Signaler à Discord"
-			},
-			"modal": {
-			  "label": "La raison du rapport",
-			  "placeholder": "Veuillez entrer une raison détaillée pour le rapport"
-			},
-			"post": {
-			  "name": "Rapport {{report_id}} - {{- user}}",
-			  "reason": "rapporté par {{- user}}"
-			}
-		  },
-		  "message": {
-			"modal": {
-			  "title": "Rapport de messages"
-			},
-			"pending": "Êtes-vous sûr de vouloir signaler {{- message_link}} aux modérateurs du serveur ?\n {{- reason}}",
-			"pending_sub": "ce message",
-			"pending_forward": "Cet utilisateur a déjà été signalé récemment, souhaitez-vous le transférer {{- message_link}} à ce rapport ?",
-			"cancel": "Rapport de message annulé.",
-			"success": "Message signalé avec succès, merci de faire de notre communauté un meilleur endroit!",
-			"success_forward": "Message transféré avec succès au rapport existant, merci de faire de notre communauté un meilleur endroit!"
-		  },
-		  "user": {
-			"modal": {
-			  "title": "Rapport utilisateur"
-			},
-			"attachment_upsell": {
-			  "base": "ℹ️ ***Conseil :** Si cela peut aider à fournir du contexte, vous pouvez joindre une image à ce rapport en utilisant le {{- report_command}}!*",
-			  "mention": "{{- report_command}} commande",
-			  "option": "possibilité de pièce jointe"
-			},
-			"pending": "Êtes-vous sûr de vouloir signaler {{- user}} aux modérateurs du serveur ?\n {{- reason}}",
-			"pending_forward": "Cet utilisateur a déjà été signalé récemment. Souhaitez-vous transférer la pièce jointe à ce rapport?",
-			"cancel": "Rapport utilisateur annulé.",
-			"success": "Utilisateur signalé avec succès, merci d'avoir rendu notre communauté meilleure!",
-			"success_forward": "La pièce jointe au rapport existant a été transférée avec succès, merci d'avoir rendu notre communauté meilleure!"
-		  }
-		}
-	  },
-	  "utility": {
-		"ping": {
-		  "success": "ok"
-		},
-		"check_scam": {
-		  "found_one": "Domaine frauduleux détecté ({{count}})",
-		  "found_many": "Domaines frauduleux détectés ({{count}})",
-		  "found_other": "Domaines frauduleux détectés ({{count}})"
-		},
-		"refresh_scamlist": {
-		  "missing_env": "Variables d'environnement manquantes {{missing, list}} pour récupérer des domaines frauduleux.",
-		  "refresh_never": "\"jamais\"",
-		  "amount": "• Montant : `{{count}}`",
-		  "before": "• Avant : `{{count}}`",
-		  "after": "• Après : `{{count}}`",
-		  "last_change": "• Dernier changement: {{- timestamp}}",
-		  "buttons": {
-			"execute": "Rafraîchir"
-		  },
-		  "cancel": "Actualisation de la liste des domaines frauduleux annulés.",
-		  "success": "Listes de domaines frauduleux actualisées avec succès.",
-		  "pending": "Listes actuelles de domaines frauduleux :",
-		  "error": "Une erreur s'est produite lors de l'actualisation des domaines frauduleux."
-		},
-		"sponsor": {
-		  "errors": {
-			"no_role": "Aucun rôle pour les sponsors n'a été configuré.",
-			"already_sponsor": "{{- user}} est déjà sponsor."
-		  },
-		  "pending": "Voulez-vous vraiment appliquer le rôle de sponsor à {{- user}}?",
-		  "buttons": {
-			"execute": "Appliquer"
-		  },
-		  "reason": "Rôle de sponsor appliqué",
-		  "cancel": "Annulation de l'application du rôle de sponsor à {{- user}}",
-		  "success": "Rôle de sponsor appliqué avec succès à {{- user}}"
-		},
-		"claim_sponsor": {
-		  "errors": {
-			"no_role": "Aucun rôle pour les sponsors n'a été configuré.",
-			"already_sponsor": "Vous êtes déjà un sponsors.",
-			"no_oc_user": "Aucun utilisateur d'Open Collective avec le slug `{{slug}}' a été trouvé.",
-			"no_oc_sponsor": "Aucune contribution Open Collective associée au slug`{{slug}}' a été trouvé.",
-			"no_oc_tag": "Aucun identifiant Discord n’a été trouvé dans votre profil Open Collective.\n",
-			"oc_id_mismatch": "L'identifiant Discord stocké dans vos balises de profil Open Collective ne correspond pas à votre identifiant Discord."
-		  },
-		  "pending": "Voulez-vous revendiquer votre rôle de sponsor sur {{- guild}}?",
-		  "buttons": {
-			"execute": "Réclamer"
-		  },
-		  "reason": "Rôle de sponsor revendiqué",
-		  "cancel": "Annulé la revendication de votre rôle de sponsor le {{- guild}}",
-		  "success": "Vous avez revendiqué avec succès votre rôle de sponsor sur {{- guild}}"
-		}
-	  }
-	},
-	"log": {
-	  "history": {
-		"common": {
-		  "errors": {
-			"no_history": "\"Aucun historique trouvé\""
-		  },
-		  "user_details": {
-			"title": "Détails de l'utilisateur",
-			"description": "• Nom d'utilisateur: {{- user_mention}} - `{{- user_tag}}`({{user_id}})\n {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`"
-		  },
-		  "member_details": {
-			"title": "Détails du membre",
-			"description": {
-			  "nickname": "• Surnom : `{{- nickname}}`",
-			  "joined": "• Rejoint : {{- joined_at}} ({{- joined_at_since}}) `{{joined_at_timestamp}}`",
-			  "roles_one": "• Rôle ({{count}}) : {{- roles}}",
-			  "roles_many": "• Les rôles ({{count}}) : {{- roles}}",
-			  "roles_other": "• Les rôles ({{count}}) : {{- roles}}"
-			}
-		  }
-		},
-		"cases": {
-		  "title": "Histoire de cas",
-		  "summary": {
-			"warning_one": "{{count}} avertissement",
-			"warning_many": "{{count}} avertissements",
-			"warning_other": "{{count}} avertissements",
-			"restriction_one": "{{count}} restriction",
-			"restriction_many": "{{count}} restrictions",
-			"restriction_other": "{{count}} restrictions",
-			"timeout_one": "{{count}} timeout",
-			"timeout_many": "{{count}} timeouts",
-			"timeout_other": "{{count}} timeouts",
-			"kick_one": "{{count}} kick",
-			"kick_many": "{{count}} kicks",
-			"kick_other": "{{count}} kicks",
-			"softban_one": "{{count}} softban",
-			"softban_many": "{{count}} softbans",
-			"softban_other": "{{count}} softbans",
-			"ban_one": "{{count}} bannissement",
-			"ban_many": "{{count}} bannissements",
-			"ban_other": "{{count}} bannissements",
-			"unban_one": "{{count}} débannissement",
-			"unban_many": "{{count}} débannissements",
-			"unban_other": "{{count}} débannissements"
-		  },
-		  "action_label": {
-			"restriction": "Limiter",
-			"restriction_case": "Rôle",
-			"unrestriction": "Libérer la restriction",
-			"unrestriction_case": "Infraction de restriction",
-			"warn": "Avertir",
-			"kick": "kick",
-			"softban": "softban",
-			"ban": "bannissement",
-			"unban": "débannissement",
-			"timeout": "timeout",
-			"timeout_end": "Fin du timeout",
-			"unknown": "Inconnu"
-		  }
-		},
-		"reports": {
-		  "title": "Historique des rapports",
-		  "user_role": {
-			"author": "Auteur",
-			"target": "Cible"
-		  },
-		  "summary": {
-			"target": "{{count}}x signalé",
-			"author_one": "{{count}} rapport rédigé",
-			"author_many": "{{count}} rapports rédigés",
-			"author_other": "{{count}} rapports rédigés",
-			"spam_one": "{{count}} rapport de spam",
-			"spam_many": "{{count}} rapports de spam",
-			"spam_other": "{{count}} rapports de spam"
-		  },
-		  "status_label": {
-			"pending": "En attente",
-			"approved": "Approuvé",
-			"rejected": "Rejeté",
-			"spam": "Spam",
-			"unknown": "Inconnu"
-		  }
-		}
-	  },
-	  "mod_log": {
-		"case_log": {
-		  "description": "**Membre**: `{{- target_tag}}`({{target_id}})\n {{- action}}",
-		  "expiration": "\n**Expiration**: {{- time}}",
-		  "context": "**Contexte:** {{- link}}",
-		  "context_sub": "Téléporte-moi, Yuu",
-		  "reason": "\n**Raison:** {{- reason}}",
-		  "reason_fallback": "\n**Raison:** Utilisez `/raison {{case_id}} <...reason>` pour définir une raison pour cet infraction",
-		  "case_reference": "\n**Référence de l'infraction:** {{- ref}} ({{action}})",
-		  "report_reference": "\n**Référence du rapport:** {{- report_ref}}",
-		  "footer": "Infraction {{case_id}}"
-		},
-		"anti_raid_nuke": {
-		  "description": "**Action** : Anti-Raid-Nuke\n {{- reason}}\n**Nombre de coups :** {{count}}",
-		  "report": "**Rapport:** {{- link}}",
-		  "report_sub": "Téléporte-moi, Yuu",
-		  "footer": "Infraction {{from}}-{{to}}"
-		},
-		"scam": {
-		  "reason": "Détection d'arnaque"
-		},
-		"spam": {
-		  "reason": "Détection du spam",
-		  "reason_mentions": "Mentionner la détection du spam"
-		},
-		"auto_mod": {
-		  "keyword": "Le message contenait un mot-clé défini dans la règle AutoMod",
-		  "keyword_preset": "Message signalé par AutoMod",
-		  "harmful_link": "Le message contenait un lien nuisible",
-		  "spam": "Le message a été détecté comme spam",
-		  "default": "Message signalé par AutoMod"
-		}
-	  },
-	  "member_log": {
-		"description": "• Nom d'utilisateur: {{- user_mention}} - `{{- user_tag}}`({{user_id}})\n {{- created_at}} ({{- created_at_since}}) `{{created_at_timestamp}}`",
-		"joined_at": "\n• Rejoint : {{- joined_at}} ({{- joined_at_since}}) `{{joined_at_timestamp}}`",
-		"left_at": "\n• Quitté: {{- left_at}} ({{- left_at_since}})",
-		"footer": {
-		  "joined": "L'utilisateur a rejoint",
-		  "left": "L'utilisateur a quitté"
-		}
-	  },
-	  "guild_log": {
-		"message_updated": {
-		  "title": "Message mis à jour",
-		  "channel": "• : {{- channel}}",
-		  "jump_to": "• [Sauter à]({{- link}})"
-		},
-		"message_deleted": {
-		  "title": "Message supprimé",
-		  "channel": "• Canal de discussion: {{- channel}}",
-		  "embeds": "• Intégrations : {{- embeds}}",
-		  "attachments": "• Pièces jointes : {{- attachments}}",
-		  "stickers": "• Autocollants : {{- stickers}}",
-		  "jump_to": "• [Sauter à]({{- link}})",
-		  "reply_to": "• Répondre à [{{message_id}}]({{- message_url}}) par `{{- user_tag}}`({{user_id}})",
-		  "reply_to_mentions": "• @Réponse à [{{message_id}}]({{- message_url}}) par `{{- user_tag}}`({{user_id}})"
-		},
-		"message_bulk_deleted": {
-		  "title": "Message supprimé en masse",
-		  "multiple_authors": "Plusieurs auteurs",
-		  "description": "• Canal: {{- channel}}\n• Journaux : consultez le fichier joint pour les journaux complets (éventuellement au-dessus de cette intégration)",
-		  "attachment": "↳ Pièce jointe : {{- url}}",
-		  "sticker": "↳ Autocollant : {{- name}}",
-		  "reply_to": "↳ Répondre à {{message_id}} ({{- message_url}}) par {{- user_tag}} ({{user_id}})",
-		  "reply_to_mentions": "↳ @Répondre à {{message_id}} ({{- message_url}}) par {{- user_tag}} ({{user_id}})"
-		},
-		"voice_state_update": {
-		  "title": "Mise à jour de l'état de la voix",
-		  "joined": "Rejoint {{- channel}}",
-		  "moved": "Bouger de {{- from_channel}} à {{- to_channel}}",
-		  "left": "Déconnections {{- channel}}"
-		},
-		"thread_created": {
-		  "title": "Sujet créé",
-		  "channel": "• Fil de discussion: {{- channel}} {{- name}} {{channel_id}}",
-		  "starter": "• Message de démarrage: {{message_id}}",
-		  "jump_to": "•[Aller au message de démarrage]({{- link}})"
-		},
-		"thread_deleted": {
-		  "title": "Sujet supprimé",
-		  "channel": "• Fil de discussion: {{- name}} {{channel_id}}",
-		  "starter": "• Message de démarrage: {{message_id}}",
-		  "jump_to": "• [Aller au message de démarrage]({{- link}})"
-		},
-		"messages_cleared": {
-		  "title": "Messages effacés",
-		  "time": "• Durée : {{time}}",
-		  "messages_one": "• Message: {{count}}",
-		  "messages_many": "• Messages: {{count}}",
-		  "messages_other": "• Messages: {{count}}",
-		  "authors_one": "• Auteur: {{count}}",
-		  "authors_many": "• Auteurs: {{count}}",
-		  "authors_other": "• Auteurs: {{count}}"
-		}
-	  },
-	  "anti_raid_nuke": {
-		"pending": "Le rapport pour l'Anti-Raid-Nuke est en cours de traitement...",
-		"title": "Lancement de l'Anti-Raid-Nuke",
-		"description": "• Modérateur : {{- moderator}}\n• Nombre de visites : {{count}}"
-	  },
-	  "report_log": {
-		"reason": "**Raison:**\n{{- reason}}",
-		"target": "**Utilisateur signalé :** {{- target}}",
-		"message": "**Message:** {{- message_link}} ({{- channel}})",
-		"message_sub": "Téléporte-moi, Yuu",
-		"message_fallback": "`Message supprimé`",
-		"case_reference": "**Référence de l'infraction :** {{- ref}} ({{action}})",
-		"status": "**Statut:** $t(log.report_log.report_status.{{status}})",
-		"moderator": "**Modérateur:** {{- mod}}",
-		"updated_at": "**Mis à jour à :** {{- updated_at}}",
-		"footer": "Astuce : Pour résoudre un rapport : modifiez le libellé du forum de statut, référencez-le dans un dossier, définissez la référence d'un dossier existant avec /reference ou définissez le statut via /reports status.",
-		"forward": {
-		  "message": "**Rapport de message transféré**\n  {{- author}}\n • Raison: {{- reason}}",
-		  "user": "**Pièce jointe transmise**\n  {{- author}}\n • Raison: {{- reason}}",
-		  "errors": {
-			"generic": "Une erreur s'est produite lors du transfert du rapport.",
-			"no_thread": "Une erreur s'est produite lors du transfert du rapport. Le fil de discussion associé est introuvable."
-		  }
-		},
-		"report_status": {
-		  "0": "En attente",
-		  "1": "Approuvé",
-		  "2": "Rejeté",
-		  "3": "Spam"
-		}
-	  }
-	},
-	"formatters": {
-	  "formatting": {
-		"guild_member": "{{- id}}|  {{- join}} |  {{- creation}} | {{- tag}}"
-	  },
-	  "anti_raid_nuke": {
-		"case_placeholder": "Préliminaire",
-		"title": "Rapport anti-raid-nuke pour {{- guild}}",
-		"title_preliminary": "Rapport préliminaire anti-raid-nuke pour {{- guild}}",
-		"summary": {
-		  "title": "**Résumé**",
-		  "mode": "**Mode :** `{{mode}}`",
-		  "launch_time": "**Heure du lancement :** `{{- launch_time}}`",
-		  "time_taken": "**Temps pris :** `{{time_taken}}`",
-		  "moderator": "**Modérateur :** `{{- moderator}}`",
-		  "reason": "**Raison :** `{{- reason}}`",
-		  "preliminary": "Ceci est un rapport préliminaire. ",
-		  "preliminary_hidden": "Vous ne pouvez afficher un rapport préliminaire que lors de l'exécution de la commande en mode caché."
-		},
-		"results": {
-		  "title": "**Résultats**",
-		  "total": "**Total :** `{{count}}`",
-		  "preliminary": {
-			"banned_one": "`{{count}}` membre peut être banni",
-			"banned_many": "`{{count}}` membres peuvent être bannis",
-			"banned_other": "`{{count}}` membres peuvent être bannis",
-			"failed_one": "`{{count}}` membre ne peut pas être banni",
-			"failed_many": "`{{count}}` membres ne peuvent pas être bannis",
-			"failed_other": "`{{count}}` membres ne peuvent pas être bannis"
-		  },
-		  "blast": {
-			"banned_one": "`{{count}}` membre a été banni avec succès",
-			"banned_many": "`{{count}}` membres ont été bannis avec succès",
-			"banned_other": "`{{count}}` membres ont été bannis avec succès",
-			"failed_one": "`{{count}}` membre n'a pas pu être banni",
-			"failed_many": "`{{count}}` membres n'ont pas pu être bannis",
-			"failed_other": "`{{count}}` membres n'ont pas pu être bannis"
-		  },
-		  "ratio": "Taux de réussite : `{{ratio}}`"
-		},
-		"parameters": {
-		  "title": "**Paramètres**",
-		  "avatar": "**Avatar correspondant :** `{{avatar}}`",
-		  "pattern": {
-			"title": "**Modèle :** `{{- pattern}}`",
-			"confusables": "Mode de modèles pouvant être confondus : `$t(formatters.anti_raid_nuke.parameters.confusables.{{mode}})`",
-			"insensitive": "Le modèle n'est pas sensible à la case",
-			"full_match": "Le modèle est limité aux correspondances complètes"
-		  },
-		  "confusables": {
-			"0": "Désactivé",
-			"1": "Résistance du motif uniquement",
-			"2": "Filtrage des membres uniquement",
-			"3": "Eléments filtrants et résistance des motifs",
-			"title": "Mode Confusables : `$t(formatters.anti_raid_nuke.parameters.confusables.{{mode}})`"
-		  },
-		  "created": {
-			"title": "**Création :**",
-			"after": "Créé après : `{{- after}}`",
-			"before": "Créé avant : `{{- before}}`"
-		  },
-		  "joined": {
-			"title": "**Rejoindre la plage :**",
-			"after": "Rejoint après : `{{- after}}`",
-			"before": "Rejoint avant : `{{- before}}`"
-		  },
-		  "file": {
-			"title": "**Fichier :** `{{- file}}`",
-			"placeholder": "<CDN link>"
-		  },
-		  "days_zero": "Ne supprimer aucun message",
-		  "zalgo": "Filtrage des membres avec zalgo dans leur nom d'utilisateur",
-		  "none": "Non spécifié",
-		  "days_one": "Supprimer les messages envoyés le dernier jour",
-		  "days_many": "Suppression des messages envoyés dans le dernier `{{count}}`jours",
-		  "days_other": "Suppression des messages envoyés dans le dernier `{{count}}`jours"
-		},
-		"cases": {
-		  "title": "**Infractions**",
-		  "single": "Infraction `{{case_id}}`",
-		  "range": "De l'infraction `{{from}}`à l'infraction`{{to}}`",
-		  "none": "Aucun infractions créé pour cette explosion",
-		  "log_message": "**Journal d'infraction' :** {{- link}}",
-		  "log_message_sub": "Téléporte-moi, Yuu",
-		  "log_message_none": "**Journal d'infraction :** Aucun journal d'infraction' créé"
-		},
-		"preliminary": {
-		  "successes": {
-			"title": "**Clics projetés**",
-			"none": "Aucun succès potentiel"
-		  },
-		  "fails": {
-			"title": "**Échecs projetés**",
-			"none": "Aucune panne détectable précocement"
-		  }
-		},
-		"blast": {
-		  "successes": {
-			"title": "** Coups confirmés **",
-			"none": "Aucun résultat confirmé, quelque chose s'est mal passé"
-		  },
-		  "fails": {
-			"title": "**Les échecs**",
-			"none": "Aucun échec, tout s'est bien passé"
-		  }
-		},
-		"table": {
-		  "success_titles": [
-			"Numéro de l'infraction",
-			"ID membres",
-			"Nom d'utilisateur"
-		  ],
-		  "fail_titles": [
-			"ID membres",
-			"Nom d'utilisateur",
-			"Erreur"
-		  ]
-		}
-	  },
-	  "report_log": {
-		"author": "Rapporté par {{- author}}",
-		"reason": "**Raison:**\n{{- reason}}",
-		"target": "**Cible:** {{- target}}",
-		"message": "**Message:** {{- message_link}} ({{- channel}})",
-		"message_sub": "Téléporte-moi, Yuu",
-		"case_reference": "**Référence de l'infraction :** {{- ref}}",
-		"status": "**Statut:** $t(log.report_log.report_status.{{status}})",
-		"footer": "Rapport {{report_id}} | $t(log.report_log.report_type.{{type}})",
-		"report_type": {
-		  "0": "Message",
-		  "1": "Utilisateur"
-		},
-		"report_status": {
-		  "0": "En attente",
-		  "1": "Approuvé",
-		  "2": "Rejeté",
-		  "3": "Faux"
-		}
-	  }
-	}
+        "ping": {
+          "success": "{{response}} La latence du bot est de {{bot_latency}} ms. La latence de l'API est de {{API_latency}} ms.",
+          "responses": {
+            "nah": "non..",
+            "okay": "je vais bien.. passez à autre chose",
+            "alive": "je suis vivant !"
+          }
+        }
+      }
+    },
+    "info": {
+        "member": {
+          "name": "Membre",
+          "value": "**❯ Nom d'utilisateur :** {{username}}\n**❯ ID :** {{id}}\n**❯ Avatar :** {{- avatar}}\n**❯ Statut :** {{status}}",
+          "other": "**❯ Créé le :** {{- created_at}}\n**❯ Rejoint le :** {{- joined_at}}\n**❯ En attente :** {{- pending}}\n**❯ Mis en pause :** {{- is_timed_out}}\n**❯ Bot :** {{- is_bot}}\n"
+        },
+        "user": {
+          "name": "Utilisateur",
+          "value": "**❯ Nom d'utilisateur :** {{username}}\n**❯ ID :** {{id}}\n**❯ Avatar :** {{- avatar}}\n**❯ Date de création :** {{- time_create}}"
+        },
+        "bot": {
+          "name": "Membre",
+          "system": "**❯ Plateforme :** {{platform}}\n**❯ Uptime :** {{uptime}}\n**❯ CPU :**\n\u3000 Cœurs : {{cores}}\n\u3000 Modèle : {{model}}\n\u3000 Vitesse : {{speed}}\n**❯ Mémoire :**\n\u3000 Totale : {{total_memory}}\n\u3000 Utilisée : {{used_memory}}\n",
+          "info": "**❯ Propriétaire :** {{- owner}}\n**❯ Serveurs :** {{servers}}\n**❯ Utilisateurs :** {{users}}\n**❯ Canaux :** {{channels}}\n**❯ Date de création :** {{- create_date}}\n**❯ Node.js :** {{node}}\n**❯ Version TypeScript :** {{ts}}\n**❯ Discord.js :** {{djs}}\n\u200B"
+        },
+        "channel": {
+          "value": "**❯ ID :** {{id}}\n**❯ Nom :** {{name}} \n**❯ NSFW :** {{nsfw}}\n**❯ Mode lent :** {{slowmode}}\n**❯ Canal privé :** {{private}}\n**❯ Sujet du canal :** {{topic}}"
+        },
+        "role": {
+          "other": "**❯ Position :** {{- position}}\n**❯ Permissions :** {{- permissions}}",
+          "other2": "\n\u200b\n\u200b {{- permissions}}",
+          "value": "**❯ Nom :** {{- name}}\n**❯ ID du rôle :** {{role_id}}\n**❯ Couleur :** {{color}}\n**❯ Affiché :** {{hoisted}}\n**❯ Mentionnable :** {{mentionable}}"
+        },
+        "server": {
+          "info": "**❯ Nom :** {{- name}}\n**❯ ID :** {{id}}\n**❯ Propriétaire :** {{owner}}\n**❯ Niveau de boost :** {{booster_tier}}\n**❯ Filtre explicite :** {{explicit_filter}}\n**❯ Niveau de vérification :** {{verification_level}}\n**❯ Date de création :** {{- created_at}}\n\u200B",
+          "stats": "**❯ Nombre de rôles :** {{role_count}}\n**❯ Nombre d'émojis :** {{emoji_count}}\n**❯ Nombre d'émojis réguliers :** {{regular_emoji}}\n**❯ Nombre d'émojis animés :** {{animated_emoji}}\n**❯ Nombre de membres :** {{member_count}}\n**❯ Humains :** {{humans}}\n**❯ Bots :** {{bots}}\n**❯ Canaux textuels :** {{txt_chan}}\n**❯ Canaux vocaux :** {{voice_chan}}\n**❯ Canaux de scène :** {{stage_chan}}\n**❯ Nombre de boosts :** {{boost_count}}\n\u200B",
+          "presence": "**❯ En ligne :** {{online}}\n**❯ Inactif :** {{idle}}\n**❯ Ne pas déranger :** {{dnd}}\n**❯ Hors ligne :** {{offline}}\n**❯ Aucune présence détectée :** {{no_presence}}\n\u200B"
+        }
+      },
+      "log": {
+        "setting_log": {
+          "no_info": "Aucune information pour le moment.",
+          "channel_title": "Canaux",
+          "channel_description": "**\u3000❯ Canal de bienvenue :** <#{{welcome_channel}}>\n **\u3000❯ Canal de journalisation :** <#{{log_channel}}>\n **Anti-raid :** {{anti_raid_enabled}}\n **Journaux d'audit :** {{audit_log_enabled}}",
+          "event_title": "Mises à jour des événements",
+          "event_description": "**\u3000❯ Bot :** {{bot}}\n **\u3000❯ Rôles :** {{role}}\n **\u3000❯ Guilde :** {{guild}}\n **\u3000❯ Émojis :** {{emoji}}\n **\u3000❯ Fils :** {{thread}}\n **\u3000❯ Messages :** {{message}}\n **\u3000❯ Webhooks :** {{webhooks}}\n **\u3000❯ Événements de scène :** {{stage}}\n ",
+          "event_description2": "**\u3000❯ Autocollants :** {{sticker}}\n **\u3000❯ Canaux :** {{channel}}\n **\u3000❯ Invitations :** {{invitations}}\n **\u3000❯ Intégrations :** {{integration}}\n **\u3000❯ Membres de la guilde :** {{guild_member}}\n **\u3000❯ Modération automatique :** {{auto_moderation}}\n **\u3000❯ Événements programmés :** {{scheduled}}\n **\u3000❯ Permissions des commandes :** {{cmd_perm}}"
+        }
+      },
+      "modal": {
+        "character_create": {
+          "title": "Création de personnage",
+          "nameInput": {
+            "label": "Quel est le nom de votre personnage ?"
+          },
+          "hobbiesInput": {
+            "label": "Quels sont les hobbies de votre personnage ?"
+          }
+        }
+      }
   }
+  
