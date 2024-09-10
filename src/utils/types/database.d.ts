@@ -50,12 +50,12 @@ export interface user {
 		petType: string;
 		hunger: number;
 		happiness: number;
-		health: number; // New field for health
+		health: number; 
 		lastFed: Date;
 		lastPlayed: Date;
 		level: number;
 		experience: number;
-		skills: string[]; // New field for skills
+		skills: string[]; 
 		inventory: Array<{
 			itemName: string;
 			quantity: number;
@@ -64,7 +64,6 @@ export interface user {
 	coins: number;
 	lastDaily: Date;
 	quests?: Array<{
-		// New field for quests
 		questName: string;
 		completed: boolean;
 	}>;
