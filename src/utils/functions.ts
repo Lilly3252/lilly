@@ -82,11 +82,21 @@ export function getRoles(target: GuildMember) {
 		.map((a) => a.toString())
 		.slice(0, -1);
 }
-export function formatBytes(a: number) {
-	if (a === 0) return "0 Bytes";
-	const b = Math.floor(Math.log(a) / Math.log(1024));
-	return `${parseFloat((a / Math.pow(1024, b)).toFixed(2))} ${["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][b]}`;
+/**
+ * Converts a number of bytes into a human-readable string with appropriate units.
+ * @param bytes - The number of bytes to format.
+ * @returns A string representing the formatted bytes.
+ */
+export function formatBytes(bytes: number): string {
+	if (bytes === 0) return "0 Bytes";
+
+	const units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+	const exponent = Math.floor(Math.log(bytes) / Math.log(1024));
+	const value = (bytes / Math.pow(1024, exponent)).toFixed(2);
+
+	return `${value} ${units[exponent]}`;
 }
+
 export function blacklistable(member: GuildMember, guild_db: guild) {
 	const settings = guild_db.safeRoles;
 	if (member.roles.highest.position > member.guild.members.me.roles.highest.position) {
@@ -96,12 +106,24 @@ export function blacklistable(member: GuildMember, guild_db: guild) {
 		return false;
 	}
 }
-export function trimRole(array: RoleMention[], limit = 10) {
-	const sliced: Array<string> = array.slice(0, limit);
-	if (array.length > limit) sliced.push(`${array.length - limit} more...`);
-	if (!sliced.length) sliced.push("None.");
+/**
+ * Trims an array of role mentions to a specified limit and adds a summary if there are more roles.
+ * @param roles - The array of role mentions to trim.
+ * @param limit - The maximum number of roles to include in the trimmed array. Default is 10.
+ * @returns An array of strings representing the trimmed roles and a summary if there are more roles.
+ */
+export function trimRole(roles: RoleMention[], limit = 10): string[] {
+	const trimmedRoles = roles.slice(0, limit).map((role) => role.toString());
 
-	return sliced;
+	if (roles.length > limit) {
+		trimmedRoles.push(`${roles.length - limit} more...`);
+	}
+
+	if (trimmedRoles.length === 0) {
+		trimmedRoles.push("None.");
+	}
+
+	return trimmedRoles;
 }
 
 export async function updateChannelSetting(
@@ -173,4 +195,14 @@ export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"
 			lng: locale
 		})
 	});
+}
+import user from "#database/models/users.js";
+export async function checkLevelUp(userToCheck: InstanceType<typeof user>, interaction: InteractionParam): Promise<void> {
+	const xpToNextLevel = userToCheck.pet.level * 100;
+	if (userToCheck.pet.experience >= xpToNextLevel) {
+		userToCheck.pet.level += 1;
+		userToCheck.pet.experience = 0;
+		await userToCheck.save();
+		await interaction.followUp(`Congratulations! Your pet has leveled up to level ${userToCheck.pet.level}!`);
+	}
 }

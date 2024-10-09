@@ -5,38 +5,39 @@ import { ArgsParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Colors, GuildMember, TimestampStyles, User, time } from "discord.js";
 import i18next from "i18next";
 
-export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | GuildMember, user: user, locale: string) {
-	const targetParam = target instanceof GuildMember;
+export function userInfo(args: ArgsParam<typeof InfoCommand>["user"], target: User | GuildMember, user: user, locale: string): APIEmbed {
+	const isGuildMember = target instanceof GuildMember;
 	const userBlacklisted = user?.blacklisted;
-	const spammer = targetParam ? target.user.flags.has("Spammer") : target.flags.has("Spammer");
+	const spammer = isGuildMember ? target.user.flags.has("Spammer") : target.flags.has("Spammer");
+
 	const embed: APIEmbed = {
-		title: targetParam ? "Member information" : "User information",
-		color: targetParam ? target.displayColor : Colors.DarkButNotBlack,
+		title: isGuildMember ? "Member Information" : "User Information",
+		color: isGuildMember ? target.displayColor : Colors.DarkButNotBlack,
 		thumbnail: {
-			url: targetParam ? target.displayAvatarURL({ size: 512 }) : target.displayAvatarURL({ size: 512 })
+			url: target.displayAvatarURL({ size: 512 })
 		},
 		footer: {
 			text: `Blacklisted: ${userBlacklisted ? "✅" : "❌"} | Spammer: ${spammer ? "✅" : "❌"}`,
-			icon_url: targetParam ? target.displayAvatarURL() : target.displayAvatarURL()
+			icon_url: target.displayAvatarURL()
 		}
 	};
 
 	const fields: APIEmbedField[] = [];
 
-	if (targetParam) {
-		const guildMemberInformation: APIEmbedField = {
+	if (isGuildMember) {
+		const guildMemberInfo: APIEmbedField = {
 			name: i18next.t("info.member.name", { lng: locale }),
 			value: i18next.t("info.member.value", {
 				username: target.user.username,
 				id: target.id,
-				avatar: `[Link to avatar](${target.displayAvatarURL()})`,
+				avatar: `[link to Avatar](${target.displayAvatarURL()})`,
 				status: target.presence?.status ?? "No information",
 				lng: locale
 			})
 		};
-		fields.push(guildMemberInformation);
+		fields.push(guildMemberInfo);
 
-		if (args.user.verbose) {
+		if (args.verbose) {
 			const role = target.roles.highest;
 			const memberRole: APIEmbedField = {
 				name: "Role",
@@ -49,7 +50,8 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | Gui
 				}),
 				inline: true
 			};
-			const otherinfo: APIEmbedField = {
+
+			const otherInfo: APIEmbedField = {
 				name: "Other",
 				value: i18next.t("info.member.other", {
 					created_at: time(target.user.createdAt, TimestampStyles.RelativeTime),
@@ -61,38 +63,38 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>, target: User | Gui
 				inline: true
 			};
 
-			fields.push(memberRole, otherinfo);
+			fields.push(memberRole, otherInfo);
+
+			if (user.notes && user.notes.length > 0) {
+				const notesField: APIEmbedField = {
+					name: "Notes",
+					value: user.notes.map((n, index) => `${index + 1}. ${n.note} (by <@${n.moderator}> on ${n.date.toLocaleDateString()})`).join("\n")
+				};
+				fields.push(notesField);
+			}
+
+			if (user.pet) {
+				const petField: APIEmbedField = {
+					name: "Pet",
+					value: `Name: ${user.pet.petName}\nType: ${user.pet.petType}`
+				};
+				fields.push(petField);
+			}
 		}
 	} else {
-		const userInformation: APIEmbedField = {
+		const userInfo: APIEmbedField = {
 			name: i18next.t("info.user.name", { lng: locale }),
 			value: i18next.t("info.user.value", {
 				username: target.username,
 				id: target.id,
-				avatar: `[Link to avatar](${target.displayAvatarURL()})`,
+				avatar: `[link to Avatar](${target.displayAvatarURL()})`,
 				time_create: time(target.createdAt, TimestampStyles.RelativeTime),
 				lng: locale
 			})
 		};
-		fields.push(userInformation);
+		fields.push(userInfo);
 	}
 
-	// Add notes to the embed if they exist
-	if (user.notes && user.notes.length > 0) {
-		const notesField: APIEmbedField = {
-			name: "Notes",
-			value: user.notes.map((n, index) => `${index + 1}. ${n.note} (by <@${n.moderator}> on ${n.date.toLocaleDateString()})`).join("\n")
-		};
-		fields.push(notesField);
-	}
-	if (user.pet) {
-		const petField: APIEmbedField = {
-			name: "Pet",
-			value: `Name: ${user.pet.petName}\nType: ${user.pet.petType}`,
-			inline: true
-		};
-		fields.push(petField);
-	}
 	embed.fields = fields;
 
 	return truncateEmbed(embed);

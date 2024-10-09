@@ -1,12 +1,9 @@
-import "reflect-metadata";
 import User from "#database/models/users.js";
 import type { UserNoteCommand } from "#slashyInformations/index.js";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import "reflect-metadata";
 
-import { injectable } from "tsyringe";
-
-@injectable()
 export default class extends Command<typeof UserNoteCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof UserNoteCommand>, locale: LocaleParam): Promise<void> {
 		await interaction.deferReply();

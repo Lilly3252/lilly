@@ -1,12 +1,13 @@
-import { isEnabled, emojify } from "#utils/functions.js";
+import { emojify, isEnabled } from "#utils/functions.js";
 import { guild } from "#utils/types/database.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { InteractionParam, LocaleParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField } from "discord.js";
 import i18next from "i18next";
 
-export function settingEmbed(interaction: InteractionParam, guild_db: guild, locale: LocaleParam) {
+export function settingEmbed(interaction: InteractionParam, guild_db: guild, locale: LocaleParam): APIEmbed {
 	const settings = guild_db.guildSettings[0];
+
 	const description: APIEmbedField = {
 		name: i18next.t("log.setting_log.channel_title", { lng: locale }),
 		value: i18next.t("log.setting_log.channel_description", {
@@ -16,6 +17,7 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 			audit_log_enabled: isEnabled(guild_db.auditLogEvent)
 		})
 	};
+
 	const embed: APIEmbed = {
 		author: {
 			name: `${interaction.guild.name} Server settings`,
@@ -23,6 +25,7 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 		},
 		fields: [description]
 	};
+
 	if (guild_db.auditLogEvent) {
 		const eventDescription: APIEmbedField = {
 			name: i18next.t("log.setting_log.event_title", { lng: locale }),
@@ -39,6 +42,7 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 			}),
 			inline: true
 		};
+
 		const eventDescription2: APIEmbedField = {
 			name: `\u200b`,
 			value: i18next.t("log.setting_log.event_description2", {
@@ -54,7 +58,8 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 			}),
 			inline: true
 		};
-		embed.fields = [description, eventDescription, eventDescription2];
+
+		embed.fields.push(eventDescription, eventDescription2);
 	}
 
 	return truncateEmbed(embed);

@@ -1,6 +1,5 @@
 import { InfoCommand } from "#slashyInformations/index.js";
 import { trimRole } from "#utils/index.js";
-
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Channel, ChannelType, Collection, GuildEmoji, GuildExplicitContentFilter, GuildMember, GuildVerificationLevel, RoleMention, TimestampStyles, time } from "discord.js";
@@ -9,14 +8,14 @@ import i18next from "i18next";
 export function serverInfo(
 	args: ArgsParam<typeof InfoCommand>,
 	interaction: InteractionParam,
-	role: RoleMention[],
+	roles: RoleMention[],
 	owner: GuildMember,
 	members: Collection<string, GuildMember>,
 	emojis: Collection<string, GuildEmoji>,
 	channels: Collection<string, Channel>,
 	locale: string
-) {
-	const info: APIEmbedField = {
+): APIEmbed {
+	const generalInfo: APIEmbedField = {
 		name: "General",
 		value: i18next.t("info.server.info", {
 			name: interaction.guild.name,
@@ -29,18 +28,18 @@ export function serverInfo(
 			lng: locale
 		})
 	};
+
 	const embed: APIEmbed = {
-		author: {
-			name: `Bot Information`
-		},
+		author: { name: "Bot Information" },
 		thumbnail: { url: interaction.guild.iconURL() },
-		fields: [info]
+		fields: [generalInfo]
 	};
+
 	if (args.server.verbose) {
-		const statistic: APIEmbedField = {
-			name: "Statistic",
+		const statistics: APIEmbedField = {
+			name: "Statistics",
 			value: i18next.t("info.server.stats", {
-				role_count: role.length,
+				role_count: roles.length,
 				emoji_count: emojis.size,
 				regular_emoji: emojis.filter((emoji) => !emoji.animated).size,
 				animated_emoji: emojis.filter((emoji) => emoji.animated).size,
@@ -54,6 +53,7 @@ export function serverInfo(
 				lng: locale
 			})
 		};
+
 		const presence: APIEmbedField = {
 			name: "Presence",
 			value: i18next.t("info.server.presence", {
@@ -61,16 +61,19 @@ export function serverInfo(
 				idle: members.filter((member) => member.presence?.status === "idle").size,
 				dnd: members.filter((member) => member.presence?.status === "dnd").size,
 				offline: members.filter((member) => member.presence?.status === "offline").size,
-				no_presence: members.filter((member) => member.presence === null).size,
+				no_presence: members.filter((member) => !member.presence).size,
 				lng: locale
 			})
 		};
+
 		const mappedRoles = interaction.guild.roles.cache.filter((role) => role.id !== interaction.guild.id).map((role) => role.toString());
-		const roles: APIEmbedField = {
-			name: `Roles [${role.length - 1}]`,
+
+		const rolesField: APIEmbedField = {
+			name: `Roles [${roles.length - 1}]`,
 			value: trimRole(mappedRoles).join(", ")
 		};
-		embed.fields = [info, statistic, presence, roles];
+
+		embed.fields.push(statistics, presence, rolesField);
 	}
 
 	return truncateEmbed(embed);

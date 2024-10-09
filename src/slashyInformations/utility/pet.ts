@@ -1,88 +1,219 @@
+import { foodItems } from "#utils/shop/food.js";
+import { medicineItems } from "#utils/shop/medecine.js";
+import { toyItems } from "#utils/shop/toys.js";
 import { ApplicationCommandOptionType } from "discord.js";
+
+const medicineChoices = medicineItems.map((item) => ({
+	name: `${item.itemName} - Price: $${item.price}, Health: ${item.healthBenefit}`,
+	value: item.itemName
+}));
+
+const foodChoices = foodItems.map((item) => ({
+	name: `${item.itemName} - Price: $${item.price}, Health: ${item.healthBenefit}, Hunger: ${item.hungerBenefit}`,
+	value: item.itemName
+}));
+
+const toyChoices = toyItems.map((item) => ({
+	name: `${item.itemName} - Price: $${item.price}`,
+	value: item.itemName
+}));
 
 export const PetCommand = {
 	name: "pet",
 	description: "Manage your virtual pet",
 	options: [
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "action",
-			description: "The action to perform (adopt, feed, play, status, removeItem, useItem, shop, buyItem, daily, train, battle, care, quest)",
-			required: true,
-			choices: [
-				{ name: "adopt", value: "adopt" },
-				{ name: "feed", value: "feed" },
-				{ name: "play", value: "play" },
-				{ name: "status", value: "status" },
-				{ name: "removeItem", value: "removeItem" },
-				{ name: "useItem", value: "useItem" },
-				{ name: "shop", value: "shop" },
-				{ name: "buyItem", value: "buyItem" },
-				{ name: "daily", value: "daily" },
-				{ name: "train", value: "train" },
-				{ name: "battle", value: "battle" },
-				{ name: "care", value: "care" },
-				{ name: "quest", value: "quest" }
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "adopt",
+			description: "Adopt a new pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "petname",
+					description: "The name of your pet",
+					required: true
+				},
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "pettype",
+					description: "The type of pet",
+					required: true,
+					choices: [
+						{ name: "Dog", value: "🐕 Dog" },
+						{ name: "Cat", value: "🐈 Cat" },
+						{ name: "Rabbit", value: "🐇 Rabbit" },
+						{ name: "Bird", value: "🐦 Bird" },
+						{ name: "Fish", value: "🐠 Fish" },
+						{ name: "Hamster", value: "🐹 Hamster" },
+						{ name: "Turtle", value: "🐢 Turtle" },
+						{ name: "Guinea Pig", value: "🐹 Guinea Pig" },
+						{ name: "Lizard", value: "🦎 Lizard" },
+						{ name: "Snake", value: "🐍 Snake" },
+						{ name: "Frog", value: "🐸 Frog" },
+						{ name: "Parrot", value: "🦜 Parrot" },
+						{ name: "Ferret", value: "🦨 Ferret" },
+						{ name: "Hedgehog", value: "🦔 Hedgehog" },
+						{ name: "Chinchilla", value: "🐹 Chinchilla" }
+					]
+				}
 			]
 		},
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "petname",
-			description: "The name of your pet (required for adopt action)",
-			required: false
-		},
-		{
-			type: ApplicationCommandOptionType.String,
-			name: "pettype",
-			description: "The type of pet (e.g., dog, cat) (required for adopt action)",
-			required: false,
-			choices: [
-				{ name: "Dog", value: "Dog" },
-				{ name: "Cat", value: "Cat" },
-				{ name: "Rabbit", value: "Rabbit" },
-				{ name: "Bird", value: "Bird" },
-				{ name: "Fish", value: "Fish" },
-				{ name: "Hamster", value: "Hamster" },
-				{ name: "Turtle", value: "Turtle" },
-				{ name: "Guinea Pig", value: "Guinea Pig" },
-				{ name: "Lizard", value: "Lizard" },
-				{ name: "Snake", value: "Snake" },
-				{ name: "Frog", value: "Frog" },
-				{ name: "Parrot", value: "Parrot" },
-				{ name: "Ferret", value: "Ferret" },
-				{ name: "Hedgehog", value: "Hedgehog" },
-				{ name: "Chinchilla", value: "Chinchilla" }
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "feed",
+			description: "Feed your pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "itemname",
+					description: "The name of the item",
+					required: true,
+					autocomplete: true
+				}
 			]
 		},
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "itemname",
-			description: "The name of the item (required for removeItem, useItem, buyItem, care actions)",
-			required: false
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "play",
+			description: "Play with your pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "itemname",
+					description: "The name of the item",
+					autocomplete: true
+				}
+			]
 		},
 		{
-			type: ApplicationCommandOptionType.Integer,
-			name: "quantity",
-			description: "The quantity of the item (optional for removeItem actions)",
-			required: false
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "status",
+			description: "Check the status of your pet"
 		},
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "skill",
-			description: "The skill to train your pet (required for train action)",
-			required: false
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "care",
+			description: "Take care of your pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "itemname",
+					description: "The name of the item used",
+					required: false,
+					autocomplete: true
+				}
+			]
 		},
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "opponent",
-			description: "The ID of the opponent (required for battle action)",
-			required: false
+			type: ApplicationCommandOptionType.SubcommandGroup,
+			name: "buy",
+			description: "Buy an item from the shop",
+			options: [
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "food",
+					description: "Buy food items",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "itemname",
+							description: "The name of the item",
+							required: true,
+							choices: foodChoices
+						},
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "quantity",
+							description: "The quantity of the item",
+							required: true
+						}
+					]
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "toy",
+					description: "Buy toy items",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "itemname",
+							description: "The name of the item",
+							required: true,
+							choices: toyChoices
+						},
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "quantity",
+							description: "The quantity of the item",
+							required: true
+						}
+					]
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "medicine",
+					description: "Buy medicine items",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "itemname",
+							description: "The name of the item",
+							required: true,
+							choices: medicineChoices
+						},
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "quantity",
+							description: "The quantity of the item",
+							required: true
+						}
+					]
+				}
+			]
 		},
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "questname",
-			description: "The name of the quest (required for quest action)",
-			required: false
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "train",
+			description: "Train your pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "skill",
+					description: "The skill to train your pet",
+					required: true
+				}
+			]
+		},
+		{
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "battle",
+			description: "Battle with another pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "opponent",
+					description: "The ID of the opponent",
+					required: true
+				}
+			]
+		},
+		{
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "quest",
+			description: "Start a quest",
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "questname",
+					description: "The name of the quest",
+					required: true
+				}
+			]
+		},
+		{
+			type: ApplicationCommandOptionType.Subcommand,
+			name: "daily",
+			description: "Get 50 coins! (available each 24h)"
 		}
 	],
 	default_member_permissions: "0"

@@ -22,19 +22,21 @@ const UserSchema = new Schema<user>({
 		level: { type: Number, default: 1 },
 		experience: { type: Number, default: 0 },
 		skills: [{ type: String }],
-		inventory: [
-			{
-				itemName: { type: String, required: true },
-				quantity: { type: Number, default: 1 }
-			}
-		]
+		inventory: {
+			medicine: [{ itemName: { type: String, required: true }, quantity: { type: Number, default: 1 } }],
+			toys: [{ itemName: { type: String, required: true }, quantity: { type: Number, default: 1 } }],
+			food: [{ itemName: { type: String, required: true }, quantity: { type: Number, default: 1 } }]
+		}
 	},
 	coins: { type: Number, default: 0 },
 	lastDaily: { type: Date, default: null },
 	quests: [
 		{
 			questName: { type: String, required: true },
-			completed: { type: Boolean, default: false }
+			completed: { type: Boolean, default: false },
+			progress: { type: Number, default: 0 },
+			reward: { type: String },
+			expiryDate: { type: Date }
 		}
 	]
 });

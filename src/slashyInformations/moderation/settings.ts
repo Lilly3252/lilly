@@ -150,7 +150,7 @@ export const SettingCommand = {
 		},
 		{
 			type: ApplicationCommandOptionType.Subcommand,
-			name: "restriction-roles",
+			name: "restriction_roles",
 			description: "Set all your restriction roles for the guild",
 			description_localizations: {
 				fr: "Configurer toute vos role de restriction pour cette guilde."

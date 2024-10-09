@@ -35,7 +35,6 @@ export interface guildSettings {
 	autoModeration: boolean;
 	commandPermission: boolean;
 }
-
 export interface user {
 	guildID: string;
 	userID: Snowflake;
@@ -50,21 +49,35 @@ export interface user {
 		petType: string;
 		hunger: number;
 		happiness: number;
-		health: number; 
+		health: number; // New field for health
 		lastFed: Date;
 		lastPlayed: Date;
 		level: number;
 		experience: number;
-		skills: string[]; 
-		inventory: Array<{
-			itemName: string;
-			quantity: number;
-		}>;
+		skills: string[]; // New field for skills
+		inventory: {
+			medicine: Array<{
+				itemName: string;
+				quantity: number;
+			}>;
+			toys: Array<{
+				itemName: string;
+				quantity: number;
+			}>;
+			food: Array<{
+				itemName: string;
+				quantity: number;
+			}>;
+		};
 	};
 	coins: number;
 	lastDaily: Date;
 	quests?: Array<{
+		// New field for quests
 		questName: string;
 		completed: boolean;
+		progress: number;
+		reward: string;
+		expiryDate: Date;
 	}>;
 }

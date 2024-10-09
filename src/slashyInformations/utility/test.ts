@@ -8,18 +8,6 @@ export const TestCommand = {
 	},
 	options: [
 		{
-			type: ApplicationCommandOptionType.String,
-			name: "query",
-			name_localizations: {
-				fr: "query"
-			},
-			description: "query",
-			description_localizations: {
-				fr: "query"
-			},
-			required: true
-		},
-		{
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
