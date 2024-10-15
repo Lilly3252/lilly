@@ -39,7 +39,7 @@ const commands = container.resolve<Map<string, Command>>(kCommands);
 for await (const slashyFile of slashyFiles) {
 	const cmdInfo = commandInfo(slashyFile.path);
 	const dynamic = dynamicImport<new () => Command>(async () => import(pathToFileURL(slashyFile.fullPath).href));
-
+	console.log(cmdInfo);
 	const slashy = container.resolve<Command>((await dynamic()).default);
 	commands.set(cmdInfo.name.toLowerCase(), slashy);
 }
