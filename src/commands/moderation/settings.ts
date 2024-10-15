@@ -1,10 +1,9 @@
 import guilds from "#database/models/guilds.js";
 import type { SettingCommand } from "#slashyInformations/index.js";
-import { createSettings, permission, updateChannelSetting, updateEventSetting, updateRoleSetting, updateSafeRoles } from "#utils/index.js";
+import { createSettings, permission, settingEmbed, updateChannelSetting, updateEventSetting, updateRoleSetting, updateSafeRoles } from "#utils/index.js";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
 import i18next from "i18next";
-import { show } from "./sub/settings/show.js";
 
 export default class extends Command<typeof SettingCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof SettingCommand>, locale: LocaleParam): Promise<void> {
@@ -27,7 +26,10 @@ export default class extends Command<typeof SettingCommand> {
 		try {
 			switch (subCommands) {
 				case "show":
-					await show(interaction, args.show, locale);
+					const showSettings = await guilds.findOne({ guildID: interaction.guild.id });
+					await interaction.deferReply({ ephemeral: args.show.hide ?? true });
+					await interaction.editReply({ embeds: [settingEmbed(interaction, showSettings, locale)] });
+
 					break;
 
 				case "audit_log":

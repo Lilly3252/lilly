@@ -1,8 +1,8 @@
 import { emojify, isEnabled } from "#utils/functions.js";
-import { guild } from "#utils/types/database.js";
+import type { guild } from "#utils/types/database.js";
 import { truncateEmbed } from "@yuudachi/framework";
-import { InteractionParam, LocaleParam } from "@yuudachi/framework/types";
-import { APIEmbed, APIEmbedField } from "discord.js";
+import type { InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import type { APIEmbed, APIEmbedField } from "discord.js";
 import i18next from "i18next";
 
 export function settingEmbed(interaction: InteractionParam, guild_db: guild, locale: LocaleParam): APIEmbed {

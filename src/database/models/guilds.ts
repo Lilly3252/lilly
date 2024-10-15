@@ -1,4 +1,4 @@
-import type { guild } from "#utils/types/database.js";
+import { guild } from "#utils/types/database.js";
 import { model, Schema } from "mongoose";
 
 const guildSchema = new Schema<guild>({
