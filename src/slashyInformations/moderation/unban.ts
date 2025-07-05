@@ -13,7 +13,7 @@ export const UnbanCommand = {
 			name: "id",
 			name_localizations: {
 				fr: "id",
-				ja: "ID"
+				ja: "id"
 			},
 			description: "Put an ID",
 			description_localizations: {

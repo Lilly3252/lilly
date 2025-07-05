@@ -30,7 +30,6 @@ export default class extends Command<typeof SettingCommand> {
 				case "show":
 					await show(interaction);
 					break;
-
 				case "audit_log":
 					await audit_log(interaction);
 					break;

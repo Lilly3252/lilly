@@ -5,5 +5,5 @@ import { InteractionParam } from "@yuudachi/framework/types";
 export async function show(interaction: InteractionParam): Promise<void> {
 	const guildSettings = await guilds.findOne({ guildID: interaction.guild.id });
 
-	await interaction.editReply({ embeds: [await settingEmbed(interaction, guildSettings!, interaction.locale)] });
+	await interaction.editReply({ components: [await settingEmbed(interaction, guildSettings!, interaction.locale)] });
 }

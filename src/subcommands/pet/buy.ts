@@ -43,7 +43,7 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: fooditemToBuy, lng: interaction.locale }));
 			break;
 		}
-		case "medecine": {
+		case "medicine": {
 			const quantityMed = args.medicine.quantity;
 			const meditemNameToBuy = args.medicine.itemname;
 			const meditemToBuy = shopItems.find((item) => item.itemName === meditemNameToBuy);

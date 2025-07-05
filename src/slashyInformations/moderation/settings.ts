@@ -78,7 +78,7 @@ export const SettingCommand = {
 			options: [
 				{
 					type: ApplicationCommandOptionType.String,
-					name: "channels",
+					name: "channels_select",
 					name_localizations: { fr: "channels", ja: "チャンネル" },
 					description: "Select your channels.",
 					description_localizations: { fr: "Sélectionnez vos channels。", ja: "チャンネルを選択する。" },
@@ -86,14 +86,6 @@ export const SettingCommand = {
 						{ name: "Welcome Channel", name_localizations: { fr: "Channel de bienvenue", ja: "ウェルカムチャンネル" }, value: "welcomechannel" },
 						{ name: "Mod Log", name_localizations: { fr: "Log des modérateurs", ja: "モデレーションログ" }, value: "modlog" }
 					],
-					required: true
-				},
-				{
-					type: ApplicationCommandOptionType.Channel,
-					name: "channel",
-					name_localizations: { fr: "channel", ja: "チャンネル" },
-					description: "Select a channel.",
-					description_localizations: { fr: "Sélectionnez un channel.", ja: "チャンネルを選択する。" },
 					required: true
 				},
 				{
@@ -141,7 +133,7 @@ export const SettingCommand = {
 					name: "role_id",
 					name_localizations: {
 						fr: "role_id",
-						ja: "役割ID"
+						ja: "役割id"
 					},
 					description: "Select the role to assign.",
 					description_localizations: {
@@ -226,94 +218,10 @@ export const SettingCommand = {
 						ja: "出力を非表示にする"
 					}
 				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "restriction_roles",
-					description: "Set all your restriction roles for the guild",
-					description_localizations: {
-						fr: "Configurer tous vos rôles de restriction pour cette guilde.",
-						ja: "ギルドのすべての制限役割を設定する。"
-					},
-					options: [
-						{
-							type: ApplicationCommandOptionType.Role,
-							name: "role_id",
-							name_localizations: {
-								fr: "role_id",
-								ja: "役割ID"
-							},
-							description: "Select the role to assign.",
-							description_localizations: {
-								fr: "Sélectionnez le rôle à attribuer.",
-								ja: "割り当てる役割を選択する。"
-							},
-							required: true
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "role",
-							name_localizations: {
-								fr: "rôle",
-								ja: "役割"
-							},
-							description: "Select your restriction role type.",
-							description_localizations: {
-								fr: "Sélectionnez le type de rôle de restriction.",
-								ja: "制限役割の種類を選択する。"
-							},
-							choices: [
-								{
-									name: "Embed",
-									name_localizations: { fr: "Messages incorporés", ja: "埋め込みメッセージ" },
-									value: "embed"
-								},
-								{
-									name: "Reaction",
-									name_localizations: { fr: "Réaction", ja: "リアクション" },
-									value: "reaction"
-								},
-								{
-									name: "Voice",
-									name_localizations: { fr: "Connexions vocales", ja: "ボイス接続" },
-									value: "voice"
-								},
-								{
-									name: "Slash",
-									name_localizations: { fr: "Commandes slash", ja: "スラッシュコマンド" },
-									value: "slash"
-								},
-								{
-									name: "Poll",
-									name_localizations: { fr: "Messages de sondage", ja: "投票メッセージ" },
-									value: "poll"
-								},
-								{
-									name: "Safe",
-									name_localizations: {
-										fr: "Sûr",
-										ja: "安全"
-									},
-									value: "safe"
-								}
-							]
-						},
-						{
-							type: ApplicationCommandOptionType.Boolean,
-							name: "hide",
-							name_localizations: {
-								fr: "masquer",
-								ja: "非表示"
-							},
-							description: "Hides the output.",
-							description_localizations: {
-								fr: "Masque(cacher) le résultat.",
-								ja: "出力を非表示にする。"
-							}
-						}
+				
+			]},
+			
 					]
-				}
-			]
-		}
-	],
+,
 	default_member_permissions: "0"
 } as const;

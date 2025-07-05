@@ -1,8 +1,10 @@
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationIntegrationType } from "discord.js";
 
 export const PingCommand = {
 	name: "ping",
 	description: "Check ping.",
+	integration_types: [ApplicationIntegrationType.UserInstall],
 	description_localizations: {
 		fr: "Vérification du ping.",
 		ja: "ピングの確認。"
