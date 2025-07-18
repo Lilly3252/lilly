@@ -1,8 +1,9 @@
 import guild from "#database/models/guilds.js";
 import { RestrictCommand } from "#slashyInformations/index.js";
-import { moderationEmbed } from "#utils/embeds/moderationEmbed.js";
+import { moderationEmbed } from "#utils/components/moderationEmbed.js";
+import { RawCommandParam } from "#utils/types/functiontypes.js";
 import { Command } from "@yuudachi/framework";
-import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
+import type { ArgsParam, CommandMethod, InteractionParam, InteractionType, Runtime } from "@yuudachi/framework/types";
 import i18next from "i18next";
 
 export default class extends Command<typeof RestrictCommand> {
@@ -30,7 +31,7 @@ export default class extends Command<typeof RestrictCommand> {
 		const roleToAdd = restrictionRoles[restriction];
 		if (roleToAdd) {
 			await member.roles.add(roleToAdd, reason);
-			await interaction.reply({ embeds: [await moderationEmbed(interaction, args, interaction.locale)] });
+			await interaction.reply({ components: [await moderationEmbed(interaction, args, interaction.locale)] });
 		} else {
 			await interaction.editReply({
 				content: i18next.t("command.common.errors.generic", { lng: interaction.locale })

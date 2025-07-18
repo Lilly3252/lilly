@@ -1,7 +1,9 @@
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationIntegrationType } from "discord.js";
 export const RestrictCommand = {
 	name: "restrict",
 	description: "Restrict a member",
+	integration_types: [ApplicationIntegrationType.UserInstall],
 	description_localizations: {
 		fr: "Restreindre un membre.",
 		ja: "メンバーを制限する"

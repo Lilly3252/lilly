@@ -1,7 +1,8 @@
 import { InfoCommand } from "#slashyInformations/index.js";
 import { roleInfo } from "#utils/index.js";
 import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
+import { MessageFlags } from "discord.js";
 export async function role(interaction: InteractionParam, args: ArgsParam<typeof InfoCommand>["role"]): Promise<void> {
 	const role = interaction.options.getRole("role");
-	await interaction.editReply({ embeds: [await roleInfo(args, role!, interaction, interaction.locale)] });
+	await interaction.editReply({ components: [await roleInfo(args, role!, interaction.locale)] , flags:MessageFlags.IsComponentsV2});
 }

@@ -14,3 +14,4 @@ export * from "./utility/poll.js";
 export * from "./utility/tag.js";
 export * from "./utility/test.js";
 export * from "./utility/pet.js";
+export * from "./utility/join.js"

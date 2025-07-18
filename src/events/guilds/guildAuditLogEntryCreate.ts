@@ -102,7 +102,7 @@ export default class implements Event {
 				if (change) {
 					const communicationDisabled = isCommunicationDisabledUntil(change);
 					if (communicationDisabled) {
-						return `**❯** ${change.key}:\n\u3000 Until: ${formatChange(time(newlogDate))}}`;
+						return `**❯** ${change.key}:\n\u3000 Until: ${formatChange(time(newlogDate))}`;
 					}
 					return `${isUndefined(change.new) ? changesDoneOld : isUndefined(change.old) ? changesDoneNew : changesDone}`;
 				}

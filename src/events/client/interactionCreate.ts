@@ -1,10 +1,10 @@
 import { Client, Events } from "discord.js";
 import { inject, injectable } from "tsyringe";
-
 import { getLanguage } from "#utils/index.js";
 import type { Command } from "@yuudachi/framework";
 import { kCommands, logger, transformApplicationInteraction } from "@yuudachi/framework";
 import type { Event } from "@yuudachi/framework/types";
+import { RawCommandParam } from "#utils/types/functiontypes.js";
 
 @injectable()
 export default class implements Event {
@@ -18,12 +18,10 @@ export default class implements Event {
 	) {}
 
 	public async execute(): Promise<void> {
-		this.client.on(this.event, async (interaction) => {
+		this.client.on(this.event, async (interaction:RawCommandParam) => {
 			const locale = "en-US";
 			const effectiveLocale = locale ?? interaction.locale;
-			if (!interaction.inCachedGuild()) {
-				return;
-			}
+		
 
 			if (interaction.isChatInputCommand()) {
 				await interaction.deferReply({ ephemeral: interaction.options.getBoolean("hide") ?? true });
@@ -35,18 +33,7 @@ export default class implements Event {
 				);
 				const defaultLanguage = (interaction.options.getBoolean("hide") ?? true) ? undefined : "en-US";
 				const locale = getLanguage(interaction, defaultLanguage);
-				await command?.chatInput(interaction, transformApplicationInteraction(interaction.options.data), locale);
-			}
-			if (interaction.isModalSubmit()) {
-				switch (interaction.customId) {
-					case "characterCreate": {
-						await interaction.reply({ content: "ok", ephemeral: true });
-						const nameInputs = interaction.fields.getTextInputValue("nameInput");
-						const hobbiesInputs = interaction.fields.getTextInputValue("hobbiesInput");
-						console.log({ nameInputs, hobbiesInputs });
-						break;
-					}
-				}
+				await command?.chatInput(interaction, transformApplicationInteraction(interaction.options.data), locale!);
 			}
 
 			if (interaction.isAutocomplete()) {
