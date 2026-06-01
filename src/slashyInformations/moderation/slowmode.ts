@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 import { ChannelType } from "discord.js";
 
 export const SlowmodeCommand = {
@@ -6,7 +6,8 @@ export const SlowmodeCommand = {
 	description: "Enabling a slowmode on the current channel.",
 	description_localizations: {
 		fr: "Instaurer un slowmode sur le channel courant.",
-		ja: "現在のチャンネルでスローモードを有効にする。"
+    ja: "現在のチャンネルでスローモードを有効にする。",
+    [Locale.SpanishLATAM]: "Habilita el modo lento en un canal."
 	},
 	options: [
 		{
@@ -14,12 +15,14 @@ export const SlowmodeCommand = {
 			name: "channel",
 			name_localizations: {
 				fr: "channel",
-				ja: "チャンネル"
+				ja: "チャンネル",
+				[Locale.SpanishLATAM]: "canal"
 			},
 			description: "Channel for the slowmode",
 			description_localizations: {
 				fr: "Channel pour le slowmode",
-				ja: "スローモードのチャンネル"
+				ja: "スローモードのチャンネル",
+				[Locale.SpanishLATAM]: "Canal donde activar el modo lento"
 			},
 			channel_types: [ChannelType.GuildText, ChannelType.GuildVoice],
 			required: true
@@ -29,12 +32,14 @@ export const SlowmodeCommand = {
 			name: "time",
 			name_localizations: {
 				fr: "temps",
-				ja: "時間"
+        ja: "時間",
+				[Locale.SpanishLATAM]: "duracion"
 			},
 			description: "Time of the slowmode (in seconds)",
 			description_localizations: {
 				fr: "Temps du slowmode (en secondes)",
-				ja: "スローモードの時間（秒単位）"
+        ja: "スローモードの時間（秒単位）",
+				[Locale.SpanishLATAM]: "Duración del modo lento (en segundos)"
 			},
 			required: true
 		},
@@ -43,12 +48,14 @@ export const SlowmodeCommand = {
 			name: "hide",
 			name_localizations: {
 				fr: "masquer",
-				ja: "非表示"
+        ja: "非表示",
+				[Locale.SpanishLATAM]: "ocultar"
 			},
 			description: "Hides the output",
 			description_localizations: {
 				fr: "Masque(cacher) le résultat",
-				ja: "出力を非表示にする"
+				ja: "出力を非表示にする",
+				[Locale.SpanishLATAM]: "Ocultar la respuesta del comando"
 			}
 		}
 	],
