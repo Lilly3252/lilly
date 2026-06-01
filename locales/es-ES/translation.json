@@ -1,140 +1,250 @@
 {
 	"command": {
-		"common": {
-			"errors": {
-				"generic": "Algo ha salido mal. Skill issue supongo...",
-				"permission_not_found":"Me faltan los permisos `{{- perm}}` para usar ese comando.",
-				"no_enabled_module": "El `{{module}}` no está habilitado en este servidor.",
-				"duration_format": "Formato de duración no válido.",
-				"use_autocomplete": "La opción ingresada no es válida. Asegúrate de seleccionar una de las opciones del autocompletado.",
-				"target_not_found": "El miembro no se encuentra en este servidor.",
-				"timed_out": "El tiempo para esta acción ha expirado.",
-				"no_message": "No se encontró el mensaje `{{message_id}}` en el canal {{- channel}}",
-				"not_message_link": "El valor `{{-val}}` para el argumento `{{arg}}` no es un enlace de mensaje válido.",
-				"no_message_resolvable": "El valor `{{-val}}` para el argumento `{{arg}}` no es un enlace de mensaje válido ni una id válida.",
-				"no_guild": "No se encontró el servidor `{{guild_id}}`",
-				"no_channel": "No se encontró el canal `{{channel_id}}` en el servidor `{{- guild}}`",
-				"text_too_long": "¡No puedo enviar mensajes tan largos! por favor limita tus mensajes a una cantidad menor que {{number}}.",
-				"already_muted": "Este miembro ya está silenciado, ¡no puedes silenciarlo dos veces!",
-				"no_muted": "Este miembro no está silenciado.",
-				"message_deleted": "Ocurrió un error eliminando los mensajes, asegúrate que no tengan más de 14 dias de antigüedad.",
-				"valid_amount": "La cantidad debe ser un número válido y menor que {{number}}.",
-				"no_user_banned": "Este usuario no está baneado.",
-				"no_guild_banned": "Nadie ha sido baneado de este servidor.",
-				"moderation_denied": "Esta acción de moderación no puede ser ejecutada en este miembro."
-			},
-			"buttons": {
-				"cancel": "Cancelar",
-				"message_reference": "Mensaje original"
-			}
-		},
 		"config": {
 			"common": {
 				"errors": {
-					"no_settings": "La configuración de este servidor aún no ha sido creada. ¡Déjame crearlas por ti! , debería funcionar ahora..."
+					"generic": "Ha ocurrido un error. Por favor inténtalo más tarde.",
+					"no_permission": "No tienes permiso para usar este comando.",
+					"permission_not_found": "Permiso {{perm}} no encontrado.",
+					"no_settings": "Aún no se han creado las configuraciones para este servidor. ¡Las crearé por ti!, esta vez debería funcionar..."
 				}
 			},
-			"events":{
-				"enabled":"✅ {{event}} está habilitado.",
-				"disabled":"✅ {{event}} está deshabilitado.",
-				"channel_set":"✅ {{channel}} ha sido configurado a {{channel_id}}.",
-				"channel_removed":"✅ El canal ha sido quitado, el valor nuevo es `null`."
+			"events": {
+				"embed": {
+					"audit": {}
+				},
+				"enabled": "✅ {{event}} ha sido activado.",
+				"disabled": "✅ {{event}} ha sido desactivado.",
+				"channel_set": "✅ {{channel}} se ha cambiado a {{channel_id}}.",
+				"channel_removed": "✅ El canal ha sido eliminado , su valor actual es `null`.",
+				"defaultLanguage": "El idioma por defecto de Lilly es {{language}}!",
+				"audit_log": {
+					"guild_updated": "Servidor actualizado",
+					"channel_created": "Canal creado",
+					"channel_updated": "Canal actualizado",
+					"channel_deleted": "Channel eliminado",
+					"channel_overwrite_created": "Se han creado los permisos del canal",
+					"channel_overwrite_updated": "Se han actualizado los permisos del canal",
+					"channel_overwrite_deleted": "Se han eliminado los permisos del canal",
+					"member_kicked": "Usuario expulsado",
+					"members_pruned": "Miembros expulsados",
+					"member_banned": "Usuario baneado",
+					"member_unbanned": "Usuario desbaneado",
+					"member_updated": "Usuario actualizado",
+					"member_roles_updated": "Roles del Usuario actualizados",
+					"member_moved": "Usuario movido",
+					"member_disconnected": "Usuario desconectado",
+					"bot_added": "Bot agregado al servidor",
+					"role_created": "Rol creado",
+					"role_updated": "Rol actualizado",
+					"role_deleted": "Rol eliminado",
+					"invite_created": "Invitación creada",
+					"invite_updated": "Invitación actualizada",
+					"invite_deleted": "Invitación eliminada",
+					"webhook_created": "Webhook creado",
+					"webhook_updated": "Webhook actualizado",
+					"webhook_deleted": "Webhook eliminado",
+					"emoji_created": "Emoji creado",
+					"emoji_updated": "Emoji actualizado",
+					"emoji_deleted": "Emoji eliminado",
+					"message_deleted": "Mensaje eliminado",
+					"bulk_messages_deleted": "Mensajes eliminados en masa",
+					"message_pinned": "Mensaje fijado",
+					"message_unpinned": "Mensaje desfijado",
+					"integration_created": "Integración creada",
+					"integration_updated": "Integración actualizada",
+					"integration_deleted": "Integration eliminada",
+					"stage_instance_created": "Instancia de Escenario creada",
+					"stage_instance_updated": "Instancia de Escenario actualizada",
+					"stage_instance_deleted": "Instancia de Escenario eliminada",
+					"sticker_created": "Sticker creado",
+					"sticker_updated": "Sticker actualizado",
+					"sticker_deleted": "Sticker eliminado",
+					"scheduled_event_created": "Evento creado",
+					"scheduled_event_updated": "Evento actualizado",
+					"scheduled_event_deleted": "Evento eliminado"
+				}
 			}
 		},
 		"mod": {
-			"common": {
-				"errors": {
-					"no_user_id": "Esa no es la ID de un usuario!",
-					"no_channel_id": "Debes darme la ID de un canal para que funcione...",
-					"not_number": "{{number}} no es un número...?",
-					"no_mention": "Por favor menciona a un usuario!",
-					"max_length_reason": "El largo máximo para la razón `{{reason_max_length}}` ha sido excedido.",
-					"not_a_text_channel": "{{- channel}} no es un canal de texto.",
-					"no_case": "No se encontró el caso `#{{case}}`",
-					"no_report": "No se encontró el reporte `#{{report}}`",
-					"no_case_range": "Rango de casos inválido `#{{lower_case}}` a `#{{upper_case}}`",
-					"case_lower_one": "las ids de los casos deben ser mayores que `0`",
-					"no_reference_case": "No se encontró la referencia del caso `#{{case}}`",
-					"already_processed": "{{- user}} con caso {{- case}} no tiene restricciones activas.",
-					"no_reference_report": "No se encontró la referencia para el reporte `#{{report}}`",
-					"no_tag_found": "Desafortunadamente, no se han encontrado etiquetas para {{name}}"
+			"embed": {
+				"info": {
+					"name": "**❯ Nombre:** {{- name}}\n**❯ ID:** {{id}}\n",
+					"value": "**❯ Acción:** {{action}}\n**❯ Razón:** {{reason}}"
 				},
-				"reasons": [
-					"Troll",
-					"Molesto en soporte",
-					"Insultos graves",
-					"Cuenta sospechosa de spam o estafas",
-					"Off-topic en soporte",
-					"NSFW",
-					"Comentarios de poco valor",
-					"Insultos leves",
-					"Acoso por mensaje privado",
-					"Violación de ToS",
-					"Selfbot",
-					"COPPA"
-				]
+				"footer": "Acción de Moderación"
+			},
+			"restrict": {
+				"not_moderatable": "El usuario especificado no puede ser moderado."
+			},
+			"timeout": {
+				"success": "{{user}} ha sido silenciado por {{duration}}.",
+				"no_reason": "Razón no especificada.",
+				"not_moderatable": "El usuario especificado no puede ser moderado."
+			},
+			"kick": {
+				"success": "Usuario expulsado exitosamente {{user}}.",
+				"no_reason": "No se ha especificado una razón.",
+				"not_kickable": "El usuario especificado no puede ser expulsado."
+			},
+			"lock": {
+				"locked": "El canal ha sido bloqueado.",
+				"unlocked": "El canal ha sido desbloqueado."
 			},
 			"slowmode": {
-				"success":"El modo lento ha sido activado exitósamente en el canal {{- channel }} con una duración de {{- time}} segundos"
+				"success": "El modo lento ha sido fijado en {{time}} segundos en {{channel}}."
 			},
-			"ban":{
-				"success":"El usuario {{user}} ha sido baneado exitósamente"
+			"ban": {
+				"success": "El usuario {{user}} ha sido baneado exitosamente.",
+				"not_bannable": "El usuario {{- user}} no puede ser baneado."
+			},
+			"unban": {
+				"success": "El usuario {{user}} ha sido desbaneado.",
+				"no_reason": "Razon no especificada.",
+				"errors": {
+					"no_ids": "Por favor proporcionada un ID de usuario válido.",
+					"no_banned": "No hay usuarios baneados en este servidor.",
+					"no_ban": "El usuario {{user}} no está baneado."
+				}
+			},
+			"blacklist": {
+				"already_blacklisted": "Este usuario ya está en la lista de bloqueados.",
+				"added": "El usuario ha sido agregado a la lista de bloqueados."
 			}
 		},
-		"utility":{
-			"ping":{
-				"success":"{{- response}} - Latencia del bot: {{- bot_latency}}ms , Latencia de la API: {{- API_latency}}ms"
+		"utility": {
+			"poll": {
+				"durationError": "La duración debe estar entre {{min}} y {{max}}",
+				"pollCreated": "¡La encuesta ha sido creada exitosamente!",
+				"voteNow": "Vota ahora"
+			},
+			"ping": {
+				"success": "{{response}} La latencia del bot es {{bot_latency}} ms. La latencia de la API es {{API_latency}} ms.",
+				"responses": {
+					"nah": "nah..",
+					"okay": "Estoy bien... continuemos",
+					"alive": "¡Estoy viva!"
+				}
+			},
+			"pet": {
+				"error": {
+					"no_pet": "No tienes una mascota.",
+					"item_not_found": "No se encontró el artículo en la tienda.",
+					"user_not_found": "No se encontró el usuario.",
+					"quest_completed": "Ya has completado esta misión.",
+					"skill_known": "Tu mascota ya conoce esta habilidad.",
+					"quest_expired": "Esta misión ha expirado.",
+					"quest_not_exist": "Esta misión no existe.",
+					"not_enough_coins": "No tienes suficientes monedas para comprar este artículo.",
+					"provide_both": "Por favor, proporciona tanto un nombre de mascota como un tipo de mascota.",
+					"invalid_pet_type": "Tipo de mascota inválido. Por favor, elige un tipo de mascota válido.",
+					"already_have_pet": "Ya tienes una mascota.",
+					"battle_required": "Ambos usuarios deben tener una mascota para pelear.",
+					"daily_claimed": "Ya has obtenido tu recompensa diaria. Por favor, inténtalo de nuevo más tarde.",
+					"no_pet_play": "No cuentas con una mascota para jugar."
+				},
+				"skill_learned": "Tu mascota ha aprendido: {{skill}}!",
+				"item_bought": "Has comprado {{itemName}}. Este item se añadirá al inventario de tu mascota.",
+				"adopted_pet": "¡Has adoptado un {{petType}} llamado {{petName}}!",
+				"status": "Nombre: {{petName}}\nTipo: {{petType}}\nHambre: {{hunger}}\nFelicidad: {{happiness}}",
+				"battle": {
+					"win": "Tu mascota {{userPetName}} ganó la batalla contra {{opponentPetName}}!",
+					"lose": "Tu mascota {{userPetName}} perdió la batalla contra {{opponentPetName}}.",
+					"tie": "¡Es un empate entre {{userPetName}} y {{opponentPetName}}!"
+				},
+				"quest": {
+					"completed": "¡Has completado la misión: {{questName}} y has obtenido {{reward}} como recompensa!",
+					"started": "¡Has comenzado la misión: {{questName}}!",
+					"progress": "Progreso: {{progress}}%",
+					"quest_name": {
+						"feed_pet": "Alimentar mascota",
+						"train_pet": "Entrenar mascota",
+						"pet_show": "Participa en un concurso de mascotas",
+						"walk_pet": "Pasear mascota",
+						"play_fetch_pet": "Juega a atrápalo con tu mascota",
+						"visit_the_vet": "Visita al veterinario",
+						"teach_pet_trick": "Enséñar a tu mascota un truco",
+						"pet_costume_contest": "Entra a un concurso de vestuario",
+						"pet_spa_day": "Dia de Spa"
+					},
+					"quest_description": {
+						"feed_pet": "Alimenta a tu mascota para mantenerla feliz y saludable.",
+						"train_pet": "Pasa tiempo entrenando a tu mascota para mejorar sus habilidades.",
+						"pet_show": "Lleva a tu mascota a un concurso de mascotas e intenta ganar un premio.",
+						"walk_pet": "Pasea a tu mascota para aumentar su felicidad.",
+						"play_fetch_pet": "Pasa tiempo jugando a atrápalo con tu mascota para mantenerla activa.",
+						"visit_the_vet": "Visita al veterinario para un chequeo de rutina.",
+						"teach_pet_trick": "Enseña un nuevo truco a tu mascota para impresionar a los demás.",
+						"pet_costume_contest": "Viste a tu mascota para un concurso de vestuario.",
+						"pet_spa_day": "Lleva a tu mascota al spa para que se relaje y le den cuidados."
+					}
+				},
+				"used_item": "Has usado el item {{itemName}}. Vida actual: {{health}}.",
+				"daily_reward": "¡Has reclamado tu recompensa diaria de {{dailyReward}} monedas!",
+				"fed_pet": "Le has dado a tu mascota {{itemName}}. Hambre actual: {{hunger}} y su vida es {{health}}.",
+				"played_with_pet": "Has jugado con {{petName}}. Su felicidad actual es {{happiness}}."
+			},
+			"info": {
+				"member": {
+					"name": "Miembro",
+					"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Status:** {{status}}",
+					"other": "**❯ Creado:** {{- created_at}}\n**❯ Se unió:** {{- joined_at}}\n**❯ Pendiente:** {{- pending}}\n**❯ Silenciado:** {{- is_timed_out}}\n**❯ Es bot:** {{- is_bot}}\n"
+				},
+				"user": {
+					"name": "Usuario",
+					"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Creado:** {{- time_create}}"
+				},
+				"bot": {
+					"name": "Miembro",
+					"system": "**❯ Plataforma:** {{platform}}\n**❯ Uptime:** {{uptime}}\n**❯ CPU:**\n\u3000 Núcleos: {{cores}}\n\u3000 Modelo: {{model}}\n\u3000 Velocidad: {{speed}}\n**❯ Memoria:**\n\u3000 Total: {{total_memory}}\n\u3000 Usado: {{used_memory}}\n",
+					"info": "**❯ Dueño:** {{- owner}}\n**❯ Servidores:** {{servers}}\n**❯ Usuarios:** {{users}}\n**❯ Canales:** {{channels}}\n**❯ Fecha de Creación:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ Versión TypeScript:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
+				},
+				"channel": {
+					"value": "**❯ ID:** {{id}}\n**❯ Nombre:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ Modo Lento:** {{slowmode}}\n**❯ Canal Privado:** {{private}}\n**❯ Tema del Canal:** {{topic}}"
+				},
+				"role": {
+					"other": "**❯ Posición:** {{- position}}\n**❯ Permisos:** {{- permissions}}",
+					"other2": "\n\u200b\n\u200b {{- permissions}}",
+					"value": "**❯ Nombre:** {{- name}}\n**❯ ID:** {{role_id}}\n**❯ Color:** {{color}}\n**❯ Separado:** {{hoisted}}\n**❯ Mencionable:** {{mentionable}}"
+				},
+				"server": {
+					"info": "**❯ Nombre:** {{- name}}\n**❯ ID:** {{id}}\n**❯ Dueño:** {{owner}}\n**❯ Nivel de Mejora:** {{booster_tier}}\n**❯ Filtro de Contenido Delicado:** {{explicit_filter}}\n**❯ Nivel de Verificación:** {{verification_level}}\n**❯ Fecha de Creación:** {{- created_at}}\n\u200B",
+					"stats": "**❯ Cantidad de Roles:** {{role_count}}\n**❯ Cantidad de Emojis:** {{emoji_count}}\n**❯ Emojis Regulares:** {{regular_emoji}}\n**❯ Emojis Animados:** {{animated_emoji}}\n**❯ Miembros:** {{member_count}}\n**❯ Humanos:** {{humans}}\n**❯ Bots:** {{bots}}\n**❯ Canales de Texto:** {{txt_chan}}\n**❯ Canales de Voz:** {{voice_chan}}\n**❯ Escenarios:** {{stage_chan}}\n**❯ Cantidad de Mejoras:** {{boost_count}}\n\u200B",
+					"presence": "**❯ En Linea:** {{online}}\n**❯ Ausentes:** {{idle}}\n**❯ No Molestar:** {{dnd}}\n**❯ Offline:** {{offline}}\n**❯ Sin Estatus:** {{no_presence}}\n\u200B"
+				}
+			},
+			"user_note": {
+				"errors": {
+					"user_not_specified": "Por favor, especifica a un usuario.",
+					"note_not_provided": "Por favor, proporciona una nota para agregar.",
+					"user_note_not_found": "No se encontraron notas para {{target}}.",
+					"index_note_not_found": "No se encontraron notas en el índice {{note}}."
+				},
+				"note_added": "Nota añadida para {{target}}.",
+				"note_view": "Notas de {{target}}:\n{{notesList}}",
+				"note_deleted": "Nota de {{target}} eliminada: {{note}}."
+			},
+			"log": {
+				"setting_log": {
+					"no_info": "Sin información.",
+					"channel_title": "Canales",
+					"channel_description": "**\u3000❯ Canal de Bienvenida:** <#{{welcome_channel}}>\n **\u3000❯ Canal de logs de Moderación:** <#{{log_channel}}>\n **Anti-raid:** {{anti_raid_enabled}}\n **Registros de auditoría:** {{audit_log_enabled}}",
+					"event_title": "Actualización de Evento",
+					"event_description": "**\u3000❯ Bot:** {{bot}}\n **\u3000❯ Roles:** {{role}}\n **\u3000❯ Servidor:** {{guild}}\n **\u3000❯ Emojis:** {{emoji}}\n **\u3000❯ Hilos:** {{thread}}\n **\u3000❯ Mensajes:** {{message}}\n **\u3000❯ Webhooks:** {{webhooks}}\n **\u3000❯ Escenario de Eventos:** {{stage}}\n ",
+					"event_description2": "**\u3000❯ Stickers:** {{sticker}}\n **\u3000❯ Canales:** {{channel}}\n **\u3000❯ Invitaciones:** {{invitations}}\n **\u3000❯ Integraciones:** {{integration}}\n **\u3000❯ Miembros del Servidor:** {{guild_member}}\n **\u3000❯ Auto-Moderación:** {{auto_moderation}}\n **\u3000❯ Eventos Programados:** {{scheduled}}\n **\u3000❯ Permisos de Comando:** {{cmd_perm}}"
+				}
+			},
+			"modal": {
+				"character_create": {
+					"title": "Creación de Personaje",
+					"nameInput": {
+						"label": "¿Cuál es el nombre de tu personaje?"
+					},
+					"hobbiesInput": {
+						"label": "¿Qué hobbies tiene tu personaje?"
+					}
 				}
 			}
-		},
-		"info":{
-			"member":{
-				"name":"Miembro" , 
-				"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Estado:** {{status}}",
-				"other":"**❯ Creación:** {{- created_at}}\n**❯ Ingreso:** {{- joined_at}}\n**❯ Pendiente:** {{- pending}}\n**❯ Silenciado:** {{- is_timed_out}}\n**❯ Bot:** {{- is_bot}}\n"
-			},	
-			"user":{
-				"name":"Usuario" , 
-				"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Creación:** {{- time_create}}"
-			
-			},
-			"bot":{
-				"name":"Miembro" , 
-				"system": "**❯ Plataforma:** {{platform}}\n**❯ Uptime:** {{uptime}}\n**❯ CPU:**\n\u3000 Núcleos: {{cores}}\n\u3000 Modelo: {{model}}\n\u3000 Velocidad: {{speed}}\n**❯ Memoria:**\n\u3000 Total: {{total_memory}}\n\u3000 Usada: {{used_memory}}\n",
-				"info": "**❯ Dueño/a:** {{- owner}}\n**❯ Servidores:** {{servers}}\n**❯ Usuarios:** {{users}}\n**❯ Canales:** {{channels}}\n**❯ Creación:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ TypeScript Version:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
-			},
-			"channel":{ 
-				"value": "**❯ ID:** {{id}}\n**❯ Nombre:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ Modo Lento:** {{slowmode}}\n**❯ Canal Privado:** {{private}}\n**❯ Tópico:** {{topic}}"
-			},
-			"role":{
-				"other": "**❯ Posición:** {{- position}}\n**❯ Permisos:** {{- permissions}}", 
-				"other2": "\n\u200b\n\u200b {{- permissions}}", 
-				"value":"**❯ Nombre:** {{- name}}\n**❯ ID:** {{role_id}}\n**❯ Color:** {{color}}\n**❯ Hoisted:** {{hoisted}}\n**❯ Mencionable:** {{mentionable}}"
-			},
-			"server":{
-				"info": "**❯ Nombre:** {{- name}}\n**❯ ID:** {{id}}\n**❯ Dueño/a:** {{owner}}\n**❯ Nivel de Mejora:** {{booster_tier}}\n**❯ Filtro Explicito:** {{explicit_filter}}\n**❯ Nivel de Verificación:** {{verification_level}}\n**❯ Creación:** {{- created_at}}\n\u200B",
-				"stats":"**❯ Roles:** {{role_count}}\n**❯ Emojis:** {{emoji_count}}\n**❯ Emojis Regulares:** {{regular_emoji}}\n**❯ Emojis Animados:** {{animated_emoji}}\n**❯ Miembros:** {{member_count}}\n**❯ Humanos:** {{humans}}\n**❯ Bots:** {{bots}}\n**❯ Canales de Texto:** {{txt_chan}}\n**❯ Canales de Voz:** {{voice_chan}}\n**❯ Canales Escenarios:** {{stage_chan}}\n**❯ Mejoras:** {{boost_count}}\n\u200B",
-				"presence":"**❯ En Linea:** {{online}}\n**❯ Ausente:** {{idle}}\n**❯ No Molestar:** {{dnd}}\n**❯ Offline:** {{offline}}\n**❯ Sin presencia detectada:** {{no_presence}}\n\u200B"
-			}
-		},
-		
-		"log":{
-			"setting_log":{
-				"no_info":"Sin información.",
-				"channel_title":"Canales",
-				"channel_description":"**\u3000❯ Canal de Bienvenida:** <#{{welcome_channel}}>\n **\u3000❯ Canal Mod-Log:** <#{{log_channel}}>\n **Anti-raid:** {{anti_raid_enabled}}\n **Registro de Auditoría:** {{audit_log_enabled}}",
-				"event_title":"Actualización de Eventos",
-				"event_description":"**\u3000❯ Bot:** {{bot}}\n **\u3000❯ Roles:** {{role}}\n **\u3000❯ Servidor:** {{guild}}\n **\u3000❯ Emojis:** {{emoji}}\n **\u3000❯ Hilos:** {{thread}}\n **\u3000❯ Mensajes:** {{message}}\n **\u3000❯ Webhooks:** {{webhooks}}\n **\u3000❯ Eventos de Escenario:** {{stage}}\n ",
-				"event_description2":"**\u3000❯ Stickers:** {{sticker}}\n **\u3000❯ Canales:** {{channel}}\n **\u3000❯ Invitaciones:** {{invitations}}\n **\u3000❯ Integraciones:** {{integration}}\n **\u3000❯ Miembros:** {{guild_member}}\n **\u3000❯ Auto-Moderación:** {{auto_moderation}}\n **\u3000❯ Eventos Programados:** {{scheduled}}\n **\u3000❯ Permisos de Comandos:** {{cmd_perm}}"
-		},
-		"":{}
-	},
-	"modal":{
-		"character_create":{
-			"title":"Creación de Personaje",
-			"nameInput":{"label":"¿Cuál es el nombre de tu personaje?"},
-			"hobbiesInput":{"label":"¿Que hobbies tiene tu personaje?"}
-			
 		}
 	}
 }
