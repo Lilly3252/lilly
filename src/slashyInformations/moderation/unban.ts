@@ -1,11 +1,12 @@
-import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 
 export const UnbanCommand = {
 	name: "unban",
 	description: "Unban a user.",
 	description_localizations: {
 		fr: "Révoquer un ban.",
-		ja: "ユーザーのバンを解除する。"
+    ja: "ユーザーのバンを解除する。",
+		[Locale.SpanishLATAM]: "Desbanear a un usuario"
 	},
 	options: [
 		{
@@ -13,12 +14,14 @@ export const UnbanCommand = {
 			name: "id",
 			name_localizations: {
 				fr: "id",
-				ja: "id"
+				ja: "id",
+				[Locale.SpanishLATAM]: "id"
 			},
 			description: "Put an ID",
 			description_localizations: {
 				fr: "Inscrire un ID",
-				ja: "IDを入力する"
+				ja: "IDを入力する",
+				[Locale.SpanishLATAM]: "Ingresa una ID"
 			},
 			required: true
 		},
@@ -27,12 +30,14 @@ export const UnbanCommand = {
 			name: "reason",
 			name_localizations: {
 				fr: "raison",
-				ja: "理由"
+				ja: "理由",
+				[Locale.SpanishLATAM]: "razon"
 			},
 			description: "Reason for revoking the ban",
 			description_localizations: {
 				fr: "Raison pour révoquer le ban",
-				ja: "バン解除の理由"
+				ja: "バン解除の理由",
+				[Locale.SpanishLATAM]: "Razón para quitar el ban"
 			}
 		},
 		{
@@ -40,12 +45,14 @@ export const UnbanCommand = {
 			name: "hide",
 			name_localizations: {
 				fr: "masquer",
-				ja: "非表示"
+				ja: "非表示",
+				[Locale.SpanishLATAM]: "ocultar"
 			},
 			description: "Hides the output",
 			description_localizations: {
 				fr: "Masque(cacher) le résultat",
-				ja: "出力を非表示にする"
+				ja: "出力を非表示にする",
+				[Locale.SpanishLATAM]: "Ocultar la respuesta del comando"
 			}
 		}
 	],
