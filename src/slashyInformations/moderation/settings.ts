@@ -16,7 +16,7 @@ export const SettingCommand = {
       description_localizations: {
         fr: "Montrer les paramètres de guilde.",
         ja: "ギルドの設定を表示する。",
-        [Locale.SpanishLATAM]: "Mostrar configuraciones del servidor"
+        [Locale.SpanishLATAM]: "Mostrar las configuraciones del servidor"
       },
 			options: [
 				{
