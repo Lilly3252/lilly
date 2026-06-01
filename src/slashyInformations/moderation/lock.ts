@@ -1,12 +1,12 @@
 import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 
 export const LockCommand = {
-	name: "lock",
+  name: "lock",
 	description: "Lock a channel",
 	description_localizations: {
 		fr: "verrouille un canaux de discussion",
     ja: "チャンネルをロックする",
-		[Locale.SpanishLATAM]: "Cierra un canal"
+		[Locale.SpanishLATAM]: "Cierra un canal de texto"
 	},
 	options: [
 		{
