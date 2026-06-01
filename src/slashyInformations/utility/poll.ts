@@ -1,11 +1,12 @@
-import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 
 export const PollCommand = {
 	name: "poll",
 	description: "Do a poll.",
 	description_localizations: {
 		fr: "Créer un sondage.",
-		ja: "アンケートを作成する。"
+    ja: "アンケートを作成する。",
+		[Locale.SpanishLATAM]: "Crear una encuesta"
 	},
 	options: [
 		{
@@ -13,12 +14,14 @@ export const PollCommand = {
 			name: "duration",
 			name_localizations: {
 				fr: "durée",
-				ja: "期間"
+				ja: "期間",
+				[Locale.SpanishLATAM]: "duracion",
 			},
 			description: "Duration of the poll (in seconds 1 = 1 hour , MAX = 168 (a week))",
 			description_localizations: {
 				fr: "Durée du sondage (en secondes, 1 = 1 heure, MAX = 168 (une semaine))",
-				ja: "アンケートの期間（秒単位、1 = 1時間、最大 = 168（1週間））"
+				ja: "アンケートの期間（秒単位、1 = 1時間、最大 = 168（1週間））",
+				[Locale.SpanishLATAM]: "Duración de la encuesta (en segundos 1 = 1 hora, MAX = 168 (una semana))",
 			},
 			required: true
 		},
@@ -27,12 +30,14 @@ export const PollCommand = {
 			name: "question",
 			name_localizations: {
 				fr: "question",
-				ja: "質問"
+        ja: "質問",
+				[Locale.SpanishLATAM]: "pregunta",
 			},
 			description: "Ask a question",
 			description_localizations: {
 				fr: "Poser une question",
-				ja: "質問をする"
+				ja: "質問をする",
+				[Locale.SpanishLATAM]: "Haz una pregunta",
 			},
 			required: true
 		},
@@ -41,12 +46,14 @@ export const PollCommand = {
 			name: "answer1",
 			name_localizations: {
 				fr: "réponse1",
-				ja: "回答1"
+        ja: "回答1",
+				[Locale.SpanishLATAM]: "respuesta1",
 			},
 			description: "Answer 1",
 			description_localizations: {
 				fr: "Réponse 1",
-				ja: "回答1"
+				ja: "回答1",
+				[Locale.SpanishLATAM]: "Respuesta 1",
 			},
 			required: true
 		},
@@ -55,12 +62,14 @@ export const PollCommand = {
 			name: "answer2",
 			name_localizations: {
 				fr: "réponse2",
-				ja: "回答2"
+				ja: "回答2",
+				[Locale.SpanishLATAM]: "respuesta2",
 			},
 			description: "Answer 2",
 			description_localizations: {
 				fr: "Réponse 2",
-				ja: "回答2"
+				ja: "回答2",
+				[Locale.SpanishLATAM]: "Respuesta 2",
 			}
 		},
 		{
@@ -68,12 +77,14 @@ export const PollCommand = {
 			name: "answer3",
 			name_localizations: {
 				fr: "réponse3",
-				ja: "回答3"
+				ja: "回答3",
+				[Locale.SpanishLATAM]: "respuesta3",
 			},
 			description: "Answer 3",
 			description_localizations: {
 				fr: "Réponse 3",
-				ja: "回答3"
+				ja: "回答3",
+				[Locale.SpanishLATAM]: "Respuesta 3",
 			}
 		},
 		{
@@ -81,12 +92,14 @@ export const PollCommand = {
 			name: "answer4",
 			name_localizations: {
 				fr: "réponse4",
-				ja: "回答4"
+				ja: "回答4",
+				[Locale.SpanishLATAM]: "respuesta4",
 			},
 			description: "Answer 4",
 			description_localizations: {
 				fr: "Réponse 4",
-				ja: "回答4"
+				ja: "回答4",
+				[Locale.SpanishLATAM]: "Respuesta 4",
 			}
 		},
 		{
@@ -94,12 +107,14 @@ export const PollCommand = {
 			name: "answer5",
 			name_localizations: {
 				fr: "réponse5",
-				ja: "回答5"
+				ja: "回答5",
+				[Locale.SpanishLATAM]: "respuesta5",
 			},
 			description: "Answer 5",
 			description_localizations: {
 				fr: "Réponse 5",
-				ja: "回答5"
+				ja: "回答5",
+				[Locale.SpanishLATAM]: "Respuesta 5",
 			}
 		},
 		{
@@ -107,12 +122,14 @@ export const PollCommand = {
 			name: "answer6",
 			name_localizations: {
 				fr: "réponse6",
-				ja: "回答6"
+				ja: "回答6",
+				[Locale.SpanishLATAM]: "respuesta6",
 			},
 			description: "Answer 6",
 			description_localizations: {
 				fr: "Réponse 6",
-				ja: "回答6"
+				ja: "回答6",
+				[Locale.SpanishLATAM]: "Respuesta 6",
 			}
 		},
 		{
@@ -120,12 +137,14 @@ export const PollCommand = {
 			name: "answer7",
 			name_localizations: {
 				fr: "réponse7",
-				ja: "回答7"
+				ja: "回答7",
+				[Locale.SpanishLATAM]: "respuesta7",
 			},
 			description: "Answer 7",
 			description_localizations: {
 				fr: "Réponse 7",
-				ja: "回答7"
+				ja: "回答7",
+				[Locale.SpanishLATAM]: "Respuesta 7",
 			}
 		},
 		{
@@ -133,12 +152,14 @@ export const PollCommand = {
 			name: "answer8",
 			name_localizations: {
 				fr: "réponse8",
-				ja: "回答8"
+				ja: "回答8",
+				[Locale.SpanishLATAM]: "respuesta8",
 			},
 			description: "Answer 8",
 			description_localizations: {
 				fr: "Réponse 8",
-				ja: "回答8"
+				ja: "回答8",
+				[Locale.SpanishLATAM]: "Respuesta 8",
 			}
 		},
 		{
@@ -146,12 +167,14 @@ export const PollCommand = {
 			name: "answer9",
 			name_localizations: {
 				fr: "réponse9",
-				ja: "回答9"
+				ja: "回答9",
+				[Locale.SpanishLATAM]: "respuesta9",
 			},
 			description: "Answer 9",
 			description_localizations: {
 				fr: "Réponse 9",
-				ja: "回答9"
+				ja: "回答9",
+				[Locale.SpanishLATAM]: "Respuesta 9",
 			}
 		},
 		{
@@ -159,12 +182,14 @@ export const PollCommand = {
 			name: "answer10",
 			name_localizations: {
 				fr: "réponse10",
-				ja: "回答10"
+				ja: "回答10",
+				[Locale.SpanishLATAM]: "respuesta10",
 			},
 			description: "Answer 10",
 			description_localizations: {
 				fr: "Réponse 10",
-				ja: "回答10"
+				ja: "回答10",
+				[Locale.SpanishLATAM]: "Respuesta 10",
 			}
 		}
 	],
