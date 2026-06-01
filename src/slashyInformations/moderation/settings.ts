@@ -22,7 +22,7 @@ export const SettingCommand = {
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
-					name_localizations: { fr: "masquer", ja: "非表示", "ocultar" },
+					name_localizations: { fr: "masquer", ja: "非表示", [Locale.SpanishLATAM]: "ocultar" },
 					description: "Hides the output",
           description_localizations: {
             fr: "Masque(cacher) le résultat",
