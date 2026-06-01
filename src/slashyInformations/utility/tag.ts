@@ -1,15 +1,17 @@
-import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 
 export const TagCommand = {
 	name: "tag",
 	name_localizations: {
 		fr: "tag",
-		ja: "タグ"
+    ja: "タグ",
+		[Locale.SpanishLATAM]: "etiquetas",
 	},
 	description: "Get a tag",
 	description_localizations: {
 		fr: "Obtenez un tag",
-		ja: "タグを取得する"
+    ja: "タグを取得する",
+		[Locale.SpanishLATAM]: "Obtén la información de una etiqueta",
 	},
 	options: [
 		{
@@ -17,12 +19,14 @@ export const TagCommand = {
 			name: "query",
 			name_localizations: {
 				fr: "tag",
-				ja: "タグ"
+        ja: "タグ",
+				[Locale.SpanishLATAM]: "etiqueta",
 			},
 			description: "Tag",
 			description_localizations: {
 				fr: "Tag",
-				ja: "タグ"
+				ja: "タグ",
+				[Locale.SpanishLATAM]: "La etiqueta a consultar",
 			},
 			autocomplete: true,
 			required: true

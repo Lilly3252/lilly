@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 
 export const InfoCommand = {
   name: "info",
@@ -6,6 +6,7 @@ export const InfoCommand = {
   description_localizations: {
     fr: "Informations.",
     ja: "情報。",
+    [Locale.SpanishLATAM]: "Informaciones",
   },
   options: [
     {
@@ -15,6 +16,7 @@ export const InfoCommand = {
       description_localizations: {
         fr: "Montre les infos de l'utilisateur choisi.",
         ja: "ユーザー情報を表示。",
+        [Locale.SpanishLATAM]: "Mostrar información del usuario seleccionado.",
       },
       options: [
         {
@@ -23,11 +25,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "cible",
             ja: "ターゲット",
+            [Locale.SpanishLATAM]: "usuario",
           },
           description: "Get the member you want information from.",
           description_localizations: {
             fr: "Afficher le membre dont vous voulez les informations.",
             ja: "情報を取得したいメンバー。",
+            [Locale.SpanishLATAM]: "Muestra la información del usuario proporcionado",
           },
           required: true,
         },
@@ -37,11 +41,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "complet",
             ja: "詳細",
+            [Locale.SpanishLATAM]: "completo",
           },
           description: "Show complete information",
           description_localizations: {
             fr: "Montre toutes les informations",
             ja: "完全な情報を表示する",
+            [Locale.SpanishLATAM]: "Mostrar la información lo más completa posible",
           },
         },
         {
@@ -50,11 +56,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "masquer",
             ja: "非表示",
+            [Locale.SpanishLATAM]: "ocultar",
           },
           description: "Hides the output",
           description_localizations: {
             fr: "Masque le résultat",
             ja: "出力を非表示にする",
+            [Locale.SpanishLATAM]: "Ocultar la respuesta del comando",
           },
         },
       ],
@@ -66,6 +74,7 @@ export const InfoCommand = {
       description_localizations: {
         fr: "Montre les infos du channel choisi.",
         ja: "チャンネル情報を表示。",
+        [Locale.SpanishLATAM]: "Muestra la información de un canal"
       },
       options: [
         {
@@ -74,11 +83,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "channel",
             ja: "チャンネル",
+            [Locale.SpanishLATAM]: "canal",
           },
           description: "Choose the channel",
           description_localizations: {
             fr: "Sélectionner le channel",
             ja: "チャンネルを選択する",
+            [Locale.SpanishLATAM]: "Selecciona el canal",
           },
           required: true,
         },
@@ -88,11 +99,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "complet",
             ja: "詳細",
+            [Locale.SpanishLATAM]: "completo",
           },
           description: "Show complete information",
           description_localizations: {
             fr: "Montre toutes les informations",
             ja: "完全な情報を表示する",
+            [Locale.SpanishLATAM]: "Mostrar la información lo más completa posible",
           },
         },
         {
@@ -101,11 +114,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "masquer",
             ja: "非表示",
+            [Locale.SpanishLATAM]: "ocultar",
           },
           description: "Hides the output",
           description_localizations: {
             fr: "Masque le résultat",
             ja: "出力を非表示にする",
+            [Locale.SpanishLATAM]: "Ocultar la respuesta del comando",
           },
         },
       ],
@@ -117,6 +132,7 @@ export const InfoCommand = {
       description_localizations: {
         fr: "Informations à propos d'un rôle dans la guilde",
         ja: "ギルド内の役割に関する情報",
+        [Locale.SpanishLATAM]: "Información sobre un rol del servidor",
       },
       options: [
         {
@@ -125,11 +141,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "role",
             ja: "役割",
+            [Locale.SpanishLATAM]: "rol",
           },
           description: "Select a role.",
           description_localizations: {
             fr: "Sélectionner un rôle.",
             ja: "役割を選択する。",
+            [Locale.SpanishLATAM]: "Selecciona un rol",
           },
           required: true,
         },
@@ -139,11 +157,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "complet",
             ja: "詳細",
+            [Locale.SpanishLATAM]: "completo",
           },
           description: "Show complete information",
           description_localizations: {
             fr: "Montre toutes les informations",
             ja: "完全な情報を表示する",
+            [Locale.SpanishLATAM]: "Mostrar la información lo más completa posible",
           },
         },
         {
@@ -152,11 +172,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "masquer",
             ja: "非表示",
+            [Locale.SpanishLATAM]: "ocultar",
           },
           description: "Hides the output",
           description_localizations: {
             fr: "Masque le résultat",
             ja: "出力を非表示にする",
+            [Locale.SpanishLATAM]: "Ocultar la respuesta del comando",
           },
         },
       ],
@@ -168,6 +190,7 @@ export const InfoCommand = {
       description_localizations: {
         fr: "Voir les informations du bot.",
         ja: "ボットの情報を表示。",
+        [Locale.SpanishLATAM]: "Ver la información del bot",
       },
       options: [
         {
@@ -176,11 +199,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "complet",
             ja: "詳細",
+            [Locale.SpanishLATAM]: "completo",
           },
           description: "Show complete information",
           description_localizations: {
             fr: "Montre toutes les informations",
             ja: "完全な情報を表示する",
+            [Locale.SpanishLATAM]: "Mostrar la información lo más completa posible",
           },
         },
         {
@@ -189,11 +214,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "masquer",
             ja: "非表示",
+            [Locale.SpanishLATAM]: "ocultar",
           },
           description: "Hides the output",
           description_localizations: {
             fr: "Masque le résultat",
             ja: "出力を非表示にする",
+            [Locale.SpanishLATAM]: "Ocultar la respuesta del comando",
           },
         },
       ],
@@ -205,6 +232,7 @@ export const InfoCommand = {
       description_localizations: {
         fr: "Voir les informations du serveur.",
         ja: "サーバーの情報を表示。",
+        [Locale.SpanishLATAM]: "Ver la información del servidor",
       },
       options: [
         {
@@ -213,11 +241,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "complet",
             ja: "詳細",
+            [Locale.SpanishLATAM]: "completo",
           },
           description: "Show complete information",
           description_localizations: {
             fr: "Montre toutes les informations",
             ja: "完全な情報を表示する",
+            [Locale.SpanishLATAM]: "Mostrar la información lo más completa posible",
           },
         },
         {
@@ -226,11 +256,13 @@ export const InfoCommand = {
           name_localizations: {
             fr: "masquer",
             ja: "非表示",
+            [Locale.SpanishLATAM]: "ocultar",
           },
           description: "Hides the output",
           description_localizations: {
             fr: "Masque le résultat",
             ja: "出力を非表示にする",
+            [Locale.SpanishLATAM]: "Ocultar la respuesta del comando",
           },
         },
       ],

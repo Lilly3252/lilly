@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { ApplicationCommandOptionType, Locale } from "discord-api-types/v10";
 import { ApplicationIntegrationType } from "discord.js";
 
 export const PingCommand = {
@@ -7,7 +7,8 @@ export const PingCommand = {
 	integration_types: [ApplicationIntegrationType.UserInstall],
 	description_localizations: {
 		fr: "Vérification du ping.",
-		ja: "ピングの確認。"
+    ja: "ピングの確認。",
+    [Locale.SpanishLATAM]: "Verificar el ping",
 	},
 	options: [
 		{
@@ -15,12 +16,14 @@ export const PingCommand = {
 			name: "hide",
 			name_localizations: {
 				fr: "masquer",
-				ja: "非表示"
+				ja: "非表示",
+				[Locale.SpanishLATAM]: "ocultar",
 			},
 			description: "Hides the output",
 			description_localizations: {
 				fr: "Masque(cacher) le résultat",
-				ja: "出力を非表示にする"
+				ja: "出力を非表示にする",
+				[Locale.SpanishLATAM]: "Ocultar la respuesta del comando",
 			}
 		}
 	],
